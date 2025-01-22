@@ -26,6 +26,7 @@ class CoreDataManager {
         newStar.repeatDays = repeatDays.joined(separator: ",")
         newStar.startTime = startTime
         newStar.endTime = endTime
+        
         do {
             try context.save()
             print("Star 생성")
@@ -46,8 +47,22 @@ class CoreDataManager {
         }
     }
     
+    // Star 조회
+    func fetchStar(_ id: UUID) -> Star? {
+        let fetchRequest: NSFetchRequest<Star> = Star.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        
+        do {
+            let stars = try context.fetch(fetchRequest)
+            return stars.first
+        } catch {
+            print("\(id) Star 조회 \(error)")
+            return nil
+        }
+    }
+    
     // Star 수정
-    func updateStar() {
+    func updateStar(star: Star, name: String?, appList: [String?], repeatDays: [String?], startTime: String?, endTime: String? ) {
         
     }
     
