@@ -36,6 +36,11 @@ class StarListView: UIView {
         $0.font = Font.Size16.black
     }
     
+    // 스타 리스트 컬렉션뷰
+    let starListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        $0.backgroundColor = .clear
+        $0.register(StarListCollectionViewCell.self, forCellWithReuseIdentifier: StarListCollectionViewCell.id)
+    }
     
     // MARK: - 초기화
 
@@ -55,7 +60,8 @@ class StarListView: UIView {
         backgroundColor = UIColor(patternImage: backgroundImage)
         
         [
-            topView
+            topView,
+            starListCollectionView
         ].forEach {
             addSubview($0)
         }
@@ -69,7 +75,7 @@ class StarListView: UIView {
         }
                 
         topView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(16)
             $0.leading.equalToSuperview().inset(20)
             $0.height.equalTo(70)
             $0.width.equalTo(300)
@@ -92,6 +98,12 @@ class StarListView: UIView {
             $0.leading.equalTo(logoImageView.snp.trailing)
             $0.bottom.equalToSuperview().inset(10)
             $0.width.equalTo(200)
+        }
+        
+        starListCollectionView.snp.makeConstraints {
+            $0.top.equalTo(topView.snp.bottom).offset(32)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(150)
         }
     }
 }
