@@ -92,7 +92,21 @@ class CoreDataManager {
     }
     
     // Star 삭제
-    func deleteStar() {
+    func deleteStar(_ id: UUID) {
+        let fetchRequest: NSFetchRequest<Star> = Star.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         
+        do {
+            let stars = try context.fetch(fetchRequest)
+            if let star = stars.first {
+                context.delete(star)
+                try context.save()
+                print("Star 삭제")
+            } else {
+                print("Star 찾기 실패")
+            }
+        } catch  {
+            print("Star 삭제 에러 \(error)")
+        }
     }
 }
