@@ -62,8 +62,33 @@ class CoreDataManager {
     }
     
     // Star 수정
-    func updateStar(star: Star, name: String?, appList: [String?], repeatDays: [String?], startTime: String?, endTime: String? ) {
+    func updateStar(star: Star, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil ) {
+        if let name = name {
+            star.name = name
+        }
         
+        if !appList.isEmpty {
+            star.appList = appList.compactMap { $0 }.joined(separator: ",")
+        }
+        
+        if !repeatDays.isEmpty {
+            star.repeatDays = repeatDays.compactMap { $0 }.joined(separator: ",")
+        }
+        
+        if let startTime = startTime {
+            star.startTime = startTime
+        }
+        
+        if let endTime = endTime {
+            star.endTime = endTime
+        }
+        
+        do {
+            try context.save()
+            print("Star 수정")
+        } catch {
+            print("Star 수정 에러 \(error)")
+        }
     }
     
     // Star 삭제
