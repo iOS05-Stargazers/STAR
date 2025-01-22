@@ -107,3 +107,10 @@ class StarListView: UIView {
         }
     }
 }
+
+extension StarListView {
+    // 날짜 설정
+    func configureDate(date: String) {
+        todayDateLabel.text = date
+    }
+}

@@ -17,17 +17,27 @@ class StarListViewController: UIViewController {
     
     override func loadView() {
         view = starListView
-        setupCollectioView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCollectioView()
+        setupDate()
     }
-    
+
     // 컬렉션뷰 설정
     private func setupCollectioView() {
         starListView.starListCollectionView.dataSource = self
         starListView.starListCollectionView.delegate = self
+    }
+    
+    private func setupDate() {
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        dateFormatter.dateFormat = "yyyy년 M월 dd일 (E)"
+        let todayLabel = dateFormatter.string(from: today)
+        starListView.configureDate(date: todayLabel)
     }
 }
 
@@ -56,9 +66,7 @@ extension StarListViewController: UICollectionViewDelegateFlowLayout {
     // 셀 크기 설정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        let height = collectionView.frame.height
-        let cellHeight = (height - 10) / 5 // 임시 설정
-        return CGSize(width: width, height: cellHeight)
+        return CGSize(width: width, height: 96)
     }
     
     // 아이템 간격 설정
