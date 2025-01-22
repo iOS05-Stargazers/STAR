@@ -31,9 +31,9 @@ class StarListView: UIView {
     // 오늘 날짜 라벨
     private let todayDateLabel = UILabel().then {
         $0.text = "2025년 1월 20일 (월)"
-        $0.textColor = .colorTitleLabel
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .left
-        $0.font = Font.Size16.black
+        $0.font = Font.todayDate
     }
     
     // 스타 리스트 컬렉션뷰

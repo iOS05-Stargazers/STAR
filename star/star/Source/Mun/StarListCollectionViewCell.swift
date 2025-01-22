@@ -18,38 +18,38 @@ class StarListCollectionViewCell: UICollectionViewCell {
     // 태그 뷰
     private let tagView = UIView().then {
         $0.layer.cornerRadius = 10
-        $0.backgroundColor = .colorGradationPurple
+        $0.backgroundColor = .starButtonPurple
     }
     
     // 태그 라벨
     private let tagLabel = UILabel().then {
         $0.text = "진행중"
-        $0.textColor = .colorTitleLabel
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .center
-        $0.font = Font.Size14.bold
+        $0.font = Font.starTag
     }
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
         $0.text = "아침 시작하기"
-        $0.textColor = .colorTitleLabel
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .left
-        $0.font = Font.Size22.black
+        $0.font = Font.starTitle
     }
     
     // 시간 라벨
     private let timeLabel = UILabel().then {
         $0.text = "02:00:00"
-        $0.textColor = .colorTitleLabel
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .right
-        $0.font = Font.Size14.semibold
+        $0.font = Font.starTime
     }
     
     // 타이머 이미지
     private let timerImageView = UIImageView().then {
         $0.image = UIImage(systemName: "alarm")
         $0.contentMode = .scaleAspectFill
-        $0.tintColor = .colorTitleLabel
+        $0.tintColor = .starPrimaryText
     }
     
     // MARK: - 초기화
@@ -67,7 +67,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         layer.cornerRadius = 20
-        backgroundColor = .colorStarBg
+        backgroundColor = .starModalBG
         
         [
             tagView,
