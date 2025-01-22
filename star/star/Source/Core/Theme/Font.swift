@@ -1,5 +1,5 @@
 //
-//  Fonts.swift
+//  Font.swift
 //  star
 //
 //  Created by t0000-m0112 on 2025-01-21.
@@ -7,7 +7,7 @@
 
 import UIKit.UIFont
 
-struct Fonts {
+struct Font {
     
     /// 앱 메인 로고 "STAR" / size : 24 / Bold
     static let mainLogo = UIFont(name: "SEBANGGothicOTFBold", size: 24)
@@ -19,9 +19,9 @@ struct Fonts {
     /// 스타의 이름  / size : 20 / semibold
     static let starTitle = UIFont.systemFont(ofSize: 20, weight: .semibold)
     /// 스타의 남은 시간 / size : 14 / semibold
-    static let startTime = UIFont.systemFont(ofSize: 14, weight: .semibold)
+    static let starTime = UIFont.systemFont(ofSize: 14, weight: .semibold)
     /// 스타의 태그  / size : 14 / semibold
-    static let startTag = UIFont.systemFont(ofSize: 14, weight: .semibold)
+    static let starTag = UIFont.systemFont(ofSize: 14, weight: .semibold)
     
     /// 모달의 제목  / size : 24 / semibold
     static let modalTitle = UIFont.systemFont(ofSize: 24, weight: .semibold)

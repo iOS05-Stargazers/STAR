@@ -15,7 +15,7 @@ class DefaultViewController: UIViewController {
     
     private let mainLogoLabel = UILabel().then {
         $0.text = "STAR"
-        $0.font = Fonts.mainLogo
+        $0.font = Font.mainLogo
         $0.textColor = .starPrimaryText
     }
 
