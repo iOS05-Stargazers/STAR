@@ -16,4 +16,24 @@ class CoreDataManager {
     private var context: NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
+   
+    // Star 생성
+    func createStar() {
+        
+    }
+    
+    // 전체 Star 조회
+    func fetchAllStars() {
+        
+    }
+    
+    // Star 수정
+    func updateStar() {
+        
+    }
+    
+    // Star 삭제
+    func deleteStar() {
+        
+    }
 }
