@@ -23,6 +23,7 @@ class StarListViewController: UIViewController {
         super.viewDidLoad()
         setupCollectioView()
         setupDate()
+        setupConfigure()
         setupSwipeActions()
     }
 
@@ -42,6 +43,15 @@ class StarListViewController: UIViewController {
         starListView.configureDate(date: todayLabel)
     }
     
+    private func setupConfigure() {
+        starListView.addStarButton.addAction(UIAction{ [weak self] _ in
+            guard let self = self else { return }
+            self.connectCreateModal()
+        }, for: .touchUpInside)
+    }
+    
+
+    
     // 스와이프 액션 설정
     private func setupSwipeActions() {
         starListView.starListCollectionView.addSwipeAction(
@@ -58,6 +68,22 @@ class StarListViewController: UIViewController {
                 return actions
             }
         )
+
+    }
+    
+    // 생성하기 모달 연결
+    func connectCreateModal() {
+        let modalVC = StarModalViewController()
+        modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
+            let modalHeight = self.starListView.frame.maxY - self.starListView.starListCollectionView.frame.minY - 20
+            return modalHeight
+        })
+        ]
+        modalVC.sheetPresentationController?.selectedDetentIdentifier = .medium
+        modalVC.sheetPresentationController?.prefersGrabberVisible = true
+        modalVC.modalPresentationStyle = .formSheet
+        present(modalVC, animated: true)
+      
     }
 }
 

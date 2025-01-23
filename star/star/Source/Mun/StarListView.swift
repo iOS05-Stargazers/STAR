@@ -37,14 +37,13 @@ class StarListView: UIView {
     }
     
     // 시작하기 버튼
-    private let addStarButton = GradientButton(type: .system).then {
+    let addStarButton = GradientButton(type: .system).then {
             $0.setTitle("스타 추가하기", for: .normal)
             $0.setTitleColor(.starPrimaryText, for: .normal)
             $0.titleLabel?.font = Fonts.buttonTitle
             $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
             $0.layer.cornerRadius = 28
             $0.clipsToBounds = true
-            // $0.gradientDirection = .horizontal // 이제는 속성값으로 받지 않고 매개변수로 받음 (아래 참조)
         }
     
     // 스타 리스트 컬렉션뷰
