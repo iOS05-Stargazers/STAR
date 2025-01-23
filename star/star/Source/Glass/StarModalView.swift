@@ -36,7 +36,7 @@ final class StarModalView: UIView {
         $0.font = Fonts.modalSectionTitle
     }
     
-    private let nameTextField = UITextField().then {
+    let nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
@@ -81,7 +81,7 @@ final class StarModalView: UIView {
     
     // 요일 버튼 생성 함수
     func setButton(_ title: String) -> UIButton {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
         button.backgroundColor = .starModalBG
