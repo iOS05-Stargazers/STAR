@@ -14,7 +14,7 @@ class StarListView: UIView {
     // MARK: - UI 컴포넌트
     
     // 로고 및 날짜 보여주는 뷰
-    private let topView = UIView().then { _ in }
+    private let topView = UIView()
     
     // 로고 이미지
     private let logoImageView = UIImageView().then {
