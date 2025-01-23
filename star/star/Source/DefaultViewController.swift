@@ -8,8 +8,16 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 class DefaultViewController: UIViewController {
+    
+    private let mainLogoLabel = UILabel().then {
+        $0.text = "STAR"
+        $0.font = Fonts.mainLogo
+        $0.textColor = .starPrimaryText
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +27,14 @@ class DefaultViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .systemPurple
+        view.backgroundColor = .starAppBG
+        
+        [mainLogoLabel
+        ].forEach { view.addSubview($0) }
+        
+        mainLogoLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
 }
 
