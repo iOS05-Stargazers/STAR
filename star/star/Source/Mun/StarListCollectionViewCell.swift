@@ -82,8 +82,8 @@ class StarListCollectionViewCell: UICollectionViewCell {
         
         tagView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(16)
-            $0.height.equalTo(30)
-            $0.width.equalTo(60)
+            $0.height.equalTo(32)
+            $0.width.equalTo(59)
         }
         
         tagLabel.snp.makeConstraints {

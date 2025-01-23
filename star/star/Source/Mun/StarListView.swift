@@ -32,15 +32,12 @@ class StarListView: UIView {
     private let todayDateLabel = UILabel().then {
         $0.text = "2025년 1월 20일 (월)"
         $0.textColor = .starPrimaryText
-        $0.textAlignment = .left
+        $0.textAlignment = .center
         $0.font = Fonts.todayDate
     }
     
     // 스타 리스트 컬렉션뷰
-    let starListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-        $0.backgroundColor = .clear
-        $0.register(StarListCollectionViewCell.self, forCellWithReuseIdentifier: StarListCollectionViewCell.id)
-    }
+    let starListCollectionView = StarListCollectionView()
     
     // MARK: - 초기화
 
@@ -96,7 +93,7 @@ class StarListView: UIView {
         
         todayDateLabel.snp.makeConstraints {
             $0.leading.equalTo(logoImageView.snp.trailing)
-            $0.bottom.equalToSuperview().inset(10)
+            $0.bottom.equalToSuperview().inset(4)
             $0.width.equalTo(200)
         }
         

@@ -61,16 +61,3 @@ extension StarListViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
-extension StarListViewController: UICollectionViewDelegateFlowLayout {
-    // 셀 크기 설정
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        return CGSize(width: width, height: 96)
-    }
-    
-    // 아이템 간격 설정
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
-    }
-}
