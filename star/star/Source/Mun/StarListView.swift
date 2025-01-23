@@ -32,8 +32,18 @@ class StarListView: UIView {
     private let todayDateLabel = UILabel().then {
         $0.text = "2025년 1월 20일 (월)"
         $0.textColor = .starPrimaryText
-        $0.textAlignment = .center
+        $0.textAlignment = .left
         $0.font = Fonts.todayDate
+    }
+    
+    // 시작하기 버튼
+    private let addStarButton = GradientButton(type: .system).then {
+            $0.setTitle("스타 추가하기", for: .normal)
+            $0.setTitleColor(.starPrimaryText, for: .normal)
+            $0.titleLabel?.font = Fonts.buttonTitle
+            $0.layer.cornerRadius = 28
+            $0.clipsToBounds = true
+            $0.gradientDirection = .horizontal
     }
     
     // 스타 리스트 컬렉션뷰
@@ -58,7 +68,8 @@ class StarListView: UIView {
         
         [
             topView,
-            starListCollectionView
+            starListCollectionView,
+            addStarButton
         ].forEach {
             addSubview($0)
         }
@@ -102,6 +113,15 @@ class StarListView: UIView {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(150)
         }
+        
+        addStarButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
+            $0.height.equalTo(56)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy])
     }
 }
 
