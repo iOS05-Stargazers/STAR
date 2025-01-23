@@ -79,61 +79,24 @@ final class StarModalView: UIView {
         $0.axis = .horizontal
     }
     
-    // 요일 버튼
-    private let mondayButton = UIButton(type: .system).then {
-        $0.setTitle("월", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
+    // 요일 버튼 생성 함수
+    func setButton(_ title: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.starSecondaryText, for: .normal)
+        button.backgroundColor = .starModalBG
+        button.layer.cornerRadius = 18
+        button.titleLabel?.font = Fonts.modalDayOption
+        return button
     }
     
-    private let tuesdayButton = UIButton(type: .system).then {
-        $0.setTitle("화", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
-    }
-    
-    private let wednesdayButton = UIButton(type: .system).then {
-        $0.setTitle("수", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
-    }
-    
-    private let thursdayButton = UIButton(type: .system).then {
-        $0.setTitle("목", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
-    }
-    
-    private let fridayButton = UIButton(type: .system).then {
-        $0.setTitle("금", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
-    }
-    private let saturdayButton = UIButton(type: .system).then {
-        $0.setTitle("토", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
-    }
-    
-    private let sundayButton = UIButton(type: .system).then {
-        $0.setTitle("일", for: .normal)
-        $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.backgroundColor = .starModalBG
-        $0.layer.cornerRadius = 18
-        $0.titleLabel?.font = Fonts.modalDayOption
-    }
+    private lazy var mondayButton = setButton("월")
+    private lazy var tuesdayButton = setButton("화")
+    private lazy var wednesdayButton = setButton("수")
+    private lazy var thursdayButton = setButton("목")
+    private lazy var fridayButton = setButton("금")
+    private lazy var saturdayButton = setButton("토")
+    private lazy var sundayButton = setButton("일")
     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
@@ -369,5 +332,5 @@ final class StarModalView: UIView {
             $0.trailing.equalTo(endTimeStackView.snp.trailing)
         }
     }
-    
+
 }
