@@ -40,6 +40,7 @@ final class StarModalView: UIView {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
+        $0.textAlignment = .right
     }
     
     // appLockLabel, appLockButton를 담는 스택뷰

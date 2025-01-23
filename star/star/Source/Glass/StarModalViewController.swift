@@ -11,6 +11,9 @@ import SnapKit
 
 class StarModalViewController: UIViewController {
     
+    // 텍스트필드 입력제한 수
+    private let textMaxLength = 16
+    
     private let modal = StarModalView()
         
     override func viewDidLoad() {
@@ -33,5 +36,16 @@ extension StarModalViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 현재 입력된 텍스트
+        let currentText = textField.text ?? ""
+        
+        // 입력 변경에 따른 텍스트 계산
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return updatedText.count <= textMaxLength
     }
 }
