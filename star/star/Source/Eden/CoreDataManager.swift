@@ -36,14 +36,16 @@ class CoreDataManager {
     }
     
     // 전체 Star 조회
-    func fetchAllStars() {
+    func fetchAllStars() -> [Star] {
         let fetchRequest: NSFetchRequest<Star> = Star.fetchRequest()
         
         do {
             let stars = try context.fetch(fetchRequest)
             print("Star 조회: \(stars)")
+            return stars
         } catch {
             print("Star 조회 에러 \(error)")
+            return []
         }
     }
     
