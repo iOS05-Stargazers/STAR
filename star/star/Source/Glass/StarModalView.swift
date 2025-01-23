@@ -14,13 +14,13 @@ final class StarModalView: UIView {
     private let titleLabel = UILabel().then {
         $0.text = "스타 생성"
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 24)
+        $0.font = Fonts.modalTitle
     }
     
     private let subtitleLabel = UILabel().then {
         $0.text = "잠금할 앱과 시간을 설정해 주세요"
         $0.textColor = .starSecondaryText
-        $0.font = .systemFont(ofSize: 16)
+        $0.font = Fonts.modalSubtitle
     }
     
     // nameLabel, nameTextField를 담는 스택뷰
@@ -33,13 +33,13 @@ final class StarModalView: UIView {
     private let nameLabel = UILabel().then {
         $0.text = "이름"
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 16)
+        $0.font = Fonts.modalSectionTitle
     }
     
     private let nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = Fonts.modalSectionOption
     }
     
     // appLockLabel, appLockButton를 담는 스택뷰
@@ -52,13 +52,13 @@ final class StarModalView: UIView {
     private let appLockLabel = UILabel().then {
         $0.text = "앱 잠금"
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 16)
+        $0.font = Fonts.modalSectionTitle
     }
     
-    private let appLockButton = UIButton().then {
+    private let appLockButton = UIButton(type: .system).then {
         $0.setTitle("없음 >", for: .normal)
         $0.setTitleColor(.lightGray, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14)
+        $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
     // repeatCycleLabel, weekStackView, startTimeStackView, endTimeStackView을 담는 스택뷰
@@ -71,7 +71,7 @@ final class StarModalView: UIView {
     private let repeatCycleLabel = UILabel().then {
         $0.text = "반복 주기"
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 16)
+        $0.font = Fonts.modalSectionTitle
     }
     
     // 요일 버튼을 담는 스택뷰
@@ -80,88 +80,59 @@ final class StarModalView: UIView {
     }
     
     // 요일 버튼
-    private let mondayButton = UIButton().then {
+    private let mondayButton = UIButton(type: .system).then {
         $0.setTitle("월", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
     
-    private let tuesdayButton = UIButton().then {
+    private let tuesdayButton = UIButton(type: .system).then {
         $0.setTitle("화", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
-
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
     
-    private let wednesdayButton = UIButton().then {
+    private let wednesdayButton = UIButton(type: .system).then {
         $0.setTitle("수", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
     
-    private let thursdayButton = UIButton().then {
+    private let thursdayButton = UIButton(type: .system).then {
         $0.setTitle("목", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
     
-    private let fridayButton = UIButton().then {
+    private let fridayButton = UIButton(type: .system).then {
         $0.setTitle("금", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
-    private let saturdayButton = UIButton().then {
+    private let saturdayButton = UIButton(type: .system).then {
         $0.setTitle("토", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
     
-    private let sundayButton = UIButton().then {
+    private let sundayButton = UIButton(type: .system).then {
         $0.setTitle("일", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 18
-
-        NSLayoutConstraint.activate([
-            $0.widthAnchor.constraint(equalToConstant: 36),
-            $0.heightAnchor.constraint(equalToConstant: 36)
-        ])
+        $0.titleLabel?.font = Fonts.modalDayOption
     }
     
     // startTimeLabel, startTimeButton을 담는 스택뷰
@@ -172,12 +143,13 @@ final class StarModalView: UIView {
     private let startTimeLabel = UILabel().then {
         $0.text = "시작 시간"
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 16)
+        $0.font = Fonts.modalSectionTitle
     }
     
-    private let startTimeButton = UIButton().then {
+    private let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
-        $0.tintColor = .white
+        $0.tintColor = .starSecondaryText
+        $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
     // endTimeLabel, endTimeButton을 담는 스택뷰
@@ -188,12 +160,13 @@ final class StarModalView: UIView {
     private let endTimeLabel = UILabel().then {
         $0.text = "종료 시간"
         $0.textColor = .starPrimaryText
-        $0.font = .systemFont(ofSize: 16)
+        $0.font = Fonts.modalSectionTitle
     }
     
-    private let endTimeButton = UIButton().then {
+    private let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
-        $0.tintColor = .white
+        $0.tintColor = .starSecondaryText
+        $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
     // MARK: - 초기화
@@ -227,8 +200,6 @@ final class StarModalView: UIView {
             .forEach {
                 weekStackView.addSubview($0)
             }
-        
-        weekStackView.backgroundColor = .white
         
         // 시작시간
         [startTimeLabel, startTimeButton]
@@ -318,36 +289,50 @@ final class StarModalView: UIView {
         mondayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(weekStackView)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
         
         tuesdayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(mondayButton.snp.trailing).offset(13)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
         
         wednesdayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(tuesdayButton.snp.trailing).offset(13)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
         
         thursdayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(wednesdayButton.snp.trailing).offset(13)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
         
         fridayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(thursdayButton.snp.trailing).offset(13)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
         
         saturdayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(fridayButton.snp.trailing).offset(13)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
         
         sundayButton.snp.makeConstraints {
             $0.top.equalTo(weekStackView)
             $0.leading.equalTo(saturdayButton.snp.trailing).offset(13)
+            $0.width.equalTo(36)
+            $0.height.equalTo(36)
         }
 
         startTimeStackView.snp.makeConstraints {
