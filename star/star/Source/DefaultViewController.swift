@@ -18,6 +18,15 @@ class DefaultViewController: UIViewController {
         $0.font = Fonts.mainLogo
         $0.textColor = .starPrimaryText
     }
+    
+    private let addStarButton = GradientButton(type: .system).then {
+        $0.setTitle("스타 추가하기", for: .normal)
+        $0.setTitleColor(.starPrimaryText, for: .normal)
+        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +38,24 @@ class DefaultViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .starAppBG
         
-        [mainLogoLabel
+        [mainLogoLabel,
+         addStarButton
         ].forEach { view.addSubview($0) }
         
         mainLogoLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(150)
         }
+        
+        addStarButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-150)
+            make.height.equalTo(56)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함
+        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
 
