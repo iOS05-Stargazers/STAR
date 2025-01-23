@@ -20,7 +20,6 @@ enum GradientDirection {
 extension GradientApplicable where Self: UIView {
     
     func applyGradient(colors: [UIColor], direction: GradientDirection) {
-        gradientLayer.locations = [0.0, 1.0]
         gradientLayer.colors = colors.map { $0.cgColor }
         
         switch direction {
