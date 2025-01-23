@@ -19,7 +19,7 @@ class DefaultViewController: UIViewController {
         $0.textColor = .starPrimaryText
     }
     
-    private let addStarButton = GradientButton().then {
+    private let addStarButton = GradientButton(type: .system).then {
         $0.setTitle("스타 추가하기", for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = Fonts.buttonTitle
