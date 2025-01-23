@@ -33,7 +33,7 @@ class StarListView: UIView {
         $0.text = "2025년 1월 20일 (월)"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
-        $0.font = Font.todayDate
+        $0.font = Fonts.todayDate
     }
     
     // 스타 리스트 컬렉션뷰

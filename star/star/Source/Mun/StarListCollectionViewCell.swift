@@ -17,7 +17,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 태그 뷰
     private let tagView = UIView().then {
-        $0.layer.cornerRadius = 10
+        $0.layer.cornerRadius = 8
         $0.backgroundColor = .starButtonPurple
     }
     
@@ -26,7 +26,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         $0.text = "진행중"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
-        $0.font = Font.starTag
+        $0.font = Fonts.starTag
     }
     
     // 타이틀 라벨
@@ -34,7 +34,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         $0.text = "아침 시작하기"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
-        $0.font = Font.starTitle
+        $0.font = Fonts.starTitle
     }
     
     // 시간 라벨
@@ -42,7 +42,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         $0.text = "02:00:00"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .right
-        $0.font = Font.starTime
+        $0.font = Fonts.starTime
     }
     
     // 타이머 이미지
