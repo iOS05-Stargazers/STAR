@@ -1,5 +1,5 @@
 //
-//  StarTimeConverter.swift
+//  StarTimeTranslator.swift
 //  star
 //
 //  Created by 0-jerry on 1/22/25.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK: - StarTimeConverter
+// MARK: - StarTimeTranslator
 
-struct StarTimeConverter {
+struct StarTimeTranslator {
         
     static func starTime(by description: String) -> StarTime? {
         let components = description
@@ -36,7 +36,7 @@ struct StarTimeConverter {
 
 // MARK: StarTimeConverter - 내부사용 메서드
 
-extension StarTimeConverter {
+extension StarTimeTranslator {
     
     private static func validHour(_ value: Int) -> Bool {
         let hourRange = 0...23

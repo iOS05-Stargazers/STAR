@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import Then
 
 // MARK: - StarTimeFormatter
 
 struct StarTimeFormatter {
     
-    static func convert(hour: Int, minute: Int) -> String {
-        let hour = stringForm(hour)
-        let minute = stringForm(minute)
+    static func convert(_ starTime: StarTime) -> String {
+        let hour = stringForm(starTime.hour)
+        let minute = stringForm(starTime.minute)
         return String(format: "%@:%@", hour, minute)
     }
     
@@ -28,5 +29,3 @@ extension StarTimeFormatter {
     }
     
 }
-
-

@@ -10,11 +10,15 @@ import Foundation
 // MARK: - Star
 
 struct Star {
-    let identifier: UUID
+    let identifier: StarID
     let title: String
     let blockList: [AppID]
     let schedule: Schedule
 }
+
+// MARK: - StarID
+
+typealias StarID = UUID
 
 // MARK: - AppID
 

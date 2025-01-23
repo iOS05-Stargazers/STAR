@@ -10,8 +10,7 @@ import Foundation
 // MARK: - StarState
 
 struct StarState {
-    
-
+    // 상태 ( 연산 프로퍼티 예정 )
     var style: Style
     var distance: TimeInterval
     
@@ -19,7 +18,7 @@ struct StarState {
         self.style = style
         self.distance = distance
     }
-
+    
 }
 
 extension StarState: Comparable {

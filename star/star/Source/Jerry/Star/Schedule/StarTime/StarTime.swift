@@ -10,16 +10,17 @@ import Foundation
 // MARK: - StarTime
 
 struct StarTime {
-    private let hour: Int
-    private let minute: Int
+    let hour: Int
+    let minute: Int
 
     init(hour: Int, minute: Int) {
-        self = StarTimeConverter.starTime(hour: hour, minute: minute)
+        self = StarTimeTranslator.starTime(hour: hour, minute: minute)
     }
     
     func coreDataForm() -> String {
-        StarTimeFormatter.convert(hour: hour, minute: minute)
+        StarTimeFormatter.convert(self)
     }
+    
 }
 
 // MARK: StarTime - init
@@ -27,11 +28,11 @@ struct StarTime {
 extension StarTime {
 
     init(date: Date) {
-        self = StarTimeConverter.starTime(from: date)
+        self = StarTimeTranslator.starTime(from: date)
     }
     
     init?(from description: String) {
-        guard let starTime = StarTimeConverter.starTime(by: description) else {
+        guard let starTime = StarTimeTranslator.starTime(by: description) else {
             return nil }
         self = starTime
     }
