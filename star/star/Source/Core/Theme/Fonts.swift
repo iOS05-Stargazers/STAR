@@ -1,5 +1,5 @@
 //
-//  Font.swift
+//  Fonts.swift
 //  star
 //
 //  Created by t0000-m0112 on 2025-01-21.
@@ -7,7 +7,7 @@
 
 import UIKit.UIFont
 
-struct Font {
+struct Fonts {
     
     /// 앱 메인 로고 "STAR" / size : 24 / Bold
     static let mainLogo = UIFont(name: "SEBANGGothicOTFBold", size: 24)
