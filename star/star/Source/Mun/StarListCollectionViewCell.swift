@@ -14,11 +14,11 @@ class StarListCollectionViewCell: UICollectionViewCell {
     // MARK: - UI 컴포넌트
     
     static let id = "StarListCollectionViewCell"
-    
+
     // 태그 뷰
-    private let tagView = UIView().then {
+    private let tagView = GradientView().then {
         $0.layer.cornerRadius = 8
-        $0.backgroundColor = .starButtonPurple
+        $0.clipsToBounds = true
     }
     
     // 태그 라벨
@@ -105,5 +105,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
             $0.trailing.equalTo(timeLabel.snp.leading).offset(-8)
             $0.bottom.equalTo(timeLabel.snp.bottom)
         }
+        
+        tagView.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
