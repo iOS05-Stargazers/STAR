@@ -23,6 +23,7 @@ class StarListViewController: UIViewController {
         super.viewDidLoad()
         setupCollectioView()
         setupDate()
+        setupSwipeActions()
     }
 
     // 컬렉션뷰 설정
@@ -31,6 +32,7 @@ class StarListViewController: UIViewController {
         starListView.starListCollectionView.delegate = self
     }
     
+    // 오늘 날짜 설정
     private func setupDate() {
         let today = Date()
         let dateFormatter = DateFormatter()
@@ -39,14 +41,34 @@ class StarListViewController: UIViewController {
         let todayLabel = dateFormatter.string(from: today)
         starListView.configureDate(date: todayLabel)
     }
+    
+    // 스와이프 액션 설정
+    private func setupSwipeActions() {
+        starListView.starListCollectionView.addSwipeAction(
+            trailingActionProvider: { [weak self] indexPath in
+                var actions: [UIContextualAction] = []
+
+                // 삭제 액션 추가
+                let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, completionHandler in
+                    completionHandler(true)
+                }
+                deleteAction.image = UIImage(systemName: "trash")
+                actions.append(deleteAction)
+            
+                return actions
+            }
+        )
+    }
 }
 
 // MARK: - collectionView 설정
 
 extension StarListViewController: UICollectionViewDelegate {
+    
 }
 
 extension StarListViewController: UICollectionViewDataSource {
+    
     // 아이템 갯수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         4 // 테스트 코드

@@ -110,7 +110,7 @@ class StarListView: UIView {
         
         starListCollectionView.snp.makeConstraints {
             $0.top.equalTo(topView.snp.bottom).offset(32)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(150)
         }
         

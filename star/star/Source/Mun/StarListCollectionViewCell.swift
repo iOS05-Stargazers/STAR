@@ -31,7 +31,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
-        $0.text = "아침 시작하기"
+        $0.text = "abcdeabcdeabcdea"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
         $0.font = Fonts.starTitle
@@ -91,6 +91,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         }
         
         titleLabel.snp.makeConstraints {
+            $0.top.equalTo(tagView.snp.bottom).offset(8)
             $0.bottom.equalToSuperview().inset(16)
             $0.leading.equalTo(tagView.snp.leading)
         }
