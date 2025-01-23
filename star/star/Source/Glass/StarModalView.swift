@@ -80,7 +80,7 @@ final class StarModalView: UIView {
     }
     
     // 요일 버튼 생성 함수
-    func setButton(_ title: String) -> UIButton {
+    private func setButton(_ title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
