@@ -26,7 +26,6 @@ class DefaultViewController: UIViewController {
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
-        $0.gradientDirection = .horizontal
     }
 
     override func viewDidLoad() {
@@ -56,7 +55,7 @@ class DefaultViewController: UIViewController {
         }
         
         // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함
-        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy])
+        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
 
