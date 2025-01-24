@@ -15,7 +15,7 @@ class StarDeleteAlertViewController: UIViewController {
     
     // 모달뷰
     private let modalView = UIView().then {
-        $0.backgroundColor = .starAppBG
+        $0.backgroundColor = .starAlertBG
         $0.layer.cornerRadius = 30
         $0.layer.masksToBounds = false
         $0.alpha = 1
@@ -30,12 +30,17 @@ class StarDeleteAlertViewController: UIViewController {
     
     // 설명 라벨
     private let descriptionLabel = UILabel().then {
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
         $0.text = """
 정말로 삭제하시겠습니까?
 삭제한 스타는 되돌릴 수 없습니다.
 """
-        $0.font = Fonts.blockDescription
+        let attrString = NSMutableAttributedString(string: $0.text!)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
+        $0.attributedText = attrString
+        $0.font = Fonts.buttonDescription
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
@@ -61,12 +66,11 @@ class StarDeleteAlertViewController: UIViewController {
     private let deleteButton = UIButton(type: .system).then {
         $0.setTitle("삭제", for: .normal)
         $0.titleLabel?.font = Fonts.buttonTitle
-        $0.backgroundColor = .red
+        $0.backgroundColor = .starDelete
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.layer.cornerRadius = 12
     }
     
-
     // MARK: - 생명주기 메서드
     
     override func viewDidLoad() {
@@ -77,14 +81,13 @@ class StarDeleteAlertViewController: UIViewController {
     // MARK: - 레이아웃 설정
     
     private func setupUI() {
-        view.backgroundColor = .starAppBG
-        view .addSubview(modalView)
+        view.addSubview(modalView)
         
         [
             titleImageView,
             descriptionLabel,
             buttonStackView
-        ].forEach{ modalView.addSubview($0) }
+        ].forEach { modalView.addSubview($0) }
         
         [
             cancelButton,

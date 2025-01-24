@@ -88,9 +88,8 @@ class StarListViewController: UIViewController {
     // 삭제하기 알럿 띄우기
     private func showAlert() {
         let starDeleteAlertViewController = StarDeleteAlertViewController()
-        
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
-        starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
         present(starDeleteAlertViewController, animated: true)
     }
 }
