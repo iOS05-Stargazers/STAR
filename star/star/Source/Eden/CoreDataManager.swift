@@ -64,7 +64,7 @@ class CoreDataManager {
     }
     
     // Star 수정
-    func updateStar(star: StarEntity, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil ) {
+    func updateStar(star: StarEntity, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil) {
         if let name = name {
             star.name = name
         }
