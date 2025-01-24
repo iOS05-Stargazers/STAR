@@ -23,7 +23,7 @@ class StarListViewController: UIViewController {
         super.viewDidLoad()
         setupCollectioView()
         setupDate()
-        setupConfigure()
+        setupAction()
         setupSwipeActions()
     }
 
@@ -43,7 +43,8 @@ class StarListViewController: UIViewController {
         starListView.configureDate(date: todayLabel)
     }
     
-    private func setupConfigure() {
+    // 액션 연결
+    private func setupAction() {
         starListView.addStarButton.addAction(UIAction{ [weak self] _ in
             guard let self = self else { return }
             self.connectCreateModal()
