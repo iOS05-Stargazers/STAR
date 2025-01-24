@@ -75,6 +75,7 @@ final class StarModalView: UIView {
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
         $0.axis = .horizontal
+        $0.distribution = .equalSpacing
     }
     
     // 요일 버튼 생성 함수
@@ -151,7 +152,7 @@ final class StarModalView: UIView {
         // 요일
         [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
             .forEach {
-                weekStackView.addSubview($0)
+                weekStackView.addArrangedSubview($0)
             }
         
         // 시작시간
@@ -235,57 +236,16 @@ final class StarModalView: UIView {
         weekStackView.snp.makeConstraints {
             $0.top.equalTo(repeatCycleLabel.snp.bottom).offset(12)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
-            $0.trailing.equalTo(scheduleConfigStackView.snp.leading).inset(16)
             $0.height.equalTo(36)
+            $0.width.equalTo(scheduleConfigStackView.snp.width).inset(16)
         }
-        
-        mondayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(weekStackView)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        tuesdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(mondayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        wednesdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(tuesdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        thursdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(wednesdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        fridayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(thursdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        saturdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(fridayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        sundayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(saturdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
+
+        // 디바이스에 따라 요일 버튼 너비 조절
+        [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton].forEach { button in
+            button.snp.makeConstraints {
+                $0.top.equalTo(weekStackView)
+                $0.width.equalTo(button.snp.height)
+            }
         }
 
         startTimeStackView.snp.makeConstraints {
