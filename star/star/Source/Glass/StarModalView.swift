@@ -10,6 +10,15 @@ import SnapKit
 import Then
 
 final class StarModalView: UIView {
+    
+    // 모달 섹션 타이틀 생성 함수
+    private func makeLabel(_ title: String) -> UILabel {
+        let label = UILabel()
+        label.text = title
+        label.textColor = .starPrimaryText
+        label.font = Fonts.modalSectionTitle
+        return label
+    }
         
     private let titleLabel = UILabel().then {
         $0.text = "스타 생성"
@@ -30,11 +39,7 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private let nameLabel = UILabel().then {
-        $0.text = "이름"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var nameLabel = makeLabel("이름")
     
     let nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
@@ -50,11 +55,7 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private let appLockLabel = UILabel().then {
-        $0.text = "앱 잠금"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var appLockLabel = makeLabel("앱 잠금")
     
     private let appLockButton = UIButton(type: .system).then {
         $0.setTitle("없음 >", for: .normal)
@@ -69,11 +70,7 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private let repeatCycleLabel = UILabel().then {
-        $0.text = "반복 주기"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var repeatCycleLabel = makeLabel("반복 주기")
     
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
@@ -81,7 +78,7 @@ final class StarModalView: UIView {
     }
     
     // 요일 버튼 생성 함수
-    private func setButton(_ title: String) -> UIButton {
+    private func makeButton(_ title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
@@ -91,24 +88,20 @@ final class StarModalView: UIView {
         return button
     }
     
-    private lazy var mondayButton = setButton("월")
-    private lazy var tuesdayButton = setButton("화")
-    private lazy var wednesdayButton = setButton("수")
-    private lazy var thursdayButton = setButton("목")
-    private lazy var fridayButton = setButton("금")
-    private lazy var saturdayButton = setButton("토")
-    private lazy var sundayButton = setButton("일")
+    private lazy var mondayButton = makeButton("월")
+    private lazy var tuesdayButton = makeButton("화")
+    private lazy var wednesdayButton = makeButton("수")
+    private lazy var thursdayButton = makeButton("목")
+    private lazy var fridayButton = makeButton("금")
+    private lazy var saturdayButton = makeButton("토")
+    private lazy var sundayButton = makeButton("일")
     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
     }
     
-    private let startTimeLabel = UILabel().then {
-        $0.text = "시작 시간"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var startTimeLabel = makeLabel("시작 시간")
     
     private let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
@@ -121,11 +114,7 @@ final class StarModalView: UIView {
         $0.axis = .horizontal
     }
     
-    private let endTimeLabel = UILabel().then {
-        $0.text = "종료 시간"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var endTimeLabel = makeLabel("종료 시간")
     
     private let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
