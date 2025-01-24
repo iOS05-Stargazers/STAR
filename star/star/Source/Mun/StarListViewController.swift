@@ -87,19 +87,11 @@ class StarListViewController: UIViewController {
     
     // 삭제하기 알럿 띄우기
     private func showAlert() {
-        let alert = UIAlertController(title: "스타 삭제 확인", message: """
-정말로 삭제하시겠습니까?
-삭제한 스타는 되돌릴 수 없습니다.
-""", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "삭제", style: .destructive)
-        let cancel = UIAlertAction(title: "취소", style: .default)
-
-        alert.addAction(ok)
-        alert.addAction(cancel)
-
-        alert.overrideUserInterfaceStyle = .dark
+        let starDeleteAlertViewController = StarDeleteAlertViewController()
         
-        present(alert, animated: true)
+        starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
+        starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        present(starDeleteAlertViewController, animated: true)
     }
 }
 
