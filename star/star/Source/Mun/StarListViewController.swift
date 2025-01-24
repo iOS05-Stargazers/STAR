@@ -50,8 +50,6 @@ class StarListViewController: UIViewController {
         }, for: .touchUpInside)
     }
     
-
-    
     // 스와이프 액션 설정
     private func setupSwipeActions() {
         starListView.starListCollectionView.addSwipeAction(
@@ -60,19 +58,20 @@ class StarListViewController: UIViewController {
 
                 // 삭제 액션 추가
                 let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, completionHandler in
-                    completionHandler(true)
+                    self?.showAlert()
+                    completionHandler(false)
                 }
+                
                 deleteAction.image = UIImage(systemName: "trash")
                 actions.append(deleteAction)
             
                 return actions
             }
         )
-
     }
     
     // 생성하기 모달 연결
-    func connectCreateModal() {
+    private func connectCreateModal() {
         let modalVC = StarModalViewController()
         modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
             let modalHeight = self.starListView.frame.maxY - self.starListView.starListCollectionView.frame.minY - 20
@@ -83,7 +82,23 @@ class StarListViewController: UIViewController {
         modalVC.sheetPresentationController?.prefersGrabberVisible = true
         modalVC.modalPresentationStyle = .formSheet
         present(modalVC, animated: true)
-      
+    }
+    
+    // 삭제하기 알럿 띄우기
+    private func showAlert() {
+        let alert = UIAlertController(title: "스타 삭제 확인", message: """
+정말로 삭제하시겠습니까?
+삭제한 스타는 되돌릴 수 없습니다.
+""", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "삭제", style: .destructive)
+        let cancel = UIAlertAction(title: "취소", style: .default)
+
+        alert.addAction(ok)
+        alert.addAction(cancel)
+
+        alert.overrideUserInterfaceStyle = .dark
+        
+        present(alert, animated: true)
     }
 }
 
