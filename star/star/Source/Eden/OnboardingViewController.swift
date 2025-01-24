@@ -7,6 +7,15 @@
 
 import UIKit
 
-class OnboradingViewController: UIViewController {
+class OnboardingViewController: UIViewController {
     
+    private let onboardingView = OnboardingView()
+    
+    override func loadView() {
+        self.view = onboardingView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }
