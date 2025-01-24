@@ -70,17 +70,13 @@ class StarListView: UIView {
             topView,
             starListCollectionView,
             addStarButton
-        ].forEach {
-            addSubview($0)
-        }
+        ].forEach { addSubview($0) }
         
         [
             logoImageView,
             logoTitleImageView,
             todayDateLabel
-        ].forEach {
-            topView.addSubview($0)
-        }
+        ].forEach { topView.addSubview($0) }
                 
         topView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(16)
