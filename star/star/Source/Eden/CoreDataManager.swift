@@ -19,7 +19,7 @@ class CoreDataManager {
     
     // Star 생성
     func createStar(name: String, appList: [String], repeatDays: [String], startTime: String, endTime: String) {
-        let newStar = Star(context: context)
+        let newStar = StarEntity(context: context)
         newStar.id = UUID()
         newStar.name = name
         newStar.appList = appList.joined(separator: ",")
@@ -36,8 +36,8 @@ class CoreDataManager {
     }
     
     // 전체 Star 조회
-    func fetchAllStars() -> [Star] {
-        let fetchRequest: NSFetchRequest<Star> = Star.fetchRequest()
+    func fetchAllStars() -> [StarEntity] {
+        let fetchRequest: NSFetchRequest<StarEntity> = StarEntity.fetchRequest()
         
         do {
             let stars = try context.fetch(fetchRequest)
@@ -50,8 +50,8 @@ class CoreDataManager {
     }
     
     // Star 조회
-    func fetchStar(_ id: UUID) -> Star? {
-        let fetchRequest: NSFetchRequest<Star> = Star.fetchRequest()
+    func fetchStar(_ id: UUID) -> StarEntity? {
+        let fetchRequest: NSFetchRequest<StarEntity> = StarEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         
         do {
@@ -64,7 +64,7 @@ class CoreDataManager {
     }
     
     // Star 수정
-    func updateStar(star: Star, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil ) {
+    func updateStar(star: StarEntity, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil ) {
         if let name = name {
             star.name = name
         }
