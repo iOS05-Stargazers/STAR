@@ -84,7 +84,6 @@ final class StarModalView: UIView {
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
         button.backgroundColor = .starModalBG
-        button.layer.cornerRadius = 18
         button.titleLabel?.font = Fonts.modalDayOption
         return button
     }
@@ -246,6 +245,10 @@ final class StarModalView: UIView {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
+            
+            button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
+            button.layer.cornerRadius = button.frame.height / 2
+            button.layer.masksToBounds = true
         }
 
         startTimeStackView.snp.makeConstraints {
