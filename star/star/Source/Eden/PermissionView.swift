@@ -58,14 +58,16 @@ class PermissionView: UIView {
     }
     
     let alertMessageLabel = UILabel().then {
-        $0.text = """
-        'STAR'에 스크린 타임 접근을 허용하면,
-        이 앱이 사용자의 활동 데이터를 보고,
-        콘텐츠를 제한하며, 앱 및 웹사이트의
-        사용을 제한할 수도 있습니다.
-        """
-        $0.font = Fonts.permissionBody
-        $0.textColor = .starSecondaryText
+        $0.setStarHighlightedText(
+            fullText: """
+                'S T A R'에 스크린 타임 접근을 허용하면,
+                이 앱이 사용자의 활동 데이터를 보고,
+                콘텐츠를 제한하며, 앱 및 웹사이트의
+                사용을 제한할 수도 있습니다.
+                """,
+            font: Fonts.permissionBody,
+            color: UIColor.starSecondaryText
+        )
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
