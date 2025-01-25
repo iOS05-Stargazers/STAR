@@ -59,7 +59,7 @@ final class StarModalView: UIView {
     
     private let appLockButton = UIButton(type: .system).then {
         $0.setTitle("없음 >", for: .normal)
-        $0.setTitleColor(.lightGray, for: .normal)
+        $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
@@ -105,7 +105,7 @@ final class StarModalView: UIView {
     
     private let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
-        $0.tintColor = .starSecondaryText
+        $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
@@ -118,8 +118,17 @@ final class StarModalView: UIView {
     
     private let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
-        $0.tintColor = .starSecondaryText
+        $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
+    }
+    
+    let addStarButton = GradientButton(type: .system).then {
+        $0.setTitle("생성하기", for: .normal)
+        $0.setTitleColor(.starPrimaryText, for: .normal)
+        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
     }
     
     // MARK: - 초기화
@@ -137,44 +146,55 @@ final class StarModalView: UIView {
         backgroundColor = .starModalBG
         
         // 이름
-        [nameLabel, nameTextField]
-            .forEach {
-                nameStackView.addSubview($0)
-            }
+        [
+        nameLabel,
+        nameTextField
+        ].forEach { nameStackView.addSubview($0) }
         
         // 앱 잠금
-        [appLockLabel, appLockButton]
-            .forEach {
-                appLockStackView.addSubview($0)
-            }
+        [
+        appLockLabel,
+        appLockButton
+        ].forEach { appLockStackView.addSubview($0) }
         
         // 요일
-        [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
-            .forEach {
-                weekStackView.addArrangedSubview($0)
-            }
+        [
+        mondayButton,
+        tuesdayButton,
+        wednesdayButton,
+        thursdayButton,
+        fridayButton,
+        saturdayButton,
+        sundayButton
+        ].forEach { weekStackView.addArrangedSubview($0) }
         
         // 시작시간
-        [startTimeLabel, startTimeButton]
-            .forEach {
-                startTimeStackView.addSubview($0)
-            }
+        [
+        startTimeLabel,
+        startTimeButton
+        ].forEach { startTimeStackView.addSubview($0) }
         
         // 종료시간
-        [endTimeLabel, endTimeButton]
-            .forEach {
-                endTimeStackView.addSubview($0)
-            }
+        [
+        endTimeLabel,
+        endTimeButton
+        ].forEach { endTimeStackView.addSubview($0) }
         
-        [repeatCycleLabel, weekStackView, startTimeStackView, endTimeStackView]
-            .forEach {
-                scheduleConfigStackView.addSubview($0)
-            }
+        [
+        repeatCycleLabel,
+        weekStackView,
+        startTimeStackView,
+        endTimeStackView
+        ].forEach { scheduleConfigStackView.addSubview($0) }
                 
-        [titleLabel, subtitleLabel, nameStackView, appLockStackView, scheduleConfigStackView]
-            .forEach {
-                addSubview($0)
-            }
+        [
+        titleLabel,
+        subtitleLabel,
+        nameStackView,
+        appLockStackView,
+        scheduleConfigStackView,
+        addStarButton
+        ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(64)
@@ -284,6 +304,17 @@ final class StarModalView: UIView {
             $0.centerY.equalTo(endTimeStackView)
             $0.trailing.equalTo(endTimeStackView.snp.trailing)
         }
+        
+        addStarButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(20)
+            $0.height.equalTo(56)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함 (여전히 중요)
+        // direction 매개변수에 .horizontal 또는 .vertical을 넣어 그라디언트 적용 방향을 설정
+        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 
 }
