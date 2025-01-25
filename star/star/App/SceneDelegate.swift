@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FamilyControls
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -13,13 +14,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
+       
         let window = UIWindow(windowScene: scene)
-        let rootViewController = PermissionViewController()
-//        let rootViewController = StarListViewController()
+        let rootViewController: UIViewController
+        
+        // FamilyControls의 권한 상태 확인
+        let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
+        if authorizationsStatus == .approved {
+            // 권한이 승인된 상태 -> StarListViewController로 실행
+            rootViewController = StarListViewController()
+        } else {
+            // 권한 미승인 상태 -> PermissionViewController로 실행
+            rootViewController = PermissionViewController()
+        }
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
