@@ -88,6 +88,20 @@ class PermissionView: UIView {
         $0.backgroundColor = .darkGray
     }
     
+    let footerLabel = UILabel().then {
+        $0.text = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다."
+        $0.font = Fonts.permissionBody
+        $0.textColor = .starSecondaryText
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+    }
+    
+    let learnMoreButton = UIButton().then {
+        $0.setTitle("더 알아보기", for: .normal)
+        $0.setTitleColor(.starSecondaryText, for: .normal)
+        $0.titleLabel?.font = Fonts.permissionRedirect
+    }
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -108,7 +122,9 @@ class PermissionView: UIView {
         addSubviews(
             titleLabel,
             descriptionLabel,
-            alertHighlightView
+            alertHighlightView,
+            footerLabel,
+            learnMoreButton
         )
         alertHighlightView.addSubview(alertView)
         alertView.addSubviews(
@@ -169,6 +185,16 @@ class PermissionView: UIView {
             $0.width.equalTo(0.5)
             $0.centerX.equalTo(buttonStackView)
             $0.top.bottom.equalTo(buttonStackView)
+        }
+        
+        footerLabel.snp.makeConstraints {
+            $0.bottom.equalTo(learnMoreButton.snp.top).offset(-12)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        learnMoreButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(40)
+            $0.centerX.equalToSuperview()
         }
     }
 }
