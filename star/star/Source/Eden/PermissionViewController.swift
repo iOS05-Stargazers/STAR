@@ -18,25 +18,20 @@ class PermissionViewController: UIViewController {
     }
     
     private func setupActions() {
-        permissionView.denyButton.addTarget(self, action: #selector(denyButtonTapped) , for: .touchUpInside)
-        permissionView.learnMoreButton.addTarget(self, action: #selector(learnMoreButtonTapped) , for: .touchUpInside)
+        permissionView.denyButton.addTarget(self, action: #selector(handleNavigationToStarList) , for: .touchUpInside)
+        permissionView.learnMoreButton.addTarget(self, action: #selector(handleNavigationToStarList) , for: .touchUpInside)
     }
     
     @objc
-    func denyButtonTapped() {
+    func handleNavigationToStarList() {
         let starListViewController = StarListViewController()
-        navigationController?.pushViewController(starListViewController, animated: false)    }
+        navigationController?.pushViewController(starListViewController, animated: false)
+    }
     
     // TODO: - 권한 설정 기능 구현
     
     @objc
     func allowButtonTapped() {
         print("계속")
-    }
-    
-    @objc
-    func learnMoreButtonTapped() {
-        let starListViewController = StarListViewController()
-        navigationController?.pushViewController(starListViewController, animated: false)
     }
 }
