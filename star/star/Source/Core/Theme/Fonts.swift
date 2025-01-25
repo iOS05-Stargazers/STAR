@@ -9,11 +9,13 @@ import UIKit.UIFont
 
 struct Fonts {
     
-    /// 앱 메인 로고 "STAR" / size : 24 / Bold
+    /// 앱 메인 로고 "STAR" / size : 24 / bold
     static let mainLogo = UIFont(name: "SEBANGGothicOTFBold", size: 24)
     /// 메인 로고 하단에 위치하는 오늘 일자 / size : 16 / semibold
     static let todayDate = UIFont.systemFont(ofSize: 16, weight: .semibold)
-    /// 하단의 메인 버튼 / size : 16 / black
+    /// 알럿 본문 / size : 16 / medium
+    static let buttonDescription = UIFont.systemFont(ofSize: 16, weight: .medium)
+    /// 하단의 메인 버튼, 알럿 버튼 / size : 16 / black
     static let buttonTitle = UIFont.systemFont(ofSize: 16, weight: .black)
     
     /// 스타의 이름  / size : 20 / semibold

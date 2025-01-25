@@ -14,11 +14,11 @@ class StarListCollectionViewCell: UICollectionViewCell {
     // MARK: - UI 컴포넌트
     
     static let id = "StarListCollectionViewCell"
-    
+
     // 태그 뷰
-    private let tagView = UIView().then {
+    private let tagView = GradientView().then {
         $0.layer.cornerRadius = 8
-        $0.backgroundColor = .starButtonPurple
+        $0.clipsToBounds = true
     }
     
     // 태그 라벨
@@ -31,7 +31,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
-        $0.text = "아침 시작하기"
+        $0.text = "abcdeabcdeabcdea"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
         $0.font = Fonts.starTitle
@@ -82,7 +82,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         
         tagView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(16)
-            $0.height.equalTo(30)
+            $0.height.equalTo(32)
             $0.width.equalTo(60)
         }
         
@@ -91,6 +91,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         }
         
         titleLabel.snp.makeConstraints {
+            $0.top.equalTo(tagView.snp.bottom).offset(8)
             $0.bottom.equalToSuperview().inset(16)
             $0.leading.equalTo(tagView.snp.leading)
         }
@@ -104,5 +105,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
             $0.trailing.equalTo(timeLabel.snp.leading).offset(-8)
             $0.bottom.equalTo(timeLabel.snp.bottom)
         }
+        
+        tagView.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
