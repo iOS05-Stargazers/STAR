@@ -105,18 +105,22 @@ class PermissionView: UIView {
         guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
         backgroundColor = UIColor(patternImage: backgroundImage)
         
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
-        addSubview(alertHighlightView)
-        
+        addSubviews(
+            titleLabel,
+            descriptionLabel,
+            alertHighlightView
+        )
         alertHighlightView.addSubview(alertView)
-        alertView.addSubview(dividerTop)
-        alertView.addSubview(alertTitleLabel)
-        alertView.addSubview(alertMessageLabel)
-        alertView.addSubview(buttonStackView)
+        alertView.addSubviews(
+            dividerTop,
+            alertTitleLabel,
+            alertMessageLabel,
+            buttonStackView
+        )
         
-        buttonStackView.addArrangedSubview(denyButton)
-        buttonStackView.addArrangedSubview(allowButton)
+        buttonStackView.addArrangedSubviews(
+            denyButton, allowButton
+        )
         buttonStackView.addSubview(verticalDivider)
         
         titleLabel.snp.makeConstraints {
