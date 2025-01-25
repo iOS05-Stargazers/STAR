@@ -11,11 +11,8 @@ class PermissionViewController: UIViewController {
     
     private let permissionView = PermissionView()
     
-    override func loadView() {
-        self.view = permissionView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view = permissionView
     }
 }
