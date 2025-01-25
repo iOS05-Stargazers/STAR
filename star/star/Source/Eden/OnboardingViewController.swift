@@ -15,12 +15,7 @@ class OnboardingViewController: UIViewController {
         self.view = onboardingView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        showScreenTimeAlert()
-    }
-    
-    private func showScreenTimeAlert() {
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
