@@ -188,7 +188,7 @@ class PermissionView: UIView {
         }
         
         footerLabel.snp.makeConstraints {
-            $0.bottom.equalTo(learnMoreButton.snp.top).offset(-12)
+            $0.bottom.equalTo(learnMoreButton.snp.top).offset(-16)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
