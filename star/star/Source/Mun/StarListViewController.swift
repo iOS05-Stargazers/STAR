@@ -25,6 +25,8 @@ class StarListViewController: UIViewController {
         setupDate()
         setupAction()
         setupSwipeActions()
+        
+        navigationItem.hidesBackButton = true
     }
 
     // 컬렉션뷰 설정
