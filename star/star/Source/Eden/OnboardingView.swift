@@ -20,6 +20,14 @@ class OnboardingView: UIView {
         $0.textAlignment = .center
     }
     
+    let descriptionLabel = UILabel().then {
+        $0.text = "STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다."
+        $0.font = UIFont.systemFont(ofSize: 16)
+        $0.textColor = .starSecondaryText
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+    }
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -38,10 +46,17 @@ class OnboardingView: UIView {
         backgroundColor = UIColor(patternImage: backgroundImage)
         
         addSubview(titleLabel)
-
+        addSubview(descriptionLabel)
+        
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(125)
             $0.centerX.equalToSuperview()
         }
+        
+        descriptionLabel.snp.makeConstraints{
+            $0.top.equalTo(titleLabel.snp.bottom).offset(48)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
     }
 }
+
