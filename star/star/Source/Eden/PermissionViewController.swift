@@ -7,12 +7,12 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class PermissionViewController: UIViewController {
     
-    private let onboardingView = OnboardingView()
+    private let permissionView = PermissionView()
     
     override func loadView() {
-        self.view = onboardingView
+        self.view = permissionView
     }
     
     override func viewDidAppear(_ animated: Bool) {

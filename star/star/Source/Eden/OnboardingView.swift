@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class OnboardingView: UIView {
+class PermissionView: UIView {
     
     // MARK: - UI Components
     
