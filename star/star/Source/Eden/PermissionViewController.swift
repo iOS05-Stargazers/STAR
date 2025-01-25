@@ -27,6 +27,8 @@ class PermissionViewController: UIViewController {
         let starListViewController = StarListViewController()
         navigationController?.pushViewController(starListViewController, animated: false)    }
     
+    // TODO: - 권한 설정 기능 구현
+    
     @objc
     func allowButtonTapped() {
         print("계속")
