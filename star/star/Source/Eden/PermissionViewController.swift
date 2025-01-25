@@ -19,6 +19,7 @@ class PermissionViewController: UIViewController {
     
     private func setupActions() {
         permissionView.denyButton.addTarget(self, action: #selector(navigateToStarList) , for: .touchUpInside)
+        permissionView.allowButton.addTarget(self, action: #selector(allowButtonTapped), for: .touchUpInside)
         permissionView.learnMoreButton.addTarget(self, action: #selector(navigateToStarList) , for: .touchUpInside)
     }
     

@@ -21,9 +21,11 @@ class PermissionView: UIView {
     }
     
     let descriptionLabel = UILabel().then {
-        $0.text = "STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다."
-        $0.font = Fonts.permissionBody
-        $0.textColor = .starSecondaryText
+        $0.setStarHighlightedText(
+            fullText: "S T A R 가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.",
+            font: Fonts.permissionBody,
+            color: UIColor.starSecondaryText
+        )
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
@@ -46,9 +48,11 @@ class PermissionView: UIView {
     }
     
     let alertTitleLabel = UILabel().then {
-        $0.text = "'STAR' 앱이 스크린 타임에 접근하려고 함"
-        $0.font = UIFont.boldSystemFont(ofSize: 20)
-        $0.textColor = .starPrimaryText
+        $0.setStarHighlightedText(
+            fullText: "'S T A R' 앱이 스크린 타임에 접근하려고 함",
+            font: UIFont.boldSystemFont(ofSize: 20),
+            color: UIColor.starPrimaryText
+        )
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
