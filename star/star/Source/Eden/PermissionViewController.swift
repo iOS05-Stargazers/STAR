@@ -18,12 +18,12 @@ class PermissionViewController: UIViewController {
     }
     
     private func setupActions() {
-        permissionView.denyButton.addTarget(self, action: #selector(handleNavigationToStarList) , for: .touchUpInside)
-        permissionView.learnMoreButton.addTarget(self, action: #selector(handleNavigationToStarList) , for: .touchUpInside)
+        permissionView.denyButton.addTarget(self, action: #selector(navigateToStarList) , for: .touchUpInside)
+        permissionView.learnMoreButton.addTarget(self, action: #selector(navigateToStarList) , for: .touchUpInside)
     }
     
     @objc
-    func handleNavigationToStarList() {
+    func navigateToStarList() {
         let starListViewController = StarListViewController()
         navigationController?.pushViewController(starListViewController, animated: false)
     }
