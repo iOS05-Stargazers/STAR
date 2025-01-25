@@ -35,6 +35,10 @@ class PermissionView: UIView {
         $0.layer.cornerRadius = 12
     }
     
+    let arrowView = ArrowView().then {
+        $0.backgroundColor = .clear
+    }
+    
     let alertView = UIView().then {
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 12
@@ -123,6 +127,7 @@ class PermissionView: UIView {
             titleLabel,
             descriptionLabel,
             alertHighlightView,
+            arrowView,
             footerLabel,
             learnMoreButton
         )
@@ -153,6 +158,13 @@ class PermissionView: UIView {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(40)
+        }
+        
+        arrowView.snp.makeConstraints{
+            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
+            $0.centerX.equalTo(allowButton)
+            $0.width.equalTo(16)
+            $0.height.equalTo(32)
         }
         
         alertView.snp.makeConstraints {
@@ -198,4 +210,3 @@ class PermissionView: UIView {
         }
     }
 }
-
