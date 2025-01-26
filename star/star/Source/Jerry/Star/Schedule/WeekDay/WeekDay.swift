@@ -10,13 +10,13 @@ import Foundation
 // MARK: - WeekDay
 
 enum WeekDay: Int, Hashable, CaseIterable {
-    case mon = 0
+    case sun = 1
+    case mon
     case tue
     case wed
     case thu
     case fri
-    case sat
-    case sun = 6
+    case sat = 7
     
     var korean: String {
         WeekDayFormatter.korean(self)
@@ -32,7 +32,7 @@ enum WeekDay: Int, Hashable, CaseIterable {
     init?(from date: Date) {
         // 일요일 == 1, 토요일 == 7
         let calender = Calendar.current
-        let index = ( calender.component(.weekday, from: date) + 5 ) % 7
+        let index = calender.component(.weekday, from: date)
         guard let weekDay = WeekDay(rawValue: index) else { return nil }
         self = weekDay
     }
@@ -41,6 +41,9 @@ enum WeekDay: Int, Hashable, CaseIterable {
 extension WeekDay: Comparable {
     
     static func < (lhs: WeekDay, rhs: WeekDay) -> Bool {
-        lhs.rawValue < rhs.rawValue
+        func compareValue(_ int: Int) -> Int {
+          return ( int + 5 ) % 7
+        }
+        return compareValue(lhs.rawValue) < compareValue(rhs.rawValue)
     }
 }
