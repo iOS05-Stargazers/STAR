@@ -41,6 +41,12 @@ class PermissionView: UIView {
         $0.backgroundColor = .clear
     }
     
+    let arrowImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "arrow.up")
+        $0.tintColor = .systemBlue
+        $0.contentMode = .scaleAspectFit
+    }
+    
     let alertView = UIView().then {
         $0.backgroundColor = .starModalBG
         $0.layer.cornerRadius = 12
@@ -133,7 +139,7 @@ class PermissionView: UIView {
             titleLabel,
             descriptionLabel,
             alertHighlightView,
-            arrowView,
+            arrowImageView,
             footerLabel,
             learnMoreButton
         )
@@ -166,11 +172,10 @@ class PermissionView: UIView {
             $0.leading.trailing.equalToSuperview().inset(40)
         }
         
-        arrowView.snp.makeConstraints{
+        arrowImageView.snp.makeConstraints{
             $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
             $0.centerX.equalTo(allowButton)
-            $0.width.equalTo(16)
-            $0.height.equalTo(32)
+            $0.width.equalTo(20)
         }
         
         alertView.snp.makeConstraints {
