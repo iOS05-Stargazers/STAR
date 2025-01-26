@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class StarListViewController: UIViewController {
     
@@ -75,31 +76,24 @@ class StarListViewController: UIViewController {
     private func connectCreateModal() {
         let modalVC = StarModalViewController()
         modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
-            let modalHeight = self.starListView.frame.maxY - self.starListView.starListCollectionView.frame.minY - 20
+            let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
             return modalHeight
         })
         ]
         modalVC.sheetPresentationController?.selectedDetentIdentifier = .medium
         modalVC.sheetPresentationController?.prefersGrabberVisible = true
         modalVC.modalPresentationStyle = .formSheet
+        modalVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        modalVC.view.layer.cornerRadius = 40
         present(modalVC, animated: true)
     }
     
     // 삭제하기 알럿 띄우기
     private func showAlert() {
-        let alert = UIAlertController(title: "스타 삭제 확인", message: """
-정말로 삭제하시겠습니까?
-삭제한 스타는 되돌릴 수 없습니다.
-""", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "삭제", style: .destructive)
-        let cancel = UIAlertAction(title: "취소", style: .default)
-
-        alert.addAction(ok)
-        alert.addAction(cancel)
-
-        alert.overrideUserInterfaceStyle = .dark
-        
-        present(alert, animated: true)
+        let starDeleteAlertViewController = StarDeleteAlertViewController()
+        starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
+        starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+        present(starDeleteAlertViewController, animated: true)
     }
 }
 
