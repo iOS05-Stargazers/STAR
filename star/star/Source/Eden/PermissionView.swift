@@ -22,7 +22,7 @@ class PermissionView: UIView {
     
     let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: "S T A R 가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.",
+            fullText: "STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.",
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText
         )
@@ -49,7 +49,7 @@ class PermissionView: UIView {
     
     let alertTitleLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: "'S T A R' 앱이 스크린 타임에 접근하려고 함",
+            fullText: "'STAR' 앱이 스크린 타임에 접근하려고 함",
             font: UIFont.boldSystemFont(ofSize: 20),
             color: UIColor.starPrimaryText
         )
@@ -60,7 +60,7 @@ class PermissionView: UIView {
     let alertMessageLabel = UILabel().then {
         $0.setStarHighlightedText(
             fullText: """
-                'S T A R'에 스크린 타임 접근을 허용하면,
+                'STAR'에 스크린 타임 접근을 허용하면,
                 이 앱이 사용자의 활동 데이터를 보고,
                 콘텐츠를 제한하며, 앱 및 웹사이트의
                 사용을 제한할 수도 있습니다.
@@ -82,13 +82,13 @@ class PermissionView: UIView {
         $0.backgroundColor = .darkGray
     }
     
-    let denyButton = UIButton().then {
+    let denyButton = UIButton(type: .system).then {
         $0.setTitle("허용 안 함", for: .normal)
-        $0.setTitleColor(.systemRed, for: .normal)
+        $0.setTitleColor(.systemBlue, for: .normal)
         $0.titleLabel?.font = Fonts.permissionBody
     }
     
-    let allowButton = UIButton().then {
+    let allowButton = UIButton(type: .system).then {
         $0.setTitle("계속", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
         $0.titleLabel?.font = Fonts.permissionBody
@@ -106,7 +106,7 @@ class PermissionView: UIView {
         $0.numberOfLines = 0
     }
     
-    let learnMoreButton = UIButton().then {
+    let learnMoreButton = UIButton(type: .system).then {
         $0.setTitle("더 알아보기", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.permissionRedirect
