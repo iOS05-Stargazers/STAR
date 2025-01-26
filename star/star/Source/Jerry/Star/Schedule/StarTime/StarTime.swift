@@ -14,7 +14,10 @@ struct StarTime {
     let minute: Int
 
     init(hour: Int, minute: Int) {
-        self = StarTimeTranslator.starTime(hour: hour, minute: minute)
+        let starTime = StarTimeTranslator.starTime(hour: hour,
+                                                   minute: minute)
+        self.hour = starTime.hour
+        self.minute = starTime.minute
     }
     
     func coreDataForm() -> String {
@@ -28,13 +31,15 @@ struct StarTime {
 extension StarTime {
 
     init(date: Date) {
-        self = StarTimeTranslator.starTime(from: date)
+        let starTime = StarTimeTranslator.starTime(from: date)
+        self.hour = starTime.hour
+        self.minute = starTime.minute
     }
     
-    init?(from description: String) {
-        guard let starTime = StarTimeTranslator.starTime(by: description) else {
-            return nil }
-        self = starTime
+    init(from description: String) {
+        let starTime = StarTimeTranslator.starTime(by: description)
+        self.hour = starTime.hour
+        self.minute = starTime.minute
     }
     
 }

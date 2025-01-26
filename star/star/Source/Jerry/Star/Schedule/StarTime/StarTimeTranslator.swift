@@ -10,26 +10,32 @@ import Foundation
 // MARK: - StarTimeTranslator
 
 struct StarTimeTranslator {
-        
-    static func starTime(by description: String) -> StarTime? {
+    
+    static func starTime(by description: String) -> (hour: Int, minute: Int) {
         let components = description
             .components(separatedBy: ":")
             .compactMap { Int($0) }
-        
-        guard components.count == 2 else { return nil }
-        return starTime(hour: components[0], minute: components[1])
+        guard components.count == 2 else {
+            return (hour: 0, minute: 0)
+        }
+        let hour = components[0]
+        let minute = components[1]
+        guard validHour(hour), validMinute(minute) else {
+            return (hour: 0, minute: 0)
+        }
+        return (hour: components[0], minute: components[1])
     }
     
-    static func starTime(from date: Date) -> StarTime {
+    static func starTime(from date: Date) -> (hour: Int, minute: Int) {
         let hour = currentHour(of: date)
         let minute = currentMinute(of: date)
-        return StarTime(hour: hour, minute: minute)
+        return (hour: hour, minute: minute)
     }
     
-    static func starTime(hour: Int, minute: Int) -> StarTime {
+    static func starTime(hour: Int, minute: Int) -> (hour: Int, minute: Int) {
         let hour = validHour(hour) ? hour : 0
         let minute = validMinute(minute) ? minute : 0
-        return StarTime(hour: hour, minute: minute)
+        return (hour: hour, minute: minute)
     }
     
 }
