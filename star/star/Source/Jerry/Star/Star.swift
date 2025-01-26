@@ -16,6 +16,21 @@ struct Star {
     let schedule: Schedule
 }
 
+extension Star: TestDescriptionConvertible {
+    var testDescription: String {
+        
+return """
+[Star]
+ID: \(identifier.uuidString)
+title: \(title)
+blockList: \(blockList.map { $0.uuidString })
+schedule:
+\(schedule.testDescription)
+"""
+}
+    
+}
+
 // MARK: - StarID
 
 typealias StarID = UUID

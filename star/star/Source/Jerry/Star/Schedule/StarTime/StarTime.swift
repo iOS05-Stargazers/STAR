@@ -10,6 +10,7 @@ import Foundation
 // MARK: - StarTime
 
 struct StarTime {
+   
     let hour: Int
     let minute: Int
 
@@ -42,4 +43,10 @@ extension StarTime {
         self.minute = starTime.minute
     }
     
+}
+
+extension StarTime: TestDescriptionConvertible {
+    var testDescription: String {
+        return self.coreDataForm()
+    }
 }

@@ -23,7 +23,10 @@ enum WeekDay: Int, Hashable, CaseIterable {
     }
     
     static func allKoreanCases() -> [String] {
-        WeekDay.allCases.map { $0.korean }
+        WeekDay
+            .allCases
+            .sorted(by: <)
+            .map { $0.korean }
     }
     
     init?(from date: Date) {
@@ -36,6 +39,7 @@ enum WeekDay: Int, Hashable, CaseIterable {
 }
 
 extension WeekDay: Comparable {
+    
     static func < (lhs: WeekDay, rhs: WeekDay) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
