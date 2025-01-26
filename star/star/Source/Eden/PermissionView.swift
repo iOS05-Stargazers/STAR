@@ -18,11 +18,15 @@ class PermissionView: UIView {
         $0.font = Fonts.permissionTitle
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
-    }
+}
     
     let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: "S T A R 가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.",
+            fullText: """
+                STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.
+                
+                스크린타임 권한을 허용하지 않은 경우,\n기능이 정상적으로 작동하지 않습니다.
+                """,
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText
         )
@@ -40,59 +44,6 @@ class PermissionView: UIView {
     let arrowImageView = UIImageView().then {
         $0.image = UIImage(systemName: "arrow.up")?.withRenderingMode(.alwaysTemplate)
         $0.tintColor = .systemBlue
-    }
-    
-    let alertView = UIView().then {
-        $0.backgroundColor = .starAlertBG
-        $0.layer.cornerRadius = 12
-        $0.clipsToBounds = true
-    }
-    
-    let alertTitleLabel = UILabel().then {
-        $0.text = "스크린타임에 접근하려고 함"
-        $0.font = UIFont.boldSystemFont(ofSize: 20)
-        $0.textColor = .starPrimaryText
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-    }
-    
-    let alertMessageLabel = UILabel().then {
-        $0.text = """
-                'STAR'에 스크린타임 접근을 허용하면,
-                이 앱이 사용자의 활동 데이터를 보고,
-                콘텐츠를 제한하며, 앱 및 웹사이트의
-                사용을 제한할 수도 있습니다.
-                """
-        $0.font = Fonts.permissionBody
-        $0.textColor = .starSecondaryText
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-    }
-    
-    let buttonStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.spacing = 0
-    }
-    
-    let dividerTop = UIView().then {
-        $0.backgroundColor = .darkGray
-    }
-    
-    let denyButton = UIButton(type: .system).then {
-        $0.setTitle("허용 안 함", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.titleLabel?.font = Fonts.modalSectionOption
-    }
-    
-    let allowButton = UIButton(type: .system).then {
-        $0.setTitle("허용", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.titleLabel?.font = Fonts.permissionBody
-    }
-    
-    let verticalDivider = UIView().then {
-        $0.backgroundColor = .darkGray
     }
     
     let footerLabel = UILabel().then {
@@ -134,18 +85,6 @@ class PermissionView: UIView {
             footerLabel,
             learnMoreButton
         )
-        alertHighlightView.addSubview(alertView)
-        alertView.addSubviews(
-            dividerTop,
-            alertTitleLabel,
-            alertMessageLabel,
-            buttonStackView
-        )
-        
-        buttonStackView.addArrangedSubviews(
-            denyButton, allowButton
-        )
-        buttonStackView.addSubview(verticalDivider)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(128)
@@ -153,55 +92,23 @@ class PermissionView: UIView {
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(40)
-            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        alertHighlightView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(40)
-        }
+//        alertHighlightView.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.centerY.equalToSuperview()
+//            $0.leading.trailing.equalToSuperview().inset(40)
+//        }
         
-        arrowImageView.snp.makeConstraints{
-            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
-            $0.centerX.equalTo(allowButton)
-            $0.width.equalTo(20)
-            $0.height.equalTo(40)
-        }
-        
-        alertView.snp.makeConstraints {
-            $0.edges.equalTo(alertHighlightView).inset(12)
-        }
-        
-        alertTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(alertView).offset(16)
-            $0.leading.trailing.equalTo(alertView).inset(12)
-        }
-        
-        alertMessageLabel.snp.makeConstraints {
-            $0.top.equalTo(alertTitleLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalTo(alertView).inset(12)
-        }
-        
-        dividerTop.snp.makeConstraints {
-            $0.top.equalTo(alertMessageLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalTo(alertView)
-            $0.height.equalTo(0.5)
-        }
-        
-        buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(dividerTop.snp.bottom)
-            $0.leading.trailing.bottom.equalTo(alertView)
-            $0.height.equalTo(44)
-        }
-        
-        verticalDivider.snp.makeConstraints {
-            $0.width.equalTo(0.5)
-            $0.centerX.equalTo(buttonStackView)
-            $0.top.bottom.equalTo(buttonStackView)
-        }
-        
+//        arrowImageView.snp.makeConstraints{
+//            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
+//            $0.centerX.equalTo(alertHighlightView)
+//            $0.width.equalTo(20)
+//            $0.height.equalTo(40)
+//        }
+    
         footerLabel.snp.makeConstraints {
             $0.bottom.equalTo(learnMoreButton.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview().inset(20)
