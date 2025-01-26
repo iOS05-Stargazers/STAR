@@ -22,7 +22,7 @@ class PermissionView: UIView {
     
     let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: "STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.",
+            fullText: "S T A R 가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.",
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText
         )
@@ -37,14 +37,9 @@ class PermissionView: UIView {
         $0.layer.cornerRadius = 12
     }
     
-    let arrowView = ArrowView().then {
-        $0.backgroundColor = .clear
-    }
-    
     let arrowImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "arrow.up")
+        $0.image = UIImage(systemName: "arrow.up")?.withRenderingMode(.alwaysTemplate)
         $0.tintColor = .systemBlue
-        $0.contentMode = .scaleAspectFit
     }
     
     let alertView = UIView().then {
@@ -54,26 +49,22 @@ class PermissionView: UIView {
     }
     
     let alertTitleLabel = UILabel().then {
-        $0.setStarHighlightedText(
-            fullText: "'STAR' 앱이 스크린 타임에 접근하려고 함",
-            font: UIFont.boldSystemFont(ofSize: 20),
-            color: UIColor.starPrimaryText
-        )
+        $0.text = "스크린타임에 접근하려고 함"
+        $0.font = UIFont.boldSystemFont(ofSize: 20)
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
     
     let alertMessageLabel = UILabel().then {
-        $0.setStarHighlightedText(
-            fullText: """
-                'STAR'에 스크린 타임 접근을 허용하면,
+        $0.text = """
+                'STAR'에 스크린타임 접근을 허용하면,
                 이 앱이 사용자의 활동 데이터를 보고,
                 콘텐츠를 제한하며, 앱 및 웹사이트의
                 사용을 제한할 수도 있습니다.
-                """,
-            font: Fonts.permissionBody,
-            color: UIColor.starSecondaryText
-        )
+                """
+        $0.font = Fonts.permissionBody
+        $0.textColor = .starSecondaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
@@ -176,6 +167,7 @@ class PermissionView: UIView {
             $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
             $0.centerX.equalTo(allowButton)
             $0.width.equalTo(20)
+            $0.height.equalTo(40)
         }
         
         alertView.snp.makeConstraints {
