@@ -43,7 +43,7 @@ class PermissionView: UIView {
     }
     
     let alertView = UIView().then {
-        $0.backgroundColor = .starModalBG
+        $0.backgroundColor = .starAlertBG
         $0.layer.cornerRadius = 12
         $0.clipsToBounds = true
     }
