@@ -82,7 +82,7 @@ class PermissionView: UIView {
     let denyButton = UIButton(type: .system).then {
         $0.setTitle("허용 안 함", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
-        $0.titleLabel?.font = Fonts.permissionBody
+        $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
     let allowButton = UIButton(type: .system).then {
@@ -154,7 +154,7 @@ class PermissionView: UIView {
         
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(40)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(24)
         }
         
         alertHighlightView.snp.makeConstraints {
@@ -203,7 +203,7 @@ class PermissionView: UIView {
         }
         
         footerLabel.snp.makeConstraints {
-            $0.bottom.equalTo(learnMoreButton.snp.top).offset(-16)
+            $0.bottom.equalTo(learnMoreButton.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
