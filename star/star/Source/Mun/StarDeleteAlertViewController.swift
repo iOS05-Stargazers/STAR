@@ -76,6 +76,7 @@ class StarDeleteAlertViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupAction()
     }
     
     // MARK: - 레이아웃 설정
@@ -125,5 +126,21 @@ class StarDeleteAlertViewController: UIViewController {
         deleteButton.snp.makeConstraints {
             $0.height.equalTo(44)
         }
+    }
+    
+    // 액션 연결
+    private func setupAction() {
+        cancelButton.addAction(UIAction { [weak self] _ in
+            self?.closeModal()
+        }, for: .touchUpInside)
+        
+        deleteButton.addAction(UIAction { [weak self] _ in
+            self?.closeModal()
+        }, for: .touchUpInside)
+    }
+    
+    // 모달 닫기
+    private func closeModal() {
+        dismiss(animated: true)
     }
 }
