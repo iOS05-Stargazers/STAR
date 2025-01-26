@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		23CC31AC2D40B3480026CF54 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 23CC31AB2D40B3480026CF54 /* Then */; };
 		23CC31AF2D40B3570026CF54 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23CC31AE2D40B3570026CF54 /* SnapKit */; };
+		23CF7FEF2D45DE110019D597 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FEE2D45DE110019D597 /* RxCocoa */; };
+		23CF7FF12D45DE110019D597 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF02D45DE110019D597 /* RxRelay */; };
+		23CF7FF32D45DE110019D597 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF22D45DE110019D597 /* RxSwift */; };
+		23CF7FF62D45DFDC0019D597 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF52D45DFDC0019D597 /* RxKeyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +74,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23CF7FEF2D45DE110019D597 /* RxCocoa in Frameworks */,
+				23CF7FF62D45DFDC0019D597 /* RxKeyboard in Frameworks */,
 				23CC31AC2D40B3480026CF54 /* Then in Frameworks */,
+				23CF7FF32D45DE110019D597 /* RxSwift in Frameworks */,
+				23CF7FF12D45DE110019D597 /* RxRelay in Frameworks */,
 				23CC31AF2D40B3570026CF54 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +142,10 @@
 			packageProductDependencies = (
 				23CC31AB2D40B3480026CF54 /* Then */,
 				23CC31AE2D40B3570026CF54 /* SnapKit */,
+				23CF7FEE2D45DE110019D597 /* RxCocoa */,
+				23CF7FF02D45DE110019D597 /* RxRelay */,
+				23CF7FF22D45DE110019D597 /* RxSwift */,
+				23CF7FF52D45DFDC0019D597 /* RxKeyboard */,
 			);
 			productName = star;
 			productReference = 71F41EDC2D3FC73300257988 /* star.app */;
@@ -220,6 +232,8 @@
 			packageReferences = (
 				23CC31AA2D40B3480026CF54 /* XCRemoteSwiftPackageReference "Then" */,
 				23CC31AD2D40B3570026CF54 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				23CF7FF42D45DFDC0019D597 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 71F41EDD2D3FC73300257988 /* Products */;
@@ -618,6 +632,22 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.8.0;
+			};
+		};
+		23CF7FF42D45DFDC0019D597 /* XCRemoteSwiftPackageReference "RxKeyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxKeyboard";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -630,6 +660,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23CC31AD2D40B3570026CF54 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		23CF7FEE2D45DE110019D597 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		23CF7FF02D45DE110019D597 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		23CF7FF22D45DE110019D597 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		23CF7FF52D45DFDC0019D597 /* RxKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CF7FF42D45DFDC0019D597 /* XCRemoteSwiftPackageReference "RxKeyboard" */;
+			productName = RxKeyboard;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
