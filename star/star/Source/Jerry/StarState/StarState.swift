@@ -29,7 +29,7 @@ extension StarState: Comparable {
     }
     
     static func == (lhs: StarState, rhs: StarState) -> Bool {
-        lhs.style == rhs.style && lhs.distance == rhs.distance
+        return lhs.style == rhs.style && lhs.distance == rhs.distance
     }
     
 }

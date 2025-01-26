@@ -12,12 +12,12 @@ import Foundation
 extension StarState {
     
     enum Style: CustomStringConvertible, Comparable {
-        case progress
+        case ongoing
         case pending
         
         var description: String {
             switch self {
-            case .progress: "진행중"
+            case .ongoing: "진행중"
             case .pending: "대기중"
             }
         }
