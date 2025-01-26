@@ -41,11 +41,12 @@ final class StarModalView: UIView {
     
     private lazy var nameLabel = makeLabel("이름")
     
-    let nameTextField = UITextField().then {
+    lazy var nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
         $0.textAlignment = .right
+        $0.setClearButton(mode: .whileEditing)
     }
     
     // appLockLabel, appLockButton를 담는 스택뷰
@@ -88,13 +89,13 @@ final class StarModalView: UIView {
         return button
     }
     
-    private lazy var mondayButton = makeButton("월")
-    private lazy var tuesdayButton = makeButton("화")
-    private lazy var wednesdayButton = makeButton("수")
-    private lazy var thursdayButton = makeButton("목")
-    private lazy var fridayButton = makeButton("금")
-    private lazy var saturdayButton = makeButton("토")
-    private lazy var sundayButton = makeButton("일")
+    lazy var mondayButton = makeButton("월")
+    lazy var tuesdayButton = makeButton("화")
+    lazy var wednesdayButton = makeButton("수")
+    lazy var thursdayButton = makeButton("목")
+    lazy var fridayButton = makeButton("금")
+    lazy var saturdayButton = makeButton("토")
+    lazy var sundayButton = makeButton("일")
     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
@@ -197,7 +198,7 @@ final class StarModalView: UIView {
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(64)
+            $0.top.equalToSuperview().offset(30)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -221,6 +222,7 @@ final class StarModalView: UIView {
         nameTextField.snp.makeConstraints {
             $0.centerY.equalTo(nameStackView)
             $0.trailing.equalTo(nameStackView).inset(16)
+            $0.width.equalTo(250)
         }
         
         appLockStackView.snp.makeConstraints {
@@ -260,16 +262,26 @@ final class StarModalView: UIView {
         }
 
         // 디바이스에 따라 요일 버튼 너비 조절
-        [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton].forEach { button in
+        [
+        mondayButton,
+        tuesdayButton,
+        wednesdayButton,
+        thursdayButton,
+        fridayButton,
+        saturdayButton,
+        sundayButton
+        ].forEach { button in
             button.snp.makeConstraints {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
             
+            // TODO: 추후 layoutIfNeeded 말고 다른 방법 적용하기
             button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
             button.layer.cornerRadius = button.frame.height / 2
             button.layer.masksToBounds = true
         }
+
 
         startTimeStackView.snp.makeConstraints {
             $0.top.equalTo(weekStackView.snp.bottom).offset(16)
@@ -306,15 +318,33 @@ final class StarModalView: UIView {
         }
         
         addStarButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalTo(safeAreaLayoutGuide)
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(20)
             $0.height.equalTo(56)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
         // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함 (여전히 중요)
         // direction 매개변수에 .horizontal 또는 .vertical을 넣어 그라디언트 적용 방향을 설정
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
+}
 
+// MARK: - 텍스트필드 삭제 버튼
+extension UITextField {
+    
+    func setClearButton(mode: UITextField.ViewMode) {
+        let clearButton = UIButton(type: .system)
+        clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        clearButton.contentMode = .scaleAspectFit
+        clearButton.addTarget(self, action: #selector(UITextField.clear(sender:)), for: .touchUpInside)
+        clearButton.tintColor = .starModalBG
+        self.rightView = clearButton
+        self.rightViewMode = mode
+    }
+    
+    @objc
+    private func clear(sender: AnyObject) {
+        self.text = ""
+    }
 }
