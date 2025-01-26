@@ -86,7 +86,7 @@ class PermissionView: UIView {
     }
     
     let allowButton = UIButton(type: .system).then {
-        $0.setTitle("계속", for: .normal)
+        $0.setTitle("허용", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
         $0.titleLabel?.font = Fonts.permissionBody
     }
