@@ -11,7 +11,7 @@ import RxCocoa
  
 class StarListViewModel {
         
-    private let starsRelay = PublishRelay<[Star]>()
+    private let starsRelay = BehaviorRelay<[Star]>(value: [])
     private let dateRelay = PublishRelay<Date>()
     private let disposeBag = DisposeBag()
 
@@ -32,7 +32,7 @@ extension StarListViewModel {
     }
     
     struct Output {
-        let star: Driver<[Star]>
+        let starDataSource: Driver<[Star]>
         let date: Driver<Date>
     }
     
@@ -44,7 +44,7 @@ extension StarListViewModel {
                 self.fetchDate()
             }).disposed(by: disposeBag)
         
-        return Output(star: starsRelay.asDriver(onErrorDriveWith: .empty()),
+        return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }

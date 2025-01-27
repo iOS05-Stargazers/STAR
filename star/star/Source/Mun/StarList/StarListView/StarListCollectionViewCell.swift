@@ -30,7 +30,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     }
     
     // 타이틀 라벨
-    private let titleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.text = "abcdeabcdeabcdea"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
