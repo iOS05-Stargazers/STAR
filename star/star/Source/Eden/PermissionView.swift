@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  PermissionView.swift
 //  star
 //
 //  Created by Eden on 1/24/25.
@@ -73,8 +73,8 @@ class PermissionView: UIView {
         addSubviews(
             titleLabel,
             descriptionLabel,
-//            alertHighlightView,
-//            arrowImageView,
+//          alertHighlightView,
+//          arrowImageView,
             footerLabel
         )
         

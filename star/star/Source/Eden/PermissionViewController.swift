@@ -1,5 +1,5 @@
 //
-//  OnboradingViewController.swift
+//  PermissionViewController.swift
 //  star
 //
 //  Created by Eden on 1/24/25.
@@ -7,8 +7,6 @@
 
 import UIKit
 import SnapKit
-import FamilyControls
-import DeviceActivity
 
 class PermissionViewController: UIViewController {
     
@@ -35,7 +33,11 @@ class PermissionViewController: UIViewController {
     private func requestScreenTimePermission() {
         if #available(iOS 15.0, *) {
             /// iOS 16.0 이상에서 권한 요청
-            familyControlsManager.requestAuthorization()
+            familyControlsManager.requestAuthorization(completionHandler: {
+                DispatchQueue.main.async {
+                    self.navigateToStarList()
+                }
+            })
         } else {
             /// iOS 15 미만일 경우 처리
             print("이 기능은 iOS 15.0 이상에서만 지원됩니다.")
