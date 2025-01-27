@@ -64,10 +64,13 @@ class PermissionViewController: UIViewController {
         }
         
         present(alert, animated: true) {
+            let updateAlertHighlightView = self.permissionView.updateAlertHighlightView
+            let alertWidth = alert.view.frame.width
             let alertHeight = alert.view.frame.height
             let alertCenterY = alert.view.frame.midY
+            
             DispatchQueue.main.async {
-                self.permissionView.updateAlertHighlightViewY(alertCenterY: alertCenterY, alertHeight: alertHeight)
+                updateAlertHighlightView(alertCenterY, alertWidth, alertHeight)
             }
         }
     }

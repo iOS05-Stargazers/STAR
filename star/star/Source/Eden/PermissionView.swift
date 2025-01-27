@@ -99,8 +99,6 @@ class PermissionView: UIView {
         
         alertHighlightView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(270 + 28)
-            $0.height.equalTo(195 + 28)
         }
         
         arrowImageView.snp.makeConstraints {
@@ -121,12 +119,14 @@ class PermissionView: UIView {
         }
     }
     
-    func updateAlertHighlightViewY(alertCenterY: CGFloat, alertHeight: CGFloat) {
+    func updateAlertHighlightView(alertCenterY: CGFloat, alertWidth:CGFloat, alertHeight: CGFloat) {
         let screenHeight = UIScreen.main.bounds.height
         let offset = alertCenterY - (screenHeight / 2)
         
         alertHighlightView.snp.makeConstraints{
             $0.centerY.equalToSuperview().offset(offset)
+            $0.width.equalTo(alertWidth + 28)
+            $0.height.equalTo(alertHeight + 28)
         }
         
         layoutIfNeeded()
