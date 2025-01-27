@@ -15,7 +15,6 @@ class PermissionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = permissionView
-        setupActions()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -23,17 +22,7 @@ class PermissionViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         showPermissionSystemAlert()
     }
-    
-    private func setupActions() {
-        permissionView.learnMoreButton.addTarget(self, action: #selector(navigateToStarList) , for: .touchUpInside)
-    }
-    
-    @objc
-    func navigateToStarList() {
-        let starListViewController = StarListViewController()
-        navigationController?.pushViewController(starListViewController, animated: false)
-    }
-    
+
     private func showPermissionSystemAlert() {
         let alert = UIAlertController(
             title: "'STAR' 앱이 스크린타임에 접근하려고 함",
@@ -73,6 +62,12 @@ class PermissionViewController: UIViewController {
                 updateAlertHighlightView(alertCenterY, alertWidth, alertHeight)
             }
         }
+    }
+    
+    @objc
+    func navigateToStarList() {
+        let starListViewController = StarListViewController()
+        navigationController?.pushViewController(starListViewController, animated: false)
     }
     
     // TODO: - 권한 설정 기능 구현
