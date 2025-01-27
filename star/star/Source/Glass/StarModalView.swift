@@ -58,7 +58,7 @@ final class StarModalView: UIView {
     
     private lazy var appLockLabel = makeLabel("앱 잠금")
     
-    private let appLockButton = UIButton(type: .system).then {
+    let appLockButton = UIButton(type: .system).then {
         $0.setTitle("없음 >", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
@@ -98,6 +98,8 @@ final class StarModalView: UIView {
     lazy var saturdayButton = makeButton("토")
     lazy var sundayButton = makeButton("일")
     
+    lazy var weekButtons: [UIButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
+     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -159,16 +161,10 @@ final class StarModalView: UIView {
         appLockButton
         ].forEach { appLockStackView.addSubview($0) }
         
-        // 요일
-        [
-        mondayButton,
-        tuesdayButton,
-        wednesdayButton,
-        thursdayButton,
-        fridayButton,
-        saturdayButton,
-        sundayButton
-        ].forEach { weekStackView.addArrangedSubview($0) }
+        // 반복 주기 - 요일버튼 추가
+        weekButtons.forEach {
+            weekStackView.addArrangedSubview($0)
+        }
         
         // 시작시간
         [
@@ -263,24 +259,11 @@ final class StarModalView: UIView {
         }
 
         // 디바이스에 따라 요일 버튼 너비 조절
-        [
-        mondayButton,
-        tuesdayButton,
-        wednesdayButton,
-        thursdayButton,
-        fridayButton,
-        saturdayButton,
-        sundayButton
-        ].forEach { button in
+        weekButtons.forEach { button in
             button.snp.makeConstraints {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
-            
-            // TODO: 추후 layoutIfNeeded 말고 다른 방법 적용하기
-//            button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
-//            button.layer.cornerRadius = button.frame.height / 2
-//            button.layer.masksToBounds = true
         }
 
         startTimeStackView.snp.makeConstraints {

@@ -7,18 +7,20 @@
 
 import Foundation
 import UIKit
-import SnapKit
+import RxSwift
+import RxCocoa
 
 class StarModalViewController: UIViewController {
     
-    // 텍스트필드 입력제한 수
-    private let textMaxLength = 16
-    
     private let modal = StarModalView()
-        
+    private let viewModel = StarModalViewModel()
+    private let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         setup()
         modal.nameTextField.delegate = self
+        bind()
+        setAction()
     }
     
     private func setup() {
@@ -37,15 +39,36 @@ extension StarModalViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+
+}
+
+// MARK: - ViewModel Bind
+
+extension StarModalViewController {
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 현재 입력된 텍스트
-        let currentText = textField.text ?? ""
+    private func bind() {
         
-        // 입력 변경에 따른 텍스트 계산
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+    }
+}
+
+// MARK: - Action
+
+extension StarModalViewController {
+    private func setAction() {
         
-        return updatedText.count <= textMaxLength
+        // 스타 이름 입력 텍스트필드
+        modal.nameTextField.rx.text.subscribe(onNext: { data in
+            guard let text = data else { return }
+            
+            // 16자 입력제한
+            if text.count > 16 {
+                self.modal.nameTextField.text = String(text.prefix(16))
+            }
+        }).disposed(by: disposeBag)
+        
+        // 앱 잠금 버튼
+        modal.appLockButton.rx.tap.withUnretained(self).bind { owner, _ in
+            print("앱 잠금 버튼 클릭")
+        }.disposed(by: disposeBag)
     }
 }
