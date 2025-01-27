@@ -25,10 +25,11 @@ extension Schedule: TestDescriptionConvertible {
             .joined(separator: ", ")
         
         return """
-[Schedule]
-startTime: \(startTime)
-finishTime: \(finishTime)
-weekDays: \(weekDays)
-"""
+                <Schedule>
+                startTime: \(startTime)
+                finishTime: \(finishTime)
+                weekDays: \(weekDays)
+                """
+        
     }
 }
