@@ -10,6 +10,15 @@ import SnapKit
 import Then
 
 final class StarModalView: UIView {
+    
+    // 모달 섹션 타이틀 생성 함수
+    private func makeLabel(_ title: String) -> UILabel {
+        let label = UILabel()
+        label.text = title
+        label.textColor = .starPrimaryText
+        label.font = Fonts.modalSectionTitle
+        return label
+    }
         
     private let titleLabel = UILabel().then {
         $0.text = "스타 생성"
@@ -30,17 +39,14 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private let nameLabel = UILabel().then {
-        $0.text = "이름"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var nameLabel = makeLabel("이름")
     
     let nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
         $0.textAlignment = .right
+        $0.setClearButton(mode: .whileEditing)
     }
     
     // appLockLabel, appLockButton를 담는 스택뷰
@@ -50,15 +56,11 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private let appLockLabel = UILabel().then {
-        $0.text = "앱 잠금"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var appLockLabel = makeLabel("앱 잠금")
     
     private let appLockButton = UIButton(type: .system).then {
         $0.setTitle("없음 >", for: .normal)
-        $0.setTitleColor(.lightGray, for: .normal)
+        $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
@@ -69,50 +71,43 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private let repeatCycleLabel = UILabel().then {
-        $0.text = "반복 주기"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var repeatCycleLabel = makeLabel("반복 주기")
     
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
         $0.axis = .horizontal
+        $0.distribution = .equalSpacing
     }
     
     // 요일 버튼 생성 함수
-    private func setButton(_ title: String) -> UIButton {
+    private func makeButton(_ title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
         button.backgroundColor = .starModalBG
-        button.layer.cornerRadius = 18
         button.titleLabel?.font = Fonts.modalDayOption
+        button.layer.cornerRadius = 18
         return button
     }
     
-    private lazy var mondayButton = setButton("월")
-    private lazy var tuesdayButton = setButton("화")
-    private lazy var wednesdayButton = setButton("수")
-    private lazy var thursdayButton = setButton("목")
-    private lazy var fridayButton = setButton("금")
-    private lazy var saturdayButton = setButton("토")
-    private lazy var sundayButton = setButton("일")
+    lazy var mondayButton = makeButton("월")
+    lazy var tuesdayButton = makeButton("화")
+    lazy var wednesdayButton = makeButton("수")
+    lazy var thursdayButton = makeButton("목")
+    lazy var fridayButton = makeButton("금")
+    lazy var saturdayButton = makeButton("토")
+    lazy var sundayButton = makeButton("일")
     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
     }
     
-    private let startTimeLabel = UILabel().then {
-        $0.text = "시작 시간"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var startTimeLabel = makeLabel("시작 시간")
     
     private let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
-        $0.tintColor = .starSecondaryText
+        $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
     
@@ -121,16 +116,21 @@ final class StarModalView: UIView {
         $0.axis = .horizontal
     }
     
-    private let endTimeLabel = UILabel().then {
-        $0.text = "종료 시간"
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionTitle
-    }
+    private lazy var endTimeLabel = makeLabel("종료 시간")
     
     private let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
-        $0.tintColor = .starSecondaryText
+        $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
+    }
+    
+    let addStarButton = GradientButton(type: .system).then {
+        $0.setTitle("생성하기", for: .normal)
+        $0.setTitleColor(.starPrimaryText, for: .normal)
+        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
     }
     
     // MARK: - 초기화
@@ -148,47 +148,58 @@ final class StarModalView: UIView {
         backgroundColor = .starModalBG
         
         // 이름
-        [nameLabel, nameTextField]
-            .forEach {
-                nameStackView.addSubview($0)
-            }
+        [
+        nameLabel,
+        nameTextField
+        ].forEach { nameStackView.addSubview($0) }
         
         // 앱 잠금
-        [appLockLabel, appLockButton]
-            .forEach {
-                appLockStackView.addSubview($0)
-            }
+        [
+        appLockLabel,
+        appLockButton
+        ].forEach { appLockStackView.addSubview($0) }
         
         // 요일
-        [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
-            .forEach {
-                weekStackView.addSubview($0)
-            }
+        [
+        mondayButton,
+        tuesdayButton,
+        wednesdayButton,
+        thursdayButton,
+        fridayButton,
+        saturdayButton,
+        sundayButton
+        ].forEach { weekStackView.addArrangedSubview($0) }
         
         // 시작시간
-        [startTimeLabel, startTimeButton]
-            .forEach {
-                startTimeStackView.addSubview($0)
-            }
+        [
+        startTimeLabel,
+        startTimeButton
+        ].forEach { startTimeStackView.addSubview($0) }
         
         // 종료시간
-        [endTimeLabel, endTimeButton]
-            .forEach {
-                endTimeStackView.addSubview($0)
-            }
+        [
+        endTimeLabel,
+        endTimeButton
+        ].forEach { endTimeStackView.addSubview($0) }
         
-        [repeatCycleLabel, weekStackView, startTimeStackView, endTimeStackView]
-            .forEach {
-                scheduleConfigStackView.addSubview($0)
-            }
+        [
+        repeatCycleLabel,
+        weekStackView,
+        startTimeStackView,
+        endTimeStackView
+        ].forEach { scheduleConfigStackView.addSubview($0) }
                 
-        [titleLabel, subtitleLabel, nameStackView, appLockStackView, scheduleConfigStackView]
-            .forEach {
-                addSubview($0)
-            }
+        [
+        titleLabel,
+        subtitleLabel,
+        nameStackView,
+        appLockStackView,
+        scheduleConfigStackView,
+        addStarButton
+        ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(64)
+            $0.top.equalToSuperview().offset(30)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -212,6 +223,7 @@ final class StarModalView: UIView {
         nameTextField.snp.makeConstraints {
             $0.centerY.equalTo(nameStackView)
             $0.trailing.equalTo(nameStackView).inset(16)
+            $0.width.equalTo(250)
         }
         
         appLockStackView.snp.makeConstraints {
@@ -246,57 +258,29 @@ final class StarModalView: UIView {
         weekStackView.snp.makeConstraints {
             $0.top.equalTo(repeatCycleLabel.snp.bottom).offset(12)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
-            $0.trailing.equalTo(scheduleConfigStackView.snp.leading).inset(16)
             $0.height.equalTo(36)
+            $0.width.equalTo(scheduleConfigStackView.snp.width).inset(16)
         }
-        
-        mondayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(weekStackView)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        tuesdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(mondayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        wednesdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(tuesdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        thursdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(wednesdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        fridayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(thursdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        saturdayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(fridayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
-        }
-        
-        sundayButton.snp.makeConstraints {
-            $0.top.equalTo(weekStackView)
-            $0.leading.equalTo(saturdayButton.snp.trailing).offset(13)
-            $0.width.equalTo(36)
-            $0.height.equalTo(36)
+
+        // 디바이스에 따라 요일 버튼 너비 조절
+        [
+        mondayButton,
+        tuesdayButton,
+        wednesdayButton,
+        thursdayButton,
+        fridayButton,
+        saturdayButton,
+        sundayButton
+        ].forEach { button in
+            button.snp.makeConstraints {
+                $0.top.equalTo(weekStackView)
+                $0.width.equalTo(button.snp.height)
+            }
+            
+            // TODO: 추후 layoutIfNeeded 말고 다른 방법 적용하기
+//            button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
+//            button.layer.cornerRadius = button.frame.height / 2
+//            button.layer.masksToBounds = true
         }
 
         startTimeStackView.snp.makeConstraints {
@@ -332,6 +316,34 @@ final class StarModalView: UIView {
             $0.centerY.equalTo(endTimeStackView)
             $0.trailing.equalTo(endTimeStackView.snp.trailing)
         }
+        
+        addStarButton.snp.makeConstraints {
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(20)
+            $0.height.equalTo(56)
+            $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
+        }
+        
+        // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함 (여전히 중요)
+        // direction 매개변수에 .horizontal 또는 .vertical을 넣어 그라디언트 적용 방향을 설정
+        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
+}
 
+// MARK: - 텍스트필드 삭제 버튼
+private extension UITextField {
+    
+    func setClearButton(mode: UITextField.ViewMode) {
+        let clearButton = UIButton(type: .system)
+        clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        clearButton.contentMode = .scaleAspectFit
+        clearButton.addTarget(self, action: #selector(UITextField.clear(sender:)), for: .touchUpInside)
+        clearButton.tintColor = .starModalBG
+        self.rightView = clearButton
+        self.rightViewMode = mode
+    }
+    
+    @objc
+    private func clear(sender: AnyObject) {
+        self.text = ""
+    }
 }

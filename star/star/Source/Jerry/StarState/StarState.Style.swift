@@ -10,7 +10,7 @@ import Foundation
 // MARK: - StarState.Style
 
 extension StarState {
-    
+    // Star 진행 상태 열거형
     enum Style: CustomStringConvertible, Comparable {
         case ongoing
         case pending
