@@ -17,6 +17,8 @@ class StarListViewModel {
 
     // 스타 fetch
     private func fetchStars() {
+        let testData = [MockData.star1, MockData.star2]
+        starsRelay.accept(testData)
     }
     
     // 날짜 fetch
