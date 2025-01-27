@@ -7,63 +7,38 @@
 
 import UIKit
 import SnapKit
+import FamilyControls
+import DeviceActivity
 
 class PermissionViewController: UIViewController {
     
     private let permissionView = PermissionView()
+    private let familyControlsManager = FamilyControlsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view = permissionView
+        /// 다크모드 강제 설정
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .dark
+            view.overrideUserInterfaceStyle = .dark
+            navigationController?.overrideUserInterfaceStyle = .dark
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        showPermissionSystemAlert()
+        requestScreenTimePermission()
     }
-
-    private func showPermissionSystemAlert() {
-        let alert = UIAlertController(
-            title: "'STAR' 앱이 스크린타임에 접근하려고 함",
-            message: """
-                    'STAR'에 스크린타임 접근을 허용하면,
-                    이 앱이 사용자의 활동 데이터를 보고,
-                    콘텐츠를 제한하며, 앱 및 웹사이트의
-                    사용을 제한할 수도 있습니다.
-                    """,
-            preferredStyle: .alert
-        )
-        
-        let denyAction = UIAlertAction(title: "허용 안 함", style: .cancel, handler: { _ in
-            self.navigateToStarList()
-        })
-        alert.addAction(denyAction)
-        
-        let allowAction = UIAlertAction(title: "허용", style: .default, handler: { _ in
-            print("허용")
-        })
-        alert.addAction(allowAction)
-        
-        alert.preferredAction = allowAction
-        
-        /// 다크모드
-        if #available(iOS 13.0, *) {
-            alert.overrideUserInterfaceStyle = .dark
-        }
-        
-        present(alert, animated: true) {
-            let updateAlertHighlightView = self.permissionView.updateAlertHighlightView
-            let updateFooterLabel = self.permissionView.updateFooterLabel
-            let screenHeight = UIScreen.main.bounds.height
-            let alertWidth = alert.view.frame.width
-            let alertHeight = alert.view.frame.height
-            let alertCenterY = alert.view.frame.midY
-            
-            DispatchQueue.main.async {
-                updateAlertHighlightView(screenHeight, alertCenterY, alertWidth, alertHeight)
-                updateFooterLabel(screenHeight, alertCenterY, alertHeight)
-            }
+    
+    private func requestScreenTimePermission() {
+        if #available(iOS 15.0, *) {
+            /// iOS 16.0 이상에서 권한 요청
+            familyControlsManager.requestAuthorization()
+        } else {
+            /// iOS 15 미만일 경우 처리
+            print("이 기능은 iOS 15.0 이상에서만 지원됩니다.")
         }
     }
     
@@ -71,12 +46,5 @@ class PermissionViewController: UIViewController {
     func navigateToStarList() {
         let starListViewController = StarListViewController()
         navigationController?.pushViewController(starListViewController, animated: false)
-    }
-    
-    // TODO: - 권한 설정 기능 구현
-    
-    @objc
-    func allowButtonTapped() {
-        print("계속")
     }
 }

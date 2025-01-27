@@ -73,8 +73,8 @@ class PermissionView: UIView {
         addSubviews(
             titleLabel,
             descriptionLabel,
-            alertHighlightView,
-            arrowImageView,
+//            alertHighlightView,
+//            arrowImageView,
             footerLabel
         )
         
@@ -88,42 +88,21 @@ class PermissionView: UIView {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        alertHighlightView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-        }
-        
-        arrowImageView.snp.makeConstraints {
-            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
-            $0.centerX.equalToSuperview().offset(67.5)
-            $0.width.equalTo(24)
-            $0.height.equalTo(40)
-        }
-    }
-    
-    func updateFooterLabel(screenHeight: CGFloat, alertCenterY: CGFloat, alertHeight: CGFloat) {
-        /// 14는 alertHeight에 alertHighlightView에 더해준 28 / 2
-        let offset = alertCenterY - (screenHeight / 2) + 14
-
-        let midY = alertCenterY + alertHeight + (offset / 2)
+//        alertHighlightView.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.centerY.equalToSuperview()
+//        }
+//        
+//        arrowImageView.snp.makeConstraints {
+//            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
+//            $0.centerX.equalToSuperview().offset(67.5)
+//            $0.width.equalTo(24)
+//            $0.height.equalTo(40)
+//        }
         
         footerLabel.snp.makeConstraints {
-            $0.centerY.equalTo(midY)
+            $0.bottom.equalToSuperview().offset(-80)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
-        
-        layoutIfNeeded()
-    }
-    
-    func updateAlertHighlightView(screenHeight: CGFloat, alertCenterY: CGFloat, alertWidth:CGFloat, alertHeight: CGFloat) {
-
-        let offset = alertCenterY - (screenHeight / 2)
-        
-        alertHighlightView.snp.makeConstraints{
-            $0.centerY.equalToSuperview().offset(offset)
-            $0.width.equalTo(alertWidth + 28)
-            $0.height.equalTo(alertHeight + 28)
-        }
-        
-        layoutIfNeeded()
     }
 }
