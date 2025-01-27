@@ -10,8 +10,14 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class DefaultViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
+    
+    private let bundle = Bundle()
     
     private let mainLogoLabel = UILabel().then {
         $0.text = "STAR"
@@ -33,6 +39,7 @@ class DefaultViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         setupUI()
+        setupBindings()
     }
 
     private func setupUI() {
@@ -57,5 +64,13 @@ class DefaultViewController: UIViewController {
         // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
+        
+        private func setupBindings() {
+            addStarButton.rx.tap
+                .subscribe(onNext: { [weak self] in
+                    print("\(self?.bundle.appGroupName ?? "")")
+                })
+                .disposed(by: disposeBag)
+        }
 }
 

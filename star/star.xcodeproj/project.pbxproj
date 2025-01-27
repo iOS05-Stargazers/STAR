@@ -385,6 +385,8 @@
 		};
 		71F41F0B2D3FC73500257988 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 71F41EDE2D3FC73300257988 /* star */;
+			baseConfigurationReferenceRelativePath = App/XCConfig/shared.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -448,6 +450,8 @@
 		};
 		71F41F0C2D3FC73500257988 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 71F41EDE2D3FC73300257988 /* star */;
+			baseConfigurationReferenceRelativePath = App/XCConfig/shared.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
