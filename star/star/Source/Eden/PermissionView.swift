@@ -13,14 +13,14 @@ class PermissionView: UIView {
     
     // MARK: - UI Components
     
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.text = "스크린타임 권한을 설정해주세요."
         $0.font = Fonts.permissionTitle
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
-}
+    }
     
-    let descriptionLabel = UILabel().then {
+    private let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
             fullText: """
                 STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.
@@ -38,15 +38,16 @@ class PermissionView: UIView {
         $0.backgroundColor = .clear
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.systemBlue.cgColor
-        $0.layer.cornerRadius = 12
+        $0.layer.cornerRadius = 20
+        $0.isHidden = false
     }
     
-    let arrowImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "arrow.up")?.withRenderingMode(.alwaysTemplate)
-        $0.tintColor = .systemBlue
+    private let arrowImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "arrow.up")?.withTintColor(.systemBlue).withRenderingMode(.alwaysOriginal)
+        $0.isHidden = false
     }
     
-    let footerLabel = UILabel().then {
+    private let footerLabel = UILabel().then {
         $0.text = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다."
         $0.font = Fonts.permissionBody
         $0.textColor = .starSecondaryText
@@ -73,7 +74,7 @@ class PermissionView: UIView {
     
     // MARK: - Setup UI
     
-    private func setupUI() {
+    func setupUI() {
         guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
         backgroundColor = UIColor(patternImage: backgroundImage)
         
@@ -96,19 +97,19 @@ class PermissionView: UIView {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-//        alertHighlightView.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.centerY.equalToSuperview()
-//            $0.leading.trailing.equalToSuperview().inset(40)
-//        }
+        alertHighlightView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(270 + 28)
+            $0.height.equalTo(195 + 28)
+        }
         
-//        arrowImageView.snp.makeConstraints{
-//            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
-//            $0.centerX.equalTo(alertHighlightView)
-//            $0.width.equalTo(20)
-//            $0.height.equalTo(40)
-//        }
-    
+        arrowImageView.snp.makeConstraints {
+            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
+            $0.centerX.equalToSuperview().offset(67.5)
+            $0.width.equalTo(24)
+            $0.height.equalTo(40)
+        }
+        
         footerLabel.snp.makeConstraints {
             $0.bottom.equalTo(learnMoreButton.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview().inset(20)
@@ -118,5 +119,16 @@ class PermissionView: UIView {
             $0.bottom.equalToSuperview().inset(40)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    func updateAlertHighlightViewY(alertCenterY: CGFloat, alertHeight: CGFloat) {
+        let screenHeight = UIScreen.main.bounds.height
+        let offset = alertCenterY - (screenHeight / 2)
+        
+        alertHighlightView.snp.makeConstraints{
+            $0.centerY.equalToSuperview().offset(offset)
+        }
+        
+        layoutIfNeeded()
     }
 }
