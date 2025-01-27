@@ -41,7 +41,7 @@ final class StarModalView: UIView {
     
     private lazy var nameLabel = makeLabel("이름")
     
-    lazy var nameTextField = UITextField().then {
+    let nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
@@ -86,6 +86,7 @@ final class StarModalView: UIView {
         button.setTitleColor(.starSecondaryText, for: .normal)
         button.backgroundColor = .starModalBG
         button.titleLabel?.font = Fonts.modalDayOption
+        button.layer.cornerRadius = 18
         return button
     }
     
@@ -277,11 +278,10 @@ final class StarModalView: UIView {
             }
             
             // TODO: 추후 layoutIfNeeded 말고 다른 방법 적용하기
-            button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
-            button.layer.cornerRadius = button.frame.height / 2
-            button.layer.masksToBounds = true
+//            button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
+//            button.layer.cornerRadius = button.frame.height / 2
+//            button.layer.masksToBounds = true
         }
-
 
         startTimeStackView.snp.makeConstraints {
             $0.top.equalTo(weekStackView.snp.bottom).offset(16)
@@ -318,7 +318,6 @@ final class StarModalView: UIView {
         }
         
         addStarButton.snp.makeConstraints {
-            $0.centerX.equalTo(safeAreaLayoutGuide)
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(20)
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
@@ -331,7 +330,7 @@ final class StarModalView: UIView {
 }
 
 // MARK: - 텍스트필드 삭제 버튼
-extension UITextField {
+private extension UITextField {
     
     func setClearButton(mode: UITextField.ViewMode) {
         let clearButton = UIButton(type: .system)
