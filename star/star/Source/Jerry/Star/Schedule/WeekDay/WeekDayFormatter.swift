@@ -10,7 +10,7 @@ import Foundation
 // MARK: - WeekDayFormatter
 
 struct WeekDayFormatter {
-
+    
     static func korean(_ weekDay: WeekDay) -> String {
         switch weekDay {
         case .mon:

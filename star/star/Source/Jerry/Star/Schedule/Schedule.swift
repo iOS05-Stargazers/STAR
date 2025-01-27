@@ -14,3 +14,22 @@ struct Schedule {
     let finishTime: StarTime
     let weekDays: Set<WeekDay>
 }
+
+extension Schedule: TestDescriptionConvertible {
+    var testDescription: String {
+        let startTime = startTime.testDescription
+        let finishTime = finishTime.testDescription
+        let weekDays = weekDays
+            .sorted(by: <)
+            .map { $0.korean }
+            .joined(separator: ", ")
+        
+        return """
+                <Schedule>
+                startTime: \(startTime)
+                finishTime: \(finishTime)
+                weekDays: \(weekDays)
+                """
+        
+    }
+}
