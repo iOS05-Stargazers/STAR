@@ -12,6 +12,7 @@ import Foundation
 struct StarState {
     // 상태 ( 연산 프로퍼티 예정 )
     var style: Style
+    // 남은 시간
     var distance: TimeInterval
     
     init(style: Style, distance: TimeInterval) {
@@ -21,6 +22,7 @@ struct StarState {
     
 }
 
+// 진행중, 대기중, 남은 시간에 따른 정렬을 위해 Comparable 채택
 extension StarState: Comparable {
     
     static func < (lhs: StarState, rhs: StarState) -> Bool {

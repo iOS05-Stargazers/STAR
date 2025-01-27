@@ -16,10 +16,24 @@ struct Star {
     let schedule: Schedule
 }
 
+extension Star: TestDescriptionConvertible {
+    var testDescription: String {
+        """
+        <Star>
+        ID: \(identifier.uuidString)
+        title: \(title)
+        blockList: \(blockList.map { $0.uuidString })
+        schedule:
+        \(schedule.testDescription)
+        """
+    }
+    
+}
+
 // MARK: - StarID
 
 typealias StarID = UUID
 
-// MARK: - AppID
+// MARK: - AppID ( FamilyControl API의 앱 식별 타입에 따라 변경 예정 )
 
 typealias AppID = UUID
