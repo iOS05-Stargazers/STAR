@@ -52,7 +52,7 @@ class PermissionView: UIView {
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
-
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -98,15 +98,24 @@ class PermissionView: UIView {
             $0.width.equalTo(24)
             $0.height.equalTo(40)
         }
-        
-        footerLabel.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(80)
-            $0.leading.trailing.equalToSuperview().inset(20)
-        }
     }
     
-    func updateAlertHighlightView(alertCenterY: CGFloat, alertWidth:CGFloat, alertHeight: CGFloat) {
-        let screenHeight = UIScreen.main.bounds.height
+    func updateFooterLabel(screenHeight: CGFloat, alertCenterY: CGFloat, alertHeight: CGFloat) {
+        /// 14는 alertHeight에 alertHighlightView에 더해준 28 / 2
+        let offset = alertCenterY - (screenHeight / 2) + 14
+
+        let midY = alertCenterY + alertHeight + (offset / 2)
+        
+        footerLabel.snp.makeConstraints {
+            $0.centerY.equalTo(midY)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        layoutIfNeeded()
+    }
+    
+    func updateAlertHighlightView(screenHeight: CGFloat, alertCenterY: CGFloat, alertWidth:CGFloat, alertHeight: CGFloat) {
+
         let offset = alertCenterY - (screenHeight / 2)
         
         alertHighlightView.snp.makeConstraints{
