@@ -8,16 +8,21 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
 
 class StarListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI 컴포넌트
     
     static let id = "StarListCollectionViewCell"
+    
+    private let viewModel = StarListCollectionViewCellViewModel()
+    private let disposebag = DisposeBag()
 
     // 태그 뷰
     private let tagView = GradientView().then {
         $0.layer.cornerRadius = 8
+        $0.backgroundColor = .starDisabledTagBG
         $0.clipsToBounds = true
     }
     
@@ -57,6 +62,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        startTimer()
     }
     
     required init?(coder: NSCoder) {
@@ -107,5 +113,34 @@ class StarListCollectionViewCell: UICollectionViewCell {
         }
         
         tagView.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
+    }
+}
+
+
+extension StarListCollectionViewCell {
+    private func startTimer() {
+        let output = viewModel.transform()
+        
+        output.timer
+            .drive(onNext: { time in
+                self.timeLabel.text  = "\(time)"
+            })
+            .disposed(by: disposebag)
+        
+        output.state
+            .drive(onNext: { state in
+                switch state {
+                case .test:
+                    self.tagLabel.text = "진행중"
+                    self.tagView.gradientLayer.isHidden = false
+                    self.timerImageView.isHidden = false
+
+                case .test2:
+                    self.tagLabel.text = "대기중"
+                    self.tagView.gradientLayer.isHidden = true
+                    self.timerImageView.isHidden = true
+                }
+            })
+            .disposed(by: disposebag)
     }
 }

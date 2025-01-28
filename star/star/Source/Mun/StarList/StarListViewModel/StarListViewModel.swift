@@ -9,10 +9,12 @@ import Foundation
 import RxSwift
 import RxCocoa
  
+ // 셀 뷰모델   
 class StarListViewModel {
         
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
     private let dateRelay = PublishRelay<Date>()
+    private let starStatus = PublishRelay<StarState>()
     private let disposeBag = DisposeBag()
 
     // 스타 fetch
