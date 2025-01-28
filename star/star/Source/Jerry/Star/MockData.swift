@@ -15,11 +15,11 @@ struct MockData {
     static let starTime2 = StarTime(hour: 10, minute: 10)
     static let starTime3 = StarTime(from: "10:10")
     
-    static let schedule1 = Schedule(startTime: StarTime(from: "10:30"),
-                                    finishTime: StarTime(from: "11:30"),
-                                    weekDays: [.mon, .thu])
-    static let schedule2 = Schedule(startTime: StarTime(from: "10:30"),
-                                    finishTime: StarTime(from: "11:30"),
+    static let schedule1 = Schedule(startTime: StarTime(from: "23:58"),
+                                    finishTime: StarTime(from: "23:59"),
+                                    weekDays: [.thu])
+    static let schedule2 = Schedule(startTime: StarTime(from: "00:00"),
+                                    finishTime: StarTime(from: "23:59"),
                                     weekDays: Set<WeekDay>(WeekDay.allCases))
     
     static let star1 = { Star(identifier: starID,

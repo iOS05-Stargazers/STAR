@@ -10,14 +10,15 @@ import Foundation
 // MARK: - StarState
 
 struct StarState {
-    // 상태 ( 연산 프로퍼티 예정 )
-    var style: Style
+    // 상태
+    let style: Style
     // 남은 시간
-    var distance: TimeInterval
-    
-    init(style: Style, distance: TimeInterval) {
-        self.style = style
-        self.distance = distance
+    let interval: TimeInterval
+        
+    init(schedule: Schedule) {
+        let starState = ScheduleCalculator.starState(schedule: schedule)
+        self.style = starState.style
+        self.interval = starState.interval
     }
     
 }
@@ -27,11 +28,11 @@ extension StarState: Comparable {
     
     static func < (lhs: StarState, rhs: StarState) -> Bool {
         guard lhs.style <= rhs.style else { return false }
-        return lhs.distance < rhs.distance
+        return lhs.interval < rhs.interval
     }
     
     static func == (lhs: StarState, rhs: StarState) -> Bool {
-        lhs.style == rhs.style && lhs.distance == rhs.distance
+        return lhs.style == rhs.style && lhs.interval == rhs.interval
     }
     
 }

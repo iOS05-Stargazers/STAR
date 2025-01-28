@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Then
 
 // MARK: - StarTimeFormatter
 
