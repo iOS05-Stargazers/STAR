@@ -19,8 +19,6 @@ class PermissionViewController: UIViewController {
         /// 다크모드 강제 설정
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .dark
-            view.overrideUserInterfaceStyle = .dark
-            navigationController?.overrideUserInterfaceStyle = .dark
         }
     }
     
@@ -41,6 +39,18 @@ class PermissionViewController: UIViewController {
         } else {
             /// iOS 15 미만일 경우 처리
             print("이 기능은 iOS 15.0 이상에서만 지원됩니다.")
+            let alert = UIAlertController(
+                title: "지원되지 않는 버전",
+                message: "이 기능은 iOS 15.0 이상에서만 지원됩니다.\n최신 버전으로 업데이트해주세요.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                self.navigateToStarList()
+            }))
+            
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
