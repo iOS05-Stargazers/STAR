@@ -10,14 +10,13 @@ import FamilyControls
 import RxSwift
 import RxCocoa
 
-final class DYFamilyControlsManager: ObservableObject {
+final class DYFamilyControlsManager {
     static let shared = DYFamilyControlsManager()
     private init() {}
 
     private let authorizationCenter = AuthorizationCenter.shared
     private let disposeBag = DisposeBag()
     
-    // MARK: - ScreenTime 권한 상태를 활용하기 위한 멤버 변수
     let hasScreenTimePermission = BehaviorSubject<Bool>(value: false)
     
     // MARK: - ScreenTime API 사용 권한 요청
