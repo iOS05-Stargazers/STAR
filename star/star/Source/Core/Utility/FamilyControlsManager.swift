@@ -10,8 +10,8 @@ import FamilyControls
 import RxSwift
 import RxCocoa
 
-class FamilyControlsManager: ObservableObject {
-    static let shared = FamilyControlsManager()
+final class DYFamilyControlsManager: ObservableObject {
+    static let shared = DYFamilyControlsManager()
     private init() {}
 
     private let authorizationCenter = AuthorizationCenter.shared
