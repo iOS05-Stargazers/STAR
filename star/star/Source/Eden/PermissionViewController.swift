@@ -16,10 +16,6 @@ class PermissionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = permissionView
-        /// 다크모드 강제 설정
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .dark
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
