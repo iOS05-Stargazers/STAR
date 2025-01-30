@@ -21,12 +21,9 @@ struct ScheduleCalculator {
         let state: StarState.Style
         for weekDay in schedule.weekDays {
             if contains(weekDay: weekDay, startTime: startTime, finishTime: finishTime) {
-                print(contains(weekDay: weekDay, startTime: startTime, finishTime: finishTime))
                 return .ongoing
             }
-            print(contains(weekDay: weekDay, startTime: startTime, finishTime: finishTime))
         }
-        
         return .pending
     }
 //    guard weekDay == WeekDay(from: .now) else { return false }
@@ -35,7 +32,7 @@ struct ScheduleCalculator {
     private static func ongoingInterval(_ schedule: Schedule) -> TimeInterval {
         let intervals: [TimeInterval] = schedule.weekDays
             .compactMap {
-                Self.interval(weekDay: $0, starTime: schedule.startTime) }
+                Self.interval(weekDay: $0, starTime: schedule.finishTime) }
             .sorted(by: <)
         return intervals.first ?? 0
     }
@@ -43,7 +40,7 @@ struct ScheduleCalculator {
     private static func pendingInterval(_ schedule: Schedule) -> TimeInterval {
         let intervals: [TimeInterval] = schedule.weekDays
             .compactMap {
-                Self.interval(weekDay: $0, starTime: schedule.finishTime) }
+                Self.interval(weekDay: $0, starTime: schedule.startTime) }
             .sorted(by: <)
         return intervals.first ?? 0
     }
@@ -86,7 +83,7 @@ struct ScheduleCalculator {
     private static func nowString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
-        dateFormatter.dateFormat = "hh:mm"
+        dateFormatter.dateFormat = "HH:mm"
         let todayLabel = dateFormatter.string(from: Date.now)
         return todayLabel
     }
