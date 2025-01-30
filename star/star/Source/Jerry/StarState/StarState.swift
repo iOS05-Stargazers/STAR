@@ -27,7 +27,9 @@ struct StarState {
 extension StarState: Comparable {
     
     static func < (lhs: StarState, rhs: StarState) -> Bool {
-        guard lhs.style <= rhs.style else { return false }
+        guard lhs.style == rhs.style else { return
+            lhs.style < rhs.style
+        }
         return lhs.interval < rhs.interval
     }
     
