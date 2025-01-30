@@ -80,13 +80,15 @@ final class StarModalView: UIView {
     }
     
     // 요일 버튼 생성 함수
-    private func makeButton(_ title: String) -> UIButton {
-        let button = UIButton(type: .system)
+    private func makeButton(_ title: String) -> GradientButton {
+        let button = GradientButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
-        button.backgroundColor = .starModalBG
         button.titleLabel?.font = Fonts.modalDayOption
         button.layer.cornerRadius = 18
+        button.clipsToBounds = true
+        button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        button.tag = 0 //버튼 활성화 여부 체크시 사용. 0 -> 클릭(X), 1 -> 클릭(O)
         return button
     }
     
@@ -98,7 +100,7 @@ final class StarModalView: UIView {
     lazy var saturdayButton = makeButton("토")
     lazy var sundayButton = makeButton("일")
     
-    lazy var weekButtons: [UIButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
+    lazy var weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
      
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
@@ -133,6 +135,7 @@ final class StarModalView: UIView {
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
+        $0.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
     
     // MARK: - 초기화
@@ -305,10 +308,6 @@ final class StarModalView: UIView {
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
-        
-        // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함 (여전히 중요)
-        // direction 매개변수에 .horizontal 또는 .vertical을 넣어 그라디언트 적용 방향을 설정
-        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
 
