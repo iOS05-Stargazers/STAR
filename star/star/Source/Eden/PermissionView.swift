@@ -23,7 +23,7 @@ class PermissionView: UIView {
     private let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
             fullText: """
-                STAR가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.
+                S T A R 가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.
                 """,
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText

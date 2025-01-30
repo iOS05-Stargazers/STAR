@@ -8,6 +8,7 @@
 import UIKit
 
 extension UILabel {
+    /// 로고 글자 대치 후 글씨체 변경하는  extension
     func setStarHighlightedText(fullText: String, font: UIFont, color: UIColor) {
         let attributedString = NSMutableAttributedString(string: fullText)
         attributedString.addAttribute(.font, value: font, range: NSRange(location: 0, length: fullText.count))
