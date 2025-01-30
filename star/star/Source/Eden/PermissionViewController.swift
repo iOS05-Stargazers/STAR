@@ -28,28 +28,11 @@ class PermissionViewController: UIViewController {
         requestScreenTimePermission()
     }
     
+    /// 권한 설정 요청 메서드
     private func requestScreenTimePermission() {
-        if #available(iOS 15.0, *) {
-            /// iOS 16.0 이상에서 권한 요청
-            familyControlsManager.requestAuthorization(completionHandler: {
-                DispatchQueue.main.async {
-                    self.navigateToStarList()
-                }
-            })
-        } else {
-            /// iOS 15 미만일 경우 처리
-            print("이 기능은 iOS 15.0 이상에서만 지원됩니다.")
-            let alert = UIAlertController(
-                title: "지원되지 않는 버전",
-                message: "이 기능은 iOS 15.0 이상에서만 지원됩니다.\n최신 버전으로 업데이트해주세요.",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                self.navigateToStarList()
-            }))
-            
+        familyControlsManager.requestAuthorization { [weak self] in
             DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
+                self?.navigateToStarList()
             }
         }
     }
