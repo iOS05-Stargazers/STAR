@@ -39,13 +39,13 @@ extension StarListViewController {
         let input = StarListViewModel.Input(viewWillAppear: viewWillAppears)
         let output = viewModel.transform(input)
         
-        
         // 컬렉션뷰 데이터 바인딩
         output.starDataSource
             .drive(starListView.starListCollectionView.rx.items(
                 cellIdentifier: StarListCollectionViewCell.id,
                 cellType: StarListCollectionViewCell.self)) { row, element, cell in
                     cell.titleLabel.text = element.title
+                    cell.viewModel(star: element)
                 }
                 .disposed(by: disposeBag)
         

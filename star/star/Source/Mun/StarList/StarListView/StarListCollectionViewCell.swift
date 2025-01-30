@@ -16,7 +16,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     static let id = "StarListCollectionViewCell"
     
-    private let viewModel = StarListCollectionViewCellViewModel()
+    private var viewModel: StarListCollectionViewCellViewModel?
     private let disposebag = DisposeBag()
 
     // 태그 뷰
@@ -62,7 +62,6 @@ class StarListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        startTimer()
     }
     
     required init?(coder: NSCoder) {
@@ -119,7 +118,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
 
 extension StarListCollectionViewCell {
     private func startTimer() {
-        let output = viewModel.transform()
+        let output = viewModel!.transform()
         
         output.timer
             .drive(onNext: { time in
@@ -130,17 +129,23 @@ extension StarListCollectionViewCell {
         output.state
             .drive(onNext: { state in
                 switch state {
-                case .test:
+                case .ongoing:
                     self.tagLabel.text = "진행중"
                     self.tagView.gradientLayer.isHidden = false
                     self.timerImageView.isHidden = false
 
-                case .test2:
+                case .pending:
                     self.tagLabel.text = "대기중"
                     self.tagView.gradientLayer.isHidden = true
                     self.timerImageView.isHidden = true
                 }
             })
             .disposed(by: disposebag)
+    }
+    
+    func viewModel(star: Star) {
+        self.viewModel = StarListCollectionViewCellViewModel(star: star)
+        startTimer()
+
     }
 }

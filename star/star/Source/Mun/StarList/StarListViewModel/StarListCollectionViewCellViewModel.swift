@@ -10,30 +10,33 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-enum State {
-    case test
-    case test2
-}
-
 class StarListCollectionViewCellViewModel {
-    private let state = PublishRelay<State>()
+    private let state = PublishRelay<StarState.Style>()
     private let time = PublishRelay<String>()
-    private var testTime = 10
+    private var testTime = 0.0
+    private let star: Star
 
     
-    init() {
+    init(star: Star) {
+        self.star = star
         changeTime()
     }
     
     private func changeTime() {
+        print(Date.now)
+        testTime = star.state().interval
         let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {_ in
-            self.time.accept("\(self.testTime)")
-            self.testTime += 1
-            self.state.accept(State.test2)
 
+            self.state.accept(self.star.state().style)
+            
+            if self.star.state().style == .ongoing {
+                self.time.accept("\(StarStateFormatter.hhmmss(self.testTime))")
+            } else {
+                self.time.accept("\(StarStateFormatter.korean(self.testTime))")
+            }
+            self.testTime -= 1
         })
         
-        state.accept(State.test2)
     }
     
     func transform() -> Output {
@@ -44,7 +47,7 @@ class StarListCollectionViewCellViewModel {
     
     struct Output {
         let timer: Driver<String>
-        let state: Driver<State>
+        let state: Driver<StarState.Style>
     }
     
 }

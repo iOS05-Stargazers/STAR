@@ -19,8 +19,9 @@ class StarListViewModel {
 
     // 스타 fetch
     private func fetchStars() {
-        let testData = [MockData.star1, MockData.star2]
-        starsRelay.accept(testData)
+        let testData = [MockData.star1, MockData.star2, MockData.star1]
+        let sortedData = testData.sorted { $0.state() < $1.state() }
+        starsRelay.accept(sortedData)
     }
     
     // 날짜 fetch
