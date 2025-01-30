@@ -18,7 +18,9 @@ struct Star {
     func state() -> StarState {
         return StarState(schedule: self.schedule)
     }
+    
 }
+
 
 extension Star: TestDescriptionConvertible {
     var testDescription: String {
