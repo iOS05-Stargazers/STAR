@@ -18,18 +18,7 @@ struct Star {
     func state() -> StarState {
         return StarState(schedule: self.schedule)
     }
-    
-//    init?(from starEntity: StarEntity) {
-//        guard let id = starEntity.id,
-//              let name = starEntity.name,
-//              let appList = starEntity.appList?.components(separatedBy: ", ").compactMap({ UUID(uuidString: $0) }),
-//              let schedule = Schedule(from: starEntity) else { return nil }
-//        self.identifier = id
-//        self.title = name
-//        self.blockList = appList
-//        self.schedule = schedule
-//    }
-//    
+
 }
 
 

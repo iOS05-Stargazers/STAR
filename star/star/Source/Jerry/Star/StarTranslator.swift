@@ -45,6 +45,7 @@ struct StarTranslator {
                     blockList: appList,
                     schedule: schedule)
     }
+    
     // 코어데이터 형식을 통해 스케줄 데이터 타입 변환
     private static func schedule(from starEntity: StarEntity) -> Schedule? {
         guard let start = starEntity.startTime,

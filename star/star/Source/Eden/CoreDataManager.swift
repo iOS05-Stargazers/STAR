@@ -57,39 +57,8 @@ class CoreDataManager {
             return nil
         }
     }
-    
-    // Star 수정 ->
-    /// 1. 수정이 필요할 듯 하다. ID 를 통해 해당 스타를 탐색하고 내부 데이터를 업데이트하고 저장하는 방식
-    /// 2. 현재 방식은 StarEntity를 직접 모델의 데이터로 사용할때 가능한 형태
-    func updateStar(star: StarEntity, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil) {
-        if let name = name {
-            star.name = name
-        }
-        
-        if !appList.isEmpty {
-            star.appList = appList.compactMap { $0 }.joined(separator: ",")
-        }
-        
-        if !repeatDays.isEmpty {
-            star.repeatDays = repeatDays.compactMap { $0 }.joined(separator: ",")
-        }
-        
-        if let startTime = startTime {
-            star.startTime = startTime
-        }
-        
-        if let endTime = endTime {
-            star.endTime = endTime
-        }
-        
-        do {
-            try context.save()
-            print("Star 수정")
-        } catch {
-            print("Star 수정 에러 \(error)")
-        }
-    }
-    
+
+    // Star 수정
     func updateStar(starEntityForm: StarEntityForm) {
         guard let starEntity = fetchStar(starEntityForm.id) else { return }
         starEntity.setValue(from: starEntityForm)
