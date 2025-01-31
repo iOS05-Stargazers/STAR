@@ -58,7 +58,7 @@ final class StarModalView: UIView {
     
     private lazy var appLockLabel = makeLabel("앱 잠금")
     
-    private let appLockButton = UIButton(type: .system).then {
+    let appLockButton = UIButton(type: .system).then {
         $0.setTitle("없음 >", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
@@ -80,13 +80,15 @@ final class StarModalView: UIView {
     }
     
     // 요일 버튼 생성 함수
-    private func makeButton(_ title: String) -> UIButton {
-        let button = UIButton(type: .system)
+    private func makeButton(_ title: String) -> GradientButton {
+        let button = GradientButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.starSecondaryText, for: .normal)
-        button.backgroundColor = .starModalBG
         button.titleLabel?.font = Fonts.modalDayOption
         button.layer.cornerRadius = 18
+        button.clipsToBounds = true
+        button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        button.tag = 0 //버튼 활성화 여부 체크시 사용. 0 -> 클릭(X), 1 -> 클릭(O)
         return button
     }
     
@@ -98,6 +100,8 @@ final class StarModalView: UIView {
     lazy var saturdayButton = makeButton("토")
     lazy var sundayButton = makeButton("일")
     
+    lazy var weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
+     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -131,6 +135,7 @@ final class StarModalView: UIView {
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
+        $0.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
     
     // MARK: - 초기화
@@ -159,16 +164,10 @@ final class StarModalView: UIView {
         appLockButton
         ].forEach { appLockStackView.addSubview($0) }
         
-        // 요일
-        [
-        mondayButton,
-        tuesdayButton,
-        wednesdayButton,
-        thursdayButton,
-        fridayButton,
-        saturdayButton,
-        sundayButton
-        ].forEach { weekStackView.addArrangedSubview($0) }
+        // 반복 주기 - 요일버튼 추가
+        weekButtons.forEach {
+            weekStackView.addArrangedSubview($0)
+        }
         
         // 시작시간
         [
@@ -263,24 +262,11 @@ final class StarModalView: UIView {
         }
 
         // 디바이스에 따라 요일 버튼 너비 조절
-        [
-        mondayButton,
-        tuesdayButton,
-        wednesdayButton,
-        thursdayButton,
-        fridayButton,
-        saturdayButton,
-        sundayButton
-        ].forEach { button in
+        weekButtons.forEach { button in
             button.snp.makeConstraints {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
-            
-            // TODO: 추후 layoutIfNeeded 말고 다른 방법 적용하기
-//            button.layoutIfNeeded() // 레이아웃을 즉시 업데이트
-//            button.layer.cornerRadius = button.frame.height / 2
-//            button.layer.masksToBounds = true
         }
 
         startTimeStackView.snp.makeConstraints {
@@ -322,10 +308,6 @@ final class StarModalView: UIView {
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
-        
-        // applyGradient는 버튼의 레이아웃 적용이 끝난 시점에서 호출해야 함 (여전히 중요)
-        // direction 매개변수에 .horizontal 또는 .vertical을 넣어 그라디언트 적용 방향을 설정
-        addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
 
