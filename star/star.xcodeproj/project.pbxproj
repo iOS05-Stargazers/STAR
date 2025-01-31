@@ -13,6 +13,9 @@
 		23CF7FF12D45DE110019D597 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF02D45DE110019D597 /* RxRelay */; };
 		23CF7FF32D45DE110019D597 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF22D45DE110019D597 /* RxSwift */; };
 		23CF7FF62D45DFDC0019D597 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF52D45DFDC0019D597 /* RxKeyboard */; };
+		71B614542D4C5AA200C45674 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614532D4C5AA200C45674 /* DeviceActivity.framework */; };
+		71B614562D4C5AAB00C45674 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614552D4C5AAB00C45674 /* ManagedSettings.framework */; };
+		71B614582D4C5AAF00C45674 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614572D4C5AAF00C45674 /* ManagedSettingsUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		71B614532D4C5AA200C45674 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
+		71B614552D4C5AAB00C45674 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
+		71B614572D4C5AAF00C45674 /* ManagedSettingsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettingsUI.framework; path = System/Library/Frameworks/ManagedSettingsUI.framework; sourceTree = SDKROOT; };
 		71F41EDC2D3FC73300257988 /* star.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = star.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F41EF52D3FC73500257988 /* starTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F41EFF2D3FC73500257988 /* starUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,9 +83,12 @@
 				23CF7FEF2D45DE110019D597 /* RxCocoa in Frameworks */,
 				23CF7FF62D45DFDC0019D597 /* RxKeyboard in Frameworks */,
 				23CC31AC2D40B3480026CF54 /* Then in Frameworks */,
+				71B614562D4C5AAB00C45674 /* ManagedSettings.framework in Frameworks */,
+				71B614542D4C5AA200C45674 /* DeviceActivity.framework in Frameworks */,
 				23CF7FF32D45DE110019D597 /* RxSwift in Frameworks */,
 				23CF7FF12D45DE110019D597 /* RxRelay in Frameworks */,
 				23CC31AF2D40B3570026CF54 /* SnapKit in Frameworks */,
+				71B614582D4C5AAF00C45674 /* ManagedSettingsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,12 +109,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		71B614522D4C5AA200C45674 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71B614572D4C5AAF00C45674 /* ManagedSettingsUI.framework */,
+				71B614552D4C5AAB00C45674 /* ManagedSettings.framework */,
+				71B614532D4C5AA200C45674 /* DeviceActivity.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		71F41ED32D3FC73300257988 = {
 			isa = PBXGroup;
 			children = (
 				71F41EDE2D3FC73300257988 /* star */,
 				71F41EF82D3FC73500257988 /* starTests */,
 				71F41F022D3FC73500257988 /* starUITests */,
+				71B614522D4C5AA200C45674 /* Frameworks */,
 				71F41EDD2D3FC73300257988 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -314,10 +334,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = star/star.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = star/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = STAR;
@@ -355,7 +376,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = star/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = STAR;
