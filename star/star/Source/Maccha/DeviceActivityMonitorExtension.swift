@@ -9,15 +9,16 @@ import Foundation
 import DeviceActivity
 import ManagedSettings
 import RxSwift
+import SwiftUI
 
 // Optionally override any of the functions below.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
-    private let coreDataManager = CoreDataManager.shared
-    private let disposeBag = DisposeBag()
+    let coreDataManager = CoreDataManager.shared
+    let disposeBag = DisposeBag()
     
     // 세션 매핑: UUID (CoreData의 StarEntity) -> DeviceActivityName
-    private var sessionStores: [UUID: ManagedSettingsStore] = [:]
+    var sessionStores: [UUID: ManagedSettingsStore] = [:]
     
     override init() {
         super.init()
