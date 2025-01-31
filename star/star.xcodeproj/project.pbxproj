@@ -51,9 +51,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		71767E482D4C9AC000854730 /* Exceptions for "star" folder in "DeviceActivityMonitorExtension" target */ = {
+		7176801A2D4CB7F300854730 /* Exceptions for "star" folder in "DeviceActivityMonitorExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				App/star.xcdatamodeld,
 				Source/Maccha/SharedCoreDataManager.swift,
 			);
 			target = 71B6145C2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */;
@@ -87,7 +88,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */,
-				71767E482D4C9AC000854730 /* Exceptions for "star" folder in "DeviceActivityMonitorExtension" target */,
+				7176801A2D4CB7F300854730 /* Exceptions for "star" folder in "DeviceActivityMonitorExtension" target */,
 			);
 			path = star;
 			sourceTree = "<group>";

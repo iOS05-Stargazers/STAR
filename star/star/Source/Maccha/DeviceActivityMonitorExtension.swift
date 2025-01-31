@@ -9,7 +9,6 @@ import Foundation
 import DeviceActivity
 import ManagedSettings
 import RxSwift
-import SwiftUI
 
 // Optionally override any of the functions below.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
