@@ -13,38 +13,58 @@
 		23CF7FF12D45DE110019D597 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF02D45DE110019D597 /* RxRelay */; };
 		23CF7FF32D45DE110019D597 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF22D45DE110019D597 /* RxSwift */; };
 		23CF7FF62D45DFDC0019D597 /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FF52D45DFDC0019D597 /* RxKeyboard */; };
-		71B614542D4C5AA200C45674 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614532D4C5AA200C45674 /* DeviceActivity.framework */; };
-		71B614562D4C5AAB00C45674 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614552D4C5AAB00C45674 /* ManagedSettings.framework */; };
-		71B614582D4C5AAF00C45674 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614572D4C5AAF00C45674 /* ManagedSettingsUI.framework */; };
+		71B6145E2D4C5BDF00C45674 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614532D4C5AA200C45674 /* DeviceActivity.framework */; };
+		71B614662D4C5BDF00C45674 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 71B6145D2D4C5BDF00C45674 /* DeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		71B614DF2D4C92CB00C45674 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71B614DE2D4C92CB00C45674 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		71F41EF62D3FC73500257988 /* PBXContainerItemProxy */ = {
+		71B614642D4C5BDF00C45674 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 71F41ED42D3FC73300257988 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 71F41EDB2D3FC73300257988;
-			remoteInfo = star;
-		};
-		71F41F002D3FC73500257988 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 71F41ED42D3FC73300257988 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71F41EDB2D3FC73300257988;
-			remoteInfo = star;
+			remoteGlobalIDString = 71B6145C2D4C5BDF00C45674;
+			remoteInfo = DeviceActivityMonitorExtension;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71B6146B2D4C5BDF00C45674 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				71B614662D4C5BDF00C45674 /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		71B614532D4C5AA200C45674 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		71B614552D4C5AAB00C45674 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
 		71B614572D4C5AAF00C45674 /* ManagedSettingsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettingsUI.framework; path = System/Library/Frameworks/ManagedSettingsUI.framework; sourceTree = SDKROOT; };
+		71B6145D2D4C5BDF00C45674 /* DeviceActivityMonitorExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeviceActivityMonitorExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F41EDC2D3FC73300257988 /* star.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = star.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		71F41EF52D3FC73500257988 /* starTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		71F41EFF2D3FC73500257988 /* starUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		71767E482D4C9AC000854730 /* Exceptions for "star" folder in "DeviceActivityMonitorExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Source/Maccha/SharedCoreDataManager.swift,
+			);
+			target = 71B6145C2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */;
+		};
+		71B6146A2D4C5BDF00C45674 /* Exceptions for "DeviceActivityMonitorExtension" folder in "DeviceActivityMonitorExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 71B6145C2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */;
+		};
 		71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -55,27 +75,35 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		71B6145F2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				71B6146A2D4C5BDF00C45674 /* Exceptions for "DeviceActivityMonitorExtension" folder in "DeviceActivityMonitorExtension" target */,
+			);
+			path = DeviceActivityMonitorExtension;
+			sourceTree = "<group>";
+		};
 		71F41EDE2D3FC73300257988 /* star */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */,
+				71767E482D4C9AC000854730 /* Exceptions for "star" folder in "DeviceActivityMonitorExtension" target */,
 			);
 			path = star;
-			sourceTree = "<group>";
-		};
-		71F41EF82D3FC73500257988 /* starTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = starTests;
-			sourceTree = "<group>";
-		};
-		71F41F022D3FC73500257988 /* starUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = starUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		71B6145A2D4C5BDF00C45674 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71B614DF2D4C92CB00C45674 /* RxSwift in Frameworks */,
+				71B6145E2D4C5BDF00C45674 /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71F41ED92D3FC73300257988 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,26 +111,9 @@
 				23CF7FEF2D45DE110019D597 /* RxCocoa in Frameworks */,
 				23CF7FF62D45DFDC0019D597 /* RxKeyboard in Frameworks */,
 				23CC31AC2D40B3480026CF54 /* Then in Frameworks */,
-				71B614562D4C5AAB00C45674 /* ManagedSettings.framework in Frameworks */,
-				71B614542D4C5AA200C45674 /* DeviceActivity.framework in Frameworks */,
 				23CF7FF32D45DE110019D597 /* RxSwift in Frameworks */,
 				23CF7FF12D45DE110019D597 /* RxRelay in Frameworks */,
 				23CC31AF2D40B3570026CF54 /* SnapKit in Frameworks */,
-				71B614582D4C5AAF00C45674 /* ManagedSettingsUI.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EF22D3FC73500257988 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EFC2D3FC73500257988 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				71F41EDE2D3FC73300257988 /* star */,
-				71F41EF82D3FC73500257988 /* starTests */,
-				71F41F022D3FC73500257988 /* starUITests */,
+				71B6145F2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */,
 				71B614522D4C5AA200C45674 /* Frameworks */,
 				71F41EDD2D3FC73300257988 /* Products */,
 			);
@@ -134,8 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				71F41EDC2D3FC73300257988 /* star.app */,
-				71F41EF52D3FC73500257988 /* starTests.xctest */,
-				71F41EFF2D3FC73500257988 /* starUITests.xctest */,
+				71B6145D2D4C5BDF00C45674 /* DeviceActivityMonitorExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +152,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		71B6145C2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71B614672D4C5BDF00C45674 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitorExtension" */;
+			buildPhases = (
+				71B614592D4C5BDF00C45674 /* Sources */,
+				71B6145A2D4C5BDF00C45674 /* Frameworks */,
+				71B6145B2D4C5BDF00C45674 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				71B6145F2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */,
+			);
+			name = DeviceActivityMonitorExtension;
+			packageProductDependencies = (
+				71B614DE2D4C92CB00C45674 /* RxSwift */,
+			);
+			productName = DeviceActivityMonitorExtension;
+			productReference = 71B6145D2D4C5BDF00C45674 /* DeviceActivityMonitorExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		71F41EDB2D3FC73300257988 /* star */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71F41F082D3FC73500257988 /* Build configuration list for PBXNativeTarget "star" */;
@@ -150,10 +182,12 @@
 				71F41ED82D3FC73300257988 /* Sources */,
 				71F41ED92D3FC73300257988 /* Frameworks */,
 				71F41EDA2D3FC73300257988 /* Resources */,
+				71B6146B2D4C5BDF00C45674 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				71B614652D4C5BDF00C45674 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				71F41EDE2D3FC73300257988 /* star */,
@@ -171,52 +205,6 @@
 			productReference = 71F41EDC2D3FC73300257988 /* star.app */;
 			productType = "com.apple.product-type.application";
 		};
-		71F41EF42D3FC73500257988 /* starTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 71F41F0D2D3FC73500257988 /* Build configuration list for PBXNativeTarget "starTests" */;
-			buildPhases = (
-				71F41EF12D3FC73500257988 /* Sources */,
-				71F41EF22D3FC73500257988 /* Frameworks */,
-				71F41EF32D3FC73500257988 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				71F41EF72D3FC73500257988 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				71F41EF82D3FC73500257988 /* starTests */,
-			);
-			name = starTests;
-			packageProductDependencies = (
-			);
-			productName = starTests;
-			productReference = 71F41EF52D3FC73500257988 /* starTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		71F41EFE2D3FC73500257988 /* starUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 71F41F102D3FC73500257988 /* Build configuration list for PBXNativeTarget "starUITests" */;
-			buildPhases = (
-				71F41EFB2D3FC73500257988 /* Sources */,
-				71F41EFC2D3FC73500257988 /* Frameworks */,
-				71F41EFD2D3FC73500257988 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				71F41F012D3FC73500257988 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				71F41F022D3FC73500257988 /* starUITests */,
-			);
-			name = starUITests;
-			packageProductDependencies = (
-			);
-			productName = starUITests;
-			productReference = 71F41EFF2D3FC73500257988 /* starUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -227,16 +215,11 @@
 				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					71B6145C2D4C5BDF00C45674 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 					71F41EDB2D3FC73300257988 = {
 						CreatedOnToolsVersion = 16.1;
-					};
-					71F41EF42D3FC73500257988 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 71F41EDB2D3FC73300257988;
-					};
-					71F41EFE2D3FC73500257988 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 71F41EDB2D3FC73300257988;
 					};
 				};
 			};
@@ -261,28 +244,20 @@
 			projectRoot = "";
 			targets = (
 				71F41EDB2D3FC73300257988 /* star */,
-				71F41EF42D3FC73500257988 /* starTests */,
-				71F41EFE2D3FC73500257988 /* starUITests */,
+				71B6145C2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		71B6145B2D4C5BDF00C45674 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71F41EDA2D3FC73300257988 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EF32D3FC73500257988 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EFD2D3FC73500257988 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -292,21 +267,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		71B614592D4C5BDF00C45674 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71F41ED82D3FC73300257988 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EF12D3FC73500257988 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EFB2D3FC73500257988 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -316,19 +284,70 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		71F41EF72D3FC73500257988 /* PBXTargetDependency */ = {
+		71B614652D4C5BDF00C45674 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 71F41EDB2D3FC73300257988 /* star */;
-			targetProxy = 71F41EF62D3FC73500257988 /* PBXContainerItemProxy */;
-		};
-		71F41F012D3FC73500257988 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 71F41EDB2D3FC73300257988 /* star */;
-			targetProxy = 71F41F002D3FC73500257988 /* PBXContainerItemProxy */;
+			target = 71B6145C2D4C5BDF00C45674 /* DeviceActivityMonitorExtension */;
+			targetProxy = 71B614642D4C5BDF00C45674 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		71B614682D4C5BDF00C45674 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitorExtension/DeviceActivityMonitorExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeviceActivityMonitorExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitorExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.DeviceActivityMonitorExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		71B614692D4C5BDF00C45674 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitorExtension/DeviceActivityMonitorExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeviceActivityMonitorExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitorExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.DeviceActivityMonitorExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		71F41F092D3FC73500257988 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -336,9 +355,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = star/star.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6ZNFG9P6YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = star/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = STAR;
@@ -356,7 +377,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Profile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = group;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -527,81 +548,18 @@
 			};
 			name = Release;
 		};
-		71F41F0E2D3FC73500257988 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/star.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/star";
-			};
-			name = Debug;
-		};
-		71F41F0F2D3FC73500257988 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/star.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/star";
-			};
-			name = Release;
-		};
-		71F41F112D3FC73500257988 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = star;
-			};
-			name = Debug;
-		};
-		71F41F122D3FC73500257988 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = star;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		71B614672D4C5BDF00C45674 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitorExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71B614682D4C5BDF00C45674 /* Debug */,
+				71B614692D4C5BDF00C45674 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		71F41ED72D3FC73300257988 /* Build configuration list for PBXProject "star" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -616,24 +574,6 @@
 			buildConfigurations = (
 				71F41F092D3FC73500257988 /* Debug */,
 				71F41F0A2D3FC73500257988 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		71F41F0D2D3FC73500257988 /* Build configuration list for PBXNativeTarget "starTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				71F41F0E2D3FC73500257988 /* Debug */,
-				71F41F0F2D3FC73500257988 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		71F41F102D3FC73500257988 /* Build configuration list for PBXNativeTarget "starUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				71F41F112D3FC73500257988 /* Debug */,
-				71F41F122D3FC73500257988 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -705,6 +645,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23CF7FF42D45DFDC0019D597 /* XCRemoteSwiftPackageReference "RxKeyboard" */;
 			productName = RxKeyboard;
+		};
+		71B614DE2D4C92CB00C45674 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
