@@ -28,6 +28,8 @@ class StarListViewController: UIViewController {
         super.viewDidLoad()
         bind()
         setupSwipeActions()
+        
+        navigationItem.hidesBackButton = true
     }
 }
 
