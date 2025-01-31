@@ -20,6 +20,7 @@
 		718A8B142D4CBF9A00E28658 /* ShieldAction.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 718A8B0B2D4CBF9A00E28658 /* ShieldAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		718A8B1E2D4CC03C00E28658 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B614532D4C5AA200C45674 /* DeviceActivity.framework */; };
 		718A8B262D4CC03C00E28658 /* DeviceActivityMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 718A8B1D2D4CC03C00E28658 /* DeviceActivityMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		718A8B2E2D4CC15D00E28658 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 718A8B2D2D4CC15D00E28658 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,13 @@
 			);
 			target = 718A8B1C2D4CC03C00E28658 /* DeviceActivityMonitor */;
 		};
+		718A8B2C2D4CC14200E28658 /* Exceptions for "star" folder in "DeviceActivityMonitor" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/star.xcdatamodeld,
+			);
+			target = 718A8B1C2D4CC03C00E28658 /* DeviceActivityMonitor */;
+		};
 		71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -139,6 +147,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */,
+				718A8B2C2D4CC14200E28658 /* Exceptions for "star" folder in "DeviceActivityMonitor" target */,
 				718A8A182D4CBA8400E28658 /* Exceptions for "star" folder in "ShieldConfiguration" target */,
 			);
 			path = star;
@@ -168,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				718A8B2E2D4CC15D00E28658 /* RxSwift in Frameworks */,
 				718A8B1E2D4CC03C00E28658 /* DeviceActivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +295,7 @@
 			);
 			name = DeviceActivityMonitor;
 			packageProductDependencies = (
+				718A8B2D2D4CC15D00E28658 /* RxSwift */,
 			);
 			productName = DeviceActivityMonitor;
 			productReference = 718A8B1D2D4CC03C00E28658 /* DeviceActivityMonitor.appex */;
@@ -942,6 +953,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23CF7FF42D45DFDC0019D597 /* XCRemoteSwiftPackageReference "RxKeyboard" */;
 			productName = RxKeyboard;
+		};
+		718A8B2D2D4CC15D00E28658 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
