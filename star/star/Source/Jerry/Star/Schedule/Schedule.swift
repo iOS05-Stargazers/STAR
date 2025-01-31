@@ -13,6 +13,8 @@ struct Schedule {
     let startTime: StarTime
     let finishTime: StarTime
     let weekDays: Set<WeekDay>
+    
+//    init(starEntity: StarEntity)
 }
 
 extension Schedule: TestDescriptionConvertible {

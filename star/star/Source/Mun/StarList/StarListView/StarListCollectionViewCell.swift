@@ -8,30 +8,35 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxRelay
+import RxCocoa
 
 class StarListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI 컴포넌트
     
     static let id = "StarListCollectionViewCell"
+    
+    private var viewModel: StarListCollectionViewCellViewModel?
+    private var disposebag = DisposeBag()
 
     // 태그 뷰
     private let tagView = GradientView().then {
         $0.layer.cornerRadius = 8
+        $0.backgroundColor = .starDisabledTagBG
         $0.clipsToBounds = true
     }
     
     // 태그 라벨
     private let tagLabel = UILabel().then {
-        $0.text = "진행중"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
         $0.font = Fonts.starTag
     }
     
     // 타이틀 라벨
-    private let titleLabel = UILabel().then {
-        $0.text = "abcdeabcdeabcdea"
+    let titleLabel = UILabel().then {
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
         $0.font = Fonts.starTitle
@@ -39,7 +44,6 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 시간 라벨
     private let timeLabel = UILabel().then {
-        $0.text = "02:00:00"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .right
         $0.font = Fonts.starTime
@@ -61,6 +65,11 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposebag = DisposeBag()
     }
     
     // MARK: - 레이아웃 설정
@@ -102,10 +111,53 @@ class StarListCollectionViewCell: UICollectionViewCell {
         }
         
         timerImageView.snp.makeConstraints {
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-8)
+            $0.trailing.equalToSuperview().inset(88)
             $0.bottom.equalTo(timeLabel.snp.bottom)
         }
         
         tagView.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
+    }
+}
+
+
+extension StarListCollectionViewCell {
+    // 인스턴스 생성할 때 실행
+    func configure(star: Star) {
+        self.viewModel = StarListCollectionViewCellViewModel(star: star)
+        titleLabel.text = star.title
+        
+        bind()
+    }
+    
+    private func bind() {
+        guard let viewModel = viewModel else { return }
+        let output = viewModel.transform()
+        
+        output.timer
+            .drive(with: self, onNext: { owner, time in
+                owner.timeLabel.text  = "\(time)"
+            })
+            .disposed(by: disposebag)
+        
+        output.state
+            .drive(with: self, onNext: { owner, state in
+                owner.applyStateStyle(state)
+
+            })
+            .disposed(by: disposebag)
+    }
+    
+    private func applyStateStyle(_ state: StarState.Style) {
+        switch state {
+        case .ongoing:
+            self.tagLabel.text = "진행중"
+            self.tagView.gradientLayer.isHidden = false
+            self.timerImageView.isHidden = false
+
+        case .pending:
+            self.tagLabel.text = "대기중"
+            self.tagView.gradientLayer.isHidden = true
+            self.timerImageView.isHidden = true
+        }
     }
 }

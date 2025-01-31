@@ -14,7 +14,13 @@ struct Star {
     let title: String
     let blockList: [AppID]
     let schedule: Schedule
+    
+    func state() -> StarState {
+        return StarState(schedule: self.schedule)
+    }
+    
 }
+
 
 extension Star: TestDescriptionConvertible {
     var testDescription: String {
