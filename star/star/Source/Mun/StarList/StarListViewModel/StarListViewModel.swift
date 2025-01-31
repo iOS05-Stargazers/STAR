@@ -19,21 +19,16 @@ class StarListViewModel {
 
     // 스타 fetch
     private func fetchStars() {
-        let testData = [MockData.ongingOneHour, MockData.ongingThreeHour, MockData.pendingOneMinute, MockData.pendingTenMinute] // 추후 CoreData로 연동
+        let starData = StarManager.shared.read()
         
-        guard let firstData = testData.first else { return }
+        guard let firstData = starData.first else { return }
         var minTimeStar = firstData.state().interval
-        testData.forEach {
+        starData.forEach {
             // 남은 시간이 가장 임박한 star 저장
             if $0.state().interval < minTimeStar {
                 minTimeStar = $0.state().interval
             }
         }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + minTimeStar) { [weak self] in
-//            guard let self = self else { return }
-//            self.fetchStars()
-//        } 나중에 수정
                 
         // 남은 시간이 0이 되면 데이터 fetch
         Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false) { [weak self] _ in
@@ -41,7 +36,7 @@ class StarListViewModel {
             self.fetchStars()
         }
         
-        let sortedData = testData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
+        let sortedData = starData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
         starsRelay.accept(sortedData)
     }
     
