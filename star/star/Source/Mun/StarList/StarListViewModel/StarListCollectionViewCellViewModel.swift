@@ -27,7 +27,7 @@ class StarListCollectionViewCellViewModel {
     
     // 타이머 시작
     private func startTimer() {
-        Observable<Int>.timer(.seconds(1), scheduler: MainScheduler.instance)
+        Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .subscribe(onNext: { _ in
                 self.updateTime()
