@@ -121,8 +121,15 @@ class StarListCollectionViewCell: UICollectionViewCell {
 
 
 extension StarListCollectionViewCell {
-    private func startTimer() {
-        let output = viewModel!.transform()
+    // 인스턴스 생성할 때 실행
+    func viewModel(star: Star) {
+        self.viewModel = StarListCollectionViewCellViewModel(star: star)
+        bind()
+    }
+    
+    private func bind() {
+        guard let viewModel = viewModel else { return }
+        let output = viewModel.transform()
         
         output.timer
             .drive(onNext: { time in
@@ -145,11 +152,5 @@ extension StarListCollectionViewCell {
                 }
             })
             .disposed(by: disposebag)
-    }
-    
-    func viewModel(star: Star) {
-        self.viewModel = StarListCollectionViewCellViewModel(star: star)
-        startTimer()
-
     }
 }
