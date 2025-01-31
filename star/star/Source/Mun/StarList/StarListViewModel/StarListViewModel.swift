@@ -21,7 +21,8 @@ class StarListViewModel {
     private func fetchStars() {
         let testData = [MockData.ongingOneHour, MockData.ongingThreeHour, MockData.pendingOneMinute, MockData.pendingTenMinute] // 추후 CoreData로 연동
         
-        var minTimeStar = testData.first!.state().interval
+        guard let firstData = testData.first else { return }
+        var minTimeStar = firstData.state().interval
         testData.forEach {
             // 남은 시간이 가장 임박한 star 저장
             if $0.state().interval < minTimeStar {
