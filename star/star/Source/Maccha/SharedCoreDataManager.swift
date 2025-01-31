@@ -56,7 +56,7 @@ final class SharedCoreDataManager {
             .disposed(by: disposeBag)
     }
     
-    private checkStarStatus() {
+    private func checkStarStatus() {
         let stars = fetchAllStars()
         let activeStars = stars.filter { isStarActive($0) }
         

@@ -14,7 +14,7 @@ import RxSwift
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     private let store = ManagedSettingsStore()
-    let coreDataManager = SharedCoreDataManager.shared
+//    let coreDataManager = SharedCoreDataManager.shared
     let disposeBag = DisposeBag()
     
     override func intervalDidStart(for activity: DeviceActivityName) {
@@ -25,10 +25,10 @@ final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         // Star 상태 변경 감지 로직 구현 필요 -> updateAppBlocking
         
         // Core Data 변경 감지 시작
-        coreDataManager.observeChanges()
+//        coreDataManager.observeChanges()
         
         // 초기 데이터 가져오기
-        coreDataManager.fetchStars()
+//        coreDataManager.fetchStars()
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
