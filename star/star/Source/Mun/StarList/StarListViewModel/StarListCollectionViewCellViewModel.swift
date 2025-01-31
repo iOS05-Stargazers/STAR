@@ -12,23 +12,27 @@ import RxCocoa
 
 class StarListCollectionViewCellViewModel {
     
-    private let state = BehaviorRelay<StarState.Style>(value: .ongoing)
+    private let state: BehaviorRelay<StarState.Style>
     private let time = BehaviorRelay<String>(value: "")
     private let star: Star
+    private let disposebag = DisposeBag()
 
     
     init(star: Star) {
         self.star = star
+        self.state = BehaviorRelay<StarState.Style>(value: star.state().style)
         updateTime()
-        state.accept(star.state().style)
         startTimer()
     }
     
     // 타이머 시작
     private func startTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
-            self.updateTime()
-        })
+        Observable<Int>.timer(.seconds(1), scheduler: MainScheduler.instance)
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.updateTime()
+            })
+            .disposed(by: disposebag)
     }
     
     // 시간 업데이트

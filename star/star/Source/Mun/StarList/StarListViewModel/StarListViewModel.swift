@@ -29,6 +29,11 @@ class StarListViewModel {
                 minTimeStar = $0.state().interval
             }
         }
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + minTimeStar) { [weak self] in
+//            guard let self = self else { return }
+//            self.fetchStars()
+//        } 나중에 수정
                 
         // 남은 시간이 0이 되면 데이터 fetch
         Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false) { [weak self] _ in

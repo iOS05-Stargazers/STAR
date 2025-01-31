@@ -46,8 +46,7 @@ extension StarListViewController {
             .drive(starListView.starListCollectionView.rx.items(
                 cellIdentifier: StarListCollectionViewCell.id,
                 cellType: StarListCollectionViewCell.self)) { row, element, cell in
-                    cell.titleLabel.text = element.title
-                    cell.viewModel(star: element)
+                    cell.configure(star: element)
                 }
                 .disposed(by: disposeBag)
         
@@ -84,7 +83,7 @@ extension StarListViewController {
             trailingActionProvider: { [weak self] indexPath in
                 var actions: [UIContextualAction] = []
                 // 삭제 액션 추가
-                let deleteAction = UIContextualAction(style: .destructive, title: nil) {[weak self] _, _, completionHandler in
+                let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completionHandler in
                     guard let self = self else { return }
                     self.showAlert()
                     completionHandler(false)

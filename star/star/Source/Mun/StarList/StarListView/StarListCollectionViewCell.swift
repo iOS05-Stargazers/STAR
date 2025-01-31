@@ -122,8 +122,10 @@ class StarListCollectionViewCell: UICollectionViewCell {
 
 extension StarListCollectionViewCell {
     // 인스턴스 생성할 때 실행
-    func viewModel(star: Star) {
+    func configure(star: Star) {
         self.viewModel = StarListCollectionViewCellViewModel(star: star)
+        titleLabel.text = star.title
+        
         bind()
     }
     
@@ -132,25 +134,30 @@ extension StarListCollectionViewCell {
         let output = viewModel.transform()
         
         output.timer
-            .drive(onNext: { time in
-                self.timeLabel.text  = "\(time)"
+            .drive(with: self, onNext: { owner, time in
+                owner.timeLabel.text  = "\(time)"
             })
             .disposed(by: disposebag)
         
         output.state
-            .drive(onNext: { state in
-                switch state {
-                case .ongoing:
-                    self.tagLabel.text = "진행중"
-                    self.tagView.gradientLayer.isHidden = false
-                    self.timerImageView.isHidden = false
+            .drive(with: self, onNext: { owner, state in
+                owner.applyStateStyle(state)
 
-                case .pending:
-                    self.tagLabel.text = "대기중"
-                    self.tagView.gradientLayer.isHidden = true
-                    self.timerImageView.isHidden = true
-                }
             })
             .disposed(by: disposebag)
+    }
+    
+    private func applyStateStyle(_ state: StarState.Style) {
+        switch state {
+        case .ongoing:
+            self.tagLabel.text = "진행중"
+            self.tagView.gradientLayer.isHidden = false
+            self.timerImageView.isHidden = false
+
+        case .pending:
+            self.tagLabel.text = "대기중"
+            self.tagView.gradientLayer.isHidden = true
+            self.timerImageView.isHidden = true
+        }
     }
 }
