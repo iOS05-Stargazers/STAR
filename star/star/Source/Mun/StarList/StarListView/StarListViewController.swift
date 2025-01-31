@@ -38,7 +38,7 @@ extension StarListViewController {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let input = StarListViewModel.Input(viewWillAppear: viewWillAppears)
         let output = viewModel.transform(input)
-        
+
         // 컬렉션뷰 데이터 바인딩
         output.starDataSource
             .drive(starListView.starListCollectionView.rx.items(

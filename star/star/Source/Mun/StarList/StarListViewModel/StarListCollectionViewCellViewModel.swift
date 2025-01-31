@@ -11,32 +11,41 @@ import RxRelay
 import RxCocoa
 
 class StarListCollectionViewCellViewModel {
-    private let state = PublishRelay<StarState.Style>()
-    private let time = PublishRelay<String>()
-    private var testTime = 0.0
+    
+    private let state = BehaviorRelay<StarState.Style>(value: .ongoing)
+    private let time = BehaviorRelay<String>(value: "")
     private let star: Star
 
     
     init(star: Star) {
         self.star = star
-        changeTime()
+        updateTime()
+        state.accept(star.state().style)
+        startTimer()
     }
     
-    private func changeTime() {
-        print(Date.now)
-        testTime = star.state().interval
-        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {_ in
-
-            self.state.accept(self.star.state().style)
-            
-            if self.star.state().style == .ongoing {
-                self.time.accept("\(StarStateFormatter.hhmmss(self.testTime))")
-            } else {
-                self.time.accept("\(StarStateFormatter.korean(self.testTime))")
-            }
-            self.testTime -= 1
+    // 타이머 시작
+    private func startTimer() {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+            self.updateTime()
         })
-        
+    }
+    
+    // 시간 업데이트
+    private func updateTime() {
+        if self.star.state().style == .ongoing {
+            self.time.accept("\(StarStateFormatter.hhmmss(self.star.state().interval))")
+        } else {
+            self.time.accept("\(StarStateFormatter.korean(self.star.state().interval))")
+        }
+    }
+}
+
+extension StarListCollectionViewCellViewModel {
+    
+    struct Output {
+        let timer: Driver<String>
+        let state: Driver<StarState.Style>
     }
     
     func transform() -> Output {
@@ -44,10 +53,4 @@ class StarListCollectionViewCellViewModel {
             timer: time.asDriver(onErrorDriveWith: .empty()),
             state: state.asDriver(onErrorDriveWith: .empty()))
     }
-    
-    struct Output {
-        let timer: Driver<String>
-        let state: Driver<StarState.Style>
-    }
-    
 }

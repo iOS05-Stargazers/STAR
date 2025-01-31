@@ -9,6 +9,8 @@ import UIKit
 import Then
 import SnapKit
 import RxSwift
+import RxRelay
+import RxCocoa
 
 class StarListCollectionViewCell: UICollectionViewCell {
     
@@ -17,7 +19,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
     static let id = "StarListCollectionViewCell"
     
     private var viewModel: StarListCollectionViewCellViewModel?
-    private let disposebag = DisposeBag()
+    private var disposebag = DisposeBag()
 
     // 태그 뷰
     private let tagView = GradientView().then {
@@ -28,7 +30,6 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 태그 라벨
     private let tagLabel = UILabel().then {
-        $0.text = "진행중"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
         $0.font = Fonts.starTag
@@ -36,7 +37,6 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 타이틀 라벨
     let titleLabel = UILabel().then {
-        $0.text = "abcdeabcdeabcdea"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
         $0.font = Fonts.starTitle
@@ -44,7 +44,6 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     // 시간 라벨
     private let timeLabel = UILabel().then {
-        $0.text = "02:00:00"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .right
         $0.font = Fonts.starTime
@@ -66,6 +65,11 @@ class StarListCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposebag = DisposeBag()
     }
     
     // MARK: - 레이아웃 설정
@@ -107,7 +111,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         }
         
         timerImageView.snp.makeConstraints {
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-8)
+            $0.trailing.equalToSuperview().inset(88)
             $0.bottom.equalTo(timeLabel.snp.bottom)
         }
         
