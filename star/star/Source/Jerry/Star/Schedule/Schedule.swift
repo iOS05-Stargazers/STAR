@@ -14,7 +14,7 @@ struct Schedule {
     let finishTime: StarTime
     let weekDays: Set<WeekDay>
     
-//    init(starEntity: StarEntity)
+
 }
 
 extension Schedule: TestDescriptionConvertible {
@@ -32,6 +32,5 @@ extension Schedule: TestDescriptionConvertible {
                 finishTime: \(finishTime)
                 weekDays: \(weekDays)
                 """
-        
     }
 }
