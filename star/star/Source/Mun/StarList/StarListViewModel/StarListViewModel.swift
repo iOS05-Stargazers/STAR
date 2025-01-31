@@ -31,9 +31,10 @@ class StarListViewModel {
         }
                 
         // 남은 시간이 0이 되면 데이터 fetch
-        Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false, block: {_ in
+        Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false) { [weak self] _ in
+            guard let self else { return }
             self.fetchStars()
-        })
+        }
         
         let sortedData = testData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
         starsRelay.accept(sortedData)
