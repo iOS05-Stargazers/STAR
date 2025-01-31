@@ -18,14 +18,9 @@ class CoreDataManager {
     }
     
     // Star 생성
-    func createStar(name: String, appList: [String], repeatDays: [String], startTime: String, endTime: String) {
+    func createStar(starEntityForm: StarEntityForm) {
         let newStar = StarEntity(context: context)
-        newStar.id = UUID()
-        newStar.name = name
-        newStar.appList = appList.joined(separator: ",")
-        newStar.repeatDays = repeatDays.joined(separator: ",")
-        newStar.startTime = startTime
-        newStar.endTime = endTime
+        newStar.setValue(from: starEntityForm)
         
         do {
             try context.save()
@@ -63,7 +58,9 @@ class CoreDataManager {
         }
     }
     
-    // Star 수정
+    // Star 수정 ->
+    /// 1. 수정이 필요할 듯 하다. ID 를 통해 해당 스타를 탐색하고 내부 데이터를 업데이트하고 저장하는 방식
+    /// 2. 현재 방식은 StarEntity를 직접 모델의 데이터로 사용할때 가능한 형태
     func updateStar(star: StarEntity, name: String? = nil, appList: [String?] = [], repeatDays: [String?] = [], startTime: String? = nil, endTime: String? = nil) {
         if let name = name {
             star.name = name
@@ -93,10 +90,22 @@ class CoreDataManager {
         }
     }
     
+    func updateStar(starEntityForm: StarEntityForm) {
+        guard let starEntity = fetchStar(starEntityForm.id) else { return }
+        starEntity.setValue(from: starEntityForm)
+        do {
+            try context.save()
+            print("Star 수정")
+        } catch {
+            print("Star 수정 에러 \(error)")
+        }
+    }
+    
+    
     // Star 삭제
-    func deleteStar(_ id: UUID) {
-        guard let star = fetchStar(id) else {
-            print("Star \(id) 찾기 실패")
+    func deleteStar(_ starEntityForm: StarEntityForm) {
+        guard let star = fetchStar(starEntityForm.id) else {
+            print("Star \(starEntityForm.name) 찾기 실패")
             return
         }
         
@@ -108,4 +117,26 @@ class CoreDataManager {
             print("Star 삭제 에러 \(error)")
         }
     }
+}
+
+extension StarEntity {
+    
+    enum Keys {
+        static let id = "id"
+        static let name = "name"
+        static let appList = "appList"
+        static let startTime = "startTime"
+        static let endTime = "endTime"
+        static let repeatDays = "repeatDays"
+    }
+    
+    func setValue(from starEntityForm: StarEntityForm) {
+        self.setValue(starEntityForm.id, forKey: StarEntity.Keys.id)
+        self.setValue(starEntityForm.name, forKey: StarEntity.Keys.name)
+        self.setValue(starEntityForm.appList, forKey: StarEntity.Keys.appList)
+        self.setValue(starEntityForm.startTime, forKey: StarEntity.Keys.startTime)
+        self.setValue(starEntityForm.endTime, forKey: StarEntity.Keys.endTime)
+        self.setValue(starEntityForm.repeatDays, forKey: StarEntity.Keys.repeatDays)
+    }
+    
 }
