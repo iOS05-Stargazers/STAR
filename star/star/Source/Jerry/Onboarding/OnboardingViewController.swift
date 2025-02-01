@@ -17,7 +17,6 @@ final class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .starDisabledTagBG.withAlphaComponent(0.8)
     }
     
     override func viewWillAppear(_ animated: Bool) {

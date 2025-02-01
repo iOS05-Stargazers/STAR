@@ -108,6 +108,7 @@ final class OnboardingView: UIView {
     
     // 레이아웃 설정
     private func configureUI() {
+        backgroundColor = .starDisabledTagBG.withAlphaComponent(0.8)
         tagView.addSubview(tagLabel)
 
         [
