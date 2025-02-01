@@ -109,7 +109,7 @@ final class StarModalView: UIView {
     
     private lazy var startTimeLabel = makeLabel("시작 시간")
     
-    private let startTimeButton = UIButton(type: .system).then {
+    let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
@@ -122,7 +122,7 @@ final class StarModalView: UIView {
     
     private lazy var endTimeLabel = makeLabel("종료 시간")
     
-    private let endTimeButton = UIButton(type: .system).then {
+    let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
