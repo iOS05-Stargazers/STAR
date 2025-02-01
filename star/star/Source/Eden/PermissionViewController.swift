@@ -40,7 +40,6 @@ final class PermissionViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    @objc
     func navigateToStarList() {
         let starListViewController = StarListViewController()
         navigationController?.pushViewController(starListViewController, animated: false)
