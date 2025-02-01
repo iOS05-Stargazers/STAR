@@ -21,16 +21,6 @@ class PermissionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        requestScreenTimePermission()
-    }
-    
-    /// 권한 설정 요청 메서드
-    private func requestScreenTimePermission() {
-        familyControlsManager.requestAuthorization { [weak self] in
-            DispatchQueue.main.async {
-                self?.navigateToStarList()
-            }
-        }
     }
     
     @objc
