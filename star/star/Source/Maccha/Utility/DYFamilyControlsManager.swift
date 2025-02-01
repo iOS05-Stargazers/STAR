@@ -10,14 +10,25 @@ import FamilyControls
 import RxSwift
 import RxCocoa
 
-final class DYFamilyControlsManager {
+final class DYFamilyControlsManager: ObservableObject {
     static let shared = DYFamilyControlsManager()
-    private init() {}
+    private init() {
+        // BehaviorSubject의 값을 @Published 변수에 반영
+        hasScreenTimePermission
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] newValue in
+                self?.hasScreenTimePermissionPublished = newValue
+            })
+            .disposed(by: disposeBag)
+        
+    }
 
-    private let authorizationCenter = AuthorizationCenter.shared
     private let disposeBag = DisposeBag()
     
+    let authorizationCenter = AuthorizationCenter.shared
+    
     let hasScreenTimePermission = BehaviorSubject<Bool>(value: false)
+    @Published var hasScreenTimePermissionPublished: Bool = false
     
     // MARK: - ScreenTime API 사용 권한 요청
     /// 권한 요청을 비동기로 수행하고 결과를 RxSwift 스트림으로 반환
