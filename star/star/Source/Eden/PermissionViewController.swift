@@ -7,11 +7,13 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
-class PermissionViewController: UIViewController {
+final class PermissionViewController: UIViewController {
     
     private let permissionView = PermissionView()
-    private let familyControlsManager = FamilyControlsManager()
+    private let permissionViewModel = PermissionViewModel()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,17 @@ class PermissionViewController: UIViewController {
     }
     
     private func bind() {
+        let input = PermissionViewModel.Input(
+            requestPermissionTrigger: Observable.just(())
+        )
         
+        let output = permissionViewModel.transform(input)
+        
+        output.navigateToStarList
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToStarList()
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc

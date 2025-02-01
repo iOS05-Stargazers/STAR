@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class PermissionViewModel {
+    
     private let disposeBag = DisposeBag()
     private let familyControlsManager: FamilyControlsManager
     
@@ -29,12 +30,10 @@ extension PermissionViewModel {
     // MARK: - Output
     
     struct Output {
-        let isPermissionGranted: Observable<Bool>
         let navigateToStarList: Observable<Void>
     }
     
     func transform(_ input: Input) -> Output {
-        let isPermissionGranted = PublishRelay<Bool>()
         let navigateToStarList = PublishRelay<Void>()
         
         input.requestPermissionTrigger
@@ -43,7 +42,6 @@ extension PermissionViewModel {
                 return self.requestScreenTimePermission()
             }
             .subscribe(onNext: { granted in
-                isPermissionGranted.accept(granted)
                 if granted {
                     navigateToStarList.accept(())
                 }
@@ -51,7 +49,6 @@ extension PermissionViewModel {
             .disposed(by: disposeBag)
         
         return Output(
-            isPermissionGranted: isPermissionGranted.asObservable(),
             navigateToStarList: navigateToStarList.asObservable()
         )
     }
