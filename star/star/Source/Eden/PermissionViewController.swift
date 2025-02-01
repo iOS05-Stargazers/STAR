@@ -16,11 +16,16 @@ class PermissionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = permissionView
+        bind()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    private func bind() {
+        
     }
     
     @objc
