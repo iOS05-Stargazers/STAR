@@ -10,6 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+/// StarListViewControllerReperesentable로 wrapping되어 ContentViewContainer에서 보여집니다.
 class StarListViewController: UIViewController {
     
     // MARK: - UI 컴포넌트

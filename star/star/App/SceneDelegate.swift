@@ -5,15 +5,29 @@
 //  Created by t0000-m0112 on 2025-01-21.
 //
 
+import SwiftUI
 import UIKit
 import FamilyControls
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    let familyControlsManager = FamilyControlsManager.shared
+    
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
+        let contentView = ContentViewContainer()
+            .environmentObject(familyControlsManager)
+        
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: contentView)
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+        
+        /*
         guard let scene = (scene as? UIWindowScene) else { return }
        
         let window = UIWindow(windowScene: scene)
@@ -29,9 +43,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             rootViewController = PermissionViewController()
         }
         let navigationController = UINavigationController(rootViewController: rootViewController)
-        window.rootViewController = navigationController
+        window.rootViewController = FCTestingViewController()
         window.makeKeyAndVisible()
         self.window = window
+         */
+         
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

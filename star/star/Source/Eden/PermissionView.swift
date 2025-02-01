@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
+/// PermissionViewReperesentable로 wrapping되어 ContentViewContainer에서 보여집니다.
 class PermissionView: UIView {
     
     // MARK: - UI Components

@@ -10,8 +10,8 @@ import FamilyControls
 import RxSwift
 import RxCocoa
 
-final class DYFamilyControlsManager: ObservableObject {
-    static let shared = DYFamilyControlsManager()
+final class FamilyControlsManager: ObservableObject {
+    static let shared = FamilyControlsManager()
     private init() {
         // BehaviorSubject의 값을 @Published 변수에 반영
         hasScreenTimePermission
@@ -20,7 +20,6 @@ final class DYFamilyControlsManager: ObservableObject {
                 self?.hasScreenTimePermissionPublished = newValue
             })
             .disposed(by: disposeBag)
-        
     }
 
     private let disposeBag = DisposeBag()
