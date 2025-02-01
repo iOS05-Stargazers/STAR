@@ -23,9 +23,7 @@ class PermissionView: UIView {
     
     private let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: """
-                STAR가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.
-                """,
+            fullText: "STAR가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.",
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText
         )
