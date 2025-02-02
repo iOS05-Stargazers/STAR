@@ -34,7 +34,7 @@ final class PermissionViewController: UIViewController {
         let output = permissionViewModel.transform(input)
         
         output.navigateToStarList
-            .subscribe(onNext: { [weak self] in
+            .drive(onNext: { [weak self] in
                 self?.navigateToStarList()
             })
             .disposed(by: disposeBag)

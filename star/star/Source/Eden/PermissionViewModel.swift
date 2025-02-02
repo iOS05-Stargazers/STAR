@@ -26,7 +26,7 @@ extension PermissionViewModel {
     }
     
     struct Output {
-        let navigateToStarList: Observable<Void>
+        let navigateToStarList: Driver<Void>
     }
     
     func transform(_ input: Input) -> Output {
@@ -38,13 +38,13 @@ extension PermissionViewModel {
                 return self.requestScreenTimePermission()
             }
             .filter { $0 }
-            .map { _ in }
+            .map { _ in () }
             .observe(on: MainScheduler.instance)
             .bind(to: navigateToStarList)
             .disposed(by: disposeBag)
         
         return Output(
-            navigateToStarList: navigateToStarList.asObservable()
+            navigateToStarList: navigateToStarList.asDriver(onErrorDriveWith: .empty())
         )
     }
     
