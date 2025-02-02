@@ -14,8 +14,8 @@ final class StarListViewModel {
         
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
     private let dateRelay = PublishRelay<Date>()
-    private let starStatus = PublishRelay<StarState>()
-    private let starRelay = PublishRelay<Star>()
+    private let starStatusRelay = PublishRelay<StarState>()
+    private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
     let refreshRelay = PublishRelay<Void>() // 추후 리팩토링 예정
     private let disposeBag = DisposeBag()
 
@@ -50,9 +50,10 @@ final class StarListViewModel {
         dateRelay.accept(Date.now)
     }
     
-    private func tappedDeleteButton(_ index: Int) {
+    // 삭제 버튼 누르면 스타 방출
+    private func emitSelectedStar(_ index: Int) {
         let stars = starsRelay.value
-        starRelay.accept(stars[index])
+        selectedStarRelay.accept(stars[index])
     }
 }
 
@@ -80,7 +81,7 @@ extension StarListViewModel {
         input.deleteAction
             .withUnretained(self)
             .subscribe(onNext: { owner, index in
-                self.tappedDeleteButton(index)
+                self.emitSelectedStar(index)
             }).disposed(by: disposeBag)
         
         input.viewWillAppear
@@ -92,6 +93,6 @@ extension StarListViewModel {
         
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()),
-                      star: starRelay.asDriver(onErrorDriveWith: .empty()))
+                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }

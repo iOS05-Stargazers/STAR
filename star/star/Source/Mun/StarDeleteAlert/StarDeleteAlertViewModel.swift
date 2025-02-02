@@ -10,20 +10,22 @@ import RxCocoa
 final class StarDeleteAlertViewModel {
     
     private let star: Star
-    private let CloseAction: PublishRelay<Void>
+    private let closeAction: PublishRelay<Void>
     private let disposeBag = DisposeBag()
     
     init(star: Star, CloseAction: PublishRelay<Void>) {
         self.star = star
-        self.CloseAction = CloseAction
+        self.closeAction = CloseAction
     }
     
-    private func deleteStar() {
+    // 스타 삭제
+    private func performStarDeletion() {
         StarManager.shared.delete(star)
     }
     
-    private func doClose() {
-        CloseAction.accept(())
+    // 종료 방출
+    private func closeAlert() {
+        closeAction.accept(())
     }
 }
 
@@ -37,14 +39,14 @@ extension StarDeleteAlertViewModel {
     func transform(_ input: Input) {
         input.cancelButtonTapped
             .subscribe(onNext: {
-                self.doClose()
+                self.closeAlert()
             })
             .disposed(by: disposeBag)
         
         input.deleteButtonTapped
             .subscribe(onNext: {
-                self.deleteStar()
-                self.doClose()
+                self.performStarDeletion()
+                self.closeAlert()
             })
             .disposed(by: disposeBag)
     }
