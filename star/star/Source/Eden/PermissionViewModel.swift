@@ -39,7 +39,6 @@ extension PermissionViewModel {
             }
             .filter { $0 }
             .map { _ in () }
-            .observe(on: MainScheduler.instance)
             .bind(to: navigateToStarList)
             .disposed(by: disposeBag)
         
