@@ -12,6 +12,7 @@ import RxCocoa
 final class PermissionViewModel {
     
     private let familyControlsManager: FamilyControlsManager
+    private let disposeBag = DisposeBag()
     
     init(familyControlsManager: FamilyControlsManager = FamilyControlsManager()) {
         self.familyControlsManager = familyControlsManager
@@ -38,8 +39,9 @@ extension PermissionViewModel {
             }
             .filter { $0 }
             .map { _ in }
+            .observe(on: MainScheduler.instance)
             .bind(to: navigateToStarList)
-            .disposed(by: DisposeBag())
+            .disposed(by: disposeBag)
         
         return Output(
             navigateToStarList: navigateToStarList.asObservable()
@@ -49,8 +51,10 @@ extension PermissionViewModel {
     private func requestScreenTimePermission() -> Observable<Bool> {
         return Observable.create { observer in
             self.familyControlsManager.requestAuthorization {
-                observer.onNext(true)
-                observer.onCompleted()
+                DispatchQueue.main.async {
+                    observer.onNext(true)
+                    observer.onCompleted()
+                }
             }
             return Disposables.create()
         }
