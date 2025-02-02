@@ -10,12 +10,14 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class StarListViewController: UIViewController {
+final class StarListViewController: UIViewController {
     
     // MARK: - UI 컴포넌트
     
     let starListView = StarListView()
     let viewModel = StarListViewModel()
+    
+    let deleteActionSubject = PublishSubject<Int>()
     let disposeBag = DisposeBag()
     
     // MARK: - 생명주기 메서드
@@ -36,9 +38,12 @@ class StarListViewController: UIViewController {
 // MARK: - bind
 
 extension StarListViewController {
+    
     private func bind() {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
-        let input = StarListViewModel.Input(viewWillAppear: viewWillAppears)
+        let input = StarListViewModel.Input(
+            viewWillAppear: viewWillAppears,
+            deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
 
         // 컬렉션뷰 데이터 바인딩
@@ -54,6 +59,13 @@ extension StarListViewController {
         output.date
             .map { TodayDate.formatDate(date: $0)}
             .drive(starListView.todayDateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // 스타 바인딩
+        output.star
+            .drive(onNext: { star in
+                self.showAlert(star)
+            })
             .disposed(by: disposeBag)
         
         // 추가하기 버튼 이벤트 처리
@@ -85,8 +97,7 @@ extension StarListViewController {
                 // 삭제 액션 추가
                 let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completionHandler in
                     guard let self = self else { return }
-                    self.showAlert()
-                    completionHandler(false)
+                    deleteActionSubject.onNext(indexPath.item)
                 }
                 
                 deleteAction.image = UIImage(systemName: "trash")
@@ -98,8 +109,9 @@ extension StarListViewController {
     }
     
     // 삭제하기 알럿 띄우기
-    private func showAlert() {
-        let starDeleteAlertViewController = StarDeleteAlertViewController()
+    private func showAlert(_ star: Star) {
+        let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, CloseAction: viewModel.refreshRelay)
+        let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
         starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
         present(starDeleteAlertViewController, animated: true)
