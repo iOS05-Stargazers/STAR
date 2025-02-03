@@ -87,8 +87,9 @@ final class StarModalView: UIView {
         button.titleLabel?.font = Fonts.modalDayOption
         button.layer.cornerRadius = 18
         button.clipsToBounds = true
+        button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
+        button.gradientLayer.isHidden = true
         button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-        button.tag = 0 //버튼 활성화 여부 체크시 사용. 0 -> 클릭(X), 1 -> 클릭(O)
         return button
     }
     
@@ -310,6 +311,51 @@ final class StarModalView: UIView {
         }
     }
 }
+
+// MARK: - 데이터 설정
+
+extension StarModalView {
+    
+    func configure(star: Star) {
+        titleLabel.text = "스타 수정"
+        addStarButton.setTitle("수정하기", for: .normal)
+        nameTextField.text = star.title
+        
+        let starTime = star.schedule.startTime.coreDataForm()
+        let finishTime = star.schedule.finishTime.coreDataForm()
+        startTimeButton.setTitle(starTime, for: .normal)
+        endTimeButton.setTitle(finishTime, for: .normal)
+
+        if star.schedule.weekDays.contains(WeekDay.mon) {
+            mondayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.tue) {
+            tuesdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.wed) {
+            wednesdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.thu) {
+            thursdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.fri) {
+            fridayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.sat) {
+            saturdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.sun) {
+            sundayButton.gradientLayer.isHidden = false
+        }
+    }
+}
+
 
 // MARK: - 텍스트필드 삭제 버튼
 private extension UITextField {

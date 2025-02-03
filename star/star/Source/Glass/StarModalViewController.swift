@@ -15,9 +15,18 @@ final class StarModalViewController: UIViewController {
     private let starModalView = StarModalView()
 //    private let datePickerView = StarModalDatePickerModalView()
 //    private let datePickerViewController = StarModalDatePickerModalViewController()
-    private let viewModel = StarModalViewModel()
+    private let viewModel: StarModalViewModel
     private let disposeBag = DisposeBag()
-
+    
+    init(viewModel: StarModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         setup()
         bind()
@@ -52,16 +61,7 @@ extension StarModalViewController {
         // 요일 버튼 클릭
         starModalView.weekButtons.forEach { button in
             button.rx.tap.subscribe(onNext: {
-                // tag : 0 -> 클릭(X), 1 -> 클릭(O)
-                let tappedCheck = button.tag
-                
-                if tappedCheck == 0 {// 버튼 비활성화 상태일 때 탭한 경우
-                    button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-                    button.tag = 1
-                } else {// 버튼 활성화 상태일 때 탭한 경우
-                    button.applyGradient(colors: [.starDisabledTagBG], direction: .horizontal)
-                    button.tag = 0
-                }
+                button.gradientLayer.isHidden.toggle()
             }).disposed(by: disposeBag)
         }
         
@@ -88,6 +88,17 @@ extension StarModalViewController {
         starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit).bind { [weak self] in
             self?.starModalView.nameTextField.resignFirstResponder()
         }.disposed(by: disposeBag)
+        
+        starModalView.addStarButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.closeModal()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func closeModal() {
+        dismiss(animated: true)
     }
 }
 
@@ -107,5 +118,11 @@ extension StarModalViewController {
         let output = viewModel.transform(input: input)
         
         output.result.drive().disposed(by: disposeBag)
+        output.star
+            .drive(with: self, onNext: { owner, star in
+                guard let star = star else { return }
+                owner.starModalView.configure(star: star)
+            })
+            .disposed(by: disposeBag)
     }
 }
