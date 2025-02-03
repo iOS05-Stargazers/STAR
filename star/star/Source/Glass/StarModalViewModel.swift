@@ -12,20 +12,20 @@ import RxCocoa
 final class StarModalViewModel {
     
     private let starManager = StarManager.shared
-    private let scheduleVM: ScheduleVM
+    private let scheduleVM = ScheduleVM()
     
-    private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
+//    private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
 //    private let appLockRelay = PublishRelay<[AppID]>
 //    private let weekButtonsRelay = PublishRelay
-    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
-    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
+//    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
+//    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
+    
     private let addStarResultRelay = PublishRelay<String>()
+    private let familyControlsPickerRelay = PublishRelay<Void>()
 
     private let disposeBag = DisposeBag()
     
-    init(scheduleVM: ScheduleVM = ScheduleVM()) {
-        self.scheduleVM = scheduleVM
-    }
+    init() {}
     
     func transform(input: Input) -> Output {
         // "HH:mm" 형식의 문자열을 Date로 변환하기 위한 DateFormatter
@@ -65,7 +65,33 @@ final class StarModalViewModel {
             })
             .disposed(by: disposeBag)
         
-        // 4. "생성하기" 버튼 탭 시 스케줄 저장 후, scheduleVM에 저장된 스케줄을 사용하여 Star 생성
+        // 4. 앱 잠금 버튼 탭 시 FamilyControlsPicker(또는 FamilyActivitySelection) 호출
+        input.appLockButtonTap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                // 내부적으로 FamilyControlsPicker를 호출하는 메서드
+                self.scheduleVM.showFamilyActivitySelection()
+                // 뷰에 picker를 표시하도록 알림(예: viewController에서 이 이벤트를 받아서 present 처리)
+                self.familyControlsPickerRelay.accept(())
+            })
+            .disposed(by: disposeBag)
+        
+        // 5. weekButtonsTap: 사용자가 탭한 요일을 ScheduleVM의 선택된 요일로 업데이트
+        input.weekButtonsTap
+            .subscribe(onNext: { [weak self] tappedWeekDay in
+                guard let self = self else { return }
+                // 현재 선택된 요일을 가져와서 토글
+                var currentWeekDays = self.scheduleVM.schedule.weekDays
+                if currentWeekDays.contains(tappedWeekDay) {
+                    currentWeekDays.remove(tappedWeekDay)
+                } else {
+                    currentWeekDays.insert(tappedWeekDay)
+                }
+                self.scheduleVM.updateSelectedDays(currentWeekDays)
+            })
+            .disposed(by: disposeBag)
+        
+        // 6. "생성하기" 버튼 탭 시 스케줄 저장 후, scheduleVM에 저장된 스케줄을 사용하여 Star 생성
         input.addStarTap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -79,24 +105,23 @@ final class StarModalViewModel {
             })
             .disposed(by: disposeBag)
         
-        return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"))
+        return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
+                      showFamilyActivityPicker: familyControlsPickerRelay.asDriver(onErrorDriveWith: Driver.empty()))
     }
-    
 }
 
 extension StarModalViewModel {
-    
     struct Input {
         let nameTextFieldInput: Observable<String>
-//        let appLockButtonTap: Observable<Void>
-//        let weekButtonsTap: Observable<Void>
         let startTimePick: Observable<String?>
         let endTimePick: Observable<String?>
+        let appLockButtonTap: Observable<Void>
+        let weekButtonsTap: Observable<WeekDay>
         let addStarTap: Observable<Void>
     }
     
     struct Output {
         let result: Driver<String>
+        let showFamilyActivityPicker: Driver<Void>
     }
-    
 }

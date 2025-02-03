@@ -16,7 +16,6 @@ final class StarModalViewController: UIViewController {
 //    private let datePickerView = StarModalDatePickerModalView()
 //    private let datePickerViewController = StarModalDatePickerModalViewController()
     private let viewModel = StarModalViewModel()
-    private let schduleVM = ScheduleVM()
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -98,32 +97,49 @@ extension StarModalViewController {
 extension StarModalViewController {
     
     private func bind() {
-        // 이름 텍스트 필드의 텍스트를 Observable로 변환
         let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
         
-        // 시작 시간 버튼의 타이틀 값을 버튼 탭 시 읽어오고, 초기값도 함께 내보냄
         let startTime = starModalView.startTimeButton.rx.tap
             .map { [weak starModalView] in
                 starModalView?.startTimeButton.title(for: .normal)
             }
             .startWith(starModalView.startTimeButton.title(for: .normal))
         
-        // 종료 시간 버튼의 타이틀 값을 버튼 탭 시 읽어오고, 초기값도 함께 내보냄
         let endTime = starModalView.endTimeButton.rx.tap
             .map { [weak starModalView] in
                 starModalView?.endTimeButton.title(for: .normal)
             }
             .startWith(starModalView.endTimeButton.title(for: .normal))
         
+        let appLockButtonTap = starModalView.appLockButton.rx.tap.asObservable()
+        
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
+        
+        let weekButtonsTap: Observable<WeekDay> = Observable.merge(
+            starModalView.mondayButton.rx.tap.map { WeekDay.mon },
+            starModalView.tuesdayButton.rx.tap.map { WeekDay.tue },
+            starModalView.wednesdayButton.rx.tap.map { WeekDay.wed },
+            starModalView.thursdayButton.rx.tap.map { WeekDay.thu },
+            starModalView.fridayButton.rx.tap.map { WeekDay.fri },
+            starModalView.saturdayButton.rx.tap.map { WeekDay.sat },
+            starModalView.sundayButton.rx.tap.map { WeekDay.sun }
+        )
         
         let input = StarModalViewModel.Input(nameTextFieldInput: name,
                                              startTimePick: startTime,
                                              endTimePick: endTime,
+                                             appLockButtonTap: appLockButtonTap,
+                                             weekButtonsTap: weekButtonsTap,
                                              addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
         
         output.result.drive().disposed(by: disposeBag)
+        output.showFamilyActivityPicker.drive(onNext: { [weak self] in
+            guard let self = self else { return }
+            let pickerVC = FamilyControlsPickerVC()
+            pickerVC.modalPresentationStyle = .formSheet
+            self.present(pickerVC, animated: true, completion: nil)
+        }).disposed(by: disposeBag)
     }
 }
