@@ -82,7 +82,7 @@ final class StarModalViewModel {
             
             // 시작시간이 종료시간보다 이른지 확인
             if startTime.hour > endTime.hour ||
-                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute){
+                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
                 self?.starModalErrorRely.accept(.overFinishTime)
                 return
             }
@@ -100,7 +100,7 @@ final class StarModalViewModel {
                                                      
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
-                      starModalErrorRelay: starModalErrorRely.asDriver(onErrorDriveWith: .empty()),
+                      starModalError: starModalErrorRely.asDriver(onErrorDriveWith: .empty()),
                       refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
     }
     
@@ -125,7 +125,7 @@ extension StarModalViewModel {
     struct Output {
         let result: Driver<String>
         let star: Driver<Star?>
-        let starModalErrorRelay: Driver<StarModalError>
+        let starModalError: Driver<StarModalError>
         let refresh: Driver<Void>
     }
     

@@ -117,7 +117,7 @@ extension StarModalViewController {
             .disposed(by: disposeBag)
         
         // 입력값 에러 바인딩
-        output.starModalErrorRelay
+        output.starModalError
             .drive(with: self, onNext: { owner, error in
                 owner.showToastMessage(error.text)
             })
