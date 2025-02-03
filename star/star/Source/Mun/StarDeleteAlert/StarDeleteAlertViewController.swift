@@ -8,10 +8,15 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
-class StarDeleteAlertViewController: UIViewController {
+final class StarDeleteAlertViewController: UIViewController {
     
     // MARK: - UI 컴포넌트
+    
+    private let viewModel: StarDeleteAlertViewModel
+    private let disposeBag = DisposeBag()
     
     // 모달뷰
     private let modalView = UIView().then {
@@ -73,10 +78,19 @@ class StarDeleteAlertViewController: UIViewController {
     
     // MARK: - 생명주기 메서드
     
+    init(viewModel: StarDeleteAlertViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupAction()
+        bind()
     }
     
     // MARK: - 레이아웃 설정
@@ -127,20 +141,30 @@ class StarDeleteAlertViewController: UIViewController {
             $0.height.equalTo(44)
         }
     }
+}
+
+// MARK: - bind
+
+extension StarDeleteAlertViewController {
     
-    // 액션 연결
-    private func setupAction() {
-        cancelButton.addAction(UIAction { [weak self] _ in
-            self?.closeModal()
-        }, for: .touchUpInside)
+    private func bind() {
+        let input = StarDeleteAlertViewModel.Input(
+            cancelButtonTapped: cancelButton.rx.tap.asObservable(),
+            deleteButtonTapped: deleteButton.rx.tap.asObservable())
+        viewModel.transform(input)
         
-        deleteButton.addAction(UIAction { [weak self] _ in
-            self?.closeModal()
-        }, for: .touchUpInside)
+        // 취소버튼, 삭제버튼 이벤트 처리
+        Driver<Void>
+            .merge(cancelButton.rx.tap.asDriver(),
+                   deleteButton.rx.tap.asDriver())
+            .drive(with: self, onNext: { owner, _ in
+                owner.closeModal()
+            })
+            .disposed(by: disposeBag)
     }
     
     // 모달 닫기
     private func closeModal() {
-        dismiss(animated: true)
+        dismiss(animated: false)
     }
 }

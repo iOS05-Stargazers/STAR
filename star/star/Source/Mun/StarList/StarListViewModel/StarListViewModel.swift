@@ -10,30 +10,30 @@ import RxSwift
 import RxCocoa
  
  // 셀 뷰모델   
-class StarListViewModel {
+final class StarListViewModel {
         
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
     private let dateRelay = PublishRelay<Date>()
-    private let starStatus = PublishRelay<StarState>()
+    private let starStatusRelay = PublishRelay<StarState>()
+    private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
+    let refreshRelay = PublishRelay<Void>() // 추후 리팩토링 예정
     private let disposeBag = DisposeBag()
 
     // 스타 fetch
     private func fetchStars() {
-        let testData = [MockData.ongingOneHour, MockData.ongingThreeHour, MockData.pendingOneMinute, MockData.pendingTenMinute] // 추후 CoreData로 연동
+        let starData = StarManager.shared.read()
         
-        guard let firstData = testData.first else { return }
+        guard let firstData = starData.first else {
+            starsRelay.accept([])
+            return
+        }
         var minTimeStar = firstData.state().interval
-        testData.forEach {
+        starData.forEach {
             // 남은 시간이 가장 임박한 star 저장
             if $0.state().interval < minTimeStar {
                 minTimeStar = $0.state().interval
             }
         }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + minTimeStar) { [weak self] in
-//            guard let self = self else { return }
-//            self.fetchStars()
-//        } 나중에 수정
                 
         // 남은 시간이 0이 되면 데이터 fetch
         Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false) { [weak self] _ in
@@ -41,7 +41,7 @@ class StarListViewModel {
             self.fetchStars()
         }
         
-        let sortedData = testData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
+        let sortedData = starData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
         starsRelay.accept(sortedData)
     }
     
@@ -49,20 +49,42 @@ class StarListViewModel {
     private func fetchDate() {
         dateRelay.accept(Date.now)
     }
+    
+    // 삭제 버튼 누르면 스타 방출
+    private func emitSelectedStar(_ index: Int) {
+        let stars = starsRelay.value
+        selectedStarRelay.accept(stars[index])
+    }
 }
 
 extension StarListViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let deleteAction: PublishSubject<Int>
     }
     
     struct Output {
         let starDataSource: Driver<[Star]>
         let date: Driver<Date>
+        let star: Driver<Star>
+
     }
     
     func transform(_ input: Input) -> Output {
+        refreshRelay
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.fetchStars()
+            })
+            .disposed(by: disposeBag)
+        
+        input.deleteAction
+            .withUnretained(self)
+            .subscribe(onNext: { owner, index in
+                self.emitSelectedStar(index)
+            }).disposed(by: disposeBag)
+        
         input.viewWillAppear
             .withUnretained(self)
             .subscribe(onNext:  { _ in
@@ -71,8 +93,7 @@ extension StarListViewModel {
             }).disposed(by: disposeBag)
         
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
-                      date: dateRelay.asDriver(onErrorDriveWith: .empty()))
+                      date: dateRelay.asDriver(onErrorDriveWith: .empty()),
+                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }
-
-
