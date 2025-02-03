@@ -22,10 +22,6 @@ final class PermissionViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     private func bind() {
         let input = PermissionViewModel.Input(
             requestPermissionTrigger: Observable.just(())

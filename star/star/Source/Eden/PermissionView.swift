@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  PermissionView.swift
 //  star
 //
 //  Created by Eden on 1/24/25.
@@ -90,19 +90,19 @@ class PermissionView: UIView {
         
         // TODO: - 레이아웃 정의
         
-        alertHighlightView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(16)
-            $0.width.equalTo(270 + 28)
-            $0.height.equalTo(195 + 28)
-        }
+//        alertHighlightView.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.centerY.equalToSuperview().offset(16)
+//            $0.width.equalTo(270 + 28)
+//            $0.height.equalTo(195 + 28)
+//        }
         
-        arrowImageView.snp.makeConstraints {
-            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
-            $0.centerX.equalToSuperview().offset(-67.5)
-            $0.width.equalTo(24)
-            $0.height.equalTo(40)
-        }
+//        arrowImageView.snp.makeConstraints {
+//            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
+//            $0.centerX.equalToSuperview().offset(-67.5)
+//            $0.width.equalTo(24)
+//            $0.height.equalTo(40)
+//        }
         
         footerLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-80)
