@@ -42,61 +42,10 @@ enum ScheduleSectionInfo {
     }
 }
 
-// MARK: - 요일 Enum (요일 선택용)
-enum Weekday: Int, Codable, CaseIterable, Identifiable {
-    case monday = 1, tuesday, wednesday, thursday, friday, saturday, sunday
-    
-    var id: Int { rawValue }
-    
-    // 필요에 따라 한글 약칭 등을 제공할 수도 있습니다.
-    var shortName: String {
-        switch self {
-        case .monday:    return "월"
-        case .tuesday:   return "화"
-        case .wednesday: return "수"
-        case .thursday:  return "목"
-        case .friday:    return "금"
-        case .saturday:  return "토"
-        case .sunday:    return "일"
-        }
-    }
-}
-
-// MARK: - 스케쥴 모델 (이름, 앱 잠금, 요일, 시작/종료 시간)
-struct StarSchedule: Codable {
-    var name: String = ""
-    var appLock: FamilyActivitySelection = FamilyActivitySelection()
-    var selectedDays: [Weekday] = [] // 선택된 요일들
-    var startTime: Date = Date()
-    var endTime: Date = Date().addingTimeInterval(900) // 기본: 현재 시간 + 15분
-}
-
-// MARK: - 스케쥴을 RawRepresentable로 변환하여 AppStorage에 저장할 수 있도록 함
-extension StarSchedule: RawRepresentable {
-    init?(rawValue: String) {
-        guard let data = rawValue.data(using: .utf8),
-              let schedule = try? JSONDecoder().decode(StarSchedule.self, from: data)
-        else {
-            return nil
-        }
-        self = schedule
-    }
-    
-    var rawValue: String {
-        guard let data = try? JSONEncoder().encode(self),
-              let string = String(data: data, encoding: .utf8)
-        else {
-            return "{}"
-        }
-        return string
-    }
-}
-
-
 final class ScheduleVM: ObservableObject {
     // 전체 스케쥴을 하나의 AppStorage 키에 저장 (앱 그룹 UserDefaults 사용)
     @AppStorage("schedule", store: UserDefaults(suiteName: Bundle.main.appGroupName))
-    var schedule: StarSchedule = StarSchedule()
+    var schedule: Schedule = Schedule()
 
     @Published var isFamilyActivitySectionActive = false
     @Published var isSaveAlertActive = false
@@ -104,7 +53,7 @@ final class ScheduleVM: ObservableObject {
     @Published var isStopMonitoringAlertActive = false
     
     private func resetAppGroupData() {
-        schedule = StarSchedule()
+        schedule = Schedule()
     }
 }
 
@@ -120,8 +69,8 @@ extension ScheduleVM {
         schedule.appLock = appLock
     }
     
-    func updateSelectedDays(_ days: [Weekday]) {
-        schedule.selectedDays = days
+    func updateSelectedDays(_ days: Set<WeekDay>) {
+        schedule.weekDays = days
     }
     
     func updateStartTime(_ startTime: Date) {

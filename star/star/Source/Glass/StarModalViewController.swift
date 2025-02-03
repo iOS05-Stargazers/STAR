@@ -86,24 +86,41 @@ extension StarModalViewController {
         }.disposed(by: disposeBag)
         
         // 키보드 return키 입력시 키보드 내리기
-        starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit).bind { [weak self] in
-            self?.starModalView.nameTextField.resignFirstResponder()
-        }.disposed(by: disposeBag)
+        starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit)
+            .bind { [weak self] in
+                self?.starModalView.nameTextField.resignFirstResponder()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - ViewModel Bind
-
 extension StarModalViewController {
     
     private func bind() {
-        
+        // 이름 텍스트 필드의 텍스트를 Observable로 변환
         let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
-        let startTime = starModalView.startTimeButton.rx.title(for: .normal).asObserver()
-        let endTime = starModalView.endTimeButton.rx.title(for: .normal).asObserver()
+        
+        // 시작 시간 버튼의 타이틀 값을 버튼 탭 시 읽어오고, 초기값도 함께 내보냄
+        let startTime = starModalView.startTimeButton.rx.tap
+            .map { [weak starModalView] in
+                starModalView?.startTimeButton.title(for: .normal)
+            }
+            .startWith(starModalView.startTimeButton.title(for: .normal))
+        
+        // 종료 시간 버튼의 타이틀 값을 버튼 탭 시 읽어오고, 초기값도 함께 내보냄
+        let endTime = starModalView.endTimeButton.rx.tap
+            .map { [weak starModalView] in
+                starModalView?.endTimeButton.title(for: .normal)
+            }
+            .startWith(starModalView.endTimeButton.title(for: .normal))
+        
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
-        let input = StarModalViewModel.Input(nameTextFieldInput: name, startTimePick: startTime, endTimePick: endTime, addStarTap: addStarButtonTap)
+        let input = StarModalViewModel.Input(nameTextFieldInput: name,
+                                             startTimePick: startTime,
+                                             endTimePick: endTime,
+                                             addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
         

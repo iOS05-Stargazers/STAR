@@ -11,8 +11,6 @@ import Foundation
 
 struct Star {
     let identifier: StarID
-    let title: String
-    let blockList: [AppID]
     let schedule: Schedule
     
     func state() -> StarState {
@@ -27,8 +25,6 @@ extension Star: TestDescriptionConvertible {
         """
         <Star>
         ID: \(identifier.uuidString)
-        title: \(title)
-        blockList: \(blockList.map { $0.uuidString })
         schedule:
         \(schedule.testDescription)
         """
