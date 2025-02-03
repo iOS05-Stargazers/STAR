@@ -128,7 +128,7 @@ extension StarListViewController {
     }
     
     // 생성하기 모달 연결
-    private func connectCreateModal(mode: Mode) {
+    private func connectCreateModal(mode: StarModalMode) {
         let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
         let modalVC = StarModalViewController(viewModel: modalViewModel)
         modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in

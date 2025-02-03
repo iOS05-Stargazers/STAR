@@ -139,6 +139,20 @@ final class StarModalView: UIView {
         $0.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
     
+    // 토스트 뷰
+    let toastView = UIView().then {
+        $0.backgroundColor = .starAppBG.withAlphaComponent(0.7)
+        $0.layer.cornerRadius = 16
+        $0.isHidden = true
+    }
+    
+    // 토스트 라벨
+    let toastLable = UILabel().then {
+        $0.textColor = .starPrimaryText
+        $0.font = Fonts.toastMessage
+        $0.sizeToFit()
+    }
+    
     // MARK: - 초기화
     
     override init(frame: CGRect) {
@@ -188,6 +202,8 @@ final class StarModalView: UIView {
         startTimeStackView,
         endTimeStackView
         ].forEach { scheduleConfigStackView.addSubview($0) }
+        
+        toastView.addSubview(toastLable)
                 
         [
         titleLabel,
@@ -195,7 +211,8 @@ final class StarModalView: UIView {
         nameStackView,
         appLockStackView,
         scheduleConfigStackView,
-        addStarButton
+        addStarButton,
+        toastView
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
@@ -308,6 +325,17 @@ final class StarModalView: UIView {
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(20)
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
+        }
+        
+        toastView.snp.makeConstraints {
+            $0.width.equalTo(toastLable.snp.width).multipliedBy(1.15)
+            $0.height.equalTo(toastLable.snp.height).multipliedBy(2)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
+        }
+        
+        toastLable.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }
