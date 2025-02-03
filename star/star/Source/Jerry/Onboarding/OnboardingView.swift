@@ -110,7 +110,7 @@ final class OnboardingView: UIView {
     private func configureUI() {
         backgroundColor = .starDisabledTagBG.withAlphaComponent(0.8)
         tagView.addSubview(tagLabel)
-
+        
         [
             tagView,
             titleLabel,
@@ -153,13 +153,12 @@ final class OnboardingView: UIView {
             $0.trailing.equalToSuperview().inset(88)
             $0.bottom.equalTo(timeLabel.snp.bottom)
         }
-        
+        // TODO: 너비 수정 필요
         starCellView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(118)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(100)
         }
-
+        
         descriptionLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(starCellView.snp.bottom).offset(30)
