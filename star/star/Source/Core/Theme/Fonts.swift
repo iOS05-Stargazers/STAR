@@ -47,4 +47,7 @@ struct Fonts {
     static let tutorialDescription = UIFont.systemFont(ofSize: 22, weight: .bold)
     /// 앱 블록 화면의 본문 / size : 24 / bold
     static let blockDescription = UIFont.systemFont(ofSize: 24, weight: .bold)
+    
+    /// 토스트 메세지  / size : 16 / medium
+    static let toastMessage = UIFont.systemFont(ofSize: 16, weight: .medium)
 }

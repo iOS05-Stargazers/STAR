@@ -149,7 +149,7 @@ final class StarModalView: UIView {
     // 토스트 라벨
     let toastLable = UILabel().then {
         $0.textColor = .starPrimaryText
-        $0.font = Fonts.buttonDescription
+        $0.font = Fonts.toastMessage
         $0.sizeToFit()
     }
     
