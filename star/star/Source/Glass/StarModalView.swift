@@ -11,6 +11,8 @@ import Then
 
 final class StarModalView: UIView {
     
+    // MARK: - 모달 구성 UI
+    
     // 모달 섹션 타이틀 생성 함수
     private func makeLabel(_ title: String) -> UILabel {
         let label = UILabel()
@@ -41,12 +43,19 @@ final class StarModalView: UIView {
     
     private lazy var nameLabel = makeLabel("이름")
     
-    let nameTextField = UITextField().then {
+    lazy var nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
         $0.textAlignment = .right
-        $0.setClearButton(mode: .whileEditing)
+        $0.rightView = clearButton
+        $0.rightViewMode = .whileEditing
+    }
+    
+    let clearButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        $0.contentMode = .scaleAspectFit
+        $0.tintColor = .starModalBG
     }
     
     // appLockLabel, appLockButton를 담는 스택뷰
@@ -139,6 +148,8 @@ final class StarModalView: UIView {
         $0.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
     
+    // MARK: - 토스트
+    
     // 토스트 뷰
     let toastView = UIView().then {
         $0.backgroundColor = .starAppBG.withAlphaComponent(0.7)
@@ -151,6 +162,41 @@ final class StarModalView: UIView {
         $0.textColor = .starPrimaryText
         $0.font = Fonts.toastMessage
         $0.sizeToFit()
+    }
+    
+    // MARK: - DatePicker
+    
+    let datePicker = UIDatePicker().then {
+        $0.datePickerMode = .time // 모드: 시간
+        $0.preferredDatePickerStyle = .wheels
+        $0.locale = Locale(identifier: "ko_KR") // 24시간 형식 사용
+    }
+    
+    lazy var hiddenTextField = UITextField().then {
+        $0.inputView = datePicker
+        $0.inputAccessoryView = toolbar
+    }
+    
+    var toolbarTitle = UILabel()
+    
+    lazy var toolbar = UIToolbar().then {
+        // toolbar에서 버튼 사이 간격(공간)을 담당
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let titleItem = UIBarButtonItem().then {
+            $0.customView = toolbarTitle
+        }
+        $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, doneButton]
+        $0.sizeToFit()
+    }
+    
+    let cancelButton = UIBarButtonItem().then {
+        $0.title = "취소"
+        $0.style = .plain
+    }
+    
+    let doneButton = UIBarButtonItem().then {
+        $0.title = "선택"
+        $0.style = .done
     }
     
     // MARK: - 초기화
@@ -212,6 +258,7 @@ final class StarModalView: UIView {
         appLockStackView,
         scheduleConfigStackView,
         addStarButton,
+        hiddenTextField,
         toastView
         ].forEach { addSubview($0) }
         
@@ -381,25 +428,5 @@ extension StarModalView {
         if star.schedule.weekDays.contains(WeekDay.sun) {
             sundayButton.gradientLayer.isHidden = false
         }
-    }
-}
-
-
-// MARK: - 텍스트필드 삭제 버튼
-private extension UITextField {
-    
-    func setClearButton(mode: UITextField.ViewMode) {
-        let clearButton = UIButton(type: .system)
-        clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        clearButton.contentMode = .scaleAspectFit
-        clearButton.addTarget(self, action: #selector(UITextField.clear(sender:)), for: .touchUpInside)
-        clearButton.tintColor = .starModalBG
-        self.rightView = clearButton
-        self.rightViewMode = mode
-    }
-    
-    @objc
-    private func clear(sender: AnyObject) {
-        self.text = ""
     }
 }

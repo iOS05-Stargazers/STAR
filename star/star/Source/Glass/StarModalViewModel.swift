@@ -38,7 +38,7 @@ final class StarModalViewModel {
     
     private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
 //    private let appLockRelay = PublishRelay<[AppID]>
-//    private let weekButtonsRelay = PublishRelay
+//    private let weekButtonsRelay = PublishRelay<[]>
     private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
     private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
     private let addStarResultRelay = PublishRelay<String>()
@@ -87,10 +87,11 @@ final class StarModalViewModel {
                 return
             }
 
+            // 스타 수정
             if let starRelay = self?.starRelay.value {
                 let star = Star(identifier: starRelay.identifier, title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
                 self?.starManager.update(star)
-            } else {
+            } else { // 스타 생성
                 let star = Star(identifier: UUID(), title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
                 self?.starManager.create(star)
             }
