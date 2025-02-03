@@ -17,8 +17,12 @@ final class PermissionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = permissionView
+        setupUI()
         bind()
+    }
+    
+    private func setupUI() {
+        view = permissionView
         navigationController?.navigationBar.isHidden = true
     }
     
