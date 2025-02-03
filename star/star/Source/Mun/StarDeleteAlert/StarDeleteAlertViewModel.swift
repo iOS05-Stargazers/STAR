@@ -20,7 +20,7 @@ final class StarDeleteAlertViewModel {
     
     // 스타 삭제
     private func performStarDeletion() {
-        StarManager.shared.delete(star)
+//        StarManager.shared.delete(star)
     }
     
     // 종료 방출

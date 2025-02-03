@@ -12,7 +12,11 @@ import SwiftUI
 final class ScheduleVM: ObservableObject {
     // 전체 스케쥴을 하나의 AppStorage 키에 저장 (앱 그룹 UserDefaults 사용)
     @AppStorage("schedule", store: UserDefaults(suiteName: Bundle.main.appGroupName))
-    var schedule: Schedule = Schedule()
+    // FIXME: - 간이 데이터
+    var schedule: Schedule = Schedule(name: "테스트",
+                                      weekDays: [],
+                                      startTime: StarTime(hour: 10, minute: 10),
+                                      endTime: StarTime(hour: 10, minute: 30))
 
     @Published var isFamilyActivitySectionActive = false
     @Published var isSaveAlertActive = false
@@ -20,7 +24,11 @@ final class ScheduleVM: ObservableObject {
     @Published var isStopMonitoringAlertActive = false
     
     private func resetAppGroupData() {
-        schedule = Schedule()
+        // FIXME: - 간이 데이터
+        schedule = Schedule(name: "테스트",
+                            weekDays: [],
+                            startTime: StarTime(hour: 10, minute: 10),
+                            endTime: StarTime(hour: 10, minute: 30))
     }
 }
 
@@ -40,11 +48,11 @@ extension ScheduleVM {
         schedule.weekDays = days
     }
     
-    func updateStartTime(_ startTime: Date) {
+    func updateStartTime(_ startTime: StarTime) {
         schedule.startTime = startTime
     }
     
-    func updateEndTime(_ endTime: Date) {
+    func updateEndTime(_ endTime: StarTime) {
         schedule.endTime = endTime
     }
     
@@ -57,8 +65,13 @@ extension ScheduleVM {
     // MARK: 스케쥴 저장
     /// 현재 설정한 스케쥴 정보를  DeviceActivityManager에 전달하여 모니터링을 시작
     func saveSchedule() {
-        let startComponents = Calendar.current.dateComponents([.hour, .minute], from: schedule.startTime)
-        let endComponents = Calendar.current.dateComponents([.hour, .minute], from: schedule.endTime)
+        let startTimeHour = schedule.startTime.hour
+        let startTimeMinute = schedule.startTime.minute
+        let endTimeHour = schedule.endTime.hour
+        let endTimeMinute = schedule.endTime.minute
+        
+        let startComponents = DateComponents(hour: startTimeHour, minute: startTimeMinute)
+        let endComponents = DateComponents(hour: endTimeHour, minute: endTimeMinute)
         
         DeviceActivityManager.shared.handleStartDeviceActivityMonitoring(
             startTime: startComponents,
@@ -69,6 +82,7 @@ extension ScheduleVM {
 }
 
 // MARK: - FamilyActivitySelection Parser (AppStorage 저장을 위한 RawRepresentable 확장)
+
 extension FamilyActivitySelection: RawRepresentable {
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),

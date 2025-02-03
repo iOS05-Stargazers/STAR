@@ -13,7 +13,7 @@ import RxSwift
 // Optionally override any of the functions below.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
-    let coreDataManager = CoreDataManager.shared
+    let coreDataManager = StarManager.shared
     let disposeBag = DisposeBag()
     
     // 세션 매핑: UUID (CoreData의 StarEntity) -> DeviceActivityName
@@ -26,11 +26,12 @@ final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     // MARK: - 현재 CoreData에서 모든 스케줄을 불러와 activeSessions에 저장
     private func loadSessions() {
-        let schedules = coreDataManager.fetchAllStars()
+        // FIXME: - 데이터 로드 필요
+        let starList: [Star] = /*coreDataManager.fetchAllStars()*/[]
         sessionStores = [:]
         
-        for schedule in schedules {
-            guard let id = schedule.id else { continue }
+        for star in starList {
+            /*guard*/ let id = star.identifier /*else { continue }*/
             sessionStores[id] = ManagedSettingsStore(named: ManagedSettingsStore.Name("\(id.uuidString)"))
         }
     }
@@ -40,13 +41,13 @@ final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         super.intervalDidStart(for: activity)
         print("[\(activity.rawValue)] 세션 시작됨")
         
-        // CoreData에서 해당 스케줄 찾기
-        guard let starID = UUID(uuidString: activity.rawValue),
-              let schedule = coreDataManager.fetchStar(starID),
-              let store = sessionStores[starID] else {
-            print("해당 스케줄을 찾을 수 없음: \(activity.rawValue)")
-            return
-        }
+//        // CoreData에서 해당 스케줄 찾기
+//        guard let starID = UUID(uuidString: activity.rawValue),
+////              let schedule: Schedule = coreDataManager.fetchStar(starID),
+//              /*let store = sessionStores[starID]*/ else {
+//            print("해당 스케줄을 찾을 수 없음: \(activity.rawValue)")
+//            return
+//        }
 
         /// starID에 appTokens 구현 필요
         /// ApplicationToken 관련 사항 알아보기

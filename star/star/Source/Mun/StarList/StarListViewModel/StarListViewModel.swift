@@ -21,7 +21,7 @@ final class StarListViewModel {
 
     // 스타 fetch
     private func fetchStars() {
-        let starData = StarManager.shared.read()
+        let starData: [Star] = /*StarManager.shared.read()*/[]
         
         guard let firstData = starData.first else {
             starsRelay.accept([])

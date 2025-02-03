@@ -14,7 +14,7 @@ final class PermissionViewModel {
     private let familyControlsManager: FamilyControlsManager
     private let disposeBag = DisposeBag()
     
-    init(familyControlsManager: FamilyControlsManager = FamilyControlsManager()) {
+    init(familyControlsManager: FamilyControlsManager = FamilyControlsManager.shared) {
         self.familyControlsManager = familyControlsManager
     }
 }
@@ -48,14 +48,16 @@ extension PermissionViewModel {
     }
     
     private func requestScreenTimePermission() -> Observable<Bool> {
-        return Observable.create { observer in
-            self.familyControlsManager.requestAuthorization {
-                DispatchQueue.main.async {
-                    observer.onNext(true)
-                    observer.onCompleted()
-                }
-            }
-            return Disposables.create()
-        }
+        return self.familyControlsManager.requestAuthorization().asObservable()
+//        Observable.create { observer in
+//            
+////            self.familyControlsManager.requestAuthorization {
+////                DispatchQueue.main.async {
+////                    observer.onNext(true)
+////                    observer.onCompleted()
+////                }
+////            }
+//            return Disposables.create()
+//        }
     }
 }

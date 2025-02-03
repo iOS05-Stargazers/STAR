@@ -26,8 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
-        
-        /*
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
@@ -36,23 +34,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        Task {
-            let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
-            let rootViewController: UIViewController
-            
-            // FamilyControls의 권한 상태 확인
-            if authorizationsStatus == .approved {
-                // 권한이 승인된 상태 -> StarListViewController로 실행
-                rootViewController = StarListViewController()
-            } else {
-                // 권한 미승인 상태 -> PermissionViewController로 실행
-                rootViewController = PermissionViewController()
-            }
-            
-            await MainActor.run {
-                navigationController.setViewControllers([rootViewController], animated: true)
-            }
-        }
+//        Task {
+//            let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
+//            let rootViewController: UIViewController
+//            
+////             FamilyControls의 권한 상태 확인
+//            if authorizationsStatus == .approved {
+////                 권한이 승인된 상태 -> StarListViewController로 실행
+//                rootViewController = StarListViewController()
+//            } else {
+////                 권한 미승인 상태 -> PermissionViewController로 실행
+//                rootViewController = PermissionViewCo
+//            }
+//            
+//            await MainActor.run {
+//                navigationController.setViewControllers([rootViewController], animated: true)
+//            }
+//        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -86,6 +84,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
-    
-}
 
+}

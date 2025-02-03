@@ -71,9 +71,9 @@ struct StarTranslator {
         // FamilyActivitySelection을 복원 (문자열을 통해)
         guard let appLock = FamilyActivitySelection(rawValue: appLockString) else { return nil }
         // "HH:mm" 문자열을 Date로 변환
-        guard let startTime = Date(coreDataForm: form.startTime),
-              let endTime = Date(coreDataForm: form.endTime)
-        else { return nil }
+        // FIXME: - 간이 데이터
+        let startTime = StarTime(hour: 10, minute: 10)
+              let endTime = StarTime(hour: 10, minute: 30)
         // repeatDays 문자열 (예: "1, 2, 3")을 파싱하여 WeekDay Set으로 변환
         let dayStrings = form.repeatDays.split(separator: ",")
             .map { $0.trimmingCharacters(in: .whitespaces) }

@@ -33,21 +33,20 @@ enum StarModalInputState {
 
 final class StarModalViewModel {
     
+    //    private let coreData = CoreDataManager.shared
     private let starManager = StarManager.shared
-    private let scheduleVM = ScheduleVM()
     
-//    private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
-//    private let appLockRelay = PublishRelay<[AppID]>
-//    private let weekButtonsRelay = PublishRelay
-//    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
-//    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
-    
+    private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
+    //    private let appLockRelay = PublishRelay<[AppID]>
+    //    private let weekButtonsRelay = PublishRelay
+    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
+    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
     private let addStarResultRelay = PublishRelay<String>()
     private let starRelay = BehaviorRelay<Star?>(value: nil)
     private let starModalInputStateRelay = PublishRelay<StarModalInputState>()
     private let refreshRelay: PublishRelay<Void>
     private let weekDaysRelay = BehaviorRelay<[WeekDay]>(value: [])
-
+    
     private let disposeBag = DisposeBag()
     
     init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
@@ -61,47 +60,46 @@ final class StarModalViewModel {
     }
     
     func transform(input: Input) -> Output {
-        // "HH:mm" 형식의 문자열을 Date로 변환하기 위한 DateFormatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
         
-        // 스타 생성하기(더미데이터) TODO: 실제 데이터로 수정
-        input.addStarTap.withLatestFrom(Observable.combineLatest(
-            input.nameTextFieldInput,
-            weekDaysRelay,
-            startTimeRelay,
-            endTimeRelay
-        )).subscribe(onNext: { [weak self] (name, weekDays, startTime, endTime) in
-            // 이름 확인
-            guard name != "" else {
-                self?.starModalInputStateRelay.accept(.noName)
-                return
-            }
-                
-            // 반복주기 확인
-            if weekDays.isEmpty {
-                self?.starModalInputStateRelay.accept(.noSchedule)
-                return
-            }
-            
-            // 시작시간이 종료시간보다 이른지 확인
-            if startTime.hour > endTime.hour ||
-                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
-                self?.starModalInputStateRelay.accept(.overFinishTime)
-                return
-            }
-
-            if let starRelay = self?.starRelay.value {
-                let star = Star(identifier: starRelay.identifier, title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
-                self?.starManager.update(star)
-            } else {
-                let star = Star(identifier: UUID(), title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
-                self?.starManager.create(star)
-            }
-
-            self?.closeAlert()
-        }).disposed(by: disposeBag)
-                                                     
+        // 스타 생성하기(더미데이터) TODO: 실제 데이터로 수정 - 수정 필요
+//        input.addStarTap.withLatestFrom(
+//            Observable.combineLatest(
+//                input.nameTextFieldInput,
+//                weekDaysRelay,
+//                startTimeRelay,
+//                endTimeRelay
+//            )
+//        ).subscribe(onNext: { [weak self] (name, weekDays, startTime, endTime) in
+//            // 이름 확인
+//            guard name != "" else {
+//                self?.starModalInputStateRelay.accept(.noName)
+//                return
+//            }
+//            
+//            // 반복주기 확인
+//            if weekDays.isEmpty {
+//                self?.starModalInputStateRelay.accept(.noSchedule)
+//                return
+//            }
+//            
+//            // 시작시간이 종료시간보다 이른지 확인
+//            if startTime.hour > endTime.hour ||
+//                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
+//                self?.starModalInputStateRelay.accept(.overFinishTime)
+//                return
+//            }
+//            
+//            if let starRelay = self?.starRelay.value {
+//                let star = Star(identifier: starRelay.identifier, title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
+//                self?.starManager.update(star)
+//            } else {
+//                let star = Star(identifier: UUID(), title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
+//                self?.starManager.create(star)
+//            }
+//            
+//            self?.closeAlert()
+//        }).disposed(by: disposeBag)
+        
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
@@ -112,15 +110,17 @@ final class StarModalViewModel {
     private func closeAlert() {
         refreshRelay.accept(())
     }
+    
 }
 
 extension StarModalViewModel {
+    
     struct Input {
         let nameTextFieldInput: Observable<String>
-        let startTimePick: Observable<String?>
-        let endTimePick: Observable<String?>
-        let appLockButtonTap: Observable<Void>
-        let weekButtonsTap: Observable<WeekDay>
+        //        let appLockButtonTap: Observable<Void>
+        //        let weekButtonsTap: Observable<Void>
+        let startTimePick: AnyObserver<String?>
+        let endTimePick: AnyObserver<String?>
         let addStarTap: Observable<Void>
     }
     
@@ -130,4 +130,5 @@ extension StarModalViewModel {
         let starModalInputState: Driver<StarModalInputState>
         let refresh: Driver<Void>
     }
+    
 }

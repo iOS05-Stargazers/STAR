@@ -85,52 +85,24 @@ extension StarModalViewController {
         }.disposed(by: disposeBag)
         
         // 키보드 return키 입력시 키보드 내리기
-        starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit)
-            .bind { [weak self] in
-                self?.starModalView.nameTextField.resignFirstResponder()
-            }
-            .disposed(by: disposeBag)
+        starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit).bind { [weak self] in
+            self?.starModalView.nameTextField.resignFirstResponder()
+        }.disposed(by: disposeBag)
     }
 }
 
 // MARK: - ViewModel Bind
+
 extension StarModalViewController {
     
     private func bind() {
+        
         let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
-        
-        let startTime = starModalView.startTimeButton.rx.tap
-            .map { [weak starModalView] in
-                starModalView?.startTimeButton.title(for: .normal)
-            }
-            .startWith(starModalView.startTimeButton.title(for: .normal))
-        
-        let endTime = starModalView.endTimeButton.rx.tap
-            .map { [weak starModalView] in
-                starModalView?.endTimeButton.title(for: .normal)
-            }
-            .startWith(starModalView.endTimeButton.title(for: .normal))
-        
-        let appLockButtonTap = starModalView.appLockButton.rx.tap.asObservable()
-        
+        let startTime = starModalView.startTimeButton.rx.title(for: .normal).asObserver()
+        let endTime = starModalView.endTimeButton.rx.title(for: .normal).asObserver()
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
-        let weekButtonsTap: Observable<WeekDay> = Observable.merge(
-            starModalView.mondayButton.rx.tap.map { WeekDay.mon },
-            starModalView.tuesdayButton.rx.tap.map { WeekDay.tue },
-            starModalView.wednesdayButton.rx.tap.map { WeekDay.wed },
-            starModalView.thursdayButton.rx.tap.map { WeekDay.thu },
-            starModalView.fridayButton.rx.tap.map { WeekDay.fri },
-            starModalView.saturdayButton.rx.tap.map { WeekDay.sat },
-            starModalView.sundayButton.rx.tap.map { WeekDay.sun }
-        )
-        
-        let input = StarModalViewModel.Input(nameTextFieldInput: name,
-                                             startTimePick: startTime,
-                                             endTimePick: endTime,
-                                             appLockButtonTap: appLockButtonTap,
-                                             weekButtonsTap: weekButtonsTap,
-                                             addStarTap: addStarButtonTap)
+        let input = StarModalViewModel.Input(nameTextFieldInput: name, startTimePick: startTime, endTimePick: endTime, addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
         

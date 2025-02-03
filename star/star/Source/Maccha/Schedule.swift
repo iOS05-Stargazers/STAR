@@ -10,11 +10,11 @@ import FamilyControls
 
 // MARK: - 스케쥴 모델 (이름, 앱 잠금, 요일, 시작/종료 시간)
 struct Schedule: Codable {
-    var name: String = ""
+    var name: String
     var appLock: FamilyActivitySelection = FamilyActivitySelection()
-    var weekDays: Set<WeekDay> = [] // 선택된 요일들
-    var startTime: Date = Date()
-    var endTime: Date = Date().addingTimeInterval(3600) // 기본: 현재 시간 + 60분
+    var weekDays: Set<WeekDay> // 선택된 요일들
+    var startTime: StarTime
+    var endTime: StarTime
     
     var formattedWeekDays: String {
         return WeekDayTranslator.weekDays(weekDays)
@@ -48,9 +48,6 @@ extension Schedule: TestDescriptionConvertible {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         
-        let startTimeString = formatter.string(from: startTime)
-        let finishTimeString = formatter.string(from: endTime)
-        
         let appLockDescription = appLock.rawValue
 
         return """
@@ -58,8 +55,8 @@ extension Schedule: TestDescriptionConvertible {
           - Name: \(name)
           - AppLock: \(appLockDescription)
           - WeekDays: \(formattedWeekDays)
-          - Start Time: \(startTimeString)
-          - Finish Time: \(finishTimeString)
+          - Start Time: \(startTime.testDescription)
+          - Finish Time: \(startTime.testDescription)
         """
     }
 }
