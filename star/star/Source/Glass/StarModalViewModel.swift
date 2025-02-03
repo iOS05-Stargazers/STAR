@@ -14,7 +14,7 @@ enum StarModalMode {
     case edit(star: Star)
 }
 
-enum StarModalError {
+enum StarModalInputState {
     case noName
     case noSchedule
     case overFinishTime
@@ -43,7 +43,7 @@ final class StarModalViewModel {
     private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
     private let addStarResultRelay = PublishRelay<String>()
     private let starRelay = BehaviorRelay<Star?>(value: nil)
-    private let starModalErrorRely = PublishRelay<StarModalError>()
+    private let starModalInputStateRelay = PublishRelay<StarModalInputState>()
     private let refreshRelay: PublishRelay<Void>
     private let weekDaysRelay = BehaviorRelay<[WeekDay]>(value: [])
 
@@ -70,20 +70,20 @@ final class StarModalViewModel {
         )).subscribe(onNext: { [weak self] (name, weekDays, startTime, endTime) in
             // 이름 확인
             guard name != "" else {
-                self?.starModalErrorRely.accept(.noName)
+                self?.starModalInputStateRelay.accept(.noName)
                 return
             }
                 
             // 반복주기 확인
             if weekDays.isEmpty {
-                self?.starModalErrorRely.accept(.noSchedule)
+                self?.starModalInputStateRelay.accept(.noSchedule)
                 return
             }
             
             // 시작시간이 종료시간보다 이른지 확인
             if startTime.hour > endTime.hour ||
                 (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
-                self?.starModalErrorRely.accept(.overFinishTime)
+                self?.starModalInputStateRelay.accept(.overFinishTime)
                 return
             }
 
@@ -100,7 +100,7 @@ final class StarModalViewModel {
                                                      
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
-                      starModalError: starModalErrorRely.asDriver(onErrorDriveWith: .empty()),
+                      starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
                       refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
     }
     
@@ -125,7 +125,7 @@ extension StarModalViewModel {
     struct Output {
         let result: Driver<String>
         let star: Driver<Star?>
-        let starModalError: Driver<StarModalError>
+        let starModalInputState: Driver<StarModalInputState>
         let refresh: Driver<Void>
     }
     
