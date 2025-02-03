@@ -90,7 +90,6 @@ final class StarModalView: UIView {
         button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
         button.gradientLayer.isHidden = true
         button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-        //button.tag = 0 //버튼 활성화 여부 체크시 사용. 0 -> 클릭(X), 1 -> 클릭(O)
         return button
     }
     
@@ -310,8 +309,6 @@ final class StarModalView: UIView {
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
-        
-        //addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
 }
 
