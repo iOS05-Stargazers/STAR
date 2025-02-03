@@ -73,7 +73,8 @@ extension StarListViewModel {
     
     func transform(_ input: Input) -> Output {
         refreshRelay
-            .subscribe(onNext: {
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
                 self.fetchStars()
             })
             .disposed(by: disposeBag)

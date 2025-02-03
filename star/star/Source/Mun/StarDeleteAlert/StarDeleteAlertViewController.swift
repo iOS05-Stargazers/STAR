@@ -153,17 +153,10 @@ extension StarDeleteAlertViewController {
             deleteButtonTapped: deleteButton.rx.tap.asObservable())
         viewModel.transform(input)
         
-        // 취소 버튼 이벤트 처리
-        cancelButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.closeModal()
-            })
-            .disposed(by: disposeBag)
-        
-        // 취소 버튼 이벤트 처리
-        deleteButton.rx.tap
-            .asDriver()
+        // 취소버튼, 삭제버튼 이벤트 처리
+        Driver<Void>
+            .merge(cancelButton.rx.tap.asDriver(),
+                   deleteButton.rx.tap.asDriver())
             .drive(with: self, onNext: { owner, _ in
                 owner.closeModal()
             })

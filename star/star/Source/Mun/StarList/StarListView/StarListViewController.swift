@@ -73,8 +73,8 @@ extension StarListViewController {
         
         // 스타 바인딩
         output.star
-            .drive(onNext: { star in
-                self.showAlert(star)
+            .drive(with: self, onNext: { owner, star in
+                owner.showAlert(star)
             })
             .disposed(by: disposeBag)
         
@@ -119,7 +119,7 @@ extension StarListViewController {
     
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
-        let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, CloseAction: viewModel.refreshRelay)
+        let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
         starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
