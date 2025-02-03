@@ -102,6 +102,7 @@ class StarListCollectionViewCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(tagView.snp.bottom).offset(8)
             $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(24)
             $0.leading.equalTo(tagView.snp.leading)
         }
         

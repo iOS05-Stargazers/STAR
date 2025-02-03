@@ -82,14 +82,15 @@ extension StarListViewController {
         starListView.addStarButton.rx.tap
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
-                owner.connectCreateModal()
+                owner.connectCreateModal(mode: .create)
             })
             .disposed(by: disposeBag)
         
         // 셀 선택 이벤트 처리
-        starListView.starListCollectionView.rx.itemSelected
-            .subscribe(onNext: { _ in
-                print("셀 클릭")
+        starListView.starListCollectionView.rx.modelSelected(Star.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, star in
+                self.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
@@ -127,8 +128,9 @@ extension StarListViewController {
     }
     
     // 생성하기 모달 연결
-    private func connectCreateModal() {
-        let modalVC = StarModalViewController()
+    private func connectCreateModal(mode: StarModalMode) {
+        let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
+        let modalVC = StarModalViewController(viewModel: modalViewModel)
         modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
             let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
             return modalHeight

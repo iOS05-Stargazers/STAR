@@ -21,7 +21,7 @@ struct Fonts {
     /// 스타의 이름  / size : 20 / semibold
     static let starTitle = UIFont.systemFont(ofSize: 20, weight: .semibold)
     /// 스타의 남은 시간 / size : 14 / semibold
-    static let starTime = UIFont.systemFont(ofSize: 14, weight: .semibold)
+    static let starTime = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .semibold)
     /// 스타의 태그  / size : 14 / semibold
     static let starTag = UIFont.systemFont(ofSize: 14, weight: .semibold)
     
@@ -47,4 +47,7 @@ struct Fonts {
     static let tutorialDescription = UIFont.systemFont(ofSize: 22, weight: .bold)
     /// 앱 블록 화면의 본문 / size : 24 / bold
     static let blockDescription = UIFont.systemFont(ofSize: 24, weight: .bold)
+    
+    /// 토스트 메세지  / size : 16 / medium
+    static let toastMessage = UIFont.systemFont(ofSize: 16, weight: .medium)
 }

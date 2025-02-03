@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  PermissionView.swift
 //  star
 //
 //  Created by Eden on 1/24/25.
@@ -23,7 +23,7 @@ class PermissionView: UIView {
     private let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
             fullText: """
-                S T A R 가 스크린타임을 분석하기 위해서는\n사용자의 권한 허용이 필요합니다.
+                S T A R 가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.
                 """,
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText
@@ -46,7 +46,7 @@ class PermissionView: UIView {
     }
     
     private let footerLabel = UILabel().then {
-        $0.text = "스크린타임 권한을 허용하지 않은 경우,\n기능이 정상적으로 작동하지 않습니다."
+        $0.text = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다."
         $0.font = Fonts.permissionBody
         $0.textColor = .starSecondaryText
         $0.textAlignment = .center
@@ -96,7 +96,7 @@ class PermissionView: UIView {
 //            $0.width.equalTo(270 + 28)
 //            $0.height.equalTo(195 + 28)
 //        }
-//        
+        
 //        arrowImageView.snp.makeConstraints {
 //            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
 //            $0.centerX.equalToSuperview().offset(-67.5)
