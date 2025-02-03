@@ -9,6 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum Mode {
+    case create
+    case edit(star: Star)
+}
+
 final class StarModalViewModel {
     
     private let coreData = CoreDataManager.shared
@@ -20,10 +25,20 @@ final class StarModalViewModel {
     private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
     private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
     private let addStarResultRelay = PublishRelay<String>()
+    private let starRelay = BehaviorRelay<Star?>(value: nil)
+    private let refreshRelay: PublishRelay<Void>
 
     private let disposeBag = DisposeBag()
     
-    init() {}
+    init(mode: Mode, refreshRelay: PublishRelay<Void>) {
+        switch mode {
+        case .create:
+            print("")
+        case .edit(let star):
+            starRelay.accept(star)
+        }
+        self.refreshRelay = refreshRelay
+    }
     
     func transform(input: Input) -> Output {
         
@@ -33,13 +48,25 @@ final class StarModalViewModel {
             startTimeRelay,
             endTimeRelay
         )).subscribe(onNext: { [weak self] (name, startTime, endTime) in
-            let star = Star(identifier: UUID(), title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
-            print("check")
-            print(star)
-            self?.starManager.create(star)
+
+            if let starRelay = self?.starRelay.value {
+                let star = Star(identifier: starRelay.identifier, title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
+                self?.starManager.update(star)
+            } else {
+                let star = Star(identifier: UUID(), title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
+                self?.starManager.create(star)
+            }
+
+            self?.closeAlert()
         }).disposed(by: disposeBag)
                                                      
-        return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"))
+        return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
+                      star: starRelay.asDriver(onErrorDriveWith: .empty()))
+    }
+    
+    // 종료 방출
+    private func closeAlert() {
+        refreshRelay.accept(())
     }
     
 }
@@ -57,6 +84,7 @@ extension StarModalViewModel {
     
     struct Output {
         let result: Driver<String>
+        let star: Driver<Star?>
     }
     
 }
