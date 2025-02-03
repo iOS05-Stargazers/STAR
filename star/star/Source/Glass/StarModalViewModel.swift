@@ -9,9 +9,26 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum Mode {
+enum StarModalMode {
     case create
     case edit(star: Star)
+}
+
+enum StarModalError {
+    case noName
+    case noSchedule
+    case overFinishTime
+    
+    var text: String {
+        switch self {
+        case .noName:
+            return "이름을 입력해주세요."
+        case .noSchedule:
+            return "하나 이상의 반복 주기를 선택해주세요."
+        case .overFinishTime:
+            return "시작 시간은 종료 시간보다 빨라야합니다."
+        }
+    }
 }
 
 final class StarModalViewModel {
@@ -22,15 +39,17 @@ final class StarModalViewModel {
     private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
 //    private let appLockRelay = PublishRelay<[AppID]>
 //    private let weekButtonsRelay = PublishRelay
-    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
-    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
+    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 58))
+    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 22, minute: 59))
     private let addStarResultRelay = PublishRelay<String>()
     private let starRelay = BehaviorRelay<Star?>(value: nil)
+    private let starModalErrorRely = PublishRelay<StarModalError>()
     private let refreshRelay: PublishRelay<Void>
+    private let weekDaysRelay = BehaviorRelay<[WeekDay]>(value: [])
 
     private let disposeBag = DisposeBag()
     
-    init(mode: Mode, refreshRelay: PublishRelay<Void>) {
+    init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
         switch mode {
         case .create:
             print("")
@@ -45,9 +64,28 @@ final class StarModalViewModel {
         // 스타 생성하기(더미데이터) TODO: 실제 데이터로 수정
         input.addStarTap.withLatestFrom(Observable.combineLatest(
             input.nameTextFieldInput,
+            weekDaysRelay,
             startTimeRelay,
             endTimeRelay
-        )).subscribe(onNext: { [weak self] (name, startTime, endTime) in
+        )).subscribe(onNext: { [weak self] (name, weekDays, startTime, endTime) in
+            // 이름 확인
+            guard name != "" else {
+                self?.starModalErrorRely.accept(.noName)
+                return
+            }
+                
+            // 반복주기 확인
+            if weekDays.isEmpty {
+                self?.starModalErrorRely.accept(.noSchedule)
+                return
+            }
+            
+            // 시작시간이 종료시간보다 이른지 확인
+            if startTime.hour > endTime.hour ||
+                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute){
+                self?.starModalErrorRely.accept(.overFinishTime)
+                return
+            }
 
             if let starRelay = self?.starRelay.value {
                 let star = Star(identifier: starRelay.identifier, title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
@@ -61,7 +99,9 @@ final class StarModalViewModel {
         }).disposed(by: disposeBag)
                                                      
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
-                      star: starRelay.asDriver(onErrorDriveWith: .empty()))
+                      star: starRelay.asDriver(onErrorDriveWith: .empty()),
+                      starModalErrorRelay: starModalErrorRely.asDriver(onErrorDriveWith: .empty()),
+                      refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
     }
     
     // 종료 방출
@@ -85,6 +125,8 @@ extension StarModalViewModel {
     struct Output {
         let result: Driver<String>
         let star: Driver<Star?>
+        let starModalErrorRelay: Driver<StarModalError>
+        let refresh: Driver<Void>
     }
     
 }

@@ -88,17 +88,6 @@ extension StarModalViewController {
         starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit).bind { [weak self] in
             self?.starModalView.nameTextField.resignFirstResponder()
         }.disposed(by: disposeBag)
-        
-        starModalView.addStarButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.closeModal()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func closeModal() {
-        dismiss(animated: true)
     }
 }
 
@@ -118,11 +107,44 @@ extension StarModalViewController {
         let output = viewModel.transform(input: input)
         
         output.result.drive().disposed(by: disposeBag)
+        
+        // 스타 바인딩(edit 모드일 때 방출)
         output.star
             .drive(with: self, onNext: { owner, star in
                 guard let star = star else { return }
                 owner.starModalView.configure(star: star)
             })
             .disposed(by: disposeBag)
+        
+        // 입력값 에러 바인딩
+        output.starModalErrorRelay
+            .drive(with: self, onNext: { owner, error in
+                owner.showToastMessage(error.text)
+            })
+            .disposed(by: disposeBag)
+        
+        // refresh 바인딩(모달 종료, 스타 메인 화면 데이터 fetch)
+        output.refresh
+            .drive(with: self, onNext: { owner, error in
+                owner.closeModal()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // 토스트 메세지 띄우기
+    private func showToastMessage(_ message: String) {
+        UIView.animate(withDuration: 1.0, delay: 1.5, options: .curveEaseIn, animations: {
+            self.starModalView.toastView.isHidden = false
+            self.starModalView.toastView.alpha = 0.0
+            self.starModalView.toastLable.text = message
+        }) { _ in
+            self.starModalView.toastView.isHidden = true
+            self.starModalView.toastView.alpha = 1
+        }
+    }
+    
+    // 모달 종료
+    private func closeModal() {
+        dismiss(animated: true)
     }
 }
