@@ -16,6 +16,7 @@ final class StarModalViewController: UIViewController {
 //    private let datePickerView = StarModalDatePickerModalView()
 //    private let datePickerViewController = StarModalDatePickerModalViewController()
     private let viewModel = StarModalViewModel()
+    private let schduleVM = ScheduleVM()
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {

@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let familyControlsManager = FamilyControlsManager.shared
-    let scheduleVM = ScheduleVM()
+    let scheduleVM = TestScheduleVM()
     
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
