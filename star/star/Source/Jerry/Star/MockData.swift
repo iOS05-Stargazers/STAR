@@ -18,7 +18,6 @@ private let threeHourBefore = Date.now - TimeInterval(3600) * 3
 private let threeHourLater = Date.now + TimeInterval(3600) * 3
 
 
-
 //struct MockData {
 //    private static let starTime1 = StarTime(date: .now)
 //    private static let starTime2 = StarTime(hour: 10, minute: 10)

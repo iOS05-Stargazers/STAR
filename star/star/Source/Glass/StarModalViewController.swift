@@ -43,6 +43,11 @@ final class StarModalViewController: UIViewController {
 extension StarModalViewController {
     private func setAction() {
         
+        starModalView.appLockButton.rx.tap.withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.appPicker()
+            }).disposed(by: disposeBag)
+        
         // 스타 이름 입력 텍스트필드
         starModalView.nameTextField.rx.text.subscribe(onNext: { data in
             guard let text = data else { return }
@@ -146,5 +151,12 @@ extension StarModalViewController {
     // 모달 종료
     private func closeModal() {
         dismiss(animated: true)
+    }
+    
+//    @objc
+    private func appPicker() {
+        let pickerVC = FamilyControlsPickerVC()
+        pickerVC.modalPresentationStyle = .formSheet
+        self.present(pickerVC, animated: true, completion: nil)
     }
 }

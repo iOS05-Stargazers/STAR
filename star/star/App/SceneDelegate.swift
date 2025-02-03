@@ -26,13 +26,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
-        guard let scene = (scene as? UIWindowScene) else { return }
-        
-        let window = UIWindow(windowScene: scene)
-        let navigationController = UINavigationController()
-        self.window = window
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+//        guard let scene = (scene as? UIWindowScene) else { return }
+//        
+//        let window = UIWindow(windowScene: scene)
+//        let navigationController = UINavigationController()
+//        self.window = window
+//        window.rootViewController = navigationController
+//        window.makeKeyAndVisible()
         
 //        Task {
 //            let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
