@@ -9,6 +9,28 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum StarModalMode {
+    case create
+    case edit(star: Star)
+}
+
+enum StarModalInputState {
+    case noName
+    case noSchedule
+    case overFinishTime
+    
+    var text: String {
+        switch self {
+        case .noName:
+            return "이름을 입력해주세요."
+        case .noSchedule:
+            return "하나 이상의 반복 주기를 선택해주세요."
+        case .overFinishTime:
+            return "시작 시간은 종료 시간보다 빨라야합니다."
+        }
+    }
+}
+
 final class StarModalViewModel {
     
     private let starManager = StarManager.shared
@@ -21,92 +43,74 @@ final class StarModalViewModel {
 //    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
     
     private let addStarResultRelay = PublishRelay<String>()
-    private let familyControlsPickerRelay = PublishRelay<Void>()
+    private let starRelay = BehaviorRelay<Star?>(value: nil)
+    private let starModalInputStateRelay = PublishRelay<StarModalInputState>()
+    private let refreshRelay: PublishRelay<Void>
+    private let weekDaysRelay = BehaviorRelay<[WeekDay]>(value: [])
 
     private let disposeBag = DisposeBag()
     
-    init() {}
+    init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
+        switch mode {
+        case .create:
+            print("")
+        case .edit(let star):
+            starRelay.accept(star)
+        }
+        self.refreshRelay = refreshRelay
+    }
     
     func transform(input: Input) -> Output {
         // "HH:mm" 형식의 문자열을 Date로 변환하기 위한 DateFormatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         
-        // 1. 이름 입력값을 ScheduleVM에 업데이트
-        input.nameTextFieldInput
-            .subscribe(onNext: { [weak self] name in
-                self?.scheduleVM.updateName(name)
-            })
-            .disposed(by: disposeBag)
-        
-        // 2. 시작 시간 문자열을 Date로 변환하여 ScheduleVM 업데이트
-        input.startTimePick
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] startTimeString in
-                if let date = dateFormatter.date(from: startTimeString) {
-                    self?.scheduleVM.updateStartTime(date)
-                } else {
-                    // 변환에 실패하면 기본값(Date())를 사용하거나 별도 처리 가능
-                    self?.scheduleVM.updateStartTime(Date())
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        // 3. 종료 시간 문자열을 Date로 변환하여 ScheduleVM 업데이트
-        input.endTimePick
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] endTimeString in
-                if let date = dateFormatter.date(from: endTimeString) {
-                    self?.scheduleVM.updateEndTime(date)
-                } else {
-                    // 변환에 실패하면 기본값(Date()+60분)을 사용하거나 별도 처리 가능
-                    self?.scheduleVM.updateEndTime(Date().addingTimeInterval(3600))
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        // 4. 앱 잠금 버튼 탭 시 FamilyControlsPicker(또는 FamilyActivitySelection) 호출
-        input.appLockButtonTap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                // 내부적으로 FamilyControlsPicker를 호출하는 메서드
-                self.scheduleVM.showFamilyActivitySelection()
-                // 뷰에 picker를 표시하도록 알림(예: viewController에서 이 이벤트를 받아서 present 처리)
-                self.familyControlsPickerRelay.accept(())
-            })
-            .disposed(by: disposeBag)
-        
-        // 5. weekButtonsTap: 사용자가 탭한 요일을 ScheduleVM의 선택된 요일로 업데이트
-        input.weekButtonsTap
-            .subscribe(onNext: { [weak self] tappedWeekDay in
-                guard let self = self else { return }
-                // 현재 선택된 요일을 가져와서 토글
-                var currentWeekDays = self.scheduleVM.schedule.weekDays
-                if currentWeekDays.contains(tappedWeekDay) {
-                    currentWeekDays.remove(tappedWeekDay)
-                } else {
-                    currentWeekDays.insert(tappedWeekDay)
-                }
-                self.scheduleVM.updateSelectedDays(currentWeekDays)
-            })
-            .disposed(by: disposeBag)
-        
-        // 6. "생성하기" 버튼 탭 시 스케줄 저장 후, scheduleVM에 저장된 스케줄을 사용하여 Star 생성
-        input.addStarTap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                // 스케줄을 저장(예: AppStorage에 기록하거나 DeviceActivityManager로 전달)
-                self.scheduleVM.saveSchedule()
-                // ScheduleVM 내부의 schedule 프로퍼티를 이용하여 Star 생성
-                let schedule = self.scheduleVM.schedule
-                let star = Star(identifier: UUID(), schedule: schedule)
-                self.starManager.create(star)
-                self.addStarResultRelay.accept("스타 생성 완료")
-            })
-            .disposed(by: disposeBag)
-        
+        // 스타 생성하기(더미데이터) TODO: 실제 데이터로 수정
+        input.addStarTap.withLatestFrom(Observable.combineLatest(
+            input.nameTextFieldInput,
+            weekDaysRelay,
+            startTimeRelay,
+            endTimeRelay
+        )).subscribe(onNext: { [weak self] (name, weekDays, startTime, endTime) in
+            // 이름 확인
+            guard name != "" else {
+                self?.starModalInputStateRelay.accept(.noName)
+                return
+            }
+                
+            // 반복주기 확인
+            if weekDays.isEmpty {
+                self?.starModalInputStateRelay.accept(.noSchedule)
+                return
+            }
+            
+            // 시작시간이 종료시간보다 이른지 확인
+            if startTime.hour > endTime.hour ||
+                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
+                self?.starModalInputStateRelay.accept(.overFinishTime)
+                return
+            }
+
+            if let starRelay = self?.starRelay.value {
+                let star = Star(identifier: starRelay.identifier, title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
+                self?.starManager.update(star)
+            } else {
+                let star = Star(identifier: UUID(), title: name, blockList: [], schedule: Schedule(startTime: startTime, finishTime: endTime, weekDays: Set(WeekDay.allCases)))
+                self?.starManager.create(star)
+            }
+
+            self?.closeAlert()
+        }).disposed(by: disposeBag)
+                                                     
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
-                      showFamilyActivityPicker: familyControlsPickerRelay.asDriver(onErrorDriveWith: Driver.empty()))
+                      star: starRelay.asDriver(onErrorDriveWith: .empty()),
+                      starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
+                      refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
+    }
+    
+    // 종료 방출
+    private func closeAlert() {
+        refreshRelay.accept(())
     }
 }
 
@@ -122,6 +126,8 @@ extension StarModalViewModel {
     
     struct Output {
         let result: Driver<String>
-        let showFamilyActivityPicker: Driver<Void>
+        let star: Driver<Star?>
+        let starModalInputState: Driver<StarModalInputState>
+        let refresh: Driver<Void>
     }
 }

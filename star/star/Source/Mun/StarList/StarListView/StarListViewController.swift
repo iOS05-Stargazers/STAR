@@ -10,13 +10,14 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-/// StarListViewControllerReperesentable로 wrapping되어 ContentViewContainer에서 보여집니다.
-class StarListViewController: UIViewController {
+final class StarListViewController: UIViewController {
     
     // MARK: - UI 컴포넌트
     
     let starListView = StarListView()
     let viewModel = StarListViewModel()
+    
+    let deleteActionSubject = PublishSubject<Int>()
     let disposeBag = DisposeBag()
     
     // MARK: - 생명주기 메서드
@@ -32,14 +33,27 @@ class StarListViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 온보딩 뷰를 보여주지 않았다면 온보딩뷰 표시
+        if !UserDefaults.standard.isCoachMarkShown {
+            let onboardingViewController = OnboardingViewController()
+            onboardingViewController.modalPresentationStyle = .overFullScreen
+            present(onboardingViewController, animated: false)
+        }
+    }
 }
 
 // MARK: - bind
 
 extension StarListViewController {
+    
     private func bind() {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
-        let input = StarListViewModel.Input(viewWillAppear: viewWillAppears)
+        let input = StarListViewModel.Input(
+            viewWillAppear: viewWillAppears,
+            deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
 
         // 컬렉션뷰 데이터 바인딩
@@ -57,19 +71,26 @@ extension StarListViewController {
             .drive(starListView.todayDateLabel.rx.text)
             .disposed(by: disposeBag)
         
-        // 추가하기 버튼 이벤트 처리
-        starListView.addStarButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                self?.connectCreateModal()
+        // 스타 바인딩
+        output.star
+            .drive(with: self, onNext: { owner, star in
+                owner.showAlert(star)
             })
             .disposed(by: disposeBag)
         
+        // 추가하기 버튼 이벤트 처리
+        starListView.addStarButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectCreateModal(mode: .create)
+            })
+            .disposed(by: disposeBag)
         
         // 셀 선택 이벤트 처리
-        starListView.starListCollectionView.rx.itemSelected
-            .subscribe(onNext: { _ in
-                print("셀 클릭")
+        starListView.starListCollectionView.rx.modelSelected(Star.self)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, star in
+                self.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
@@ -86,8 +107,7 @@ extension StarListViewController {
                 // 삭제 액션 추가
                 let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completionHandler in
                     guard let self = self else { return }
-                    self.showAlert()
-                    completionHandler(false)
+                    deleteActionSubject.onNext(indexPath.item)
                 }
                 
                 deleteAction.image = UIImage(systemName: "trash")
@@ -99,16 +119,18 @@ extension StarListViewController {
     }
     
     // 삭제하기 알럿 띄우기
-    private func showAlert() {
-        let starDeleteAlertViewController = StarDeleteAlertViewController()
+    private func showAlert(_ star: Star) {
+        let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
+        let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
         starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
-        present(starDeleteAlertViewController, animated: true)
+        present(starDeleteAlertViewController, animated: false)
     }
     
     // 생성하기 모달 연결
-    private func connectCreateModal() {
-        let modalVC = StarModalViewController()
+    private func connectCreateModal(mode: StarModalMode) {
+        let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
+        let modalVC = StarModalViewController(viewModel: modalViewModel)
         modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
             let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
             return modalHeight

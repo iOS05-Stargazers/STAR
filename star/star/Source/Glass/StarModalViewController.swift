@@ -15,9 +15,18 @@ final class StarModalViewController: UIViewController {
     private let starModalView = StarModalView()
 //    private let datePickerView = StarModalDatePickerModalView()
 //    private let datePickerViewController = StarModalDatePickerModalViewController()
-    private let viewModel = StarModalViewModel()
+    private let viewModel: StarModalViewModel
     private let disposeBag = DisposeBag()
-
+    
+    init(viewModel: StarModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         setup()
         bind()
@@ -52,16 +61,7 @@ extension StarModalViewController {
         // 요일 버튼 클릭
         starModalView.weekButtons.forEach { button in
             button.rx.tap.subscribe(onNext: {
-                // tag : 0 -> 클릭(X), 1 -> 클릭(O)
-                let tappedCheck = button.tag
-                
-                if tappedCheck == 0 {// 버튼 비활성화 상태일 때 탭한 경우
-                    button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-                    button.tag = 1
-                } else {// 버튼 활성화 상태일 때 탭한 경우
-                    button.applyGradient(colors: [.starDisabledTagBG], direction: .horizontal)
-                    button.tag = 0
-                }
+                button.gradientLayer.isHidden.toggle()
             }).disposed(by: disposeBag)
         }
         
@@ -135,11 +135,44 @@ extension StarModalViewController {
         let output = viewModel.transform(input: input)
         
         output.result.drive().disposed(by: disposeBag)
-        output.showFamilyActivityPicker.drive(onNext: { [weak self] in
-            guard let self = self else { return }
-            let pickerVC = FamilyControlsPickerVC()
-            pickerVC.modalPresentationStyle = .formSheet
-            self.present(pickerVC, animated: true, completion: nil)
-        }).disposed(by: disposeBag)
+        
+        // 스타 바인딩(edit 모드일 때 방출)
+        output.star
+            .drive(with: self, onNext: { owner, star in
+                guard let star = star else { return }
+                owner.starModalView.configure(star: star)
+            })
+            .disposed(by: disposeBag)
+        
+        // 입력값 에러 바인딩
+        output.starModalInputState
+            .drive(with: self, onNext: { owner, error in
+                owner.showToastMessage(error.text)
+            })
+            .disposed(by: disposeBag)
+        
+        // refresh 바인딩(모달 종료, 스타 메인 화면 데이터 fetch)
+        output.refresh
+            .drive(with: self, onNext: { owner, error in
+                owner.closeModal()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // 토스트 메세지 띄우기
+    private func showToastMessage(_ message: String) {
+        UIView.animate(withDuration: 1.0, delay: 1.5, options: .curveEaseIn, animations: {
+            self.starModalView.toastView.isHidden = false
+            self.starModalView.toastView.alpha = 0.0
+            self.starModalView.toastLable.text = message
+        }) { _ in
+            self.starModalView.toastView.isHidden = true
+            self.starModalView.toastView.alpha = 1
+        }
+    }
+    
+    // 모달 종료
+    private func closeModal() {
+        dismiss(animated: true)
     }
 }

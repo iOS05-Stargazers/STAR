@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  PermissionView.swift
 //  star
 //
 //  Created by Eden on 1/24/25.
@@ -23,7 +23,9 @@ class PermissionView: UIView {
     
     private let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: "STAR가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.",
+            fullText: """
+                S T A R 가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.
+                """,
             font: Fonts.permissionBody,
             color: UIColor.starSecondaryText
         )
@@ -95,7 +97,7 @@ class PermissionView: UIView {
 //            $0.width.equalTo(270 + 28)
 //            $0.height.equalTo(195 + 28)
 //        }
-//        
+        
 //        arrowImageView.snp.makeConstraints {
 //            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
 //            $0.centerX.equalToSuperview().offset(-67.5)

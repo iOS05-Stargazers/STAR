@@ -87,8 +87,9 @@ final class StarModalView: UIView {
         button.titleLabel?.font = Fonts.modalDayOption
         button.layer.cornerRadius = 18
         button.clipsToBounds = true
+        button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
+        button.gradientLayer.isHidden = true
         button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-        button.tag = 0 //버튼 활성화 여부 체크시 사용. 0 -> 클릭(X), 1 -> 클릭(O)
         return button
     }
     
@@ -136,6 +137,20 @@ final class StarModalView: UIView {
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
         $0.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
+    }
+    
+    // 토스트 뷰
+    let toastView = UIView().then {
+        $0.backgroundColor = .starAppBG.withAlphaComponent(0.7)
+        $0.layer.cornerRadius = 16
+        $0.isHidden = true
+    }
+    
+    // 토스트 라벨
+    let toastLable = UILabel().then {
+        $0.textColor = .starPrimaryText
+        $0.font = Fonts.toastMessage
+        $0.sizeToFit()
     }
     
     // MARK: - 초기화
@@ -187,6 +202,8 @@ final class StarModalView: UIView {
         startTimeStackView,
         endTimeStackView
         ].forEach { scheduleConfigStackView.addSubview($0) }
+        
+        toastView.addSubview(toastLable)
                 
         [
         titleLabel,
@@ -194,7 +211,8 @@ final class StarModalView: UIView {
         nameStackView,
         appLockStackView,
         scheduleConfigStackView,
-        addStarButton
+        addStarButton,
+        toastView
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
@@ -308,8 +326,64 @@ final class StarModalView: UIView {
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
+        
+        toastView.snp.makeConstraints {
+            $0.width.equalTo(toastLable.snp.width).multipliedBy(1.15)
+            $0.height.equalTo(toastLable.snp.height).multipliedBy(2)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
+        }
+        
+        toastLable.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
     }
 }
+
+// MARK: - 데이터 설정
+
+extension StarModalView {
+    
+    func configure(star: Star) {
+        titleLabel.text = "스타 수정"
+        addStarButton.setTitle("수정하기", for: .normal)
+        nameTextField.text = star.title
+        
+        let starTime = star.schedule.startTime.coreDataForm()
+        let finishTime = star.schedule.finishTime.coreDataForm()
+        startTimeButton.setTitle(starTime, for: .normal)
+        endTimeButton.setTitle(finishTime, for: .normal)
+
+        if star.schedule.weekDays.contains(WeekDay.mon) {
+            mondayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.tue) {
+            tuesdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.wed) {
+            wednesdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.thu) {
+            thursdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.fri) {
+            fridayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.sat) {
+            saturdayButton.gradientLayer.isHidden = false
+        }
+        
+        if star.schedule.weekDays.contains(WeekDay.sun) {
+            sundayButton.gradientLayer.isHidden = false
+        }
+    }
+}
+
 
 // MARK: - 텍스트필드 삭제 버튼
 private extension UITextField {
