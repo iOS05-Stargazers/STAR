@@ -39,8 +39,8 @@ final class StarModalViewModel {
     private let nameTextFieldRelay = BehaviorRelay<String>(value: "")
 //    private let appLockRelay = PublishRelay<[AppID]>
 //    private let weekButtonsRelay = PublishRelay
-    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 58))
-    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 22, minute: 59))
+    private let startTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 00, minute: 00))
+    private let endTimeRelay = BehaviorRelay<StarTime>(value: StarTime(hour: 23, minute: 59))
     private let addStarResultRelay = PublishRelay<String>()
     private let starRelay = BehaviorRelay<Star?>(value: nil)
     private let starModalErrorRely = PublishRelay<StarModalError>()
