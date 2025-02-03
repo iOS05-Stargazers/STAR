@@ -9,39 +9,6 @@ import Foundation
 import FamilyControls
 import SwiftUI
 
-enum ScheduleSectionInfo {
-    case time
-    case apps
-    case monitoring
-    case revoke
-    
-    var header: String {
-        switch self {
-        case .time:
-            return "setup Time"
-        case .apps:
-            return "setup Apps"
-        case .monitoring:
-            return "stop Schedule Monitoring"
-        case .revoke:
-            return "Revoke Authorization"
-        }
-    }
-    
-    var footer: String {
-        switch self {
-        case .time:
-            return "시작 시간과 종료 시간을 설정하여 앱 사용을 제한하고자 하는\n스케쥴 시간을 설정할 수 있습니다."
-        case .apps:
-            return "변경하기 버튼을 눌러 선택한 시간 동안 사용을 제한하고 싶은\n앱 및 웹 도메인을 선택할 수 있습니다."
-        case .monitoring:
-            return "현재 모니터링 중인 스케줄의 모니터링을 중단합니다."
-        case .revoke:
-            return ""
-        }
-    }
-}
-
 final class ScheduleVM: ObservableObject {
     // 전체 스케쥴을 하나의 AppStorage 키에 저장 (앱 그룹 UserDefaults 사용)
     @AppStorage("schedule", store: UserDefaults(suiteName: Bundle.main.appGroupName))
