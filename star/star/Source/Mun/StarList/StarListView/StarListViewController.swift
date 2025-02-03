@@ -81,11 +81,10 @@ extension StarListViewController {
         // 추가하기 버튼 이벤트 처리
         starListView.addStarButton.rx.tap
             .asDriver()
-            .drive(onNext: { [weak self] in
-                self?.connectCreateModal()
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectCreateModal()
             })
             .disposed(by: disposeBag)
-        
         
         // 셀 선택 이벤트 처리
         starListView.starListCollectionView.rx.itemSelected
@@ -124,7 +123,7 @@ extension StarListViewController {
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
         starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
-        present(starDeleteAlertViewController, animated: true)
+        present(starDeleteAlertViewController, animated: false)
     }
     
     // 생성하기 모달 연결
