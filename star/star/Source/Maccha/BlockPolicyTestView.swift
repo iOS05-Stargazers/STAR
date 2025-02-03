@@ -11,28 +11,45 @@ import FamilyControls
 import SwiftUI
 
 struct BlockPolicyTestView: View {
+    // Family Activity Picker 관련 상태 변수
+    @State private var isPickerPresented: Bool = false
+    @State private var selection: FamilyActivitySelection = FamilyActivitySelection()
+    
     var body: some View {
         VStack(spacing: 20) {
             Text("Block Policy Test")
                 .font(.largeTitle)
                 .padding()
             
+            // 버튼을 눌러 앱 선택 화면(Picker) 띄우기
             Button(action: {
-                applyBlockPolicy()
+                isPickerPresented = true
             }) {
-                Text("앱 차단 정책 적용")
+                Text("차단할 앱 선택")
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.red)
+                    .background(Color.blue)
                     .cornerRadius(8)
             }
             .padding(.horizontal)
             
+            // 현재 선택된 앱들을 리스트로 보여주기
+            if selection.applicationTokens.isEmpty {
+                Text("선택된 앱이 없습니다.")
+                    .foregroundColor(.secondary)
+            } else {
+                List(Array(selection.applications), id: \.self) { app in
+                    Text(app.bundleIdentifier ?? "Unknown App")
+                }
+                .frame(height: 200)
+            }
+            
+            // 선택한 앱들에 대해 차단 정책 적용 버튼
             Button(action: {
-                removeBlockPolicy()
+                applyBlockPolicy()
             }) {
-                Text("앱 차단 정책 해제")
+                Text("차단 정책 적용")
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -42,34 +59,27 @@ struct BlockPolicyTestView: View {
             .padding(.horizontal)
         }
         .padding()
+        // Family Activity Picker modifier: isPresented 바인딩과 sleection 바인딩
+        .familyActivityPicker(isPresented: $isPickerPresented, selection: $selection)
+        // 선택 값이 바뀔 때마다 로그 출력
+        .onChange(of: selection) { newSelection in
+            print("선택 변경됨: \(newSelection)")
+        }
     }
     
-    /// 앱 번들 식별자를 사용해 해당 앱에 대해 차단 정책을 적용하는 함수
     func applyBlockPolicy() {
-        // 앱의 번들 식별자 가져오기
-        guard let bundleID = Bundle.main.bundleIdentifier else {
-            print("번들 식별자 없음")
+        guard !selection.applicationTokens.isEmpty else {
+            print("차단할 앱이 선택되지 않았습니다.")
             return
         }
         
-        // Application 인스턴스를 생성합니다.
-        let app = Application(bundleIdentifier: bundleID)
-        
-        // 해당 앱에 대한 토큰을 가져옵니다.
-        guard let appToken = app.token else {
-            print("토큰을 가져올 수 없습니다. 앱 토큰이 nil입니다.")
-            return
-        }
-        
-        // 차단할 앱 집합에 토큰 추가
-        let blockedApps: Set<ApplicationToken> = [appToken]
+        let blockedApps: Set<ApplicationToken> = selection.applicationTokens
         let store = ManagedSettingsStore()
         store.shield.applications = blockedApps
         
         print("차단 정책이 적용되었습니다: \(blockedApps)")
     }
-
-    /// 차단 정책을 해제하는 함수
+    
     func removeBlockPolicy() {
         let store = ManagedSettingsStore()
         store.shield.applications = []

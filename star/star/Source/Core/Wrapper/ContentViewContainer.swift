@@ -26,8 +26,9 @@ struct ContentViewContainer: View {
                             })
                     }
             } else {
-                StarListViewControllerRepresentable()
-                    .edgesIgnoringSafeArea(.all)
+                ScheduleView()
+//                StarListViewControllerRepresentable()
+//                    .edgesIgnoringSafeArea(.all)
             }
         }
         .onReceive(familyControlsManager.$hasScreenTimePermissionPublished) { newValue in

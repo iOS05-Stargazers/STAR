@@ -62,6 +62,20 @@ final class FamilyControlsManager: ObservableObject {
         authorizationCenter.authorizationStatus
     }
     
+    // MARK: ScreenTime 권한 취소
+    /// 권한 상태가 .approve인 상태에서 메서드 호출 시
+    ///  ScreenTIme  권한 상태를 .notDetermined로 변경합니다.
+    func requestAuthorizationRevoke() {
+        authorizationCenter.revokeAuthorization(completionHandler: { result in
+            switch result {
+            case .success:
+                print("Success")
+            case .failure(let failure):
+                print("\(failure) - failed revoke Permission")
+            }
+        })
+    }
+    
     // MARK: - 권한 상태 업데이트
     /// hasScreenTimePermission의 상태를 변경하기 위한 메서드
     func updateAuthorizationStatus(authStatus: AuthorizationStatus) {

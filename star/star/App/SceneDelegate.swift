@@ -13,12 +13,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let familyControlsManager = FamilyControlsManager.shared
+    let scheduleVM = ScheduleVM()
     
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         let contentView = ContentViewContainer()
             .environmentObject(familyControlsManager)
+            .environmentObject(scheduleVM)
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
