@@ -22,10 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        var rootViewController: UIViewController?
-        
         Task {
             let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
+            let rootViewController: UIViewController
             
             // FamilyControls의 권한 상태 확인
             if authorizationsStatus == .approved {
@@ -35,11 +34,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 // 권한 미승인 상태 -> PermissionViewController로 실행
                 rootViewController = PermissionViewController()
             }
-        }
-        
-        DispatchQueue.main.async {
-            guard let rootViewController = rootViewController else { return }
-            navigationController.setViewControllers([rootViewController], animated: true)
+            
+            await MainActor.run {
+                navigationController.setViewControllers([rootViewController], animated: true)
+            }
         }
     }
     
