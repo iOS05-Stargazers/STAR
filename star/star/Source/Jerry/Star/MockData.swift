@@ -56,6 +56,16 @@ struct MockData {
     private static let pendingThreeDaySchedule = Schedule(startTime: StarTime(date: .now),
                                                           finishTime: StarTime(date: .now),
                                                           weekDays: [threeDayLater])
+    
+    static let beforeUpdate = { Star(identifier: starID,
+                                      title: "업데이트 전 스타",
+                                      blockList: [],
+                                      schedule: ongoingOneHourSchedule) }()
+    static let afterUpdate = { Star(identifier: starID,
+                                      title: "업데이트 후 스타",
+                                      blockList: [],
+                                      schedule: ongoingOneHourSchedule) }()
+    
     static let ongingOneHour = { Star(identifier: UUID(),
                                       title: "진행중 1시간",
                                       blockList: [],

@@ -24,7 +24,7 @@ final class StarUserDefaultsManager {
     
     private let userDefaults: UserDefaults
     
-    func creat(_ star: Star) {
+    func create(_ star: Star) {
         guard let data = star.jsonData() else {
             print("\(star.title) - 데이터 저장 실패")
             return
@@ -59,7 +59,32 @@ final class StarUserDefaultsManager {
     }
     
     func printWhole() {
-        print(read().map { $0.testDescription }.joined(separator: "\n\n"))
+        var description = read().map { $0.testDescription }.joined(separator: "\n\n")
+        description = description != "" ? description : "데이터 없음"
+        print("\n\(description)\n")
+    }
+    
+    func test() {
+        print("======CREATE TEST======")
+        self.create(MockData.ongingOneHour)
+        self.create(MockData.pendingOneDay)
+        self.printWhole()
+        print("=======================\n\n\n")
+
+        print("======DELETE TEST======")
+        self.delete(MockData.ongingOneHour)
+        self.delete(MockData.pendingOneDay)
+        self.printWhole()
+        print("=======================\n\n\n")
+        
+        print("======UPDATE TEST======")
+        self.create(MockData.beforeUpdate)
+        self.printWhole()
+        self.update(MockData.afterUpdate)
+        self.printWhole()
+        print("=======================\n\n\n")
+
+        self.reset()
     }
     
     private func delete(id: UUID) {
