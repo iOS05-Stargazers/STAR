@@ -10,6 +10,11 @@ import RxSwift
 import RxCocoa
 import Then
 
+enum TimeType {
+    case startTime(starTime: StarTime)
+    case endTime(starTime: StarTime)
+}
+
 final class StarModalViewController: UIViewController {
     
     private let starModalView = StarModalView()
@@ -93,8 +98,9 @@ extension StarModalViewController {
             owner.starModalView.hiddenTextField.becomeFirstResponder() // datePicker 열기
         }).disposed(by: disposeBag)
         
+        
         // 선택 버튼 탭
-        starModalView.doneButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
+        starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
             let selectTime = owner.dateToString(date: self.starModalView.datePicker.date)
             
             // 버튼에 시간 표시
@@ -130,27 +136,42 @@ extension StarModalViewController {
     
     private func bind() {
         
-        let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
-        let startTime = starModalView.startTimeButton.rx.title(for: .normal).asObserver()
-        let endTime = starModalView.endTimeButton.rx.title(for: .normal).asObserver()
-        let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
-        
-        let weekButtonsTap = Observable.merge(
-            starModalView.mondayButton.rx.tap.map { "월" },
-            starModalView.tuesdayButton.rx.tap.map { "화" },
-            starModalView.wednesdayButton.rx.tap.map { "수" },
-            starModalView.thursdayButton.rx.tap.map { "목" },
-            starModalView.fridayButton.rx.tap.map { "금" },
-            starModalView.saturdayButton.rx.tap.map { "토" },
-            starModalView.sundayButton.rx.tap.map { "일" }
+        // 텍스트 필드
+        let name = Observable.merge(
+            starModalView.nameTextField.rx.text.orEmpty.map { $0 },
+            starModalView.clearButton.rx.tap.map { "" }
         )
         
-        let input = StarModalViewModel.Input(nameTextFieldInput: name, startTimePick: startTime, endTimePick: endTime, addStarTap: addStarButtonTap)
+        // 요일 버튼
+        let mondayTapped = starModalView.mondayButton.rx.tap.asObservable()
+        let tuesdayTapped = starModalView.tuesdayButton.rx.tap.asObservable()
+        let wednesdayTapped = starModalView.wednesdayButton.rx.tap.asObservable()
+        let thursdayTapped = starModalView.thursdayButton.rx.tap.asObservable()
+        let fridayTapped = starModalView.fridayButton.rx.tap.asObservable()
+        let saturdayTapped = starModalView.saturdayButton.rx.tap.asObservable()
+        let sundayTapped = starModalView.sundayButton.rx.tap.asObservable()
+        
+        let startTimeSubject = PublishSubject<String>()
+        let endTimeSubject = PublishSubject<String>()
+        
+        // 시작/종료 시간
+        starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
+            
+            if let startTime = owner.starModalView.startTimeButton.titleLabel?.text {
+                owner.starModalView.datePicker.rx.date.map { owner.dateToString(date: $0) }.bind(to: startTimeSubject).disposed(by: owner.disposeBag)
+            }
+            
+            if let endTime = owner.starModalView.endTimeButton.titleLabel?.text {
+                owner.starModalView.datePicker.rx.date.map { owner.dateToString(date: $0) }.bind(to: endTimeSubject).disposed(by: owner.disposeBag)
+            }
+        }).disposed(by: disposeBag)
+                
+        let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
+        
+        let input = StarModalViewModel.Input(nameTextFieldInput: name, mondayTapped: mondayTapped, tuesdayTapped: tuesdayTapped, wednesdayTapped: wednesdayTapped, thursdayTapped: thursdayTapped, fridayTapped: fridayTapped, saturdayTapped: saturdayTapped, sundayTapped: sundayTapped, startTimeSubject: startTimeSubject.asObservable(), endTimeSubject: endTimeSubject.asObservable(), addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
-        
-        output.result.drive().disposed(by: disposeBag)
-        
+                
         // 스타 바인딩(edit 모드일 때 방출)
         output.star
             .drive(with: self, onNext: { owner, star in

@@ -177,7 +177,7 @@ final class StarModalView: UIView {
         $0.inputAccessoryView = toolbar
     }
     
-    var toolbarTitle = UILabel()
+    let toolbarTitle = UILabel()
     
     lazy var toolbar = UIToolbar().then {
         // toolbar에서 버튼 사이 간격(공간)을 담당
@@ -185,7 +185,7 @@ final class StarModalView: UIView {
         let titleItem = UIBarButtonItem().then {
             $0.customView = toolbarTitle
         }
-        $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, doneButton]
+        $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, selectButton]
         $0.sizeToFit()
     }
     
@@ -194,7 +194,7 @@ final class StarModalView: UIView {
         $0.style = .plain
     }
     
-    let doneButton = UIBarButtonItem().then {
+    let selectButton = UIBarButtonItem().then {
         $0.title = "선택"
         $0.style = .done
     }
