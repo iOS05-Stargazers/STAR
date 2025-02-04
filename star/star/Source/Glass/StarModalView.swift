@@ -2,7 +2,7 @@
 //  StarModalView.swift
 //  star
 //
-//  Created by t2023-m0072 on 1/22/25.
+//  Created by 안준경 on 1/22/25.
 //
 
 import UIKit

@@ -2,7 +2,7 @@
 //  StarModalViewController.swift
 //  star
 //
-//  Created by t2023-m0072 on 1/22/25.
+//  Created by 안준경 on 1/22/25.
 //
 
 import UIKit
@@ -154,18 +154,21 @@ extension StarModalViewController {
         let startTimeSubject = PublishSubject<String>()
         let endTimeSubject = PublishSubject<String>()
         
-        // 시작/종료 시간
+        // DatePicker
         starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
             
-            if let startTime = owner.starModalView.startTimeButton.titleLabel?.text {
+            // 시작 시간
+            if (owner.starModalView.startTimeButton.titleLabel?.text) != nil {
                 owner.starModalView.datePicker.rx.date.map { owner.dateToString(date: $0) }.bind(to: startTimeSubject).disposed(by: owner.disposeBag)
             }
             
-            if let endTime = owner.starModalView.endTimeButton.titleLabel?.text {
+            // 종료 시간
+            if (owner.starModalView.endTimeButton.titleLabel?.text) != nil {
                 owner.starModalView.datePicker.rx.date.map { owner.dateToString(date: $0) }.bind(to: endTimeSubject).disposed(by: owner.disposeBag)
             }
         }).disposed(by: disposeBag)
-                
+
+        // 스타 생성하기 버튼
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
         let input = StarModalViewModel.Input(nameTextFieldInput: name, mondayTapped: mondayTapped, tuesdayTapped: tuesdayTapped, wednesdayTapped: wednesdayTapped, thursdayTapped: thursdayTapped, fridayTapped: fridayTapped, saturdayTapped: saturdayTapped, sundayTapped: sundayTapped, startTimeSubject: startTimeSubject.asObservable(), endTimeSubject: endTimeSubject.asObservable(), addStarTap: addStarButtonTap)
