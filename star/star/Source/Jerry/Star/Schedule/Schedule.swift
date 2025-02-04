@@ -9,12 +9,10 @@ import Foundation
 
 // MARK: - Schedule
 
-struct Schedule {
+struct Schedule: Codable {
     let startTime: StarTime
     let finishTime: StarTime
     let weekDays: Set<WeekDay>
-    
-
 }
 
 extension Schedule: TestDescriptionConvertible {
