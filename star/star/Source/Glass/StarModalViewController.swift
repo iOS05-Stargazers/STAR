@@ -136,10 +136,8 @@ extension StarModalViewController {
     private func bind() {
         
         // 텍스트 필드
-        let name = Observable.merge(
-            starModalView.nameTextField.rx.text.orEmpty.map { $0 },
-            starModalView.clearButton.rx.tap.map { "" }
-        )
+        let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
+        let nameClear = starModalView.clearButton.rx.tap.asObservable()
         
         // 요일 버튼
         let mondayTapped = starModalView.mondayButton.rx.tap.asObservable()
@@ -150,20 +148,21 @@ extension StarModalViewController {
         let saturdayTapped = starModalView.saturdayButton.rx.tap.asObservable()
         let sundayTapped = starModalView.sundayButton.rx.tap.asObservable()
         
-        let startTimeSubject = PublishSubject<String>()
-        let endTimeSubject = PublishSubject<String>()
+        let startTimeSubject = PublishSubject<Date>()
+        let endTimeSubject = PublishSubject<Date>()
+        
         
         // DatePicker
         starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
             
             // 시작 시간
             if (owner.starModalView.startTimeButton.titleLabel?.text) != nil {
-                owner.starModalView.datePicker.rx.date.map { owner.dateToString(date: $0) }.bind(to: startTimeSubject).disposed(by: owner.disposeBag)
+                owner.starModalView.datePicker.rx.date.bind(to: startTimeSubject).disposed(by: owner.disposeBag)
             }
             
             // 종료 시간
             if (owner.starModalView.endTimeButton.titleLabel?.text) != nil {
-                owner.starModalView.datePicker.rx.date.map { owner.dateToString(date: $0) }.bind(to: endTimeSubject).disposed(by: owner.disposeBag)
+                owner.starModalView.datePicker.rx.date.bind(to: endTimeSubject).disposed(by: owner.disposeBag)
             }
         }).disposed(by: disposeBag)
 
@@ -171,6 +170,7 @@ extension StarModalViewController {
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
         let input = StarModalViewModel.Input(nameTextFieldInput: name,
+                                             nameClear: nameClear,
                                              mondayTapped: mondayTapped,
                                              tuesdayTapped: tuesdayTapped,
                                              wednesdayTapped: wednesdayTapped,
