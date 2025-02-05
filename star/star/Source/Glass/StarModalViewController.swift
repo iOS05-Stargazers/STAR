@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SwiftUI
+import FamilyControls
 import RxSwift
 import RxCocoa
 import Then
@@ -13,10 +15,13 @@ import Then
 final class StarModalViewController: UIViewController {
     
     private let starModalView = StarModalView()
-//    private let datePickerView = StarModalDatePickerModalView()
-//    private let datePickerViewController = StarModalDatePickerModalViewController()
+    //    private let datePickerView = StarModalDatePickerModalView()
+    //    private let datePickerViewController = StarModalDatePickerModalViewController()
     private let viewModel: StarModalViewModel
     private let disposeBag = DisposeBag()
+    
+    private var familyActivitySelection = FamilyActivitySelection()
+    private var isFamilyActivityPickerPresented = false
     
     init(viewModel: StarModalViewModel) {
         self.viewModel = viewModel
@@ -43,10 +48,10 @@ final class StarModalViewController: UIViewController {
 extension StarModalViewController {
     private func setAction() {
         
-        starModalView.appLockButton.rx.tap.withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.appPicker()
-            }).disposed(by: disposeBag)
+//        starModalView.appLockButton.rx.tap.withUnretained(self)
+//            .subscribe(onNext: { owner, _ in
+//                owner.appPicker()
+//            }).disposed(by: disposeBag)
         
         // 스타 이름 입력 텍스트필드
         starModalView.nameTextField.rx.text.subscribe(onNext: { data in
@@ -71,15 +76,15 @@ extension StarModalViewController {
         }
         
         // 시작시간 DatePicker
-//        starModalView.startTimeButton.rx.tap.subscribe(onNext: {
-//            self.datePickerViewController.sheetPresentationController?.detents = [.custom(resolver: { _ in
-//                return 300
-//            })
-//            ]
-//            self.datePickerViewController.sheetPresentationController?.selectedDetentIdentifier = .medium
-//            self.datePickerViewController.modalPresentationStyle = .popover
-//            self.present(self.datePickerViewController, animated: true)
-//        }).disposed(by: disposeBag)
+        //        starModalView.startTimeButton.rx.tap.subscribe(onNext: {
+        //            self.datePickerViewController.sheetPresentationController?.detents = [.custom(resolver: { _ in
+        //                return 300
+        //            })
+        //            ]
+        //            self.datePickerViewController.sheetPresentationController?.selectedDetentIdentifier = .medium
+        //            self.datePickerViewController.modalPresentationStyle = .popover
+        //            self.present(self.datePickerViewController, animated: true)
+        //        }).disposed(by: disposeBag)
         
         // 텍스트필드 외부 탭 했을때 키보드 내리기
         let tapGesture = UITapGestureRecognizer()
@@ -103,11 +108,16 @@ extension StarModalViewController {
     private func bind() {
         
         let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
+        let appLockButtonTap = starModalView.appLockButton.rx.tap.asObservable()
         let startTime = starModalView.startTimeButton.rx.title(for: .normal).asObserver()
         let endTime = starModalView.endTimeButton.rx.title(for: .normal).asObserver()
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
-        let input = StarModalViewModel.Input(nameTextFieldInput: name, startTimePick: startTime, endTimePick: endTime, addStarTap: addStarButtonTap)
+        let input = StarModalViewModel.Input(nameTextFieldInput: name,
+                                             appLockButtonTap: appLockButtonTap,
+                                             startTimePick: startTime,
+                                             endTimePick: endTime,
+                                             addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
         
@@ -134,6 +144,12 @@ extension StarModalViewController {
                 owner.closeModal()
             })
             .disposed(by: disposeBag)
+        
+        output.familyControlsPicker
+            .drive(onNext: { [weak self] in
+                self?.appPicker()
+            })
+            .disposed(by: disposeBag)
     }
     
     // 토스트 메세지 띄우기
@@ -153,7 +169,7 @@ extension StarModalViewController {
         dismiss(animated: true)
     }
     
-//    @objc
+    //    @objc
     private func appPicker() {
         let pickerVC = FamilyControlsPickerVC()
         pickerVC.modalPresentationStyle = .formSheet
