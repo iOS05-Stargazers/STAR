@@ -171,8 +171,29 @@ extension StarModalViewController {
     
     //    @objc
     private func appPicker() {
-        let pickerVC = FamilyControlsPickerVC()
-        pickerVC.modalPresentationStyle = .formSheet
-        self.present(pickerVC, animated: true, completion: nil)
+        let isPresentedBinding = Binding<Bool>(
+            get: { self.isFamilyActivityPickerPresented },
+            set: { newValue in
+                self.isFamilyActivityPickerPresented = newValue
+                // picker가 닫힐 때(newValue가 false) 필요한 작업을 추가할 수 있습니다.
+            }
+        )
+        
+        let selectionBinding = Binding<FamilyActivitySelection>(
+            get: { self.familyActivitySelection },
+            set: { newSelection in
+                self.familyActivitySelection = newSelection
+                // 선택 결과를 viewModel이나 다른 곳에 전달할 수 있음
+                               print("선택된 Family Activity: \(newSelection)")
+            }
+        )
+        
+        let pickerView = FamilyActivityPickerWrapper(isPresented: isPresentedBinding, selection: selectionBinding)
+        
+        let hostingVC = UIHostingController(rootView: pickerView)
+        hostingVC.modalPresentationStyle = .formSheet
+        
+        self.isFamilyActivityPickerPresented = true
+        self.present(hostingVC, animated: true, completion: nil)
     }
 }
