@@ -53,6 +53,11 @@ final class WeekDayButton: GradientButton {
 //        print("\(weekDay.korean) 버튼 - 색: \(!gradientLayer.isHidden) / 상태: \(buttonStateRelay.value)")
     }
     
+    func setState(_ state: Bool) {
+        self.buttonStateRelay.accept(state)
+        gradientLayer.isHidden = !state
+    }
+    
     private func bind() {
         self.rx.tap
             .withUnretained(self)
