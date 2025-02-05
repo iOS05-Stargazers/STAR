@@ -16,8 +16,9 @@ final class WeekDayButton: GradientButton {
     // 요일
     let weekDay: WeekDay
     // 버튼 상태 방출
-    var buttonState: Driver<Bool> {
-        buttonStateRelay.asDriver(onErrorDriveWith: .empty())
+    var buttonState: Driver<(WeekDay, Bool)> {
+        let weekDay = self.weekDay
+        return buttonStateRelay.asDriver(onErrorDriveWith: .empty()).map { state in (weekDay, state) }
     }
     
     init(weekDay: WeekDay, state: Bool = false) {

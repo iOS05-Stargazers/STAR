@@ -35,19 +35,11 @@ final class StarModalViewModel {
     
     private let starManager = StarManager.shared
     
-    private let mondayRelay = BehaviorRelay<Bool>(value: false)
-    private let tuesdayRelay = BehaviorRelay<Bool>(value: false)
-    private let wednesdayRelay = BehaviorRelay<Bool>(value: false)
-    private let thursdayRelay = BehaviorRelay<Bool>(value: false)
-    private let fridayRelay = BehaviorRelay<Bool>(value: false)
-    private let saturdayRelay = BehaviorRelay<Bool>(value: false)
-    private let sundayRelay = BehaviorRelay<Bool>(value: false)
+    private let weekDaysRelay: BehaviorRelay<Set<WeekDay>> = .init(value:[])
     private let addStarResultRelay = PublishRelay<String>()
-    
     private let starRelay = BehaviorRelay<Star?>(value: nil)
     private let starModalInputStateRelay = PublishRelay<StarModalInputState>()
     private let refreshRelay: PublishRelay<Void>
-    
     private let disposeBag = DisposeBag()
     
     private var starName: String = ""
@@ -61,13 +53,11 @@ final class StarModalViewModel {
             print("")
         case .edit(let star):
             starRelay.accept(star)
-            
-            print(star)
-            
             starName = star.title
             startTime = star.schedule.startTime
             endTime = star.schedule.finishTime
             weekDays = star.schedule.weekDays
+            weekDaysRelay.accept(star.schedule.weekDays)
         }
         self.refreshRelay = refreshRelay
     }
@@ -89,135 +79,24 @@ final class StarModalViewModel {
         }).disposed(by: disposeBag)
         
         // 선택한 요일(반복 주기)
-        input.mondayTapped
-            .withLatestFrom(mondayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.mon)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .mon) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: mondayRelay)
-            .disposed(by: disposeBag)
-        
-        input.tuesdayTapped
-            .withLatestFrom(tuesdayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.tue)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .tue) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: tuesdayRelay)
-            .disposed(by: disposeBag)
-        
-        input.wednesdayTapped
-            .withLatestFrom(wednesdayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.wed)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .wed) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: wednesdayRelay)
-            .disposed(by: disposeBag)
-        
-        input.thursdayTapped
-            .withLatestFrom(thursdayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.thu)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .thu) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: thursdayRelay)
-            .disposed(by: disposeBag)
-        
-        input.fridayTapped.withLatestFrom(fridayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.fri)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .fri) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: fridayRelay)
-            .disposed(by: disposeBag)
-        
-        input.saturdayTapped
-            .withLatestFrom(saturdayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.sat)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .sat) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: saturdayRelay)
-            .disposed(by: disposeBag)
-        
-        input.sundayTapped.withLatestFrom(sundayRelay)
-            .map { !$0 }
-            .withUnretained(self)
-            .do(onNext: { owner, state in
-                if state {
-                    owner.weekDays.insert(.sun)
-                } else {
-                    if let index = owner.weekDays.firstIndex(of: .sun) {
-                        owner.weekDays.remove(at: index)
-                    }
-                }
-            })
-            .map { $0.1 }
-            .bind(to: sundayRelay)
-            .disposed(by: disposeBag)
+        input.weekDaysState.withUnretained(self).subscribe(onNext: { owner, daysState in
+            if daysState.1 { owner.weekDays.insert(daysState.0) } else { owner.weekDays.remove(daysState.0) }
+        }).disposed(by: disposeBag)
         
         // 시작 시간
-        input.startTimeSubject
+        input.startTimeRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, date in
                 owner.startTime = StarTime(date: date)
+                print("시작 시간 : \(StarTime(date: date))")
             }).disposed(by: disposeBag)
         
         // 종료 시간
-        input.endTimeSubject
+        input.endTimeRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, date in
-                owner.startTime = StarTime(date: date)
+                owner.endTime = StarTime(date: date)
+                print("종료 시간 : \(StarTime(date: date))")
             }).disposed(by: disposeBag)
         
         // 스타 생성/수정
@@ -240,10 +119,20 @@ final class StarModalViewModel {
                         return
                     }
                     
+                    // 시작시간이 종료시간보다 이른지 확인
+                    if owner.startTime.hour > owner.endTime.hour ||
+                        (owner.startTime.hour == owner.endTime.hour &&
+                         owner.startTime.minute >= owner.endTime.minute) {
+                        
+                        owner.starModalInputStateRelay.accept(.overFinishTime)
+                        
+                        return
+                    }
+                    
                     let star = Star(identifier: starRelay.identifier, title: owner.starName, blockList: [], schedule: Schedule(startTime: owner.startTime, finishTime: owner.endTime, weekDays: owner.weekDays))
                     
                     owner.starManager.update(star)
-                    
+
                 // CREATE
                 } else {
                     // 이름 확인
@@ -269,6 +158,7 @@ final class StarModalViewModel {
                     }
                     
                     let star = Star(identifier: UUID(), title: owner.starName, blockList: [], schedule: Schedule(startTime: owner.startTime, finishTime: owner.endTime, weekDays: owner.weekDays))
+
                     owner.starManager.create(star)
                 }
                 
@@ -279,7 +169,8 @@ final class StarModalViewModel {
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
-                      refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
+                      refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
+                      weekDaysRelay: weekDaysRelay.asDriver(onErrorDriveWith: .empty()))
     }
     
     // 종료 방출
@@ -294,16 +185,10 @@ extension StarModalViewModel {
     struct Input {
         let nameTextFieldInput: Observable<String>
         let nameClear: Observable<Void>
-        let mondayTapped: Observable<Void>
-        let tuesdayTapped: Observable<Void>
-        let wednesdayTapped: Observable<Void>
-        let thursdayTapped: Observable<Void>
-        let fridayTapped: Observable<Void>
-        let saturdayTapped: Observable<Void>
-        let sundayTapped: Observable<Void>
-        let startTimeSubject: Observable<Date>
-        let endTimeSubject: Observable<Date>
+        let startTimeRelay: Observable<Date>
+        let endTimeRelay: Observable<Date>
         let addStarTap: Observable<Void>
+        let weekDaysState: Observable<(WeekDay, Bool)>
     }
     
     struct Output {
@@ -311,6 +196,7 @@ extension StarModalViewModel {
         let star: Driver<Star?>
         let starModalInputState: Driver<StarModalInputState>
         let refresh: Driver<Void>
+        let weekDaysRelay: Driver<Set<WeekDay>>
     }
     
 }

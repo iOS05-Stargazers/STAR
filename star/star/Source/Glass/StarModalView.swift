@@ -96,7 +96,9 @@ final class StarModalView: UIView {
     var fridayButton = WeekDayButton(weekDay: .fri)
     var saturdayButton = WeekDayButton(weekDay: .sat)
     var sundayButton = WeekDayButton(weekDay: .sun)
-     
+    
+    lazy var weekButtons: [WeekDayButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
+    
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -204,8 +206,6 @@ final class StarModalView: UIView {
     
     private func setupUI() {
         backgroundColor = .starModalBG
-        
-        let weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
         
         // 이름
         [
@@ -396,33 +396,5 @@ extension StarModalView {
         let finishTime = star.schedule.finishTime.coreDataForm()
         startTimeButton.setTitle(starTime, for: .normal)
         endTimeButton.setTitle(finishTime, for: .normal)
-
-        if star.schedule.weekDays.contains(WeekDay.mon) {
-            mondayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.tue) {
-            tuesdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.wed) {
-            wednesdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.thu) {
-            thursdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.fri) {
-            fridayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.sat) {
-            saturdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.sun) {
-            sundayButton.gradientLayer.isHidden = false
-        }
     }
 }
