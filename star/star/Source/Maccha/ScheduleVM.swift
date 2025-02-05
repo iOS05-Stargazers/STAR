@@ -19,9 +19,6 @@ final class ScheduleVM: ObservableObject {
                                       endTime: StarTime(hour: 10, minute: 30))
 
     @Published var isFamilyActivitySectionActive = false
-    @Published var isSaveAlertActive = false
-    @Published var isRevokeAlertActive = false
-    @Published var isStopMonitoringAlertActive = false
     
     private func resetAppGroupData() {
         // FIXME: - 간이 데이터

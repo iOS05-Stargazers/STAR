@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SwiftUI
+import FamilyControls
 import RxSwift
 import RxCocoa
 import Then
@@ -17,6 +19,9 @@ final class StarModalViewController: UIViewController {
 //    private let datePickerViewController = StarModalDatePickerModalViewController()
     private let viewModel: StarModalViewModel
     private let disposeBag = DisposeBag()
+    
+    private var familyActivitySelection = FamilyActivitySelection()
+    private var isFamilyActivityPickerPresented = false
     
     init(viewModel: StarModalViewModel) {
         self.viewModel = viewModel
@@ -43,10 +48,10 @@ final class StarModalViewController: UIViewController {
 extension StarModalViewController {
     private func setAction() {
         
-        starModalView.appLockButton.rx.tap.withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.appPicker()
-            }).disposed(by: disposeBag)
+//        starModalView.appLockButton.rx.tap.withUnretained(self)
+//            .subscribe(onNext: { owner, _ in
+//                owner.appPicker()
+//            }).disposed(by: disposeBag)
         
         // 스타 이름 입력 텍스트필드
         starModalView.nameTextField.rx.text.subscribe(onNext: { data in
@@ -103,11 +108,16 @@ extension StarModalViewController {
     private func bind() {
         
         let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
+        let appLockButtonTap = starModalView.appLockButton.rx.tap.asObservable()
         let startTime = starModalView.startTimeButton.rx.title(for: .normal).asObserver()
         let endTime = starModalView.endTimeButton.rx.title(for: .normal).asObserver()
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
-        let input = StarModalViewModel.Input(nameTextFieldInput: name, startTimePick: startTime, endTimePick: endTime, addStarTap: addStarButtonTap)
+        let input = StarModalViewModel.Input(nameTextFieldInput: name,
+                                             appLockButtonTap: appLockButtonTap,
+                                             startTimePick: startTime,
+                                             endTimePick: endTime,
+                                             addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
         
@@ -134,6 +144,12 @@ extension StarModalViewController {
                 owner.closeModal()
             })
             .disposed(by: disposeBag)
+        
+        output.familyControlsPicker
+            .drive(onNext: { [weak self] in
+                self?.appPicker()
+            })
+            .disposed(by: disposeBag)
     }
     
     // 토스트 메세지 띄우기
@@ -155,8 +171,29 @@ extension StarModalViewController {
     
 //    @objc
     private func appPicker() {
-        let pickerVC = FamilyControlsPickerVC()
-        pickerVC.modalPresentationStyle = .formSheet
-        self.present(pickerVC, animated: true, completion: nil)
+        let isPresentedBinding = Binding<Bool>(
+            get: { self.isFamilyActivityPickerPresented },
+            set: { newValue in
+                self.isFamilyActivityPickerPresented = newValue
+                // picker가 닫힐 때(newValue가 false) 필요한 작업을 추가할 수 있습니다.
+            }
+        )
+        
+        let selectionBinding = Binding<FamilyActivitySelection>(
+            get: { self.familyActivitySelection },
+            set: { newSelection in
+                self.familyActivitySelection = newSelection
+                // 선택 결과를 viewModel이나 다른 곳에 전달할 수 있음
+                               print("선택된 Family Activity: \(newSelection)")
+            }
+        )
+        
+        let pickerView = FamilyActivityPickerWrapper(isPresented: isPresentedBinding, selection: selectionBinding)
+        
+        let hostingVC = UIHostingController(rootView: pickerView)
+        hostingVC.modalPresentationStyle = .formSheet
+        
+        self.isFamilyActivityPickerPresented = true
+        self.present(hostingVC, animated: true, completion: nil)
     }
 }
