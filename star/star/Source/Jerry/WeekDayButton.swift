@@ -41,7 +41,6 @@ final class WeekDayButton: GradientButton {
         
         applyGradient(colors: [.starButtonNavy, .starButtonPurple],
                            direction: .vertical)
-        layoutGradientLayer()
         
         bind()
     }
