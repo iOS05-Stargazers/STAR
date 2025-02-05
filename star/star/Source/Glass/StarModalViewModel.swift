@@ -63,15 +63,15 @@ final class StarModalViewModel {
     
     func transform(input: Input) -> Output {
         // 앱 잠금 버튼 탭 시 FamilyControlsPicker(또는 FamilyActivitySelection) 호출
-        input.appLockButtonTap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                // 내부적으로 FamilyControlsPicker를 호출하는 메서드
-                self.scheduleVM.showFamilyActivitySelection()
-                // 뷰에 picker를 표시하도록 알림(예: viewController에서 이 이벤트를 받아서 present 처리)
-                self.familyControlsPickerRelay.accept(())
-            })
-            .disposed(by: disposeBag)
+//        input.appLockButtonTap
+//            .subscribe(onNext: { [weak self] in
+//                guard let self = self else { return }
+//                // 내부적으로 FamilyControlsPicker를 호출하는 메서드
+//                self.scheduleVM.showFamilyActivitySelection()
+//                // 뷰에 picker를 표시하도록 알림(예: viewController에서 이 이벤트를 받아서 present 처리)
+//                self.familyControlsPickerRelay.accept(())
+//            })
+//            .disposed(by: disposeBag)
         
         // 스타 생성하기(더미데이터) TODO: 실제 데이터로 수정 - 수정 필요
 //        input.addStarTap.withLatestFrom(
@@ -115,8 +115,8 @@ final class StarModalViewModel {
         return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
-                      refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
-                      familyControlsPicker: familyControlsPickerRelay.asDriver(onErrorDriveWith: .empty()))
+                      refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
+//                      familyControlsPicker: familyControlsPickerRelay.asDriver(onErrorDriveWith: .empty()))
     }
     
     // 종료 방출
@@ -130,7 +130,7 @@ extension StarModalViewModel {
     
     struct Input {
         let nameTextFieldInput: Observable<String>
-        let appLockButtonTap: Observable<Void>
+//        let appLockButtonTap: Observable<Void>
         //        let weekButtonsTap: Observable<Void>
         let startTimePick: AnyObserver<String?>
         let endTimePick: AnyObserver<String?>
@@ -142,7 +142,7 @@ extension StarModalViewModel {
         let star: Driver<Star?>
         let starModalInputState: Driver<StarModalInputState>
         let refresh: Driver<Void>
-        let familyControlsPicker: Driver<Void>
+//        let familyControlsPicker: Driver<Void>
     }
     
 }

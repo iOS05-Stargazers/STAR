@@ -66,6 +66,7 @@ extension StarModalViewController {
         // 앱 잠금 버튼
         starModalView.appLockButton.rx.tap.withUnretained(self).bind { owner, _ in
             print("앱 잠금 버튼 클릭")
+            owner.appPicker()
         }.disposed(by: disposeBag)
         
         // 요일 버튼 클릭
@@ -108,13 +109,13 @@ extension StarModalViewController {
     private func bind() {
         
         let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
-        let appLockButtonTap = starModalView.appLockButton.rx.tap.asObservable()
+//        let appLockButtonTap = starModalView.appLockButton.rx.tap.asObservable()
         let startTime = starModalView.startTimeButton.rx.title(for: .normal).asObserver()
         let endTime = starModalView.endTimeButton.rx.title(for: .normal).asObserver()
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
         let input = StarModalViewModel.Input(nameTextFieldInput: name,
-                                             appLockButtonTap: appLockButtonTap,
+//                                             appLockButtonTap: appLockButtonTap,
                                              startTimePick: startTime,
                                              endTimePick: endTime,
                                              addStarTap: addStarButtonTap)
@@ -145,11 +146,11 @@ extension StarModalViewController {
             })
             .disposed(by: disposeBag)
         
-        output.familyControlsPicker
-            .drive(onNext: { [weak self] in
-                self?.appPicker()
-            })
-            .disposed(by: disposeBag)
+//        output.familyControlsPicker
+//            .drive(with: self, onNext: { owner, error in
+//                owner.appPicker()
+//            })
+//            .disposed(by: disposeBag)
     }
     
     // 토스트 메세지 띄우기
@@ -171,11 +172,34 @@ extension StarModalViewController {
     
     //    @objc
     private func appPicker() {
+        // MARK: - SwiftUI 기반의 Wrapper를 불러오기 위한 임시 변수 (건들지 말 것)
+        /// UIKit의 ViewController 안에서 UIHostingController를 통한 FamilyActivityPicker를 정상적으로 부르기 위해 코드가 복잡해짐
+        let tempIsPresentedBinding = Binding<Bool>(
+            get: { self.isFamilyActivityPickerPresented },
+            set: { self.isFamilyActivityPickerPresented = $0 }
+        )
+        
+        let tempSelectionBinding = Binding<FamilyActivitySelection>(
+            get: { self.familyActivitySelection },
+            set: { self.familyActivitySelection = $0 }
+        )
+        
+        let hostingVC = UIHostingController(
+            rootView: FamilyActivityPickerWrapper(isPresented: tempIsPresentedBinding,
+                                                  selection: tempSelectionBinding)
+        )
+        
+        // MARK: - hostingVC 설정 갱신을 통해 실제 코드 구현
+        
+        hostingVC.modalPresentationStyle = .overFullScreen
+        hostingVC.view.backgroundColor = .clear
+        
         let isPresentedBinding = Binding<Bool>(
             get: { self.isFamilyActivityPickerPresented },
             set: { newValue in
                 self.isFamilyActivityPickerPresented = newValue
-                // picker가 닫힐 때(newValue가 false) 필요한 작업을 추가할 수 있습니다.
+                // picker가 닫힐 때(newValue가 false) 필요한 작업을 추가할 수 있음
+                hostingVC.dismiss(animated: true)
             }
         )
         
@@ -184,14 +208,13 @@ extension StarModalViewController {
             set: { newSelection in
                 self.familyActivitySelection = newSelection
                 // 선택 결과를 viewModel이나 다른 곳에 전달할 수 있음
-                               print("선택된 Family Activity: \(newSelection)")
+                print("선택된 Family Activity: \(newSelection)")
+                hostingVC.dismiss(animated: true)
             }
         )
         
         let pickerView = FamilyActivityPickerWrapper(isPresented: isPresentedBinding, selection: selectionBinding)
-        
-        let hostingVC = UIHostingController(rootView: pickerView)
-        hostingVC.modalPresentationStyle = .formSheet
+        hostingVC.rootView = pickerView
         
         self.isFamilyActivityPickerPresented = true
         self.present(hostingVC, animated: true, completion: nil)

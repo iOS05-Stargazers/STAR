@@ -15,5 +15,10 @@ struct FamilyActivityPickerWrapper: View {
     var body: some View {
         Color.clear
             .familyActivityPicker(isPresented: $isPresented, selection: $selection)
+            .onChange(of: selection) { newSelection in
+                let applications = selection.applications
+                let categories = selection.categories
+                let webDomains = selection.webDomains
+            }
     }
 }
