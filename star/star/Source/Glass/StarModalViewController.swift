@@ -68,11 +68,11 @@ extension StarModalViewController {
         }.disposed(by: disposeBag)
         
         // 요일 버튼 클릭
-        starModalView.weekButtons.forEach { button in
-            button.rx.tap.subscribe(onNext: {
-                button.gradientLayer.isHidden.toggle()
-            }).disposed(by: disposeBag)
-        }
+//        starModalView.weekButtons.forEach { button in
+//            button.rx.tap.subscribe(onNext: {
+//                button.gradientLayer.isHidden.toggle()
+//            }).disposed(by: disposeBag)
+//        }
         
         // 텍스트필드 외부 탭 했을때 키보드 내리기
         let tapGesture = UITapGestureRecognizer()

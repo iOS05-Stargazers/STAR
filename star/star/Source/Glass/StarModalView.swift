@@ -81,36 +81,21 @@ final class StarModalView: UIView {
     }
     
     private lazy var repeatCycleLabel = makeLabel("반복 주기")
-    
+        
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .equalSpacing
     }
     
-    // 요일 버튼 생성 함수
-    private func makeButton(_ title: String) -> GradientButton {
-        let button = GradientButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.starSecondaryText, for: .normal)
-        button.titleLabel?.font = Fonts.modalDayOption
-        button.layer.cornerRadius = 18
-        button.clipsToBounds = true
-        button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-        button.gradientLayer.isHidden = true
-        button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-        return button
-    }
-    
-    lazy var mondayButton = makeButton("월")
-    lazy var tuesdayButton = makeButton("화")
-    lazy var wednesdayButton = makeButton("수")
-    lazy var thursdayButton = makeButton("목")
-    lazy var fridayButton = makeButton("금")
-    lazy var saturdayButton = makeButton("토")
-    lazy var sundayButton = makeButton("일")
-    
-    lazy var weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
+    // 요일 버튼(반복 주기)
+    let mondayButton = WeekDayButton(weekDay: .mon)
+    let tuesdayButton = WeekDayButton(weekDay: .tue)
+    var wednesdayButton = WeekDayButton(weekDay: .wed)
+    var thursdayButton = WeekDayButton(weekDay: .thu)
+    var fridayButton = WeekDayButton(weekDay: .fri)
+    var saturdayButton = WeekDayButton(weekDay: .sat)
+    var sundayButton = WeekDayButton(weekDay: .sun)
      
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
@@ -219,6 +204,8 @@ final class StarModalView: UIView {
     
     private func setupUI() {
         backgroundColor = .starModalBG
+        
+        let weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
         
         // 이름
         [
@@ -339,6 +326,8 @@ final class StarModalView: UIView {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
+            
+            button.layer.cornerRadius = 18
         }
 
         startTimeStackView.snp.makeConstraints {
