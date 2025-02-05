@@ -8,33 +8,25 @@
 import Foundation
 
 final class StarManager {
+    
     static let shared = StarManager()
     private init() {}
-    private let coreDateManager = CoreDataManager.shared
     
-    func read() -> [Star] {
-        let starEntityList = coreDateManager.fetchAllStars()
-        let starList = starEntityList.compactMap { StarTranslator.star(from: $0) }
-        
-        return starList
-    }
+    private let userDefaultsManager = StarUserDefaultsManager.shared
     
     func create(_ star: Star) {
-        let starEntityForm = starEntityForm(star)
-        coreDateManager.createStar(starEntityForm: starEntityForm)
+        userDefaultsManager.create(star)
+    }
+    
+    func read() -> [Star] {
+        userDefaultsManager.read()
     }
     
     func delete(_ star: Star) {
-        let starEntityForm = starEntityForm(star)
-        coreDateManager.deleteStar(starEntityForm)
+        userDefaultsManager.delete(star)
     }
     
     func update(_ star: Star) {
-        let starEntityForm = starEntityForm(star)
-        coreDateManager.updateStar(starEntityForm: starEntityForm)
-    }
-    
-    private func starEntityForm(_ star: Star) -> StarEntityForm {
-        return StarTranslator.entity(from: star)
+        userDefaultsManager.update(star)
     }
 }
