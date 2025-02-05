@@ -5,40 +5,52 @@
 //  Created by t0000-m0112 on 2025-01-21.
 //
 
+import SwiftUI
 import UIKit
 import FamilyControls
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    let familyControlsManager = FamilyControlsManager.shared
     
-    
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let scene = (scene as? UIWindowScene) else { return }
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
+        let contentView = ContentViewContainer()
+            .environmentObject(familyControlsManager)
         
-        let window = UIWindow(windowScene: scene)
-        let navigationController = UINavigationController()
-        self.window = window
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-        
-        Task {
-            let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
-            let rootViewController: UIViewController
-            
-            // FamilyControls의 권한 상태 확인
-            if authorizationsStatus == .approved {
-                // 권한이 승인된 상태 -> StarListViewController로 실행
-                rootViewController = StarListViewController()
-            } else {
-                // 권한 미승인 상태 -> PermissionViewController로 실행
-                rootViewController = PermissionViewController()
-            }
-            
-            await MainActor.run {
-                navigationController.setViewControllers([rootViewController], animated: true)
-            }
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: contentView)
+            self.window = window
+            window.makeKeyAndVisible()
         }
+//        guard let scene = (scene as? UIWindowScene) else { return }
+//
+//        let window = UIWindow(windowScene: scene)
+//        let navigationController = UINavigationController()
+//        self.window = window
+//        window.rootViewController = navigationController
+//        window.makeKeyAndVisible()
+        
+//        Task {
+//            let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
+//            let rootViewController: UIViewController
+//
+////             FamilyControls의 권한 상태 확인
+//            if authorizationsStatus == .approved {
+////                 권한이 승인된 상태 -> StarListViewController로 실행
+//                rootViewController = StarListViewController()
+//            } else {
+////                 권한 미승인 상태 -> PermissionViewController로 실행
+//                rootViewController = PermissionViewCo
+//            }
+//
+//            await MainActor.run {
+//                navigationController.setViewControllers([rootViewController], animated: true)
+//            }
+//        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -72,6 +84,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
-    
-}
 
+}

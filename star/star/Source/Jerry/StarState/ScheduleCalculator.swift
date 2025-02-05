@@ -17,7 +17,7 @@ struct ScheduleCalculator {
     // StarState.Style 연산
     private static func style(schedule: Schedule) -> StarState.Style {
         let startTime = schedule.startTime
-        let finishTime = schedule.finishTime
+        let finishTime = schedule.endTime
         let state: StarState.Style
         for weekDay in schedule.weekDays {
             if contains(weekDay: weekDay, startTime: startTime, finishTime: finishTime) {
@@ -32,7 +32,7 @@ struct ScheduleCalculator {
     private static func ongoingInterval(_ schedule: Schedule) -> TimeInterval {
         let intervals: [TimeInterval] = schedule.weekDays
             .compactMap {
-                Self.interval(weekDay: $0, starTime: schedule.finishTime) }
+                Self.interval(weekDay: $0, starTime: schedule.endTime) }
             .sorted(by: <)
         return intervals.first ?? 0
     }

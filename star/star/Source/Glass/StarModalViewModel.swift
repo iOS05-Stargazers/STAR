@@ -63,7 +63,7 @@ final class StarModalViewModel {
             starRelay.accept(star)
             starName = star.title
             startTime = star.schedule.startTime
-            endTime = star.schedule.finishTime
+            endTime = star.schedule.endTime
 //            weekDays = star.schedule.weekDays
         }
         self.refreshRelay = refreshRelay
@@ -232,7 +232,7 @@ final class StarModalViewModel {
             if let starRelay = owner.starRelay.value {
                 let star = Star(identifier: starRelay.identifier,
                                 title: starRelay.title,
-                                blockList: [],
+                                blockList: .init(),
                                 schedule: starRelay.schedule)
                 owner.starManager.update(star)
                 
