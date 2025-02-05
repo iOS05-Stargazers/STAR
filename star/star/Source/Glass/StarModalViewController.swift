@@ -98,10 +98,9 @@ extension StarModalViewController {
             owner.starModalView.hiddenTextField.becomeFirstResponder() // datePicker 열기
         }).disposed(by: disposeBag)
         
-        
         // 선택 버튼 탭
         starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
-            let selectTime = owner.dateToString(date: self.starModalView.datePicker.date)
+            let selectTime = owner.dateToString(date: owner.starModalView.datePicker.date)
             
             // 버튼에 시간 표시
             if owner.starModalView.toolbarTitle.text == "시작 시간" {
@@ -171,7 +170,17 @@ extension StarModalViewController {
         // 스타 생성하기 버튼
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
-        let input = StarModalViewModel.Input(nameTextFieldInput: name, mondayTapped: mondayTapped, tuesdayTapped: tuesdayTapped, wednesdayTapped: wednesdayTapped, thursdayTapped: thursdayTapped, fridayTapped: fridayTapped, saturdayTapped: saturdayTapped, sundayTapped: sundayTapped, startTimeSubject: startTimeSubject.asObservable(), endTimeSubject: endTimeSubject.asObservable(), addStarTap: addStarButtonTap)
+        let input = StarModalViewModel.Input(nameTextFieldInput: name,
+                                             mondayTapped: mondayTapped,
+                                             tuesdayTapped: tuesdayTapped,
+                                             wednesdayTapped: wednesdayTapped,
+                                             thursdayTapped: thursdayTapped,
+                                             fridayTapped: fridayTapped,
+                                             saturdayTapped: saturdayTapped,
+                                             sundayTapped: sundayTapped,
+                                             startTimeSubject: startTimeSubject.asObservable(),
+                                             endTimeSubject: endTimeSubject.asObservable(),
+                                             addStarTap: addStarButtonTap)
         
         let output = viewModel.transform(input: input)
                 

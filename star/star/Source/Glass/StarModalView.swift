@@ -170,6 +170,8 @@ final class StarModalView: UIView {
         $0.datePickerMode = .time // 모드: 시간
         $0.preferredDatePickerStyle = .wheels
         $0.locale = Locale(identifier: "ko_KR") // 24시간 형식 사용
+        $0.setValue(UIColor.starDisabledTagBG, forKey: "backgroundColor")
+        $0.setValue(UIColor.starPrimaryText, forKey: "textColor")
     }
     
     lazy var hiddenTextField = UITextField().then {
@@ -177,7 +179,10 @@ final class StarModalView: UIView {
         $0.inputAccessoryView = toolbar
     }
     
-    let toolbarTitle = UILabel()
+    let toolbarTitle = UILabel().then {
+        $0.textColor = .starSecondaryText
+        $0.font = .systemFont(ofSize: 18, weight: .bold)
+    }
     
     lazy var toolbar = UIToolbar().then {
         // toolbar에서 버튼 사이 간격(공간)을 담당
@@ -187,6 +192,8 @@ final class StarModalView: UIView {
         }
         $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, selectButton]
         $0.sizeToFit()
+        $0.isTranslucent = false
+        $0.barTintColor = .starAlertBG
     }
     
     let cancelButton = UIBarButtonItem().then {

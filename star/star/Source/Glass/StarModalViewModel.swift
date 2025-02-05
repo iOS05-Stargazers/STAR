@@ -33,7 +33,6 @@ enum StarModalInputState {
 
 final class StarModalViewModel {
     
-    private let coreData = CoreDataManager.shared
     private let starManager = StarManager.shared
     
     private let mondayRelay = BehaviorRelay<Bool>(value: false)
@@ -43,7 +42,6 @@ final class StarModalViewModel {
     private let fridayRelay = BehaviorRelay<Bool>(value: false)
     private let saturdayRelay = BehaviorRelay<Bool>(value: false)
     private let sundayRelay = BehaviorRelay<Bool>(value: false)
-
     private let addStarResultRelay = PublishRelay<String>()
 
     private let starRelay = BehaviorRelay<Star?>(value: nil)
@@ -78,107 +76,138 @@ final class StarModalViewModel {
         }).disposed(by: disposeBag)
         
         // 선택한 요일(반복 주기)
-        input.mondayTapped.withLatestFrom(mondayRelay)
+        input.mondayTapped
+            .withLatestFrom(mondayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.mon)
+                    owner.weekDays.append(.mon)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .mon) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .mon) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: mondayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: mondayRelay)
+            .disposed(by: disposeBag)
         
-        input.tuesdayTapped.withLatestFrom(tuesdayRelay)
+        input.tuesdayTapped
+            .withLatestFrom(tuesdayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.tue)
+                    owner.weekDays.append(.tue)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .tue) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .tue) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: tuesdayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: tuesdayRelay)
+            .disposed(by: disposeBag)
         
-        input.wednesdayTapped.withLatestFrom(wednesdayRelay)
+        input.wednesdayTapped
+            .withLatestFrom(wednesdayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.wed)
+                    owner.weekDays.append(.wed)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .wed) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .wed) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: wednesdayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: wednesdayRelay)
+            .disposed(by: disposeBag)
         
-        input.thursdayTapped.withLatestFrom(thursdayRelay)
+        input.thursdayTapped
+            .withLatestFrom(thursdayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.thu)
+                    owner.weekDays.append(.thu)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .thu) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .thu) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: thursdayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: thursdayRelay)
+            .disposed(by: disposeBag)
         
         input.fridayTapped.withLatestFrom(fridayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.fri)
+                    owner.weekDays.append(.fri)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .fri) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .fri) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: fridayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: fridayRelay)
+            .disposed(by: disposeBag)
         
-        input.saturdayTapped.withLatestFrom(saturdayRelay)
+        input.saturdayTapped
+            .withLatestFrom(saturdayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.sat)
+                    owner.weekDays.append(.sat)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .sat) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .sat) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: saturdayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: saturdayRelay)
+            .disposed(by: disposeBag)
         
         input.sundayTapped.withLatestFrom(sundayRelay)
             .map { !$0 }
-            .do(onNext: { [weak self] state in
+            .withUnretained(self)
+            .do(onNext: { owner, state in
                 if state {
-                    self?.weekDays.append(.sun)
+                    owner.weekDays.append(.sun)
                 } else {
-                    if let index = self?.weekDays.firstIndex(of: .sun) {
-                        self?.weekDays.remove(at: index)
+                    if let index = owner.weekDays.firstIndex(of: .sun) {
+                        owner.weekDays.remove(at: index)
                     }
                 }
             })
-            .bind(to: sundayRelay).disposed(by: disposeBag)
+            .map { $0.1 }
+            .bind(to: sundayRelay)
+            .disposed(by: disposeBag)
         
-        
-        input.startTimeSubject.withUnretained(self).subscribe(onNext: { owner, time in
+        input.startTimeSubject
+            .withUnretained(self)
+            .subscribe(onNext: { owner, time in
 //            owner.startTime = time
         }).disposed(by: disposeBag)
         
-        input.endTimeSubject.withUnretained(self).subscribe(onNext: { owner, time in
+        input.endTimeSubject
+            .withUnretained(self)
+            .subscribe(onNext: { owner, time in
 //            owner.endTime = time
         }).disposed(by: disposeBag)
         
-        input.addStarTap.withUnretained(self).subscribe(onNext: { owner, _ in
+        input.addStarTap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
             
             // 이름 확인
             guard owner.starName != "" else {
@@ -201,7 +230,10 @@ final class StarModalViewModel {
             
             // 스타 UPDATE
             if let starRelay = owner.starRelay.value {
-                let star = Star(identifier: starRelay.identifier, title: starRelay.title, blockList: [], schedule: starRelay.schedule)
+                let star = Star(identifier: starRelay.identifier,
+                                title: starRelay.title,
+                                blockList: [],
+                                schedule: starRelay.schedule)
                 owner.starManager.update(star)
                 
             // 스타 CREATE
@@ -214,7 +246,8 @@ final class StarModalViewModel {
             
         }).disposed(by: disposeBag)
         
-        return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"), star: starRelay.asDriver(onErrorDriveWith: .empty()),
+        return Output(result: addStarResultRelay.asDriver(onErrorJustReturn: "에러 발생"),
+                      star: starRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
                       refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()))
     }
