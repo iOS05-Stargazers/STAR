@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 rootViewController = StarListViewController()
             } else {
                 // 권한 미승인 상태 -> PermissionViewController로 실행
+                print(111111)
                 rootViewController = PermissionViewController()
             }
             
