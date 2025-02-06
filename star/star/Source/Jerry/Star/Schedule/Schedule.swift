@@ -9,16 +9,20 @@ import Foundation
 
 // MARK: - Schedule
 
+
+import Foundation
+
 struct Schedule: Codable {
-    let startTime: StarTime
-    let finishTime: StarTime
-    let weekDays: Set<WeekDay>
+    var startTime: StarTime
+    var endTime: StarTime
+    var weekDays: Set<WeekDay>
 }
+
 
 extension Schedule: TestDescriptionConvertible {
     var testDescription: String {
         let startTime = startTime.testDescription
-        let finishTime = finishTime.testDescription
+        let finishTime = endTime.testDescription
         let weekDays = weekDays
             .sorted(by: <)
             .map { $0.korean }
@@ -27,7 +31,7 @@ extension Schedule: TestDescriptionConvertible {
         return """
                 <Schedule>
                 startTime: \(startTime)
-                finishTime: \(finishTime)
+                endTime: \(finishTime)
                 weekDays: \(weekDays)
                 """
     }

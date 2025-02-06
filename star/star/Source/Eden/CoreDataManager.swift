@@ -1,13 +1,13 @@
+////
+////  CoreDataManager.swift
+////  star
+////
+////  Created by Eden on 1/22/25.
+////
 //
-//  CoreDataManager.swift
-//  star
+//import CoreData
+//import UIKit
 //
-//  Created by Eden on 1/22/25.
-//
-
-import CoreData
-import UIKit
-
 //class CoreDataManager {
 //    
 //    static let shared = CoreDataManager()

@@ -56,9 +56,8 @@ final class StarModalViewModel {
             starRelay.accept(star)
             starName = star.title
             startTime = star.schedule.startTime
-            endTime = star.schedule.finishTime
-            weekDays = star.schedule.weekDays
-            weekDaysRelay.accept(star.schedule.weekDays)
+            endTime = star.schedule.endTime
+//            weekDays = star.schedule.weekDays
         }
         self.refreshRelay = refreshRelay
     }
@@ -115,6 +114,33 @@ final class StarModalViewModel {
         input.addStarTap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
+            
+            // 이름 확인
+            guard owner.starName != "" else {
+                owner.starModalInputStateRelay.accept(.noName)
+                return
+            }
+            
+            // 반복 주기(요일 선택) 확인
+            if owner.weekDays.isEmpty {
+                owner.starModalInputStateRelay.accept(.noSchedule)
+                return
+            }
+            
+            // 시작시간이 종료시간보다 이른지 확인
+//            if owner.startTime.hour > endTime.hour ||
+//                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
+//                self?.starModalInputStateRelay.accept(.overFinishTime)
+//                return
+//            }
+            
+            // 스타 UPDATE
+            if let starRelay = owner.starRelay.value {
+                let star = Star(identifier: starRelay.identifier,
+                                title: starRelay.title,
+                                blockList: .init(),
+                                schedule: starRelay.schedule)
+                owner.starManager.update(star)
                 
                 // 이름 확인
                 if owner.starName == "" {

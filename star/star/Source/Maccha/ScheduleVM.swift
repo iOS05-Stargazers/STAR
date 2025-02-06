@@ -11,21 +11,14 @@ import SwiftUI
 
 final class ScheduleVM: ObservableObject {
     // 전체 스케쥴을 하나의 AppStorage 키에 저장 (앱 그룹 UserDefaults 사용)
-    @AppStorage("schedule", store: UserDefaults(suiteName: Bundle.main.appGroupName))
+    @AppStorage("star", store: UserDefaults(suiteName: Bundle.main.appGroupName))
     // FIXME: - 간이 데이터
-    var schedule: Schedule = Schedule(name: "테스트",
-                                      weekDays: [],
-                                      startTime: StarTime(hour: 10, minute: 10),
-                                      endTime: StarTime(hour: 10, minute: 30))
-
+    var star: Star = MockData.pendingOneDay
     @Published var isFamilyActivitySectionActive = false
     
     private func resetAppGroupData() {
         // FIXME: - 간이 데이터
-        schedule = Schedule(name: "테스트",
-                            weekDays: [],
-                            startTime: StarTime(hour: 10, minute: 10),
-                            endTime: StarTime(hour: 10, minute: 30))
+        star = MockData.pendingOneDay
     }
 }
 
@@ -34,23 +27,23 @@ extension ScheduleVM {
     
     // MARK: 각 입력값을 업데이트하는 메서드
     func updateName(_ name: String) {
-        schedule.name = name
+        star.title = name
     }
     
     func updateAppLock(_ appLock: FamilyActivitySelection) {
-        schedule.appLock = appLock
+        star.blockList = appLock
     }
     
     func updateSelectedDays(_ days: Set<WeekDay>) {
-        schedule.weekDays = days
+        star.schedule.weekDays = days
     }
     
     func updateStartTime(_ startTime: StarTime) {
-        schedule.startTime = startTime
+        star.schedule.startTime = startTime
     }
     
     func updateEndTime(_ endTime: StarTime) {
-        schedule.endTime = endTime
+        star.schedule.endTime = endTime
     }
     
     // MARK: FamilyActivity Sheet 열기
@@ -62,10 +55,10 @@ extension ScheduleVM {
     // MARK: 스케쥴 저장
     /// 현재 설정한 스케쥴 정보를  DeviceActivityManager에 전달하여 모니터링을 시작
     func saveSchedule() {
-        let startTimeHour = schedule.startTime.hour
-        let startTimeMinute = schedule.startTime.minute
-        let endTimeHour = schedule.endTime.hour
-        let endTimeMinute = schedule.endTime.minute
+        let startTimeHour = star.schedule.startTime.hour
+        let startTimeMinute = star.schedule.startTime.minute
+        let endTimeHour = star.schedule.endTime.hour
+        let endTimeMinute = star.schedule.endTime.minute
         
         let startComponents = DateComponents(hour: startTimeHour, minute: startTimeMinute)
         let endComponents = DateComponents(hour: endTimeHour, minute: endTimeMinute)
