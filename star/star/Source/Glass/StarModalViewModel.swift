@@ -66,7 +66,6 @@ final class StarModalViewModel {
         
         // 텍스트 필드 입력
         input.nameTextFieldInput
-            .filter { !$0.isEmpty }
             .withUnretained(self)
             .subscribe(onNext: { owner, name in
                 owner.starName = name
@@ -74,12 +73,16 @@ final class StarModalViewModel {
             .disposed(by: disposeBag)
         
         // 텍스트필드 clear
-        input.nameClear.withUnretained(self).subscribe(onNext: { owner, _ in
+        input.nameClear
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
             owner.starName = ""
         }).disposed(by: disposeBag)
         
         // 선택한 요일(반복 주기)
-        input.weekDaysState.withUnretained(self).subscribe(onNext: { owner, daysState in
+        input.weekDaysState
+            .withUnretained(self)
+            .subscribe(onNext: { owner, daysState in
             if daysState.1 { owner.weekDays.insert(daysState.0) } else { owner.weekDays.remove(daysState.0) }
         }).disposed(by: disposeBag)
         
@@ -88,7 +91,6 @@ final class StarModalViewModel {
             .withUnretained(self)
             .subscribe(onNext: { owner, date in
                 owner.startTime = StarTime(date: date)
-                print("시작 시간 : \(StarTime(date: date))")
             }).disposed(by: disposeBag)
         
         // 종료 시간
@@ -96,7 +98,6 @@ final class StarModalViewModel {
             .withUnretained(self)
             .subscribe(onNext: { owner, date in
                 owner.endTime = StarTime(date: date)
-                print("종료 시간 : \(StarTime(date: date))")
             }).disposed(by: disposeBag)
         
         // 스타 생성/수정
@@ -104,60 +105,49 @@ final class StarModalViewModel {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 
+                // 이름 확인
+                if owner.starName == "" {
+                    owner.starModalInputStateRelay.accept(.noName)
+                    return
+                }
+                
+                // 반복 주기(요일 선택) 확인
+                if owner.weekDays.isEmpty {
+                    owner.starModalInputStateRelay.accept(.noSchedule)
+                    return
+                }
+                
+                // 시작시간이 종료시간보다 이른지 확인
+                if owner.startTime.hour > owner.endTime.hour ||
+                    (owner.startTime.hour == owner.endTime.hour &&
+                     owner.startTime.minute >= owner.endTime.minute) {
+                    
+                    owner.starModalInputStateRelay.accept(.overFinishTime)
+                    
+                    return
+                }
+                
                 // UPDATE
-                if let starRelay = owner.starRelay.value {
+                if let star = owner.starRelay.value {
                     
-                    // 이름 확인
-                    guard owner.starName != "" else {
-                        owner.starModalInputStateRelay.accept(.noName)
-                        return
-                    }
-                    
-                    // 반복 주기(요일 선택) 확인
-                    if owner.weekDays.isEmpty {
-                        owner.starModalInputStateRelay.accept(.noSchedule)
-                        return
-                    }
-                    
-                    // 시작시간이 종료시간보다 이른지 확인
-                    if owner.startTime.hour > owner.endTime.hour ||
-                        (owner.startTime.hour == owner.endTime.hour &&
-                         owner.startTime.minute >= owner.endTime.minute) {
-                        
-                        owner.starModalInputStateRelay.accept(.overFinishTime)
-                        
-                        return
-                    }
-                    
-                    let star = Star(identifier: starRelay.identifier, title: owner.starName, blockList: [], schedule: Schedule(startTime: owner.startTime, finishTime: owner.endTime, weekDays: owner.weekDays))
+                    let star = Star(identifier: star.identifier,
+                                    title: owner.starName,
+                                    blockList: [],
+                                    schedule: Schedule(startTime: owner.startTime,
+                                                       finishTime: owner.endTime,
+                                                       weekDays: owner.weekDays))
                     
                     owner.starManager.update(star)
 
                 // CREATE
                 } else {
-                    // 이름 확인
-                    guard owner.starName != "" else {
-                        owner.starModalInputStateRelay.accept(.noName)
-                        return
-                    }
-                    
-                    // 반복 주기(요일 선택) 확인
-                    if owner.weekDays.isEmpty {
-                        owner.starModalInputStateRelay.accept(.noSchedule)
-                        return
-                    }
-                    
-                    // 시작시간이 종료시간보다 이른지 확인
-                    if owner.startTime.hour > owner.endTime.hour ||
-                        (owner.startTime.hour == owner.endTime.hour &&
-                         owner.startTime.minute >= owner.endTime.minute) {
-                        
-                        owner.starModalInputStateRelay.accept(.overFinishTime)
-                        
-                        return
-                    }
-                    
-                    let star = Star(identifier: UUID(), title: owner.starName, blockList: [], schedule: Schedule(startTime: owner.startTime, finishTime: owner.endTime, weekDays: owner.weekDays))
+                   
+                    let star = Star(identifier: UUID(),
+                                    title: owner.starName,
+                                    blockList: [],
+                                    schedule: Schedule(startTime: owner.startTime,
+                                                       finishTime: owner.endTime,
+                                                       weekDays: owner.weekDays))
 
                     owner.starManager.create(star)
                 }

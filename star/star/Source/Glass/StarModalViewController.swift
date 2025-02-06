@@ -48,7 +48,8 @@ extension StarModalViewController {
     private func setModalAction() {
         
         // 스타 이름 입력 텍스트필드
-        starModalView.nameTextField.rx.text.subscribe(onNext: { data in
+        starModalView.nameTextField.rx.text
+            .subscribe(onNext: { data in
             guard let text = data else { return }
             
             // 16자 입력제한
@@ -58,7 +59,9 @@ extension StarModalViewController {
         }).disposed(by: disposeBag)
         
         // 텍스트필드 클리어버튼
-        starModalView.clearButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
+        starModalView.clearButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
             owner.starModalView.nameTextField.text = ""
         }).disposed(by: disposeBag)
         
@@ -76,7 +79,9 @@ extension StarModalViewController {
         }.disposed(by: disposeBag)
         
         // 키보드 return키 입력시 키보드 내리기
-        starModalView.nameTextField.rx.controlEvent(.editingDidEndOnExit).bind { [weak self] in
+        starModalView.nameTextField.rx
+            .controlEvent(.editingDidEndOnExit)
+            .bind { [weak self] in
             self?.starModalView.nameTextField.resignFirstResponder()
         }.disposed(by: disposeBag)
     }
@@ -92,7 +97,9 @@ extension StarModalViewController {
         }).disposed(by: disposeBag)
         
         // 선택 버튼 탭
-        starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
+        starModalView.selectButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
             let selectTime = owner.dateToString(date: owner.starModalView.datePicker.date)
             
             // 버튼에 시간 표시
@@ -129,7 +136,7 @@ extension StarModalViewController {
     private func bind() {
         
         // 텍스트 필드
-        let name = starModalView.nameTextField.rx.text.orEmpty.asObservable()
+        let name = starModalView.nameTextField.rx.text.orEmpty.skip(1).asObservable()
         let nameClear = starModalView.clearButton.rx.tap.asObservable()
         
         // 요일 버튼
@@ -147,7 +154,9 @@ extension StarModalViewController {
         let endTimeRelay = PublishRelay<Date>()
         
         // DatePicker
-        starModalView.selectButton.rx.tap.withUnretained(self).subscribe(onNext: { owner, _ in
+        starModalView.selectButton.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
             let time = owner.starModalView.datePicker.date
             
             if owner.starModalView.toolbarTitle.text == "시작 시간" {

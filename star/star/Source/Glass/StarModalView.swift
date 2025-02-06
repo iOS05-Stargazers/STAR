@@ -91,11 +91,11 @@ final class StarModalView: UIView {
     // 요일 버튼(반복 주기)
     let mondayButton = WeekDayButton(weekDay: .mon)
     let tuesdayButton = WeekDayButton(weekDay: .tue)
-    var wednesdayButton = WeekDayButton(weekDay: .wed)
-    var thursdayButton = WeekDayButton(weekDay: .thu)
-    var fridayButton = WeekDayButton(weekDay: .fri)
-    var saturdayButton = WeekDayButton(weekDay: .sat)
-    var sundayButton = WeekDayButton(weekDay: .sun)
+    let wednesdayButton = WeekDayButton(weekDay: .wed)
+    let thursdayButton = WeekDayButton(weekDay: .thu)
+    let fridayButton = WeekDayButton(weekDay: .fri)
+    let saturdayButton = WeekDayButton(weekDay: .sat)
+    let sundayButton = WeekDayButton(weekDay: .sun)
     
     lazy var weekButtons: [WeekDayButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
     
