@@ -71,6 +71,15 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 - **Start Date**: 2025/01/16
 
 ## 📂 Folder Organization
+```bash
+── star                    // Main target of the project
+│   ├── App
+│   ├── Resource
+│   └── Source
+├── ShieldConfiguration    // Target for customizing the Screen Time screen that restricts app usage
+├── ShieldAction           // Target for managing the methods invoked from the Screen Time screen that restricts app usage
+└── DeviceActivityMonitor  // Target for managing the methods invoked according to the created Screen Time schedule
+```
 
 ## 🖼️ Preview
 
