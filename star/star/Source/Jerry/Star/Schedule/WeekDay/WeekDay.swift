@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - WeekDay
 
-enum WeekDay: Int, Hashable, CaseIterable {
+enum WeekDay: Int, Hashable, CaseIterable, Codable {
     case sun = 1
     case mon
     case tue

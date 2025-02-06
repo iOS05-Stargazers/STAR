@@ -2,7 +2,7 @@
 //  StarModalView.swift
 //  star
 //
-//  Created by t2023-m0072 on 1/22/25.
+//  Created by 안준경 on 1/22/25.
 //
 
 import UIKit
@@ -10,6 +10,8 @@ import SnapKit
 import Then
 
 final class StarModalView: UIView {
+    
+    // MARK: - 모달 구성 UI
     
     // 모달 섹션 타이틀 생성 함수
     private func makeLabel(_ title: String) -> UILabel {
@@ -41,12 +43,19 @@ final class StarModalView: UIView {
     
     private lazy var nameLabel = makeLabel("이름")
     
-    let nameTextField = UITextField().then {
+    lazy var nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = Fonts.modalSectionOption
         $0.textAlignment = .right
-        $0.setClearButton(mode: .whileEditing)
+        $0.rightView = clearButton
+        $0.rightViewMode = .whileEditing
+    }
+    
+    let clearButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        $0.contentMode = .scaleAspectFit
+        $0.tintColor = .starModalBG
     }
     
     // appLockLabel, appLockButton를 담는 스택뷰
@@ -72,37 +81,24 @@ final class StarModalView: UIView {
     }
     
     private lazy var repeatCycleLabel = makeLabel("반복 주기")
-    
+        
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .equalSpacing
     }
     
-    // 요일 버튼 생성 함수
-    private func makeButton(_ title: String) -> GradientButton {
-        let button = GradientButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.starSecondaryText, for: .normal)
-        button.titleLabel?.font = Fonts.modalDayOption
-        button.layer.cornerRadius = 18
-        button.clipsToBounds = true
-        button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-        button.gradientLayer.isHidden = true
-        button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-        return button
-    }
+    // 요일 버튼(반복 주기)
+    let mondayButton = WeekDayButton(weekDay: .mon)
+    let tuesdayButton = WeekDayButton(weekDay: .tue)
+    let wednesdayButton = WeekDayButton(weekDay: .wed)
+    let thursdayButton = WeekDayButton(weekDay: .thu)
+    let fridayButton = WeekDayButton(weekDay: .fri)
+    let saturdayButton = WeekDayButton(weekDay: .sat)
+    let sundayButton = WeekDayButton(weekDay: .sun)
     
-    lazy var mondayButton = makeButton("월")
-    lazy var tuesdayButton = makeButton("화")
-    lazy var wednesdayButton = makeButton("수")
-    lazy var thursdayButton = makeButton("목")
-    lazy var fridayButton = makeButton("금")
-    lazy var saturdayButton = makeButton("토")
-    lazy var sundayButton = makeButton("일")
+    lazy var weekButtons: [WeekDayButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
     
-    lazy var weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
-     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -124,7 +120,7 @@ final class StarModalView: UIView {
     private lazy var endTimeLabel = makeLabel("종료 시간")
     
     let endTimeButton = UIButton(type: .system).then {
-        $0.setTitle("00:00", for: .normal)
+        $0.setTitle("23:59", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
@@ -139,6 +135,8 @@ final class StarModalView: UIView {
         $0.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
     }
     
+    // MARK: - 토스트
+    
     // 토스트 뷰
     let toastView = UIView().then {
         $0.backgroundColor = .starAppBG.withAlphaComponent(0.7)
@@ -151,6 +149,48 @@ final class StarModalView: UIView {
         $0.textColor = .starPrimaryText
         $0.font = Fonts.toastMessage
         $0.sizeToFit()
+    }
+    
+    // MARK: - DatePicker
+    
+    let datePicker = UIDatePicker().then {
+        $0.datePickerMode = .time // 모드: 시간
+        $0.preferredDatePickerStyle = .wheels
+        $0.locale = Locale(identifier: "ko_KR") // 24시간 형식 사용
+        $0.setValue(UIColor.starDisabledTagBG, forKey: "backgroundColor")
+        $0.setValue(UIColor.starPrimaryText, forKey: "textColor")
+    }
+    
+    lazy var hiddenTextField = UITextField().then {
+        $0.inputView = datePicker
+        $0.inputAccessoryView = toolbar
+    }
+    
+    let toolbarTitle = UILabel().then {
+        $0.textColor = .starSecondaryText
+        $0.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    lazy var toolbar = UIToolbar().then {
+        // toolbar에서 버튼 사이 간격(공간)을 담당
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let titleItem = UIBarButtonItem().then {
+            $0.customView = toolbarTitle
+        }
+        $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, selectButton]
+        $0.sizeToFit()
+        $0.isTranslucent = false
+        $0.barTintColor = .starAlertBG
+    }
+    
+    let cancelButton = UIBarButtonItem().then {
+        $0.title = "취소"
+        $0.style = .plain
+    }
+    
+    let selectButton = UIBarButtonItem().then {
+        $0.title = "선택"
+        $0.style = .done
     }
     
     // MARK: - 초기화
@@ -212,6 +252,7 @@ final class StarModalView: UIView {
         appLockStackView,
         scheduleConfigStackView,
         addStarButton,
+        hiddenTextField,
         toastView
         ].forEach { addSubview($0) }
         
@@ -285,6 +326,8 @@ final class StarModalView: UIView {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
+            
+            button.layer.cornerRadius = 18
         }
 
         startTimeStackView.snp.makeConstraints {
@@ -352,54 +395,6 @@ extension StarModalView {
         let starTime = star.schedule.startTime.coreDataForm()
         let endTime = star.schedule.endTime.coreDataForm()
         startTimeButton.setTitle(starTime, for: .normal)
-        endTimeButton.setTitle(endTime, for: .normal)
-
-        if star.schedule.weekDays.contains(WeekDay.mon) {
-            mondayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.tue) {
-            tuesdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.wed) {
-            wednesdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.thu) {
-            thursdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.fri) {
-            fridayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.sat) {
-            saturdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.sun) {
-            sundayButton.gradientLayer.isHidden = false
-        }
-    }
-}
-
-
-// MARK: - 텍스트필드 삭제 버튼
-private extension UITextField {
-    
-    func setClearButton(mode: UITextField.ViewMode) {
-        let clearButton = UIButton(type: .system)
-        clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        clearButton.contentMode = .scaleAspectFit
-        clearButton.addTarget(self, action: #selector(UITextField.clear(sender:)), for: .touchUpInside)
-        clearButton.tintColor = .starModalBG
-        self.rightView = clearButton
-        self.rightViewMode = mode
-    }
-    
-    @objc
-    private func clear(sender: AnyObject) {
-        self.text = ""
+        endTimeButton.setTitle(finishTime, for: .normal)
     }
 }

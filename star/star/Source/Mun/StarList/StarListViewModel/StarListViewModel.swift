@@ -48,6 +48,15 @@ final class StarListViewModel {
     // 날짜 fetch
     private func fetchDate() {
         dateRelay.accept(Date.now)
+        
+        let timeLeft = TimeUntilMidnight.timeUntilMidnight()
+        guard let timeLeft = timeLeft else { return }
+        
+        // 다음 날이 되면 date fetch
+        Timer.scheduledTimer(withTimeInterval: timeLeft, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            self.fetchDate()
+        }
     }
     
     // 삭제 버튼 누르면 스타 방출

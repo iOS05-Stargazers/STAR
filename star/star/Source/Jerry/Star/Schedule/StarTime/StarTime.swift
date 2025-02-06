@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - StarTime
 
-struct StarTime {
+struct StarTime: Codable {
     // 시간
     let hour: Int
     // 분

@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Star
 
-struct Star {
+struct Star: JSONCodable {
     let identifier: StarID
     let schedule: Schedule
     
@@ -31,6 +31,8 @@ extension Star: TestDescriptionConvertible {
     }
     
 }
+
+
 
 // MARK: - StarID
 
