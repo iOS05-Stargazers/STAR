@@ -10,7 +10,6 @@ import UIKit
 final class MeteorEffectView: UIView {
     
     private let colors: UIColor = .clear
-    
     private let maxStarCount = 15
     private var meteorCount: Int = 4
     private var maxDelay: Double = 2

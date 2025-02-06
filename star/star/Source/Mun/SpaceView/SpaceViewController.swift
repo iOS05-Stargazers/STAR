@@ -29,14 +29,11 @@ final class SpaceViewController: UIViewController {
     }
     
     // 타이틀 라벨
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "별을 이루는 당신의 시간, STAR와 함께 빛나세요"
-        label.textColor = .white
-        label.font = Fonts.modalSectionOption
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var titleLabel = UILabel().then {
+        $0.text = "별을 이루는 당신의 시간, STAR와 함께 빛나세요"
+        $0.textColor = .white
+        $0.font = Fonts.modalSectionOption
+    }
     
     // MARK: - 생명주기 메서드
     
