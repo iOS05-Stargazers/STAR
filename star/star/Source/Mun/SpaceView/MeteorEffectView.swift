@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MeteorEffectView: UIView {
+final class MeteorEffectView: UIView {
     
     private let colors: UIColor = .clear
     

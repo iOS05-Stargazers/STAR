@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FamilyControls
 
-class SpaceViewController: UIViewController {
+final class SpaceViewController: UIViewController {
     
     private var starryNightView: StarryNightView!
     private var meteorEffectView: MeteorEffectView!

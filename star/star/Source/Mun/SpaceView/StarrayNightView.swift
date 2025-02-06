@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StarryNightView: UIView {
+final class StarryNightView: UIView {
     
     private var stars: [CAShapeLayer] = []
     
