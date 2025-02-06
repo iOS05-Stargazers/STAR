@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		233BA1622D53923400C4EF1B /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233BA1612D53923300C4EF1B /* DeviceActivity.framework */; };
-		233BA16A2D53923400C4EF1B /* DeviceActivityMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 233BA15F2D53923300C4EF1B /* DeviceActivityMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		23CC31AC2D40B3480026CF54 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 23CC31AB2D40B3480026CF54 /* Then */; };
 		23CC31AF2D40B3570026CF54 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23CC31AE2D40B3570026CF54 /* SnapKit */; };
 		23CF7FEF2D45DE110019D597 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FEE2D45DE110019D597 /* RxCocoa */; };
@@ -247,7 +245,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				233BA1692D53923400C4EF1B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				718A8A0B2D4CB9CA00E28658 /* ShieldConfiguration */,

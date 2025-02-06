@@ -125,7 +125,7 @@ extension StarListCollectionViewCell {
     // 인스턴스 생성할 때 실행
     func configure(star: Star) {
         self.viewModel = StarListCollectionViewCellViewModel(star: star)
-        titleLabel.text = star.schedule.name
+        titleLabel.text = star.title
         
         bind()
     }

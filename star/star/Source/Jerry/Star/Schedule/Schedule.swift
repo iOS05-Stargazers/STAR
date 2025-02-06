@@ -22,7 +22,7 @@ struct Schedule: Codable {
 extension Schedule: TestDescriptionConvertible {
     var testDescription: String {
         let startTime = startTime.testDescription
-        let finishTime = endTime.testDescription
+        let endTime = endTime.testDescription
         let weekDays = weekDays
             .sorted(by: <)
             .map { $0.korean }
@@ -31,7 +31,7 @@ extension Schedule: TestDescriptionConvertible {
         return """
                 <Schedule>
                 startTime: \(startTime)
-                endTime: \(finishTime)
+                endTime: \(endTime)
                 weekDays: \(weekDays)
                 """
     }

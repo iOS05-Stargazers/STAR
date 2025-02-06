@@ -49,13 +49,13 @@
 //    // 코어데이터 형식을 통해 스케줄 데이터 타입 변환
 //    private static func schedule(from starEntity: StarEntity) -> Schedule? {
 //        guard let start = starEntity.startTime,
-//              let finish = starEntity.endTime,
+//              let end = starEntity.endTime,
 //              let weekDays = starEntity.repeatDays else { return nil }
 //        let weekDay = weekDays.split(separator: ", ").compactMap { Int($0) }
 //            .compactMap { WeekDay(rawValue: $0) }
 //        
 //        return Schedule(startTime: StarTime(from: start),
-//                        endTime: StarTime(from: finish),
+//                        endTime: StarTime(from: end),
 //                        weekDays: Set<WeekDay>(weekDay))
 //    }
 //    

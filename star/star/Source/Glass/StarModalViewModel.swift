@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FamilyControls
 import RxSwift
 import RxCocoa
 
@@ -17,7 +18,7 @@ enum StarModalMode {
 enum StarModalInputState {
     case noName
     case noSchedule
-    case overFinishTime
+    case overEndTime
     
     var text: String {
         switch self {
@@ -25,7 +26,7 @@ enum StarModalInputState {
             return "이름을 입력해주세요."
         case .noSchedule:
             return "하나 이상의 반복 주기를 선택해주세요."
-        case .overFinishTime:
+        case .overEndTime:
             return "시작 시간은 종료 시간보다 빨라야합니다."
         }
     }
@@ -47,6 +48,7 @@ final class StarModalViewModel {
     private var weekDays: Set<WeekDay> = [] // 선택 요일(반복 주기) 담는 배열
     private var startTime: StarTime = StarTime(hour: 00, minute: 00)
     private var endTime: StarTime = StarTime(hour: 23, minute: 59)
+    private var blockList: FamilyActivitySelection = FamilyActivitySelection()
     
     init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
         switch mode {
@@ -130,66 +132,67 @@ final class StarModalViewModel {
             // 시작시간이 종료시간보다 이른지 확인
 //            if owner.startTime.hour > endTime.hour ||
 //                (startTime.hour == endTime.hour && startTime.minute >= endTime.minute) {
-//                self?.starModalInputStateRelay.accept(.overFinishTime)
+//                self?.starModalInputStateRelay.accept(.overEndTime)
 //                return
 //            }
             
             // 스타 UPDATE
-            if let starRelay = owner.starRelay.value {
-                let star = Star(identifier: starRelay.identifier,
-                                title: starRelay.title,
-                                blockList: .init(),
-                                schedule: starRelay.schedule)
-                owner.starManager.update(star)
-                
-                // 이름 확인
-                if owner.starName == "" {
-                    owner.starModalInputStateRelay.accept(.noName)
-                    return
-                }
-                
-                // 반복 주기(요일 선택) 확인
-                if owner.weekDays.isEmpty {
-                    owner.starModalInputStateRelay.accept(.noSchedule)
-                    return
-                }
-                
-                // 시작시간이 종료시간보다 이른지 확인
-                if owner.startTime.hour > owner.endTime.hour ||
-                    (owner.startTime.hour == owner.endTime.hour &&
-                     owner.startTime.minute >= owner.endTime.minute) {
-                    
-                    owner.starModalInputStateRelay.accept(.overFinishTime)
-                    
-                    return
-                }
-                
-                // UPDATE
-                if let star = owner.starRelay.value {
-                    
-                    let star = Star(identifier: star.identifier,
-                                    title: owner.starName,
-                                    blockList: [],
-                                    schedule: Schedule(startTime: owner.startTime,
-                                                       finishTime: owner.endTime,
-                                                       weekDays: owner.weekDays))
-                    
+                if let starRelay = owner.starRelay.value {
+                    let star = Star(identifier: starRelay.identifier,
+                                    title: starRelay.title,
+                                    blockList: .init(),
+                                    schedule: starRelay.schedule)
                     owner.starManager.update(star)
-
-                // CREATE
-                } else {
-                   
-                    let star = Star(identifier: UUID(),
-                                    title: owner.starName,
-                                    blockList: [],
-                                    schedule: Schedule(startTime: owner.startTime,
-                                                       finishTime: owner.endTime,
-                                                       weekDays: owner.weekDays))
-
-                    owner.starManager.create(star)
+                    
+                    // 이름 확인
+                    if owner.starName == "" {
+                        owner.starModalInputStateRelay.accept(.noName)
+                        return
+                    }
+                    
+                    // 반복 주기(요일 선택) 확인
+                    if owner.weekDays.isEmpty {
+                        owner.starModalInputStateRelay.accept(.noSchedule)
+                        return
+                    }
+                    
+                    // 시작시간이 종료시간보다 이른지 확인
+                    if owner.startTime.hour > owner.endTime.hour ||
+                        (owner.startTime.hour == owner.endTime.hour &&
+                         owner.startTime.minute >= owner.endTime.minute) {
+                        
+                        owner.starModalInputStateRelay.accept(.overEndTime)
+                        
+                        return
+                    }
+                    
+                    // UPDATE
+                    if let star = owner.starRelay.value {
+                        
+                        let star = Star(identifier: star.identifier,
+                                        title: owner.starName,
+                                        blockList: owner.blockList,
+                                        schedule: Schedule(startTime: owner.startTime,
+                                                           endTime: owner.endTime,
+                                                           weekDays: owner.weekDays))
+                        
+                        owner.starManager.update(star)
+                        
+                        // CREATE
+                    } else {
+                        
+                        let star = Star(identifier: UUID(),
+                                        title: owner.starName,
+                                        blockList: owner.blockList,
+                                        schedule: Schedule(startTime: owner.startTime,
+                                                           endTime: owner.endTime,
+                                                           weekDays: owner.weekDays))
+                        
+                        owner.starManager.create(star)
+                    }
+                    
+                    owner.closeAlert()
                 }
-                
-                owner.closeAlert()
                 
             }).disposed(by: disposeBag)
         

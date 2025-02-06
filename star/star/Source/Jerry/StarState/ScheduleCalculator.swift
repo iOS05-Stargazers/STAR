@@ -17,7 +17,7 @@ struct ScheduleCalculator {
     // StarState.Style 연산
     private static func style(schedule: Schedule) -> StarState.Style {
         let startTime = schedule.startTime
-        let finishTime = schedule.endTime
+        let endTime = schedule.endTime
         let state: StarState.Style
         for weekDay in schedule.weekDays {
             if contains(weekDay: weekDay, startTime: startTime, endTime: endTime) {
@@ -27,7 +27,7 @@ struct ScheduleCalculator {
         return .pending
     }
 //    guard weekDay == WeekDay(from: .now) else { return false }
-//    return between(start: startTime, finish: finishTime)
+//    return between(start: startTime, end: endTime)
     // ongoing 의 경우에 대한 최소 시간차 반환
     private static func ongoingInterval(_ schedule: Schedule) -> TimeInterval {
         let intervals: [TimeInterval] = schedule.weekDays
@@ -56,11 +56,11 @@ struct ScheduleCalculator {
         return between(start: startTime, end: endTime)
     }
     // 시간 범위에 대한 현재시간 포함여부 판별
-//    private static func between(start: StarTime, finish: StarTime) -> Bool {
+//    private static func between(start: StarTime, end: StarTime) -> Bool {
 //        guard let startTime = date(starTime: start),
-//              let finishTime = date(starTime: finish) else { return false }
+//              let endTime = date(starTime: end) else { return false }
 //        let now = Date.now
-//        return startTime <= now && now < finishTime
+//        return startTime <= now && now < endTime
 //    }
     // 시간 범위에 대한 현재시간 포함여부 판별
     private static func between(start: StarTime, end: StarTime) -> Bool {
