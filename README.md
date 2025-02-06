@@ -68,15 +68,37 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 | 황도일 <br> Doyle Hwang | [@DoyleHWorks](https://github.com/DoyleHWorks) | Screentime Framework <br> Common UI Components |
 
 ## ⏰ Project Scope
-- **시작일**: 2025/01/16 (목)
+- **Start Date**: 2025/01/16
 
 ## 📂 Folder Organization
 
 ## 🖼️ Preview
 
 ## 🏷 Main Features
+#### Star - Your Digital Time Management Unit
+- Users can create and manage multiple Stars.
+- A Star functions as a single session, having a name, a list of apps to block, active times, and designated days of the week.
+
+#### Manage Stars
+- Users can view and add Stars from the Stars list.
+- Existing Stars can be selected to modify their settings.
+
+#### Switch to Break Mode
+- Even while a Star is active, users can temporarily disable the Screen Time feature for up to 20 minutes.
+- A user-friendly flow encourages a balanced digital lifestyle.
 
 ## ✨ Considerations
+#### Capabilities
+- Data Communication: Connect the main app with the DeviceActivityMonitor through an App Group (using UserDefaults via a shared container).
+- Core Functionality: Implement key features using Family Controls (FamilyControls, DeviceActivity, ManagedSettings).
+
+#### Onboarding Flow
+- Check Screen Time permissions every time the app launches and provide setup guidance if necessary.
+- Offer a help screen for first-time users.
+
+#### User Experience Improvements
+- Provide an easy yet safe deletion feature that combines simple swipe actions with custom alerts.
+- Ensure compatibility with small-screen iPhones through Auto Layout and thoughtfully sized buttons for enhanced usability.
 
 ## 📦 How to Install  
 1. Clone this repository:  
