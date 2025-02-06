@@ -20,67 +20,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = ContentViewContainer()
             .environmentObject(familyControlsManager)
         
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
-            self.window = window
-            window.makeKeyAndVisible()
-        }
-//        guard let scene = (scene as? UIWindowScene) else { return }
-//        
-//        let window = UIWindow(windowScene: scene)
-//        let navigationController = UINavigationController()
-//        self.window = window
-//        window.rootViewController = navigationController
-//        window.makeKeyAndVisible()
+        let window = UIWindow(windowScene: scene)
+        let navigationController = UINavigationController()
+        self.window = window
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
         
-//        Task {
-//            let authorizationsStatus = AuthorizationCenter.shared.authorizationStatus
-//            let rootViewController: UIViewController
-//            
-////             FamilyControls의 권한 상태 확인
-//            if authorizationsStatus == .approved {
-////                 권한이 승인된 상태 -> StarListViewController로 실행
-//                rootViewController = StarListViewController()
-//            } else {
-////                 권한 미승인 상태 -> PermissionViewController로 실행
-//                rootViewController = PermissionViewCo
-//            }
-//            
-//            await MainActor.run {
-//                navigationController.setViewControllers([rootViewController], animated: true)
-//            }
-//        }
-    }
-    
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
-    
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
-    
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-    
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+        navigationController.setViewControllers([SpaceViewController()], animated: true)
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-        
-        // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
