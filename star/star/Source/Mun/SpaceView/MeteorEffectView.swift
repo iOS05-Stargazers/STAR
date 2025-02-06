@@ -101,7 +101,7 @@ final class MeteorEffectView: UIView {
         return trail
     }
     
-    // 유성 애니메이션
+    // 유성 떨어지는 애니메이션
     private func animateMeteor(_ meteor: UIView, delay: Double, duration: Double) {
             let path = UIBezierPath()
             

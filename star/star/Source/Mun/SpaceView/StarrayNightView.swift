@@ -53,6 +53,7 @@ final class StarryNightView: UIView {
         return star
     }
     
+    // 스타 회전 애니메이션
     private func animateStars() {
         let rotation = CABasicAnimation(keyPath: "transform.rotation")
         rotation.fromValue = 0
