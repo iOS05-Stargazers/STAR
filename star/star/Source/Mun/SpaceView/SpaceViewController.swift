@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import SnapKit
 import FamilyControls
 
@@ -43,6 +44,10 @@ final class SpaceViewController: UIViewController {
         setupNavigation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
     // MARK: - 레이아웃 설정
     
     private func setupUI() {
@@ -101,7 +106,9 @@ final class SpaceViewController: UIViewController {
                        rootViewController = StarListViewController()
                    } else {
                        // 권한 미승인 상태 -> PermissionViewController로 실행
-                       rootViewController = PermissionViewController()
+                       let contentView = ContentViewContainer()
+                           .environmentObject(FamilyControlsManager.shared)
+                       rootViewController = UIHostingController(rootView: contentView)
                    }
                    self.navigationController?.setViewControllers([rootViewController], animated: true)
                }

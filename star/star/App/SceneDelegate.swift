@@ -17,10 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        let contentView = ContentViewContainer()
-            .environmentObject(familyControlsManager)
-        
-        let window = UIWindow(windowScene: scene)
+        let window = UIWindow(windowScene: scene as! UIWindowScene)
         let navigationController = UINavigationController()
         self.window = window
         window.rootViewController = navigationController

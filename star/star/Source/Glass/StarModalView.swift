@@ -68,7 +68,7 @@ final class StarModalView: UIView {
     private lazy var appLockLabel = makeLabel("앱 잠금")
     
     let appLockButton = UIButton(type: .system).then {
-        $0.setTitle("없음 >", for: .normal)
+        $0.setTitle("선택 >", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
