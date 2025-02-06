@@ -81,37 +81,24 @@ final class StarModalView: UIView {
     }
     
     private lazy var repeatCycleLabel = makeLabel("반복 주기")
-    
+        
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .equalSpacing
     }
     
-    // 요일 버튼 생성 함수
-    private func makeButton(_ title: String) -> GradientButton {
-        let button = GradientButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.starSecondaryText, for: .normal)
-        button.titleLabel?.font = Fonts.modalDayOption
-        button.layer.cornerRadius = 18
-        button.clipsToBounds = true
-        button.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-        button.gradientLayer.isHidden = true
-        button.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-        return button
-    }
+    // 요일 버튼(반복 주기)
+    let mondayButton = WeekDayButton(weekDay: .mon)
+    let tuesdayButton = WeekDayButton(weekDay: .tue)
+    let wednesdayButton = WeekDayButton(weekDay: .wed)
+    let thursdayButton = WeekDayButton(weekDay: .thu)
+    let fridayButton = WeekDayButton(weekDay: .fri)
+    let saturdayButton = WeekDayButton(weekDay: .sat)
+    let sundayButton = WeekDayButton(weekDay: .sun)
     
-    lazy var mondayButton = makeButton("월")
-    lazy var tuesdayButton = makeButton("화")
-    lazy var wednesdayButton = makeButton("수")
-    lazy var thursdayButton = makeButton("목")
-    lazy var fridayButton = makeButton("금")
-    lazy var saturdayButton = makeButton("토")
-    lazy var sundayButton = makeButton("일")
+    lazy var weekButtons: [WeekDayButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
     
-    lazy var weekButtons: [GradientButton] = [mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton]
-     
     // startTimeLabel, startTimeButton을 담는 스택뷰
     private let startTimeStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -133,7 +120,7 @@ final class StarModalView: UIView {
     private lazy var endTimeLabel = makeLabel("종료 시간")
     
     let endTimeButton = UIButton(type: .system).then {
-        $0.setTitle("00:00", for: .normal)
+        $0.setTitle("23:59", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
@@ -339,6 +326,8 @@ final class StarModalView: UIView {
                 $0.top.equalTo(weekStackView)
                 $0.width.equalTo(button.snp.height)
             }
+            
+            button.layer.cornerRadius = 18
         }
 
         startTimeStackView.snp.makeConstraints {
@@ -407,33 +396,5 @@ extension StarModalView {
         let finishTime = star.schedule.finishTime.coreDataForm()
         startTimeButton.setTitle(starTime, for: .normal)
         endTimeButton.setTitle(finishTime, for: .normal)
-
-        if star.schedule.weekDays.contains(WeekDay.mon) {
-            mondayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.tue) {
-            tuesdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.wed) {
-            wednesdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.thu) {
-            thursdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.fri) {
-            fridayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.sat) {
-            saturdayButton.gradientLayer.isHidden = false
-        }
-        
-        if star.schedule.weekDays.contains(WeekDay.sun) {
-            sundayButton.gradientLayer.isHidden = false
-        }
     }
 }
