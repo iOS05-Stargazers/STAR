@@ -36,13 +36,19 @@ final class StarListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 온보딩 뷰를 보여주지 않았다면 온보딩뷰 표시
+
+        // 온보딩 뷰를 보여주지 않았다면 온보딩 뷰 표시
         if !UserDefaults.standard.isCoachMarkShown {
             let onboardingViewController = OnboardingViewController()
             onboardingViewController.modalPresentationStyle = .overFullScreen
             present(onboardingViewController, animated: false)
+        } else {
+            let restingVC = RestingViewController()
+            restingVC.modalPresentationStyle = .overFullScreen
+            present(restingVC, animated: false)
         }
     }
+
 }
 
 // MARK: - bind
