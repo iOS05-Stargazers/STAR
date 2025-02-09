@@ -129,7 +129,7 @@ extension StarListViewController {
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
-        starDeleteAlertViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+        starDeleteAlertViewController.view.backgroundColor = .starModalOverlayBG
         present(starDeleteAlertViewController, animated: false)
     }
     
