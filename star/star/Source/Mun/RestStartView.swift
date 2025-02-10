@@ -43,7 +43,7 @@ class RestStartView: UIView {
     }
     
     // 시간 라벨
-    private let timeLabel = UILabel().then {
+    let timeLabel = UILabel().then {
         $0.text = "5"
         $0.font = .monospacedSystemFont(ofSize: 32, weight: .regular)
         $0.textAlignment = .center
