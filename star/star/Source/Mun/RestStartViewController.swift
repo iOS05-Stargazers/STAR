@@ -48,7 +48,7 @@ class RestStartViewController: UIViewController {
                 }
             })
             .map { "\($0)"}
-            .drive(restStartView.timeLabel.rx.text)
+            .drive(restStartView.countLabel.rx.text)
             .disposed(by: disposeBag)
     }
 }
