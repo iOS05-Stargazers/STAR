@@ -55,12 +55,11 @@ extension RestingViewModel {
         
         let timerText = timerSubject
             .map { seconds -> String in
-                let hours = seconds / 3600
                 let minutes = (seconds % 3600) / 60
                 let secs = seconds % 60
-                return String(format: "%02d:%02d:%02d", hours, minutes, secs)
+                return String(format: "%02d:%02d", minutes, secs)
             }
-            .asDriver(onErrorJustReturn: "00:00:00")
+            .asDriver(onErrorJustReturn: "00:00")
         
         return Output(timerText: timerText, timerEnded: timerEndedSubject.asSignal())
     }
