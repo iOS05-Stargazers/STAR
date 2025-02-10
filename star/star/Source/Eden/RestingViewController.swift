@@ -49,7 +49,7 @@ final class RestingViewController: UIViewController {
     
     // MARK: - Init
     
-    init(initialTime: Int = 300) {
+    init(initialTime: Int = 60) {
         self.initialTime = initialTime
         super.init(nibName: nil, bundle: nil)
     }

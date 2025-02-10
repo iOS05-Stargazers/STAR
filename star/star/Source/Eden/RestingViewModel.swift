@@ -23,10 +23,12 @@ extension RestingViewModel {
     
     struct Output {
         let timerText: Driver<String>
+        let timerEnded: Signal<Void>
     }
     
     func transform(input: Input, initialTime: Int) -> Output {
         let timerSubject = BehaviorRelay<Int>(value: initialTime)
+        let timerEndedSubject = PublishRelay<Void>()
         
         input.startTimer
             .flatMapLatest { _ in
@@ -36,13 +38,18 @@ extension RestingViewModel {
             .withLatestFrom(timerSubject) { decrement, current in
                 max(current + decrement, 0) // 0 이하로 내려가지 않도록
             }
-            .distinctUntilChanged()
+            .distinctUntilChanged() // 0 한 번만 방출
+            .do (onNext: { time in
+                if time == 0 {
+                    timerEndedSubject.accept(()) // 타이머가 0이면 이벤트 발생
+                }
+            })
             .bind(to: timerSubject)
             .disposed(by: disposeBag)
         
         input.stopTimer
             .subscribe(onNext: { _ in
-                timerSubject.accept(0)
+                timerSubject.accept(initialTime)
             })
             .disposed(by: disposeBag)
         
@@ -55,6 +62,6 @@ extension RestingViewModel {
             }
             .asDriver(onErrorJustReturn: "00:00:00")
         
-        return Output(timerText: timerText)
+        return Output(timerText: timerText, timerEnded: timerEndedSubject.asSignal())
     }
 }
