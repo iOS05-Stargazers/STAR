@@ -36,6 +36,14 @@ class StarListView: UIView {
         $0.font = Fonts.todayDate
     }
     
+    // 휴식 버튼
+    let restButton = UIButton(type: .system).then {
+        $0.setTitle("OFF", for: .normal)
+        $0.setTitleColor(.starButtonWhite, for: .normal)
+        $0.setImage(UIImage(systemName: "cup.and.saucer.fill"), for: .normal)
+        $0.tintColor = .starButtonWhite
+    }
+    
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
             $0.setTitle("스타 추가하기", for: .normal)
@@ -69,6 +77,7 @@ class StarListView: UIView {
         [
             topView,
             starListCollectionView,
+            restButton,
             addStarButton
         ].forEach { addSubview($0) }
         
@@ -108,6 +117,11 @@ class StarListView: UIView {
             $0.top.equalTo(topView.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-32)
+        }
+        
+        restButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.centerY.equalTo(topView.snp.centerY)
         }
         
         addStarButton.snp.makeConstraints {

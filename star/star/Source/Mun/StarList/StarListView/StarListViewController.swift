@@ -30,14 +30,13 @@ final class StarListViewController: UIViewController {
         super.viewDidLoad()
         bind()
         setupSwipeActions()
-        
-        navigationItem.hidesBackButton = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // 온보딩 뷰를 보여주지 않았다면 온보딩 뷰 표시
+        
+        self.navigationController?.navigationBar.isHidden = true
+        
         if !UserDefaults.standard.isCoachMarkShown {
             let onboardingViewController = OnboardingViewController()
             onboardingViewController.modalPresentationStyle = .overFullScreen
@@ -81,6 +80,14 @@ extension StarListViewController {
         output.star
             .drive(with: self, onNext: { owner, star in
                 owner.showAlert(star)
+            })
+            .disposed(by: disposeBag)
+        
+        // 휴식 버튼 이벤트 처리
+        starListView.restButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectRestModal()
             })
             .disposed(by: disposeBag)
         
@@ -131,6 +138,14 @@ extension StarListViewController {
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
         starDeleteAlertViewController.view.backgroundColor = .starModalOverlayBG
         present(starDeleteAlertViewController, animated: false)
+    }
+    
+    // 휴식 화면 모달 연결
+    private func connectRestModal() {
+        let restStartViewController = RestStartViewController()
+        restStartViewController.view.backgroundColor = .starModalOverlayBG
+        restStartViewController.modalPresentationStyle = .overFullScreen
+        present(restStartViewController, animated: true)
     }
     
     // 생성하기 모달 연결
