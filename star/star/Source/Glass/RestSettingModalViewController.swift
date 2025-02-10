@@ -13,6 +13,8 @@ import RxCocoa
 final class RestSettingModalViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
+    
+    // picker 데이터
     private let pickerData = Observable.just((0...20).map { String($0) })
     
     private let titleLabel = UILabel().then {
@@ -44,7 +46,7 @@ final class RestSettingModalViewController: UIViewController {
         $0.setTitle("휴식하기", for: .normal)
         $0.setTitleColor(.starButtonNavy, for: .normal)
         $0.titleLabel?.font = Fonts.buttonTitle
-        $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        $0.backgroundColor = .starDisabledTagBG
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
         $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow], direction: .horizontal)
@@ -55,7 +57,7 @@ final class RestSettingModalViewController: UIViewController {
         bind()
     }
 
-    private func setupUI() {//height: 448
+    private func setupUI() {
         view.backgroundColor = .starModalBG
         
         view.addSubview(titleLabel)
@@ -87,7 +89,7 @@ final class RestSettingModalViewController: UIViewController {
         
         pickerLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalTo(pickerView.snp.centerX).offset(15)
+            $0.leading.equalTo(pickerView.snp.centerX).offset(16)
         }
         
         restButton.snp.makeConstraints {
