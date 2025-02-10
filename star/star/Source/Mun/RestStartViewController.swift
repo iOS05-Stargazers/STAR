@@ -47,6 +47,9 @@ class RestStartViewController: UIViewController {
                     self.connectRestSettingModal()
                 }
             })
+            .filter({ count in
+                count != 0
+            })
             .map { "\($0)"}
             .drive(restStartView.countLabel.rx.text)
             .disposed(by: disposeBag)
