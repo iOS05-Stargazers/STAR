@@ -27,21 +27,20 @@ final class RestingViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "휴식중"
-        $0.font = .boldSystemFont(ofSize: 32)
+        $0.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         $0.textColor = .starSecondaryText
     }
     
     private let timerLabel = UILabel().then {
-        $0.text = "00:00:00"
-        $0.font = .monospacedDigitSystemFont(ofSize: 32, weight: .bold)
+        $0.font = .monospacedDigitSystemFont(ofSize: 80, weight: .light)
         $0.textColor = .starSecondaryText
     }
     
     private let endRestButton = GradientButton().then {
         $0.setTitle("휴식 종료하기", for: .normal)
-        $0.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        $0.titleLabel?.font = Fonts.buttonTitle
         $0.setTitleColor(.starTertiaryText, for: .normal)
-        $0.layer.cornerRadius = 24
+        $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
         
         $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow], direction: .horizontal)
@@ -49,7 +48,7 @@ final class RestingViewController: UIViewController {
     
     // MARK: - Init
     
-    init(initialTime: Int = 60) {
+    init(initialTime: Int = 30) {
         self.initialTime = initialTime
         super.init(nibName: nil, bundle: nil)
     }
@@ -77,17 +76,17 @@ final class RestingViewController: UIViewController {
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-40)
+            $0.bottom.equalTo(timerLabel.snp.top).offset(-36)
         }
         
         timerLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.centerY.equalToSuperview()
         }
         
         endRestButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
             $0.height.equalTo(56)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
