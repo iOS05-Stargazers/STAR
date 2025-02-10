@@ -13,10 +13,21 @@ final class RestingViewModel {
     
     private let disposeBag = DisposeBag()
     
+    // MARK: - Format Time
+    
     private func formatTime(_ seconds: Int) -> String {
         let min = (seconds % 3600) / 60
         let sec = seconds % 60
         return String(format: "%02d:%02d", min, sec)
+    }
+    
+    // MARK: - Timer 로직
+    
+    private func createCountdownTimer(initialTime: Int) -> Observable<Int> {
+        return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+            .scan(initialTime) { current, _ in max(current - 1, 0) } // 1초마다 -1 감소, 0 이하로 안 내려감
+            .distinctUntilChanged()
+            .startWith(initialTime)
     }
 }
 
@@ -37,14 +48,7 @@ extension RestingViewModel {
         let timerEndedSubject = PublishRelay<Void>()
         
         input.startTimer
-            .flatMapLatest { _ in
-                Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
-                    .map { _ in -1 } // 1초마다 -1 감소
-            }
-            .withLatestFrom(timerSubject) { decrement, current in
-                max(current + decrement, 0) // 0 이하로 내려가지 않도록
-            }
-            .distinctUntilChanged() // 0 한 번만 방출
+            .flatMapLatest { self.createCountdownTimer(initialTime: initialTime) }
             .do (onNext: { time in
                 if time == 0 {
                     timerEndedSubject.accept(()) // 타이머가 0이면 이벤트 발생
