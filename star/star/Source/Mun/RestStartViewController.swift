@@ -42,10 +42,8 @@ final class RestStartViewController: UIViewController {
         // 카운트 바인딩
         output.count
             .do(onNext: { [weak self] count in
-                if count == 0 {
-                    guard let self = self else { return }
-                    self.connectRestSettingModal()
-                }
+                guard let self, count == 0 else { return }
+                self.connectRestSettingModal()
             })
             .filter({ count in
                 count != 0

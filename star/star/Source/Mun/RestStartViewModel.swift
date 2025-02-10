@@ -16,7 +16,9 @@ final class RestStartViewModel {
     
     // 5초 카운트다운 실행
     private func startCountdown() {
-        Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
+        Observable<Int>.timer(.seconds(1),
+                              period: .seconds(1),
+                              scheduler: MainScheduler.instance)
             .withUnretained(self)
             .take(5) // 5번만 실행
             .subscribe(onNext: { owner, _ in
