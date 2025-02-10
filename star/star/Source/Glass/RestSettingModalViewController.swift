@@ -15,7 +15,7 @@ final class RestSettingModalViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // picker 데이터
-    private let pickerData = Observable.just((0...20).map { String($0) })
+    private let pickerData = Observable.just((1...20).map { String($0) })
     
     private let titleLabel = UILabel().then {
         $0.text = "휴식하기"
@@ -82,7 +82,7 @@ final class RestSettingModalViewController: UIViewController {
         
         pickerView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(textLabel.snp.bottom).offset(30)
+            $0.top.equalTo(textLabel.snp.bottom)
             $0.width.equalTo(280)
             $0.height.equalTo(140)
         }
