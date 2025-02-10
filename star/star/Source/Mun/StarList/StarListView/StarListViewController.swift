@@ -36,15 +36,11 @@ final class StarListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = true
-        
+        // 온보딩 뷰를 보여주지 않았다면 온보딩뷰 표시
         if !UserDefaults.standard.isCoachMarkShown {
             let onboardingViewController = OnboardingViewController()
             onboardingViewController.modalPresentationStyle = .overFullScreen
             present(onboardingViewController, animated: false)
-        } else {
-            let restingVC = RestingViewController()
-            restingVC.modalPresentationStyle = .overFullScreen
-            present(restingVC, animated: false)
         }
     }
 }
@@ -59,7 +55,7 @@ extension StarListViewController {
             viewWillAppear: viewWillAppears,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
-
+        
         // 컬렉션뷰 데이터 바인딩
         output.starDataSource
             .drive(starListView.starListCollectionView.rx.items(
