@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class RestStartViewController: UIViewController {
+final class RestStartViewController: UIViewController {
     
     private let restStartView = RestStartView()
     private let restStartViewModel = RestStartViewModel()

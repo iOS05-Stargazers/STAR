@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RestStartView: UIView {
+final class RestStartView: UIView {
     
     // MARK: - UI Components
     
