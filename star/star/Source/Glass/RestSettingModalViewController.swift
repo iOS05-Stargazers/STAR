@@ -33,7 +33,7 @@ final class RestSettingModalViewController: UIViewController {
     }
     
     private let pickerView = UIPickerView().then {
-        $0.backgroundColor = .starAlertBG
+        $0.backgroundColor = .clear
         $0.setValue(UIColor.starPrimaryText, forKey: "textColor")
     }
     
