@@ -115,5 +115,10 @@ final class RestingViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    // 모달 닫는 로직
+    private func dismissModal() {
+        dismiss(animated: true)
+    }
 }
 
