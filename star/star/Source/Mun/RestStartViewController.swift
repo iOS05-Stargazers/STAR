@@ -41,15 +41,18 @@ final class RestStartViewController: UIViewController {
         
         // 카운트 바인딩
         output.count
-            .do(onNext: { [weak self] count in
-                guard let self, count == 0 else { return }
-                self.connectRestSettingModal()
-            })
             .filter({ count in
                 count != 0
             })
             .map { "\($0)"}
             .drive(restStartView.countLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // 완료 바인딩
+        output.complete
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectRestSettingModal()
+            })
             .disposed(by: disposeBag)
     }
 }
