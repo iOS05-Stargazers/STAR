@@ -111,7 +111,7 @@ final class RestingViewController: UIViewController {
         // 종료 버튼 클릭 시 모달 닫기
         endRestButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.dismiss(animated: true)
+                self?.dismissModal()
             })
             .disposed(by: disposeBag)
     }
