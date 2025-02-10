@@ -114,6 +114,13 @@ final class RestingViewController: UIViewController {
                 self?.dismissModal()
             })
             .disposed(by: disposeBag)
+        
+        // 타이머 0이 되면 자동으로 모달 닫기
+        output.timerEnded
+            .emit(onNext: { [weak self] in
+                self?.dismissModal()
+            })
+            .disposed(by: disposeBag)
     }
     
     // 모달 닫는 로직
