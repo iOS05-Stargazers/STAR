@@ -42,7 +42,6 @@ final class RestingViewController: UIViewController {
         $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
-        
         $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow], direction: .horizontal)
     }
     
@@ -76,7 +75,7 @@ final class RestingViewController: UIViewController {
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(timerLabel.snp.top).offset(-36)
+            $0.bottom.equalTo(timerLabel.snp.top).offset(-40)
         }
         
         timerLabel.snp.makeConstraints {
@@ -110,20 +109,20 @@ final class RestingViewController: UIViewController {
         // 종료 버튼 클릭 시 모달 닫기
         endRestButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.dismissModal()
+                self?.closingRestingView()
             })
             .disposed(by: disposeBag)
         
         // 타이머 0이 되면 자동으로 모달 닫기
         output.timerEnded
             .emit(onNext: { [weak self] in
-                self?.dismissModal()
+                self?.closingRestingView()
             })
             .disposed(by: disposeBag)
     }
     
     // 모달 닫는 로직
-    private func dismissModal() {
+    private func closingRestingView() {
         dismiss(animated: true)
     }
 }

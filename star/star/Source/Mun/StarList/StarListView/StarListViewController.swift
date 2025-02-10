@@ -47,7 +47,6 @@ final class StarListViewController: UIViewController {
             present(restingVC, animated: false)
         }
     }
-
 }
 
 // MARK: - bind

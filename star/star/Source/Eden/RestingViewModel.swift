@@ -12,6 +12,12 @@ import RxCocoa
 final class RestingViewModel {
     
     private let disposeBag = DisposeBag()
+    
+    private func formatTime(_ seconds: Int) -> String {
+        let min = (seconds % 3600) / 60
+        let sec = seconds % 60
+        return String(format: "%02d:%02d", min, sec)
+    }
 }
 
 extension RestingViewModel {
@@ -54,11 +60,7 @@ extension RestingViewModel {
             .disposed(by: disposeBag)
         
         let timerText = timerSubject
-            .map { seconds -> String in
-                let minutes = (seconds % 3600) / 60
-                let secs = seconds % 60
-                return String(format: "%02d:%02d", minutes, secs)
-            }
+            .map { self.formatTime($0) }
             .asDriver(onErrorJustReturn: "00:00")
         
         return Output(timerText: timerText, timerEnded: timerEndedSubject.asSignal())
