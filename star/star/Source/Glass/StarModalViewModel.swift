@@ -44,7 +44,7 @@ final class StarModalViewModel {
     private let disposeBag = DisposeBag()
     
     private var starName: String = ""
-    private var familyActivitySelection = FamilyActivitySelection()
+    var familyActivitySelection = FamilyActivitySelection()
     private var weekDays: Set<WeekDay> = [] // 선택 요일(반복 주기) 담는 배열
     private var startTime: StarTime = StarTime(hour: 00, minute: 00)
     private var endTime: StarTime = StarTime(hour: 23, minute: 59)
@@ -179,10 +179,10 @@ extension StarModalViewModel {
     struct Input {
         let nameTextFieldInput: Observable<String>
         let nameClear: Observable<Void>
+        let weekDaysState: Observable<(WeekDay, Bool)>
         let startTimeRelay: Observable<Date>
         let endTimeRelay: Observable<Date>
         let addStarTap: Observable<Void>
-        let weekDaysState: Observable<(WeekDay, Bool)>
     }
     
     struct Output {
