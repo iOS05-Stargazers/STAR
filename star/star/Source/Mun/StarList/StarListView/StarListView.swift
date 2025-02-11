@@ -42,6 +42,7 @@ class StarListView: UIView {
     // 휴식 버튼
     let restButton = UIButton(type: .system).then {
         $0.setImage(UIImage(systemName: "cup.and.saucer.fill"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.tintColor = .starSecondaryText
     }
     
@@ -142,7 +143,7 @@ class StarListView: UIView {
         
         restButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview()
+            $0.bottom.equalTo(restButtonLabel.snp.top).offset(-4)
         }
         
         restButtonLabel.snp.makeConstraints {
