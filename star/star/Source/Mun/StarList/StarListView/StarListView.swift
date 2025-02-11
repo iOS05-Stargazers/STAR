@@ -147,8 +147,7 @@ class StarListView: UIView {
         
         restButtonLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(restButton.snp.bottom).offset(4)
-            $0.bottom.equalToSuperview()
+            $0.centerY.equalTo(todayDateLabel.snp.centerY)
         }
         
         addStarButton.snp.makeConstraints {
