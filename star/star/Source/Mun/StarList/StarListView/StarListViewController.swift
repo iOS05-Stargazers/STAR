@@ -34,7 +34,6 @@ final class StarListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.navigationController?.navigationBar.isHidden = true
         // 온보딩 뷰를 보여주지 않았다면 온보딩뷰 표시
         if !UserDefaults.standard.isCoachMarkShown {
@@ -42,11 +41,6 @@ final class StarListViewController: UIViewController {
             onboardingViewController.modalPresentationStyle = .overFullScreen
             present(onboardingViewController, animated: false)
         }
-        
-        // RestingViewController 잠시 띄우기
-        let restingViewController = RestingViewController(initialTime: 360)
-        restingViewController.modalPresentationStyle = .overFullScreen
-        present(restingViewController, animated: true)
     }
 }
 
