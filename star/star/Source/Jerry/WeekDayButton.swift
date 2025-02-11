@@ -25,6 +25,8 @@ final class WeekDayButton: GradientButton {
         self.weekDay = weekDay
         self.buttonStateRelay = BehaviorRelay<Bool>(value: state)
         super.init(frame: .zero)
+        self.configuration = .plain()
+        self.setTitleColor(.starSecondaryText35, for: .highlighted)
         gradientLayer.isHidden = !state
         setUp()
     }
