@@ -15,7 +15,7 @@ final class RestSettingModalViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // picker 데이터
-    private let pickerData = Observable.just((1...20).map { String($0) })
+    private let pickerData = Observable.just(Array<Int>(1...20))
     
     private let titleLabel = UILabel().then {
         $0.text = "휴식하기"
@@ -105,8 +105,8 @@ extension RestSettingModalViewController {
     
     private func bind() {
         // UIPickerView에 data 연결
-        pickerData.bind(to: pickerView.rx.itemTitles) { _, item in
-            return "\(item)"
+        pickerData.map { $0.map { "\($0)" } }.bind(to: pickerView.rx.itemTitles) { _, item in
+            return item
         }.disposed(by: disposeBag)
         
         // 휴식하기 버튼 이벤트 : 휴식시간 저장
@@ -115,6 +115,7 @@ extension RestSettingModalViewController {
             .subscribe(onNext: { owner, _ in
                 // pickerView에서 선택한 wheel의 인덱스 값 + 1 (인덱스 : 0 ~ 19)
                 let restTime = owner.pickerView.selectedRow(inComponent: 0) + 1
+                
                 UserDefaults.standard.restEndTimeSet(restTime)// 휴식시간 저장
                 owner.dismiss(animated: true) // 모달 창 닫기
             }).disposed(by: disposeBag)
