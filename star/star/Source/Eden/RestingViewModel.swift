@@ -54,29 +54,32 @@ extension RestingViewModel {
     }
     
     func transform(input: Input) -> Output {
-            input.startTimer
-                .flatMapLatest { [weak self] in
-                    guard let self = self else { return Observable<Int>.empty() }
-                    return self.createCountdownTimer()
+        input.startTimer
+            .flatMapLatest { [weak self] in
+                guard let self = self else { return Observable<Int>.empty() }
+                return self.createCountdownTimer()
+            }
+            .do(onNext: { time in
+                if time == 0 {
+                    self.timerEndedSubject.accept(())
                 }
-                .do(onNext: { time in
-                    if time == 0 {
-                        self.timerEndedSubject.accept(())
-                    }
-                })
-                .bind(to: timerSubject)
-                .disposed(by: disposeBag)
-            
-            input.stopTimer
-                .subscribe(with: self) { owner, _ in
-                    owner.timerSubject.accept(owner.initialTime)
-                }
-                .disposed(by: disposeBag)
-            
-            let timerText = timerSubject
-                .map { self.formatTime($0) }
-                .asDriver(onErrorJustReturn: "00:00")
-            
-            return Output(timerText: timerText, timerEnded: timerEndedSubject.asSignal())
-        }
+            })
+            .bind(to: timerSubject)
+            .disposed(by: disposeBag)
+        
+        input.stopTimer
+            .subscribe(with: self) { owner, _ in
+                owner.timerSubject.accept(owner.initialTime)
+            }
+            .disposed(by: disposeBag)
+        
+        let timerText = timerSubject
+            .map { self.formatTime($0) }
+            .asDriver(onErrorJustReturn: "00:00")
+        
+        return Output(
+            timerText: timerText,
+            timerEnded: timerEndedSubject.asSignal()
+        )
+    }
 }

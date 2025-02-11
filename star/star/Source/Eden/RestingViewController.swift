@@ -104,16 +104,16 @@ final class RestingViewController: UIViewController {
         
         // 종료 버튼 클릭 시 모달 닫기
         endRestButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.closeRestingView()
-            })
+            .subscribe(with: self) { owner, _ in
+                owner.closeRestingView()
+            }
             .disposed(by: disposeBag)
         
         // 타이머 0이 되면 자동으로 모달 닫기
         output.timerEnded
-            .emit(onNext: { [weak self] in
-                self?.closeRestingView()
-            })
+            .emit(with: self) { owner, _ in
+                owner.closeRestingView()
+            }
             .disposed(by: disposeBag)
     }
     
