@@ -42,8 +42,8 @@ final class RestingViewController: UIViewController {
     
     // MARK: - Init
     
-    init(initialTime: Int = 30) {
-        self.viewModel = RestingViewModel(initialTime: initialTime)
+    init(viewModel: RestingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
