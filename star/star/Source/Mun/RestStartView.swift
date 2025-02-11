@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RestStartView: UIView {
+final class RestStartView: UIView {
     
     // MARK: - UI Components
     
@@ -34,16 +34,16 @@ class RestStartView: UIView {
         $0.textColor = .starButtonWhite
     }
     
-    // 시간 테두리 뷰
-    private let timeView = UIView().then {
+    // 카운트 테두리 뷰
+    private let countView = UIView().then {
         $0.layer.cornerRadius = 180 / 2
         $0.clipsToBounds = true
         $0.layer.borderWidth = 8
         $0.layer.borderColor = UIColor.starButtonYellow.cgColor
     }
     
-    // 시간 라벨
-    private let timeLabel = UILabel().then {
+    // 카운트 라벨
+    let countLabel = UILabel().then {
         $0.text = "5"
         $0.font = .monospacedSystemFont(ofSize: 32, weight: .regular)
         $0.textAlignment = .center
@@ -77,13 +77,13 @@ class RestStartView: UIView {
         [
             titleLabel,
             descriptionLabel,
-            timeView,
+            countView,
             cancelButton
         ].forEach {
             addSubviews($0)
         }
         
-        timeView.addSubview(timeLabel)
+        countView.addSubview(countLabel)
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -95,13 +95,13 @@ class RestStartView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        timeView.snp.makeConstraints {
+        countView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(40)
             $0.width.height.equalTo(180)
         }
         
-        timeLabel.snp.makeConstraints {
+        countLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
         
