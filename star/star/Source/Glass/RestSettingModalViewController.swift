@@ -25,7 +25,6 @@ final class RestSettingModalViewController: UIViewController {
     }
     
     private let textLabel = UILabel().then {
-        $0.numberOfLines = 0 // 여러 줄 표시
         $0.text = "최대 20분까지 설정할 수 있습니다."
         $0.font = Fonts.modalSubtitle
         $0.textColor = .starPrimaryText
@@ -67,7 +66,7 @@ final class RestSettingModalViewController: UIViewController {
         view.addSubview(restButton)
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(32)
+            $0.bottom.equalTo(textLabel.snp.top)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(280)
             $0.height.equalTo(36)
@@ -77,12 +76,12 @@ final class RestSettingModalViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(280)
             $0.height.equalTo(24)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.bottom.equalTo(pickerView.snp.top)
         }
         
         pickerView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(textLabel.snp.bottom)
+            $0.bottom.equalTo(restButton.snp.top).offset(-40)
             $0.width.equalTo(280)
             $0.height.equalTo(140)
         }
@@ -93,7 +92,7 @@ final class RestSettingModalViewController: UIViewController {
         }
         
         restButton.snp.makeConstraints {
-            $0.top.equalTo(pickerView.snp.bottom).offset(40)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
             $0.height.equalTo(56)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
