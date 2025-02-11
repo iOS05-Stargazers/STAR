@@ -12,8 +12,7 @@ import RxCocoa
 final class RestStartViewController: UIViewController {
     
     private let restStartView = RestStartView()
-    let restStartViewModel: RestStartViewModel
-    //let rest
+    private let restStartViewModel: RestStartViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - 생명주기 메서드
