@@ -12,10 +12,20 @@ import RxCocoa
 final class RestStartViewController: UIViewController {
     
     private let restStartView = RestStartView()
-    private let restStartViewModel = RestStartViewModel()
+    let restStartViewModel: RestStartViewModel
+    //let rest
     private let disposeBag = DisposeBag()
     
     // MARK: - 생명주기 메서드
+    
+    init(restStartViewModel: RestStartViewModel) {
+        self.restStartViewModel = restStartViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = restStartView
@@ -29,14 +39,6 @@ final class RestStartViewController: UIViewController {
     // MARK: - bind
     
     private func bind() {
-        // 취소버튼 이벤트 처리
-        restStartView.cancelButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.closeModal()
-            })
-            .disposed(by: disposeBag)
-        
         let output = restStartViewModel.transform()
         
         // 카운트 바인딩
@@ -44,28 +46,24 @@ final class RestStartViewController: UIViewController {
             .filter({ count in
                 count != 0
             })
-            .map { "\($0)"}
+            .map { "\($0)" }
             .drive(restStartView.countLabel.rx.text)
             .disposed(by: disposeBag)
         
         // 완료 바인딩
         output.complete
             .drive(with: self, onNext: { owner, _ in
-                owner.connectRestSettingModal()
+                owner.dismiss(animated: true)
+                owner.restStartViewModel.restStartCompleteRelay.accept(())
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension RestStartViewController {
-    
-    // 모달 종료
-    private func closeModal() {
-        dismiss(animated: true)
-    }
-    
-    // 휴식 설정 모달 연결
-    private func connectRestSettingModal() {
-        dismiss(animated: true) // 임의 연결, 휴식 설정 모달과 연결 예정
+        
+        // 취소버튼 이벤트 처리
+        restStartView.cancelButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -17,6 +17,7 @@ final class StarListViewModel {
     private let starStatusRelay = PublishRelay<StarState>()
     private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
     let refreshRelay = PublishRelay<Void>() // 추후 리팩토링 예정
+    let restStartCompleteRelay = PublishRelay<Void>()
     private let disposeBag = DisposeBag()
 
     // 스타 fetch
@@ -77,7 +78,7 @@ extension StarListViewModel {
         let starDataSource: Driver<[Star]>
         let date: Driver<Date>
         let star: Driver<Star>
-
+        let restStartComplete: Driver<Void>
     }
     
     func transform(_ input: Input) -> Output {
@@ -103,6 +104,7 @@ extension StarListViewModel {
         
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()),
-                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()))
+                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
+                      restStartComplete: restStartCompleteRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }
