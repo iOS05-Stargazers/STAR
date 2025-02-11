@@ -35,6 +35,7 @@ final class RestingViewModel {
     private func createCountdownTimer() -> Observable<Int> {
         return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
             .scan(initialTime) { current, _ in max(current - 1, 0) } // 1초마다 -1 감소, 0 이하로 안 내려감
+            .take(while: { $0 > 0 }) // complete 타이머가 0이 되면 자동 종료
             .distinctUntilChanged()
             .startWith(initialTime)
     }
