@@ -12,6 +12,15 @@ import RxCocoa
 final class RestingViewModel {
     
     private let disposeBag = DisposeBag()
+    private let initialTime: Int
+    
+    private let timerSubject: BehaviorRelay<Int>
+    private let timerEndedSubject = PublishRelay<Void>()
+    
+    init(initialTime: Int) {
+        self.initialTime = initialTime
+        self.timerSubject = BehaviorRelay<Int>(value: initialTime)
+    }
     
     // MARK: - Format Time
     
@@ -23,7 +32,7 @@ final class RestingViewModel {
     
     // MARK: - Timer 로직
     
-    private func createCountdownTimer(initialTime: Int) -> Observable<Int> {
+    private func createCountdownTimer() -> Observable<Int> {
         return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
             .scan(initialTime) { current, _ in max(current - 1, 0) } // 1초마다 -1 감소, 0 이하로 안 내려감
             .distinctUntilChanged()
@@ -43,30 +52,30 @@ extension RestingViewModel {
         let timerEnded: Signal<Void>
     }
     
-    func transform(input: Input, initialTime: Int) -> Output {
-        let timerSubject = BehaviorRelay<Int>(value: initialTime)
-        let timerEndedSubject = PublishRelay<Void>()
-        
-        input.startTimer
-            .flatMapLatest { self.createCountdownTimer(initialTime: initialTime) }
-            .do (onNext: { time in
-                if time == 0 {
-                    timerEndedSubject.accept(()) // 타이머가 0이면 이벤트 발생
+    func transform(input: Input) -> Output {
+            input.startTimer
+                .flatMapLatest { [weak self] in
+                    guard let self = self else { return Observable<Int>.empty() }
+                    return self.createCountdownTimer()
                 }
-            })
-            .bind(to: timerSubject)
-            .disposed(by: disposeBag)
-        
-        input.stopTimer
-            .subscribe(onNext: { _ in
-                timerSubject.accept(initialTime)
-            })
-            .disposed(by: disposeBag)
-        
-        let timerText = timerSubject
-            .map { self.formatTime($0) }
-            .asDriver(onErrorJustReturn: "00:00")
-        
-        return Output(timerText: timerText, timerEnded: timerEndedSubject.asSignal())
-    }
+                .do(onNext: { time in
+                    if time == 0 {
+                        self.timerEndedSubject.accept(())
+                    }
+                })
+                .bind(to: timerSubject)
+                .disposed(by: disposeBag)
+            
+            input.stopTimer
+                .subscribe(with: self) { owner, _ in
+                    owner.timerSubject.accept(owner.initialTime)
+                }
+                .disposed(by: disposeBag)
+            
+            let timerText = timerSubject
+                .map { self.formatTime($0) }
+                .asDriver(onErrorJustReturn: "00:00")
+            
+            return Output(timerText: timerText, timerEnded: timerEndedSubject.asSignal())
+        }
 }

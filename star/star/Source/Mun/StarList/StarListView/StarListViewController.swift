@@ -42,6 +42,11 @@ final class StarListViewController: UIViewController {
             onboardingViewController.modalPresentationStyle = .overFullScreen
             present(onboardingViewController, animated: false)
         }
+        
+        // RestingViewController 잠시 띄우기
+        let restingViewController = RestingViewController(initialTime: 360)
+        restingViewController.modalPresentationStyle = .overFullScreen
+        present(restingViewController, animated: true)
     }
 }
 

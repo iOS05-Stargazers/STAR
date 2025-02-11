@@ -15,13 +15,8 @@ final class RestingViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = RestingViewModel()
+    private let viewModel: RestingViewModel
     private let disposeBag = DisposeBag()
-    
-    private let startTimerSubject = PublishSubject<Void>()
-    private let stopTimerSubject = PublishSubject<Void>()
-    
-    private let initialTime: Int
     
     // MARK: - UI Components
     
@@ -48,7 +43,7 @@ final class RestingViewController: UIViewController {
     // MARK: - Init
     
     init(initialTime: Int = 30) {
-        self.initialTime = initialTime
+        self.viewModel = RestingViewModel(initialTime: initialTime)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,12 +53,14 @@ final class RestingViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         bind()
-        
-        startTimerSubject.onNext(())
     }
     
     // MARK: - Set Up
@@ -94,12 +91,15 @@ final class RestingViewController: UIViewController {
     // MARK: - Bind ViewModel
     
     private func bind() {
+        let viewWillAppearEvent = rx.methodInvoked(#selector(viewWillAppear))
+            .map { _ in } // viewWillAppear가 호출될 때마다 트리거
+        
         let input = RestingViewModel.Input(
-            startTimer: startTimerSubject.asObservable(),
+            startTimer: viewWillAppearEvent,
             stopTimer: endRestButton.rx.tap.asObservable()
         )
         
-        let output = viewModel.transform(input: input, initialTime: initialTime)
+        let output = viewModel.transform(input: input)
         
         // 타이머 값 변경 시 `timerLabel` 업데이트
         output.timerText
