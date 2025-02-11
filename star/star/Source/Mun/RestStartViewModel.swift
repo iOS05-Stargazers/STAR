@@ -38,7 +38,6 @@ final class RestStartViewModel {
 
 extension RestStartViewModel {
 
-    
     struct Output {
         let count: Driver<Int>
         let complete: Driver<Void>
