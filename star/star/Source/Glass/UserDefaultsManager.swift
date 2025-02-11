@@ -9,15 +9,7 @@ import Foundation
 
 final class UserDefaultsManager {
     
-    static var shared = UserDefaultsManager()
     private let defaults = UserDefaults.standard
-    
-    private init() {}
-}
-
-// MARK: - 휴식하기
-
-extension UserDefaultsManager {
     
     // CREATE/UPDATE
     func restEndTimeSet(_ value: Int) {

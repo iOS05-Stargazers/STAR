@@ -114,7 +114,9 @@ extension RestSettingModalViewController {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 let restTime = owner.pickerView.selectedRow(inComponent: 0) + 1
-                UserDefaultsManager.shared.restEndTimeSet(restTime) // 휴식시간 저장
+                let userDefaults = UserDefaultsManager()
+                userDefaults.restEndTimeSet(restTime)// 휴식시간 저장
+                
                 owner.dismiss(animated: true) // 모달 창 닫기
             }).disposed(by: disposeBag)
     }
