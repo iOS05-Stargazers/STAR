@@ -109,11 +109,13 @@ extension RestSettingModalViewController {
             return "\(item)"
         }.disposed(by: disposeBag)
         
-        // 휴식하기 버튼 클릭 이벤트
+        // 휴식하기 버튼 이벤트 : 휴식시간 저장
         restButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                print(owner.pickerView.selectedRow(inComponent: 0))
+                let restTime = owner.pickerView.selectedRow(inComponent: 0) + 1
+                UserDefaultsManager.shared.restEndTimeSet(restTime) // 휴식시간 저장
+                owner.dismiss(animated: true) // 모달 창 닫기
             }).disposed(by: disposeBag)
     }
 }
