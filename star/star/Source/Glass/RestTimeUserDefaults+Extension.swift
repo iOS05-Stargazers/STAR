@@ -1,5 +1,5 @@
 //
-//  UserDefaultsManager.swift
+//  RestTimeUserDefaults+Extension.swift
 //  star
 //
 //  Created by 안준경 on 2/11/25.
@@ -7,19 +7,17 @@
 
 import Foundation
 
-final class UserDefaultsManager {
-    
-    private let defaults = UserDefaults.standard
+extension UserDefaults {
     
     // CREATE/UPDATE
     func restEndTimeSet(_ value: Int) {
         let endTime = endTimeCalculate(minutes: value)
-        defaults.set(endTime, forKey: "restEndTime")
+        UserDefaults.standard.set(endTime, forKey: "restEndTime")
     }
     
     // READ
     func restEndTimeGet() -> Date {
-        guard let endTime = defaults.value(forKey: "restEndTime") as? Date else { return Date() }
+        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return Date() }
         return endTime
     }
     
@@ -29,4 +27,6 @@ final class UserDefaultsManager {
         let endTime = calendar.date(byAdding: .minute, value: minutes, to: Date()) ?? Date()
         return endTime
     }
+    
 }
+
