@@ -1,8 +1,8 @@
 //
-//  RestTimeUserDefaults+Extension.swift
+//  UserDefaults+RestTime.swift
 //  star
 //
-//  Created by 안준경 on 2/11/25.
+//  Created by 안준경 on 2/12/25.
 //
 
 import Foundation
@@ -36,4 +36,3 @@ extension UserDefaults {
     }
     
 }
-
