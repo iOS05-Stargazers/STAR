@@ -141,6 +141,8 @@ final class StarModalViewModel {
                                                        finishTime: owner.endTime,
                                                        weekDays: owner.weekDays))
                     
+                    YouTubeBlocker().block(star: star, completion: { _ in print("차단 성공") })
+                    
                     owner.starManager.update(star)
 
                 // CREATE
@@ -152,6 +154,8 @@ final class StarModalViewModel {
                                     schedule: Schedule(startTime: owner.startTime,
                                                        finishTime: owner.endTime,
                                                        weekDays: owner.weekDays))
+                    
+                    YouTubeBlocker().block(star: star, completion: { _ in print("차단 성공") })
 
                     owner.starManager.create(star)
                 }
