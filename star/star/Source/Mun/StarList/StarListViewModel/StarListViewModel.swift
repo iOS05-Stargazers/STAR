@@ -26,7 +26,7 @@ final class StarListViewModel {
     private let starModalStateRelay = PublishRelay<StarModalState>()
     let refreshRelay = PublishRelay<Void>()
     let restStartCompleteRelay = PublishRelay<Void>()
-    let restingCompleteRelay = PublishRelay<Date>()
+    let restSettingCompleteRelay = PublishRelay<Date>()
     private let disposeBag = DisposeBag()
     
     // 어떤 모달 띄워줄 지 확인하는 메서드
@@ -126,7 +126,7 @@ extension StarListViewModel {
             })
             .disposed(by: disposeBag)
 
-        restingCompleteRelay
+        restSettingCompleteRelay
             .subscribe(onNext: { date in
                 self.starModalStateRelay.accept(.resting(date: date))
             })

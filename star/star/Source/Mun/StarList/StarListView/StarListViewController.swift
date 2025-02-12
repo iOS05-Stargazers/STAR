@@ -173,7 +173,7 @@ extension StarListViewController {
     
     // 휴식 설정 화면 모달 연결
     private func connectRestSettingModal() {
-        let restSettingModalViewController = RestSettingModalViewController(restingCompleteRelay: viewModel.restingCompleteRelay)
+        let restSettingModalViewController = RestSettingModalViewController(restingCompleteRelay: viewModel.restSettingCompleteRelay)
         restSettingModalViewController.modalPresentationStyle = .pageSheet
         restSettingModalViewController.sheetPresentationController?.prefersGrabberVisible = true
         
