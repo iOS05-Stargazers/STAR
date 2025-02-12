@@ -30,6 +30,15 @@ final class RestingViewModel {
         return String(format: "%02d:%02d", min, sec)
     }
     
+    // MARK: - 휴식 시간 설정값 불러오기
+    
+    private static func getRestEndTime() -> Date? {
+        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else {
+            return nil
+        }
+        return endTime
+    }
+    
     // MARK: - Timer 로직
     
     private func createCountdownTimer() -> Observable<Int> {
