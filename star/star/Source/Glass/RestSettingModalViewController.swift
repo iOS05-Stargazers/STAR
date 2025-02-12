@@ -12,6 +12,7 @@ import RxCocoa
 
 final class RestSettingModalViewController: UIViewController {
     
+    private let restingCompleteRelay: PublishRelay<Void>
     private let disposeBag = DisposeBag()
     
     // picker 데이터
@@ -50,7 +51,16 @@ final class RestSettingModalViewController: UIViewController {
         $0.clipsToBounds = true
         $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow], direction: .horizontal)
     }
-        
+    
+    init(restingCompleteRelay: PublishRelay<Void>) {
+        self.restingCompleteRelay = restingCompleteRelay
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         setupUI()
         bind()
@@ -118,6 +128,7 @@ extension RestSettingModalViewController {
                 
                 UserDefaults.standard.restEndTimeSet(restTime)// 휴식시간 저장
                 owner.dismiss(animated: true) // 모달 창 닫기
+                owner.restingCompleteRelay.accept(())
             }).disposed(by: disposeBag)
     }
 }

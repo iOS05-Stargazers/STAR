@@ -93,6 +93,12 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
+        output.restingComplete
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectRestingModal()
+            })
+            .disposed(by: disposeBag)
+        
         // 휴식 버튼 이벤트 처리
         starListView.restButton.rx.tap
             .asDriver()
@@ -161,7 +167,7 @@ extension StarListViewController {
     
     // 휴식 설정 화면 모달 연결
     private func connectRestSettingModal() {
-        let restSettingModalViewController = RestSettingModalViewController()
+        let restSettingModalViewController = RestSettingModalViewController(restingCompleteRelay: viewModel.restingCompleteRelay)
         restSettingModalViewController.modalPresentationStyle = .pageSheet
         restSettingModalViewController.sheetPresentationController?.prefersGrabberVisible = true
         
@@ -184,7 +190,8 @@ extension StarListViewController {
     
     // 휴식중 화면 모달 연결
     private func connectRestingModal() {
-        let restingViewModel = RestingViewModel(initialTime: 20)
+        let leftTime = UserDefaults.standard.restEndTimeGet().timeIntervalSince(Date())
+        let restingViewModel = RestingViewModel(initialTime: Int(leftTime))
         let restingViewController = RestingViewController(viewModel: restingViewModel)
         restingViewController.view.backgroundColor = .starModalOverlayBG
         restingViewController.modalPresentationStyle = .overFullScreen
