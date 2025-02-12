@@ -126,8 +126,9 @@ extension RestSettingModalViewController {
                 // pickerView에서 선택한 wheel의 인덱스 값 + 1 (인덱스 : 0 ~ 19)
                 let restTime = owner.pickerView.selectedRow(inComponent: 0) + 1
                 
-                let time = UserDefaults.standard.restEndTimeSet(restTime)// 휴식시간 저장
                 owner.dismiss(animated: true) // 모달 창 닫기
+                // 휴식시간 저장
+                guard let time = UserDefaults.standard.restEndTimeSet(restTime) else { return }
                 owner.restSettingCompleteRelay.accept(time)
             }).disposed(by: disposeBag)
     }

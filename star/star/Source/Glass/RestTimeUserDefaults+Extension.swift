@@ -13,6 +13,7 @@ extension UserDefaults {
     func restEndTimeSet(_ value: Int) -> Date? {
         let endTime = endTimeCalculate(minutes: value)
         UserDefaults.standard.set(endTime, forKey: "restEndTime")
+        
         return endTime
     }
     
