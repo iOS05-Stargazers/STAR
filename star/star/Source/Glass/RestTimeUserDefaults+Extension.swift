@@ -16,15 +16,20 @@ extension UserDefaults {
     }
     
     // READ
-    func restEndTimeGet() -> Date {
-        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return Date() }
+    func restEndTimeGet() -> Date? {
+        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return nil }
         return endTime
     }
     
+    // DELETE
+    func restEndTimeDelete() {
+        UserDefaults.standard.removeObject(forKey: "restEndTime")
+    }
+    
     // 휴식 종료시간 계산
-    private func endTimeCalculate(minutes: Int) -> Date {
+    private func endTimeCalculate(minutes: Int) -> Date? {
         let calendar = Calendar.current
-        let endTime = calendar.date(byAdding: .minute, value: minutes, to: Date()) ?? Date()
+        let endTime = calendar.date(byAdding: .minute, value: minutes, to: Date())
         return endTime
     }
     
