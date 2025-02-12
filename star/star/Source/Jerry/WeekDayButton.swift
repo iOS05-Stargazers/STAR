@@ -25,7 +25,6 @@ final class WeekDayButton: GradientButton {
         self.weekDay = weekDay
         self.buttonStateRelay = BehaviorRelay<Bool>(value: state)
         super.init(frame: .zero)
-        //self.configuration = .plain()
         self.setTitleColor(.starSecondaryText35, for: .highlighted)
         gradientLayer.isHidden = !state
         setUp()
@@ -51,8 +50,6 @@ final class WeekDayButton: GradientButton {
     private func toggle() {
         gradientLayer.isHidden.toggle()
         buttonStateRelay.accept(!gradientLayer.isHidden)
-        // 테스트 출력문
-//        print("\(weekDay.korean) 버튼 - 색: \(!gradientLayer.isHidden) / 상태: \(buttonStateRelay.value)")
     }
     
     func setState(_ state: Bool) {
