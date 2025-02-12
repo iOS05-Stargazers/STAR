@@ -5,6 +5,11 @@
 //  Created by 서문가은 on 1/22/25.
 //
 
+
+// viewDidLoad -> 휴식중인지 확인(userDefaults)
+// 맞으면 모달 연결
+// 휴식 설정 화면에서 휴식하기 누르면 starListVM에서 이벤트 방출 받고, 휴식중 화면 띄우기
+
 import UIKit
 import SnapKit
 import RxSwift
@@ -40,6 +45,11 @@ final class StarListViewController: UIViewController {
             let onboardingViewController = OnboardingViewController()
             onboardingViewController.modalPresentationStyle = .overFullScreen
             present(onboardingViewController, animated: false)
+        } else {
+            // 휴식중이라면 휴식중 화면 표시
+            if Date() < UserDefaults.standard.restEndTimeGet() {
+                connectRestingModal()
+            }
         }
     }
 }
@@ -170,6 +180,15 @@ extension StarListViewController {
         
         restSettingModalViewController.view.layer.cornerRadius = 40
         present(restSettingModalViewController, animated: true)
+    }
+    
+    // 휴식중 화면 모달 연결
+    private func connectRestingModal() {
+        let restingViewModel = RestingViewModel(initialTime: 20)
+        let restingViewController = RestingViewController(viewModel: restingViewModel)
+        restingViewController.view.backgroundColor = .starModalOverlayBG
+        restingViewController.modalPresentationStyle = .overFullScreen
+        present(restingViewController, animated: true)
     }
     
     // 생성하기 모달 연결
