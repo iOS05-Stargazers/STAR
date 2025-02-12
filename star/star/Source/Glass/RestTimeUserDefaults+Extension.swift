@@ -16,8 +16,8 @@ extension UserDefaults {
     }
     
     // READ
-    func restEndTimeGet() -> Date {
-        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return Date() }
+    func restEndTimeGet() -> Date? {
+        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return nil }
         return endTime
     }
     

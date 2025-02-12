@@ -47,7 +47,8 @@ final class StarListViewController: UIViewController {
             present(onboardingViewController, animated: false)
         } else {
             // 휴식중이라면 휴식중 화면 표시
-            if Date() < UserDefaults.standard.restEndTimeGet() {
+            guard let restEndTime = UserDefaults.standard.restEndTimeGet() else { return }
+            if Date() < restEndTime {
                 connectRestingModal()
             }
         }
@@ -190,7 +191,8 @@ extension StarListViewController {
     
     // 휴식중 화면 모달 연결
     private func connectRestingModal() {
-        let leftTime = UserDefaults.standard.restEndTimeGet().timeIntervalSince(Date())
+        guard let restEndTime = UserDefaults.standard.restEndTimeGet() else { return }
+        let leftTime = restEndTime.timeIntervalSince(Date())
         let restingViewModel = RestingViewModel(initialTime: Int(leftTime))
         let restingViewController = RestingViewController(viewModel: restingViewModel)
         restingViewController.view.backgroundColor = .starModalOverlayBG
