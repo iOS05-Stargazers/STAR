@@ -40,18 +40,6 @@ final class StarListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        // 온보딩 뷰를 보여주지 않았다면 온보딩뷰 표시
-        if !UserDefaults.standard.isCoachMarkShown {
-            let onboardingViewController = OnboardingViewController()
-            onboardingViewController.modalPresentationStyle = .overFullScreen
-            present(onboardingViewController, animated: false)
-        } else {
-            // 휴식중이라면 휴식중 화면 표시
-            guard let restEndTime = UserDefaults.standard.restEndTimeGet() else { return }
-            if Date() < restEndTime {
-                connectRestingModal()
-            }
-        }
     }
 }
 
@@ -88,15 +76,10 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
-        output.restStartComplete
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectRestSettingModal()
-            })
-            .disposed(by: disposeBag)
-        
-        output.restingComplete
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectRestingModal()
+        // 스타 모달 상태 바인딩
+        output.starModalState
+            .drive(with: self, onNext: { owner, thisModal in
+                owner.connectModal(thisModal)
             })
             .disposed(by: disposeBag)
         
@@ -129,6 +112,7 @@ extension StarListViewController {
 // MARK: - 실행 메서드
 
 extension StarListViewController {
+    
     // 스와이프 액션 설정
     private func setupSwipeActions() {
         starListView.starListCollectionView.addSwipeAction(
@@ -148,6 +132,20 @@ extension StarListViewController {
         )
     }
     
+    // 모달 연결
+    private func connectModal(_ modal: StarModalState) {
+        switch modal {
+        case .onboarding:
+            connnectOnboarding()
+        case .restSetting:
+            connectRestSettingModal()
+        case .restStart:
+            connectRestStartModal()
+        case .resting(let date):
+            connectRestingModal(date)
+        }
+    }
+    
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
@@ -155,6 +153,13 @@ extension StarListViewController {
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
         starDeleteAlertViewController.view.backgroundColor = .starModalOverlayBG
         present(starDeleteAlertViewController, animated: false)
+    }
+    
+    // 온보딩 모달 연결
+    private func connnectOnboarding() {
+        let onboardingViewController = OnboardingViewController()
+        onboardingViewController.modalPresentationStyle = .overFullScreen
+        present(onboardingViewController, animated: false)
     }
     
     // 휴식 진입 화면 모달 연결
@@ -190,8 +195,7 @@ extension StarListViewController {
     }
     
     // 휴식중 화면 모달 연결
-    private func connectRestingModal() {
-        guard let restEndTime = UserDefaults.standard.restEndTimeGet() else { return }
+    private func connectRestingModal(_ restEndTime: Date) {
         let leftTime = restEndTime.timeIntervalSince(Date())
         let restingViewModel = RestingViewModel(initialTime: Int(leftTime))
         let restingViewController = RestingViewController(viewModel: restingViewModel)
