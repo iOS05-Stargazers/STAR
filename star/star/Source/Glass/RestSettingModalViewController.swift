@@ -12,6 +12,7 @@ import RxCocoa
 
 final class RestSettingModalViewController: UIViewController {
     
+    private let restSettingCompleteRelay: PublishRelay<Date>
     private let disposeBag = DisposeBag()
     
     // picker 데이터
@@ -50,7 +51,16 @@ final class RestSettingModalViewController: UIViewController {
         $0.clipsToBounds = true
         $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow], direction: .horizontal)
     }
-        
+    
+    init(restingCompleteRelay: PublishRelay<Date>) {
+        self.restSettingCompleteRelay = restingCompleteRelay
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         setupUI()
         bind()
@@ -116,8 +126,10 @@ extension RestSettingModalViewController {
                 // pickerView에서 선택한 wheel의 인덱스 값 + 1 (인덱스 : 0 ~ 19)
                 let restTime = owner.pickerView.selectedRow(inComponent: 0) + 1
                 
-                UserDefaults.standard.restEndTimeSet(restTime)// 휴식시간 저장
                 owner.dismiss(animated: true) // 모달 창 닫기
+                // 휴식시간 저장
+                guard let time = UserDefaults.standard.restEndTimeSet(restTime) else { return }
+                owner.restSettingCompleteRelay.accept(time)
             }).disposed(by: disposeBag)
     }
 }
