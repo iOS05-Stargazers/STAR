@@ -10,14 +10,15 @@ import Foundation
 extension UserDefaults {
     
     // CREATE/UPDATE
-    func restEndTimeSet(_ value: Int) {
+    func restEndTimeSet(_ value: Int) -> Date {
         let endTime = endTimeCalculate(minutes: value)
         UserDefaults.standard.set(endTime, forKey: "restEndTime")
+        return endTime
     }
     
     // READ
-    func restEndTimeGet() -> Date {
-        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return Date() }
+    func restEndTimeGet() -> Date? {
+        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return nil }
         return endTime
     }
     
