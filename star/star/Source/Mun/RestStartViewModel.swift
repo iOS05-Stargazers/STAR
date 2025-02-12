@@ -13,7 +13,12 @@ final class RestStartViewModel {
     
     private let countRelay = BehaviorRelay(value: 5)
     private let completeRelay = PublishRelay<Void>()
+    let restStartCompleteRelay: PublishRelay<Void> // 휴식 진입 화면 완료 릴레이 -> 메인 화면에서 이벤트 방출 받음
     private let disposeBag = DisposeBag()
+    
+    init(restStartCompleteRelay: PublishRelay<Void>) {
+        self.restStartCompleteRelay = restStartCompleteRelay
+    }
     
     // 5초 카운트다운 실행
     private func startCountdown() {
@@ -32,7 +37,7 @@ final class RestStartViewModel {
 }
 
 extension RestStartViewModel {
-    
+
     struct Output {
         let count: Driver<Int>
         let complete: Driver<Void>
@@ -40,6 +45,7 @@ extension RestStartViewModel {
     
     func transform() -> Output {
         startCountdown()
+
         return Output(
             count: countRelay.asDriver(onErrorDriveWith: .empty()),
             complete: completeRelay.asDriver(onErrorDriveWith: .empty())

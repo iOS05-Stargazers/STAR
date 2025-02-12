@@ -77,11 +77,17 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
+        output.restStartComplete
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectRestSettingModal()
+            })
+            .disposed(by: disposeBag)
+        
         // 휴식 버튼 이벤트 처리
         starListView.restButton.rx.tap
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
-                owner.connectRestModal()
+                owner.connectRestStartModal()
             })
             .disposed(by: disposeBag)
         
@@ -134,12 +140,36 @@ extension StarListViewController {
         present(starDeleteAlertViewController, animated: false)
     }
     
-    // 휴식 화면 모달 연결
-    private func connectRestModal() {
-        let restStartViewController = RestStartViewController()
+    // 휴식 진입 화면 모달 연결
+    private func connectRestStartModal() {
+        let restStartViewModel = RestStartViewModel(restStartCompleteRelay: viewModel.restStartCompleteRelay)
+        let restStartViewController = RestStartViewController(restStartViewModel: restStartViewModel)
         restStartViewController.view.backgroundColor = .starModalOverlayBG
         restStartViewController.modalPresentationStyle = .overFullScreen
         present(restStartViewController, animated: true)
+    }
+    
+    // 휴식 설정 화면 모달 연결
+    private func connectRestSettingModal() {
+        let restSettingModalViewController = RestSettingModalViewController()
+        restSettingModalViewController.modalPresentationStyle = .pageSheet
+        restSettingModalViewController.sheetPresentationController?.prefersGrabberVisible = true
+        
+        // 모달 화면 높이 설정
+        if let sheet = restSettingModalViewController.sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                sheet.detents = [
+                    .custom { _ in
+                        return 350
+                    }
+                ]
+            } else {
+                sheet.detents = [.medium()]
+            }
+        }
+        
+        restSettingModalViewController.view.layer.cornerRadius = 40
+        present(restSettingModalViewController, animated: true)
     }
     
     // 생성하기 모달 연결
