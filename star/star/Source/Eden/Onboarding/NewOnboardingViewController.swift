@@ -11,21 +11,19 @@ import Then
 
 final class NewOnboardingViewController: UIViewController {
     
-    private let bottomView = OnboardingCustomBottomView().then {
-        $0.backgroundColor = .clear
-    }
+    private let onboardingCustomView = OnboardingCustomView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBottomView()
+        setupUI()
     }
     
-    private func setupBottomView() {
-        view.addSubview(bottomView)
+    private func setupUI() {
+        view.addSubview(onboardingCustomView)
         
-        bottomView.snp.makeConstraints {
+        onboardingCustomView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(440)
         }
     }
 }
