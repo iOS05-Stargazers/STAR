@@ -11,6 +11,8 @@ import Then
 
 final class OnboardingCustomBottomView: UIView {
     
+    // MARK: - UI Components
+    
     private let gradientLayer = CAGradientLayer().then {
         $0.colors = [
             UIColor.clear.cgColor,
@@ -22,6 +24,8 @@ final class OnboardingCustomBottomView: UIView {
         $0.endPoint = CGPoint(x: 0.5, y: 1.0)
     }
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -31,6 +35,8 @@ final class OnboardingCustomBottomView: UIView {
         super.init(coder: coder)
         setupView()
     }
+    
+    // MARK: - Setup UI
     
     private func setupView() {
         configureGradientLayer()
