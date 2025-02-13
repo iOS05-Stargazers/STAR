@@ -99,6 +99,9 @@ final class RestingViewController: UIViewController {
         
         // 타이머 값 변경 시 `timerLabel` 업데이트
         output.timerText
+            .filter({ count in
+                count != "00:00"
+            })
             .drive(timerLabel.rx.text)
             .disposed(by: disposeBag)
         
