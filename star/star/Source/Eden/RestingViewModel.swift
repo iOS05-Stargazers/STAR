@@ -30,13 +30,10 @@ final class RestingViewModel {
         return String(format: "%02d:%02d", min, sec)
     }
     
-    // MARK: - 휴식 시간 설정값 불러오기
+    // MARK: - 휴식시간 삭제
     
-    private static func getRestEndTime() -> Date? {
-        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else {
-            return nil
-        }
-        return endTime
+    private func removeRestEndTime() {
+        UserDefaults.standard.removeObject(forKey: "restEndTime")
     }
     
     // MARK: - Timer 로직
