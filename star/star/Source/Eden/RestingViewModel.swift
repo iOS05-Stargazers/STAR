@@ -30,7 +30,7 @@ final class RestingViewModel {
         return String(format: "%02d:%02d", min, sec)
     }
     
-    // MARK: - Timer 로직
+    // MARK: - Timer 카운트 다운 로직
     
     private func startCountdown() {
         Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
@@ -51,8 +51,8 @@ final class RestingViewModel {
 extension RestingViewModel {
     
     struct Input {
-        let startTimer: Observable<Void>
-        let stopTimer: Observable<Void>
+        let startTimer: Signal<Void>
+        let stopTimer: Signal<Void>
     }
     
     struct Output {
@@ -62,17 +62,19 @@ extension RestingViewModel {
     
     func transform(input: Input) -> Output {
         input.startTimer
-            .subscribe(with: self) { owner, _ in
-                owner.startCountdown() // 타이머 시작
-            }
+            .withUnretained(self)
+            .emit(onNext: { owner, _ in
+                owner.startCountdown()
+            })
             .disposed(by: disposeBag)
         
         input.stopTimer
-            .subscribe(with: self) { owner, _ in
-                UserDefaults.standard.restEndTimeDelete() // 종료 버튼 누를 때 저장된 시간 삭제
+            .withUnretained(self)
+            .emit(onNext: { owner, _ in
+                UserDefaults.standard.restEndTimeDelete()
                 owner.timerSubject.accept(0)
                 owner.timerEndedSubject.accept(())
-            }
+            })
             .disposed(by: disposeBag)
         
         let timerText = timerSubject
