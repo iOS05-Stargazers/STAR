@@ -89,17 +89,28 @@ final class RestingViewController: UIViewController {
     private func bind() {
         let viewWillAppearEvent = rx.methodInvoked(#selector(viewWillAppear))
             .map { _ in } // viewWillAppear가 호출될 때마다 트리거
+            .asSignal(onErrorSignalWith: .empty())
         
         let input = RestingViewModel.Input(
             startTimer: viewWillAppearEvent,
-            stopTimer: endRestButton.rx.tap.asObservable()
+            stopTimer: endRestButton.rx.tap.asSignal()
         )
         
         let output = viewModel.transform(input: input)
         
         // 타이머 값 변경 시 `timerLabel` 업데이트
         output.timerText
+            .filter({ count in
+                count != "00:00"
+            })
             .drive(timerLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // 타이머 0이 되면 자동으로 모달 닫기
+        output.timerEnded
+            .emit(with: self) { owner, _ in
+                owner.closeRestingView()
+            }
             .disposed(by: disposeBag)
         
         // 종료 버튼 클릭 시 모달 닫기
@@ -109,12 +120,6 @@ final class RestingViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        // 타이머 0이 되면 자동으로 모달 닫기
-        output.timerEnded
-            .emit(with: self) { owner, _ in
-                owner.closeRestingView()
-            }
-            .disposed(by: disposeBag)
     }
     
     // 모달 닫는 로직

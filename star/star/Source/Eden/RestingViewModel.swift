@@ -30,22 +30,29 @@ final class RestingViewModel {
         return String(format: "%02d:%02d", min, sec)
     }
     
-    // MARK: - Timer 로직
+    // MARK: - Timer 카운트 다운 로직
     
-    private func createCountdownTimer() -> Observable<Int> {
-        return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
-            .scan(initialTime) { current, _ in max(current - 1, 0) } // 1초마다 -1 감소, 0 이하로 안 내려감
-            .take(while: { $0 > 0 }) // complete 타이머가 0이 되면 자동 종료
-            .distinctUntilChanged()
-            .startWith(initialTime)
+    private func startCountdown() {
+        Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
+            .withUnretained(self)
+            .take(initialTime)
+            .subscribe(onNext: { owner, _ in
+                let newValue = max(owner.timerSubject.value - 1, 0)
+                owner.timerSubject.accept(newValue)
+            }, onCompleted: { [weak self] in
+                guard let self = self else { return }
+                UserDefaults.standard.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
+                self.timerEndedSubject.accept(()) // 모달 닫기 이벤트 실행
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 extension RestingViewModel {
     
     struct Input {
-        let startTimer: Observable<Void>
-        let stopTimer: Observable<Void>
+        let startTimer: Signal<Void>
+        let stopTimer: Signal<Void>
     }
     
     struct Output {
@@ -55,22 +62,19 @@ extension RestingViewModel {
     
     func transform(input: Input) -> Output {
         input.startTimer
-            .flatMapLatest { [weak self] in
-                guard let self = self else { return Observable<Int>.empty() }
-                return self.createCountdownTimer()
-            }
-            .do(onNext: { time in
-                if time == 0 {
-                    self.timerEndedSubject.accept(())
-                }
+            .withUnretained(self)
+            .emit(onNext: { owner, _ in
+                owner.startCountdown()
             })
-            .bind(to: timerSubject)
             .disposed(by: disposeBag)
         
         input.stopTimer
-            .subscribe(with: self) { owner, _ in
-                owner.timerSubject.accept(owner.initialTime)
-            }
+            .withUnretained(self)
+            .emit(onNext: { owner, _ in
+                UserDefaults.standard.restEndTimeDelete()
+                owner.timerSubject.accept(0)
+                owner.timerEndedSubject.accept(())
+            })
             .disposed(by: disposeBag)
         
         let timerText = timerSubject
