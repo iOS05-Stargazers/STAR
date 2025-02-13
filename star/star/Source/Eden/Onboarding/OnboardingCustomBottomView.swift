@@ -33,6 +33,10 @@ final class OnboardingCustomBottomView: UIView {
     }
     
     private func setupView() {
+        configureGradientLayer()
+    }
+    
+    private func configureGradientLayer() {
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
