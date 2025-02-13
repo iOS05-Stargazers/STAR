@@ -141,9 +141,10 @@ final class StarModalViewModel {
                                                        finishTime: owner.endTime,
                                                        weekDays: owner.weekDays))
                     
-                    BlockManager().block(star: star, completion: { _ in print("차단 성공") })
                     owner.starManager.update(star)
-                    FamilyControlsManager.refreshList()
+                    
+                    BlockManager().block(star: star,
+                                         completion: { _ in FamilyControlsManager.refreshList() })
 
                 // CREATE
                 } else {
@@ -155,10 +156,10 @@ final class StarModalViewModel {
                                                        finishTime: owner.endTime,
                                                        weekDays: owner.weekDays))
                     
-                    BlockManager().block(star: star, completion: { _ in print("차단 성공") })
-
                     owner.starManager.create(star)
-                    FamilyControlsManager.refreshList()
+                    
+                    BlockManager().block(star: star,
+                                         completion: { _ in FamilyControlsManager.refreshList() })
                 }
                 
                 owner.closeAlert()

@@ -49,4 +49,22 @@ struct BlockManager {
         }
         completion(.success(()))
     }
+    
+    func activities() {
+        print(DeviceActivityCenter().activities.map { $0.rawValue })
+    }
+    
+    func refreshSchedule() {
+        self.resetSchedule()
+
+        StarManager.shared.read()
+            .forEach {
+                self.block(star: $0, completion: { _ in })
+            }
+    }
+    
+    private func resetSchedule() {
+        let deviceActivityCenter = DeviceActivityCenter()
+        deviceActivityCenter.stopMonitoring([])
+    }
 }
