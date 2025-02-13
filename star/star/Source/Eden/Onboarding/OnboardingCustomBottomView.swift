@@ -14,7 +14,7 @@ final class OnboardingCustomBottomView: UIView {
     private let gradientLayer = CAGradientLayer().then {
         $0.colors = [
             UIColor.clear.cgColor,
-            UIColor(red: 71/255, green: 25/255, blue: 127/255, alpha: 1.0).cgColor,
+            UIColor.starDarkPurple.cgColor,
             UIColor.starAppBG.cgColor
         ]
         $0.locations = [0.0, 0.4, 0.6]
