@@ -41,7 +41,7 @@ final class RestingViewModel {
     private func createCountdownTimer() -> Observable<Int> {
         return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
             .scan(initialTime) { current, _ in max(current - 1, 0) } // 1초마다 -1 감소, 0 이하로 안 내려감
-            .take(while: { $0 > 0 }) // complete 타이머가 0이 되면 자동 종료
+            .take(while: { $0 >= 0 }) // complete 타이머가 0이 되면 자동 종료
             .distinctUntilChanged()
             .startWith(initialTime)
     }
@@ -67,6 +67,7 @@ extension RestingViewModel {
             }
             .do(onNext: { time in
                 if time == 0 {
+                    self.removeRestEndTime() // 타이머 종료 시 저장된 시간 삭제
                     self.timerEndedSubject.accept(())
                 }
             })
@@ -75,7 +76,9 @@ extension RestingViewModel {
         
         input.stopTimer
             .subscribe(with: self) { owner, _ in
-                owner.timerSubject.accept(owner.initialTime)
+                owner.removeRestEndTime() // 종료 버튼 누를 때 저장된 시간 삭제
+                owner.timerSubject.accept(0)
+                owner.timerEndedSubject.accept(())
             }
             .disposed(by: disposeBag)
         
