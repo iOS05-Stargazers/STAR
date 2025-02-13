@@ -24,6 +24,9 @@ final class OnboardingCustomView: UIView {
     }
     
     private func setupView() {
+        guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
+        backgroundColor = UIColor(patternImage: backgroundImage)
+        
         addSubviews(bottomView)
         
         bottomView.snp.makeConstraints {
