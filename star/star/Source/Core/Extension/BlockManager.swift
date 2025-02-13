@@ -9,11 +9,7 @@ import Foundation
 import ManagedSettings
 import DeviceActivity
 
-extension DeviceActivityName {
-    static let daily = Self("daily")
-}
-
-struct YouTubeBlocker {
+struct BlockManager {
     
     let store = ManagedSettingsStore()
     let model = BlockingApplicationModel.shared
@@ -39,7 +35,7 @@ struct YouTubeBlocker {
         store.shield.applications = star.blockList.applicationTokens
 //        store.shield.
         do {
-            try deviceActivityCenter.startMonitoring(DeviceActivityName.daily, during: blockSchedule)
+            try deviceActivityCenter.startMonitoring(DeviceActivityName.make(star.title), during: blockSchedule)
             // 모니터링이 돼서 리포트가 됐을 때 사용시간이 증가하는시점에 YouTube 사용시간에 대한 트래킹 트리거
             // 3시간 잡았는데 -6분 -> 2시간 45분
             // 토탈시간 이벤트는 시간~끝이 있고 값은 몇분 사용했다는 결과를 반환할 것 같다.
