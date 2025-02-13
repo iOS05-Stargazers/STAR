@@ -7,17 +7,15 @@
 
 import Foundation
 import ManagedSettings
+import FamilyControls
 import DeviceActivity
 
 struct BlockManager {
     
-    let store = ManagedSettingsStore()
     let model = BlockingApplicationModel.shared
     
     // 앱 차단 로직
     func block(star: Star, completion: @escaping (Result<Void, Error>) -> Void) {
-        // 선택한 앱 토큰 가져오기
-        let selectedAppTokens = model.selectedAppsTokens
         
         // DeviceActivityCenter를 사용하여 모든 선택한 앱 토큰에 대한 액티비티 차단
         let deviceActivityCenter = DeviceActivityCenter()
@@ -31,11 +29,10 @@ struct BlockManager {
             intervalEnd: DateComponents(hour: endTime.hour, minute: endTime.minute),
             repeats: true
         )
-        
-        store.shield.applications = star.blockList.applicationTokens
-//        store.shield.
+ 
         do {
-            try deviceActivityCenter.startMonitoring(DeviceActivityName.make(star.title), during: blockSchedule)
+            try deviceActivityCenter.startMonitoring(DeviceActivityName.make(star.identifier.uuidString),
+                                                     during: blockSchedule)
             // 모니터링이 돼서 리포트가 됐을 때 사용시간이 증가하는시점에 YouTube 사용시간에 대한 트래킹 트리거
             // 3시간 잡았는데 -6분 -> 2시간 45분
             // 토탈시간 이벤트는 시간~끝이 있고 값은 몇분 사용했다는 결과를 반환할 것 같다.
@@ -52,9 +49,4 @@ struct BlockManager {
         }
         completion(.success(()))
     }
-    
-    func unblockAllApps() {
-        store.shield.applications = []
-    }
-    
 }
