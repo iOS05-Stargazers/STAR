@@ -30,12 +30,6 @@ final class RestingViewModel {
         return String(format: "%02d:%02d", min, sec)
     }
     
-    // MARK: - 휴식시간 삭제
-    
-    private func removeRestEndTime() {
-        UserDefaults.standard.removeObject(forKey: "restEndTime")
-    }
-    
     // MARK: - Timer 로직
     
     private func createCountdownTimer() -> Observable<Int> {
@@ -67,7 +61,7 @@ extension RestingViewModel {
             }
             .do(onNext: { time in
                 if time == 0 {
-                    self.removeRestEndTime() // 타이머 종료 시 저장된 시간 삭제
+                    UserDefaults.standard.restEndTimeDelete() // 타이머 종료 시 저장된 시간 삭제
                     self.timerEndedSubject.accept(())
                 }
             })
@@ -76,7 +70,7 @@ extension RestingViewModel {
         
         input.stopTimer
             .subscribe(with: self) { owner, _ in
-                owner.removeRestEndTime() // 종료 버튼 누를 때 저장된 시간 삭제
+                UserDefaults.standard.restEndTimeDelete() // 종료 버튼 누를 때 저장된 시간 삭제
                 owner.timerSubject.accept(0)
                 owner.timerEndedSubject.accept(())
             }
