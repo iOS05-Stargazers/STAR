@@ -187,10 +187,7 @@ extension StarModalViewModel {
         let nameTextFieldInput: Observable<String>
         let nameClear: Observable<Void>
         let weekDaysState: Observable<(WeekDay, Bool)>
-        let startTimeRelay: Observable<Date>
-        let endTimeRelay: Observable<Date>
         let addStarTap: Observable<Void>
-        let weekDaysState: Observable<(WeekDay, Bool)>
         let startTimeRelay: Observable<StarTime>
         let endTimeRelay: Observable<StarTime>
     }

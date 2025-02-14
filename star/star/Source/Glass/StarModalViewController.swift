@@ -181,8 +181,8 @@ extension StarModalViewController {
         
         let input = StarModalViewModel.Input(nameTextFieldInput: name,
                                              nameClear: nameClear,
-                                             addStarTap: addStarButtonTap,
                                              weekDaysState: weekDaysState,
+                                             addStarTap: addStarButtonTap,
                                              startTimeRelay: startTimeRelay.asObservable(),
                                              endTimeRelay: endTimeRelay.asObservable())
         
