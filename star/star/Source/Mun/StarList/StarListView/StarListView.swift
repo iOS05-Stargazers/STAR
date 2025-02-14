@@ -122,8 +122,6 @@ class StarListView: UIView {
         }
         
         toastMessageView.snp.makeConstraints {
-            //$0.width.equalTo(toastMessageView.toastLabel.snp.width).multipliedBy(1.15)
-            //$0.height.equalTo(toastMessageView.toastLabel.snp.height).multipliedBy(2)
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
         }
