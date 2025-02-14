@@ -17,10 +17,10 @@ struct ScheduleCalculator {
     // StarState.Style 연산
     private static func style(schedule: Schedule) -> StarState.Style {
         let startTime = schedule.startTime
-        let finishTime = schedule.finishTime
+        let endTime = schedule.endTime
         let state: StarState.Style
         for weekDay in schedule.weekDays {
-            if contains(weekDay: weekDay, startTime: startTime, finishTime: finishTime) {
+            if contains(weekDay: weekDay, startTime: startTime, endTime: endTime) {
                 return .ongoing
             }
         }
@@ -32,7 +32,7 @@ struct ScheduleCalculator {
     private static func ongoingInterval(_ schedule: Schedule) -> TimeInterval {
         let intervals: [TimeInterval] = schedule.weekDays
             .compactMap {
-                Self.interval(weekDay: $0, starTime: schedule.finishTime) }
+                Self.interval(weekDay: $0, starTime: schedule.endTime) }
             .sorted(by: <)
         return intervals.first ?? 0
     }
@@ -51,9 +51,9 @@ struct ScheduleCalculator {
         return interval
     }
     // 요일과 시간 범위에 대한 현재시간 포함여부 판별
-    private static func contains(weekDay: WeekDay, startTime: StarTime, finishTime: StarTime) -> Bool {
+    private static func contains(weekDay: WeekDay, startTime: StarTime, endTime: StarTime) -> Bool {
         guard weekDay == WeekDay(from: .now) else { return false }
-        return between(start: startTime, finish: finishTime)
+        return between(start: startTime, end: endTime)
     }
     // 시간 범위에 대한 현재시간 포함여부 판별
 //    private static func between(start: StarTime, finish: StarTime) -> Bool {
@@ -63,11 +63,11 @@ struct ScheduleCalculator {
 //        return startTime <= now && now < finishTime
 //    }
     // 시간 범위에 대한 현재시간 포함여부 판별
-    private static func between(start: StarTime, finish: StarTime) -> Bool {
+    private static func between(start: StarTime, end: StarTime) -> Bool {
         let start = start.testDescription
-        let finish = finish.testDescription
+        let end = end.testDescription
         let now = nowString()
-        return start <= now && now < finish
+        return start <= now && now < end
     }
     // 요일, 시간, 분 을 통해 Date 값 생성
     private static func date(weekDay: WeekDay, starTime: StarTime) -> Date? {
