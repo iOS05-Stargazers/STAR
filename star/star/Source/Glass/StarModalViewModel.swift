@@ -52,7 +52,7 @@ final class StarModalViewModel {
         case .create:
             print("")
         case .edit(let star):
-            starRelay.accept(star)
+            starRelay.accept(star) // StarModalView에 데이터 방출
             starName = star.title
             startTime = star.schedule.startTime
             endTime = star.schedule.finishTime
@@ -89,15 +89,15 @@ final class StarModalViewModel {
         // 시작 시간
         input.startTimeRelay
             .withUnretained(self)
-            .subscribe(onNext: { owner, date in
-                owner.startTime = StarTime(date: date)
+            .subscribe(onNext: { owner, starTime in
+                owner.startTime = starTime
             }).disposed(by: disposeBag)
         
         // 종료 시간
         input.endTimeRelay
             .withUnretained(self)
-            .subscribe(onNext: { owner, date in
-                owner.endTime = StarTime(date: date)
+            .subscribe(onNext: { owner, starTime in
+                owner.endTime = starTime
             }).disposed(by: disposeBag)
         
         // 스타 생성/수정
@@ -141,14 +141,14 @@ final class StarModalViewModel {
 
                 // CREATE
                 } else {
-                   
+
                     let star = Star(identifier: UUID(),
                                     title: owner.starName,
                                     blockList: [],
                                     schedule: Schedule(startTime: owner.startTime,
                                                        finishTime: owner.endTime,
                                                        weekDays: owner.weekDays))
-
+                    
                     owner.starManager.create(star)
                 }
                 
@@ -161,6 +161,7 @@ final class StarModalViewModel {
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
                       refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
                       weekDaysRelay: weekDaysRelay.asDriver(onErrorDriveWith: .empty()))
+        
     }
     
     // 종료 방출
@@ -175,10 +176,10 @@ extension StarModalViewModel {
     struct Input {
         let nameTextFieldInput: Observable<String>
         let nameClear: Observable<Void>
-        let startTimeRelay: Observable<Date>
-        let endTimeRelay: Observable<Date>
         let addStarTap: Observable<Void>
         let weekDaysState: Observable<(WeekDay, Bool)>
+        let startTimeRelay: Observable<StarTime>
+        let endTimeRelay: Observable<StarTime>
     }
     
     struct Output {

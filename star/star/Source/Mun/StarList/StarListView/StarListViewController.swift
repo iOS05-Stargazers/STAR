@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class StarListViewController: UIViewController {
+final class StarListViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // MARK: - UI 컴포넌트
     
@@ -131,16 +131,33 @@ extension StarListViewController {
     private func connectCreateModal(mode: StarModalMode) {
         let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
         let modalVC = StarModalViewController(viewModel: modalViewModel)
-        modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
-            let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
-            return modalHeight
-        })
-        ]
-        modalVC.sheetPresentationController?.selectedDetentIdentifier = .medium
-        modalVC.sheetPresentationController?.prefersGrabberVisible = true
-        modalVC.modalPresentationStyle = .formSheet
-        modalVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        modalVC.modalPresentationStyle = .custom
+        modalVC.transitioningDelegate = self
         modalVC.view.layer.cornerRadius = 40
         present(modalVC, animated: true)
+    }
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return CustomPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+class CustomModalTransition: NSObject, UIViewControllerAnimatedTransitioning {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.3
+    }
+
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let toView = transitionContext.view(forKey: .to) else { return }
+        let containerView = transitionContext.containerView
+        
+        toView.frame.origin.y = containerView.bounds.height
+        containerView.addSubview(toView)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            toView.frame.origin.y = containerView.bounds.height - toView.frame.height
+        }) { _ in
+            transitionContext.completeTransition(true)
+        }
     }
 }

@@ -151,48 +151,6 @@ final class StarModalView: UIView {
         $0.sizeToFit()
     }
     
-    // MARK: - DatePicker
-    
-    let datePicker = UIDatePicker().then {
-        $0.datePickerMode = .time // 모드: 시간
-        $0.preferredDatePickerStyle = .wheels
-        $0.locale = Locale(identifier: "ko_KR") // 24시간 형식 사용
-        $0.setValue(UIColor.starDisabledTagBG, forKey: "backgroundColor")
-        $0.setValue(UIColor.starPrimaryText, forKey: "textColor")
-    }
-    
-    lazy var hiddenTextField = UITextField().then {
-        $0.inputView = datePicker
-        $0.inputAccessoryView = toolbar
-    }
-    
-    let toolbarTitle = UILabel().then {
-        $0.textColor = .starSecondaryText
-        $0.font = .systemFont(ofSize: 18, weight: .bold)
-    }
-    
-    lazy var toolbar = UIToolbar().then {
-        // toolbar에서 버튼 사이 간격(공간)을 담당
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let titleItem = UIBarButtonItem().then {
-            $0.customView = toolbarTitle
-        }
-        $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, selectButton]
-        $0.sizeToFit()
-        $0.isTranslucent = false
-        $0.barTintColor = .starAlertBG
-    }
-    
-    let cancelButton = UIBarButtonItem().then {
-        $0.title = "취소"
-        $0.style = .plain
-    }
-    
-    let selectButton = UIBarButtonItem().then {
-        $0.title = "선택"
-        $0.style = .done
-    }
-    
     // MARK: - 초기화
     
     override init(frame: CGRect) {
@@ -252,22 +210,21 @@ final class StarModalView: UIView {
         appLockStackView,
         scheduleConfigStackView,
         addStarButton,
-        hiddenTextField,
         toastView
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(30)
+            $0.bottom.equalTo(subtitleLabel.snp.top).offset(-8)
             $0.leading.equalToSuperview().offset(20)
         }
         
         subtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.bottom.equalTo(nameStackView.snp.top).offset(-20)
             $0.leading.equalToSuperview().offset(20)
         }
         
         nameStackView.snp.makeConstraints {
-            $0.top.equalTo(subtitleLabel.snp.bottom).offset(18)
+            $0.bottom.equalTo(appLockStackView.snp.top).offset(-20)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(52)
@@ -285,7 +242,7 @@ final class StarModalView: UIView {
         }
         
         appLockStackView.snp.makeConstraints {
-            $0.top.equalTo(nameStackView.snp.bottom).offset(20)
+            $0.bottom.equalTo(scheduleConfigStackView.snp.top).offset(-20)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(52)
@@ -302,7 +259,7 @@ final class StarModalView: UIView {
         }
         
         scheduleConfigStackView.snp.makeConstraints {
-            $0.top.equalTo(appLockStackView.snp.bottom).offset(20)
+            $0.bottom.equalTo(addStarButton.snp.top).offset(-30)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(203)
