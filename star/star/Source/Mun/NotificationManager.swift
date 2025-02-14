@@ -55,11 +55,11 @@ class NotificationManager: NSObject {
     
     // 알림 생성 (일정 등록)
     func scheduleNotificaions(star: Star) {
-        let startMode = NotificationType.startTime(star: star)
-        let finishMode = NotificationType.finishTime(star: star)
+        let startType = NotificationType.startTime(star: star)
+        let finishType = NotificationType.finishTime(star: star)
         
-        let startTimeContent = buildNotificationContent(mode: startMode)
-        let finishTimeContent = buildNotificationContent(mode: finishMode)
+        let startTimeContent = buildNotificationContent(mode: startType)
+        let finishTimeContent = buildNotificationContent(mode: finishType)
         
         let startTimes = star.schedule.starTimeDateComponentsList()
         let finishTimes = star.schedule.finishTimeDateComponentsList()
@@ -67,7 +67,7 @@ class NotificationManager: NSObject {
         startTimes.forEach {
             scheduleNotification(
                 dateComponents: $0,
-                mode: startMode,
+                type: startType,
                 content: startTimeContent
             )
         }
@@ -75,7 +75,7 @@ class NotificationManager: NSObject {
         finishTimes.forEach {
             scheduleNotification(
                 dateComponents: $0,
-                mode: finishMode,
+                type: finishType,
                 content: finishTimeContent
             )
         }
@@ -106,7 +106,7 @@ class NotificationManager: NSObject {
     }
     
     // 알림 예약
-    private func scheduleNotification(dateComponents: DateComponents, mode: NotificationType, content: UNMutableNotificationContent) {
+    private func scheduleNotification(dateComponents: DateComponents, type: NotificationType, content: UNMutableNotificationContent) {
         // 조건(시간, 반복)
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponents,
@@ -115,7 +115,7 @@ class NotificationManager: NSObject {
         
         // 요청
         let request = UNNotificationRequest(
-            identifier: mode.identifier,
+            identifier: type.identifier,
             content: content,
             trigger: trigger
         )
