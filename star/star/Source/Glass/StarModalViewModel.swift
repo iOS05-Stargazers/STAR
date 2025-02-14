@@ -61,7 +61,7 @@ final class StarModalViewModel {
             weekDays = star.schedule.weekDays
             weekDaysRelay.accept(star.schedule.weekDays)
             startTime = star.schedule.startTime
-            endTime = star.schedule.finishTime
+            endTime = star.schedule.endTime
         }
         self.refreshRelay = refreshRelay
     }
@@ -138,7 +138,7 @@ final class StarModalViewModel {
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,
                                     schedule: Schedule(startTime: owner.startTime,
-                                                       finishTime: owner.endTime,
+                                                       endTime: owner.endTime,
                                                        weekDays: owner.weekDays))
                     
                     owner.starManager.update(star)
@@ -153,7 +153,7 @@ final class StarModalViewModel {
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,
                                     schedule: Schedule(startTime: owner.startTime,
-                                                       finishTime: owner.endTime,
+                                                       endTime: owner.endTime,
                                                        weekDays: owner.weekDays))
                     
                     owner.starManager.create(star)

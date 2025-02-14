@@ -26,36 +26,36 @@ struct MockData {
     private static let starTime3 = StarTime(from: "10:10")
     
     private static let schedule1 = Schedule(startTime: StarTime(from: "23:58"),
-                                            finishTime: StarTime(from: "23:59"),
+                                            endTime: StarTime(from: "23:59"),
                                             weekDays: [.thu])
     private static let schedule2 = Schedule(startTime: StarTime(from: "00:00"),
-                                            finishTime: StarTime(from: "23:59"),
+                                            endTime: StarTime(from: "23:59"),
                                             weekDays: weekDayAllCaseSet)
     // 진행중 1시간 후 종료
     private static let ongoingOneHourSchedule = Schedule(startTime: StarTime(date: oneHourBefore),
-                                                         finishTime: StarTime(date: oneHourLater),
+                                                         endTime: StarTime(date: oneHourLater),
                                                          weekDays: weekDayAllCaseSet)
     // 진행중 3시간 후 종료
     private static let ongoingThreehourSchedule = Schedule(startTime: StarTime(date: threeHourBefore),
-                                                           finishTime: StarTime(date: threeHourLater),
+                                                           endTime: StarTime(date: threeHourLater),
                                                            weekDays: weekDayAllCaseSet)
     // 대기중 1분 후 시작
     private static let pendingOneMinuteSchedule = Schedule(startTime: StarTime(date: .now + 61),
-                                                           finishTime: StarTime(date: .now + 62),
+                                                           endTime: StarTime(date: .now + 62),
                                                            weekDays: weekDayAllCaseSet)
     // 대기중 10분 후 시작
     private static let pendingTenMinuteSchedule = Schedule(startTime: StarTime(date: .now + 600),
-                                                           finishTime: StarTime(date: .now + 601),
+                                                           endTime: StarTime(date: .now + 601),
                                                            weekDays: weekDayAllCaseSet)
     // 대기중 3시간 후 시작
     private static let pendingThreeHourSchedule = Schedule(startTime: StarTime(date: threeHourLater),
-                                                           finishTime: StarTime(date: threeHourLater + 1),
+                                                           endTime: StarTime(date: threeHourLater + 1),
                                                            weekDays: weekDayAllCaseSet)
     private static let pendingOneDaySchedule = Schedule(startTime: StarTime(date: .now),
-                                                        finishTime: StarTime(date: .now),
+                                                        endTime: StarTime(date: .now),
                                                         weekDays: [oneDayLater])
     private static let pendingThreeDaySchedule = Schedule(startTime: StarTime(date: .now),
-                                                          finishTime: StarTime(date: .now),
+                                                          endTime: StarTime(date: .now),
                                                           weekDays: [threeDayLater])
     
     static let beforeUpdate = { Star(identifier: starID,
