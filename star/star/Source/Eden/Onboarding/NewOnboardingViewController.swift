@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class NewOnboardingViewController: UIViewController {
+final class OnboardingViewController: UIViewController {
     
     private let onboardingCustomView = OnboardingCustomView()
     
@@ -22,8 +22,7 @@ final class NewOnboardingViewController: UIViewController {
         view.addSubview(onboardingCustomView)
         
         onboardingCustomView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
 }

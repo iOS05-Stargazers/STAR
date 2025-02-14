@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 import Then
 
-
 final class OnboardingCustomView: UIView {
     
     // MARK: - UI Components
@@ -36,10 +35,9 @@ final class OnboardingCustomView: UIView {
         addSubviews(bottomView)
         
         bottomView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview() 
             $0.height.equalTo(440)
         }
     }
 }
-
-
