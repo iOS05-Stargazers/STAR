@@ -40,7 +40,7 @@ enum NotificationType {
     }
 }
 
-class NotificationManager: NSObject {
+final class NotificationManager: NSObject {
     
     // 알림 권한 요청
     func requestNotificationAuthorization() {
