@@ -138,6 +138,7 @@ final class StarModalViewModel {
                                                        weekDays: owner.weekDays))
                     
                     owner.starManager.update(star)
+                    NotificationManager().scheduleNotificaions(star: star)
 
                 // CREATE
                 } else {
@@ -150,6 +151,8 @@ final class StarModalViewModel {
                                                        weekDays: owner.weekDays))
 
                     owner.starManager.create(star)
+                    NotificationManager().scheduleNotificaions(star: star)
+
                 }
                 
                 owner.closeAlert()
