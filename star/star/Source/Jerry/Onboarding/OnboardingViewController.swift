@@ -31,6 +31,8 @@ final class OnboardingViewController: UIViewController {
     // 화면 터치 시 모달 내림
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         UserDefaults.standard.isCoachMarkShown = true
-        dismiss(animated: false)
+        dismiss(animated: false) {
+            NotificationManager().requestNotificationAuthorization()
+        }
     }
 }

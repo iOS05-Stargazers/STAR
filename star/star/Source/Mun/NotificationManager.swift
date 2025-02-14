@@ -40,8 +40,19 @@ enum NotificationType {
     }
 }
 
-struct NotificationManager {
-
+class NotificationManager: NSObject {
+    
+    // 알림 권한 요청
+    func requestNotificationAuthorization() {
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { granted, error in
+            if let error = error {
+                print("Authorization Error", error.localizedDescription)
+                return
+            }
+        }
+    }
+    
     // 알림 생성 (일정 등록)
     func scheduleNotificaions(star: Star) {
         let startMode = NotificationType.startTime(star: star)
@@ -96,21 +107,32 @@ struct NotificationManager {
     
     // 알림 예약
     private func scheduleNotification(dateComponents: DateComponents, mode: NotificationType, content: UNMutableNotificationContent) {
+        // 조건(시간, 반복)
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponents,
             repeats: true
         )
         
+        // 요청
         let request = UNNotificationRequest(
             identifier: mode.identifier,
             content: content,
             trigger: trigger
         )
         
+        // 알림 등록
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("Notification Error: ", error)
             }
         }
+    }
+}
+
+extension NotificationManager: UNUserNotificationCenterDelegate {
+    
+    // 앱 실행중일 때 처리
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound, .badge])
     }
 }

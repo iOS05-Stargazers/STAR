@@ -7,28 +7,17 @@
 
 import UIKit
 import CoreData
-import NotificationCenter
-import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        // 앱 실행 시 사용자에게 알림 허용 권한을 받음
-        UNUserNotificationCenter.current().delegate = self
-        
-        let authOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound]) // 필요한 알림 권한을 설정
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: { _, _ in
-            }
-        )
+        // Override point for customization after application launch.
         return true
     }
-    
 
-    
     // MARK: UISceneSession Lifecycle
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -63,15 +52,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .list, .badge, .sound])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        
-    }
 }
