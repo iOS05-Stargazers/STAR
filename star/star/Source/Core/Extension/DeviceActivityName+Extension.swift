@@ -10,5 +10,5 @@ import ManagedSettings
 import DeviceActivity
 
 extension DeviceActivityName {
-    static let daily = Self("daily")
+    static let rest = Self("rest")
 }

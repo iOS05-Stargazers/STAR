@@ -12,20 +12,23 @@ extension UserDefaults {
     // CREATE/UPDATE
     func restEndTimeSet(_ value: Int) -> Date? {
         let endTime = endTimeCalculate(minutes: value)
-        UserDefaults.standard.set(endTime, forKey: "restEndTime")
+        UserDefaults.appGroups.set(endTime, forKey: "restEndTime")
         
         return endTime
     }
     
     // READ
     func restEndTimeGet() -> Date? {
-        guard let endTime = UserDefaults.standard.value(forKey: "restEndTime") as? Date else { return nil }
+        guard let endTime = UserDefaults.appGroups.value(forKey: "restEndTime") as? Date,
+              endTime >= Date.now else {
+            restEndTimeDelete()
+            return nil }
         return endTime
     }
     
     // DELETE
     func restEndTimeDelete() {
-        UserDefaults.standard.removeObject(forKey: "restEndTime")
+        UserDefaults.appGroups.removeObject(forKey: "restEndTime")
     }
     
     // 휴식 종료시간 계산

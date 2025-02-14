@@ -6,23 +6,21 @@
 //
 
 import DeviceActivity
+import Foundation
 
 // Optionally override any of the functions below.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     override func intervalDidStart(for activity: DeviceActivityName) {
         super.intervalDidStart(for: activity)
-        
         // Handle the start of the interval.
-        FamilyControlsManager.refreshList()
+        FamilyControlsManager.updateList()
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
-        
         // Handle the end of the interval.
-        
-        FamilyControlsManager.refreshList()
+        FamilyControlsManager.updateList()
     }
     
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {

@@ -7,6 +7,7 @@
 
 import Foundation
 import FamilyControls
+import ManagedSettings
 
 struct FamilyControlsManager {
     
@@ -29,8 +30,35 @@ struct FamilyControlsManager {
 
 extension FamilyControlsManager {
     
-    static func refreshList() {
-        FamilyActivitySelection.refreshBlockList()
+    static func updateList() {
+        if UserDefaults.appGroups.restEndTimeGet() == nil {
+            refreshBlockList()
+        } else {
+            clearList()
+        }
+    }
+    
+    private static func clearList() {
+        let store = ManagedSettingsStore()
+
+        store.shield.applicationCategories = .specific([])
+        store.shield.applications = []
+        store.shield.webDomains = []
+    }
+    
+    private static func refreshBlockList() {
+        let store = ManagedSettingsStore()
+
+        var ongoingSelection = FamilyActivitySelection()
+        
+        StarManager.shared.read()
+            .filter { $0.state().style == .ongoing }
+            .map { $0.blockList }
+            .forEach { ongoingSelection.add($0) }
+        
+        store.shield.applicationCategories = .specific(ongoingSelection.categoryTokens)
+        store.shield.applications = ongoingSelection.applicationTokens
+        store.shield.webDomains = ongoingSelection.webDomainTokens
     }
     
 }

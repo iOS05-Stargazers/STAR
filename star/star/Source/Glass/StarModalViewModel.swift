@@ -143,8 +143,7 @@ final class StarModalViewModel {
                     
                     owner.starManager.update(star)
                     
-                    BlockManager().block(star: star,
-                                         completion: { _ in FamilyControlsManager.refreshList() })
+                    BlockManager().block(star: star)
 
                 // CREATE
                 } else {
@@ -158,8 +157,7 @@ final class StarModalViewModel {
                     
                     owner.starManager.create(star)
                     
-                    BlockManager().block(star: star,
-                                         completion: { _ in FamilyControlsManager.refreshList() })
+                    BlockManager().block(star: star)
                 }
                 
                 owner.closeAlert()

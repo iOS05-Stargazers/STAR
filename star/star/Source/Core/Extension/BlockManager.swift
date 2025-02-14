@@ -11,20 +11,19 @@ import FamilyControls
 import DeviceActivity
 
 struct BlockManager {
-        
+    private let deviceActivityCenter = DeviceActivityCenter()
     // 앱 차단 로직
-    func block(star: Star, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        // DeviceActivityCenter를 사용하여 모든 선택한 앱 토큰에 대한 액티비티 차단
-        let deviceActivityCenter = DeviceActivityCenter()
+    func block(star: Star) {
         
         let startTime = star.schedule.startTime
         let endTime = star.schedule.endTime
         
         // 모니터 DeviceActivitySchedule 설정
         let blockSchedule = DeviceActivitySchedule(
-            intervalStart: DateComponents(hour: startTime.hour, minute: startTime.minute),
-            intervalEnd: DateComponents(hour: endTime.hour, minute: endTime.minute),
+            intervalStart: DateComponents(hour: startTime.hour,
+                                          minute: startTime.minute),
+            intervalEnd: DateComponents(hour: endTime.hour,
+                                        minute: endTime.minute),
             repeats: true
         )
  
@@ -32,27 +31,40 @@ struct BlockManager {
             try deviceActivityCenter.startMonitoring(DeviceActivityName(star.identifier.uuidString),
                                                      during: blockSchedule)
         } catch {
-            completion(.failure(error))
             return
         }
-        completion(.success(()))
+        FamilyControlsManager.updateList()
     }
     
     func activities() {
         print(DeviceActivityCenter().activities.map { $0.rawValue })
     }
     
-    func refreshSchedule() {
-        self.resetSchedule()
+}
 
-        StarManager.shared.read()
-            .forEach {
-                self.block(star: $0, completion: { _ in })
-            }
-    }
+// MARK: - 휴식기능
+
+extension BlockManager {
     
-    private func resetSchedule() {
-        let deviceActivityCenter = DeviceActivityCenter()
-        deviceActivityCenter.stopMonitoring([])
+    func rest() {
+        guard let restTime = UserDefaults.appGroups.restEndTimeGet() else { return }
+        let now = Calendar.current.dateComponents([.day, .hour, .minute], from: .now.addingTimeInterval(-900))
+        let end = Calendar.current.dateComponents([.day, .hour, .minute], from: restTime)
+        
+        // 모니터 DeviceActivitySchedule 설정
+        let blockSchedule = DeviceActivitySchedule(
+            intervalStart: now,
+            intervalEnd: end,
+            repeats: false
+        )
+        
+        do {
+            try deviceActivityCenter.startMonitoring(.rest,
+                                                     during: blockSchedule)
+        } catch {
+            return
+        }
+        FamilyControlsManager.updateList()
     }
+
 }

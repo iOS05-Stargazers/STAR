@@ -75,8 +75,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AppGroups.swift,
+				Source/Core/Extension/BlockManager.swift,
+				"Source/Core/Extension/DeviceActivityName+Extension.swift",
 				"Source/Core/Extension/FamilyAcitivitySelection+Extension.swift",
 				Source/Eden/FamilyControlsManager.swift,
+				"Source/Glass/UserDefaults+RestTime.swift",
 				Source/Jerry/Star/JSONCodable.swift,
 				Source/Jerry/Star/Schedule/Schedule.swift,
 				Source/Jerry/Star/Schedule/StarTime/StarTime.swift,

@@ -129,6 +129,7 @@ extension StarListViewModel {
         restSettingCompleteRelay
             .subscribe(onNext: { date in
                 self.starModalStateRelay.accept(.resting(date: date))
+                BlockManager().rest()
             })
             .disposed(by: disposeBag)
         
