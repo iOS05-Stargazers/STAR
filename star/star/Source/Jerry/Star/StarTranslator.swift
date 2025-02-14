@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FamilyControls
 
 typealias StarEntityForm = (id: UUID,
                             name: String,
@@ -20,7 +21,7 @@ struct StarTranslator {
     static func entity(from star: Star) -> StarEntityForm {
         let id = star.identifier
         let title = star.title
-        let appList = star.blockList.map { $0.uuidString }.joined(separator: ", ")
+        let appList = star.blockList.rawValue
         let startTime = star.schedule.startTime.coreDataForm()
         let endTime = star.schedule.finishTime.coreDataForm()
         let weekDays = star.schedule.weekDays.map { String($0.rawValue) }.joined(separator: ", ")
@@ -37,7 +38,7 @@ struct StarTranslator {
     static func star(from starEntity: StarEntity) -> Star? {
         guard let id = starEntity.id,
               let name = starEntity.name,
-              let appList = starEntity.appList?.components(separatedBy: ", ").compactMap({ UUID(uuidString: $0) }),
+              let appList = FamilyActivitySelection(rawValue: starEntity.appList ?? ""),
               let schedule = schedule(from: starEntity) else { return nil }
         
         return Star(identifier: id,

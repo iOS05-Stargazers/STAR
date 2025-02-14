@@ -24,4 +24,13 @@ struct FamilyControlsManager {
             }
         }
     }
+    
+}
+
+extension FamilyControlsManager {
+    
+    static func refreshList() {
+        FamilyActivitySelection.refreshBlockList()
+    }
+    
 }

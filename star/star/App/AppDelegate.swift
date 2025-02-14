@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import FamilyControls
+import DeviceActivity
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        FamilyActivitySelection.refreshBlockList()
+        print(DeviceActivityCenter().activities.map { $0.rawValue })
+
         return true
     }
     
