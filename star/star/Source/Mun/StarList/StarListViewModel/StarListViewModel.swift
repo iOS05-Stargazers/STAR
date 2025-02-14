@@ -8,6 +8,20 @@
 import Foundation
 import RxSwift
 import RxCocoa
+
+enum CreationAvailability {
+    case available
+    case unavailable
+    
+    var text: String? {
+        switch self {
+        case .available:
+            return nil
+        case .unavailable:
+            return "최대 15개의 스타를 저장할 수 있어요."
+        }
+    }
+}
  
  // 셀 뷰모델   
 final class StarListViewModel {
@@ -16,6 +30,7 @@ final class StarListViewModel {
     private let dateRelay = PublishRelay<Date>()
     private let starStatusRelay = PublishRelay<StarState>()
     private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
+    private let creationAvailabilityRelay = PublishRelay<CreationAvailability>()
     let refreshRelay = PublishRelay<Void>() // 추후 리팩토링 예정
     private let disposeBag = DisposeBag()
 
@@ -64,12 +79,19 @@ final class StarListViewModel {
         let stars = starsRelay.value
         selectedStarRelay.accept(stars[index])
     }
+    
+    // 생성 가능 여부 업데이트
+    private func updateCreationAvailability() {
+        let result: CreationAvailability = starsRelay.value.count > 14 ? .unavailable : .available
+        creationAvailabilityRelay.accept(result)
+    }
 }
 
 extension StarListViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let addButtonTapped: Observable<Void>
         let deleteAction: PublishSubject<Int>
     }
     
@@ -77,7 +99,7 @@ extension StarListViewModel {
         let starDataSource: Driver<[Star]>
         let date: Driver<Date>
         let star: Driver<Star>
-
+        let creationAvailability: Driver<CreationAvailability>
     }
     
     func transform(_ input: Input) -> Output {
@@ -101,8 +123,15 @@ extension StarListViewModel {
                 self.fetchDate()
             }).disposed(by: disposeBag)
         
+        input.addButtonTapped
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.updateCreationAvailability()
+            }).disposed(by: disposeBag)
+        
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()),
-                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()))
+                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
+                      creationAvailability: creationAvailabilityRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }
