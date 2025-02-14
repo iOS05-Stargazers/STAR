@@ -23,7 +23,7 @@ struct StarTranslator {
         let title = star.title
         let appList = star.blockList.rawValue
         let startTime = star.schedule.startTime.coreDataForm()
-        let endTime = star.schedule.finishTime.coreDataForm()
+        let endTime = star.schedule.endTime.coreDataForm()
         let weekDays = star.schedule.weekDays.map { String($0.rawValue) }.joined(separator: ", ")
         
         return (id: id,
@@ -56,7 +56,7 @@ struct StarTranslator {
             .compactMap { WeekDay(rawValue: $0) }
         
         return Schedule(startTime: StarTime(from: start),
-                        finishTime: StarTime(from: finish),
+                        endTime: StarTime(from: finish),
                         weekDays: Set<WeekDay>(weekDay))
     }
     

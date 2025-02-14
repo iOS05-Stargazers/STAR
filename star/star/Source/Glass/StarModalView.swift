@@ -393,8 +393,8 @@ extension StarModalView {
         nameTextField.text = star.title
         
         let starTime = star.schedule.startTime.coreDataForm()
-        let finishTime = star.schedule.finishTime.coreDataForm()
+        let endTime = star.schedule.endTime.coreDataForm()
         startTimeButton.setTitle(starTime, for: .normal)
-        endTimeButton.setTitle(finishTime, for: .normal)
+        endTimeButton.setTitle(endTime, for: .normal)
     }
 }

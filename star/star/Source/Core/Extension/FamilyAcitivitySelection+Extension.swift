@@ -10,6 +10,7 @@ import FamilyControls
 import ManagedSettings
 
 // MARK: - FamilyActivitySelection Parser
+
 extension FamilyActivitySelection: RawRepresentable {
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),
@@ -39,6 +40,7 @@ extension FamilyActivitySelection {
 // 데이터 리프레쉬
 extension FamilyActivitySelection {
     
+    // 활성화중인 스타를 연산해 앱 잠금 리스트 업데이트
     static func refreshBlockList() {
         let store = ManagedSettingsStore()
 
@@ -54,6 +56,7 @@ extension FamilyActivitySelection {
         store.shield.webDomains = ongoingSelection.webDomainTokens
     }
     
+    // FamilyActivitySelection 토큰 합 연산
     private mutating func add(_ selection: FamilyActivitySelection) {
         self.applicationTokens = applicationTokens.union(selection.applicationTokens)
         self.categoryTokens = categoryTokens.union(selection.categoryTokens)
