@@ -11,7 +11,7 @@ import Foundation
 
 struct Schedule: Codable {
     let startTime: StarTime
-    let finishTime: StarTime
+    let endTime: StarTime
     let weekDays: Set<WeekDay>
     
     func starTimeDateComponentsList() -> [DateComponents] {
@@ -24,8 +24,8 @@ struct Schedule: Codable {
     
     func finishTimeDateComponentsList() -> [DateComponents] {
         return weekDays.compactMap {
-            DateComponents(hour: finishTime.hour,
-                           minute: finishTime.minute,
+            DateComponents(hour: endTime.hour,
+                           minute: endTime.minute,
                            weekday: $0.rawValue)
         }
     }
@@ -34,7 +34,7 @@ struct Schedule: Codable {
 extension Schedule: TestDescriptionConvertible {
     var testDescription: String {
         let startTime = startTime.testDescription
-        let finishTime = finishTime.testDescription
+        let endTime = endTime.testDescription
         let weekDays = weekDays
             .sorted(by: <)
             .map { $0.korean }
@@ -43,7 +43,7 @@ extension Schedule: TestDescriptionConvertible {
         return """
                 <Schedule>
                 startTime: \(startTime)
-                finishTime: \(finishTime)
+                endTime: \(endTime)
                 weekDays: \(weekDays)
                 """
     }

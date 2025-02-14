@@ -10,13 +10,13 @@ import UserNotifications
 
 enum NotificationType {
     case startTime(star: Star)
-    case finishTime(star: Star)
+    case endTime(star: Star)
     
     var title: String {
         switch self {
         case .startTime:
             return "스타 시작 알림"
-        case .finishTime:
+        case .endTime:
             return "스타 종료 알림"
         }
     }
@@ -25,7 +25,7 @@ enum NotificationType {
         switch self {
         case .startTime(let star):
             return "\(star.title) 스타가 시작되었습니다."
-        case .finishTime(let star):
+        case .endTime(let star):
             return "\(star.title) 스타가 종료되었습니다."
         }
     }
@@ -34,7 +34,7 @@ enum NotificationType {
         switch self {
         case .startTime(let star):
             return "\(star.identifier.uuidString)_start"
-        case .finishTime(let star):
+        case .endTime(let star):
             return "\(star.identifier.uuidString)_finish"
         }
     }
@@ -56,13 +56,13 @@ final class NotificationManager: NSObject {
     // 알림 생성 (일정 등록)
     func scheduleNotificaions(star: Star) {
         let startType = NotificationType.startTime(star: star)
-        let finishType = NotificationType.finishTime(star: star)
+        let endType = NotificationType.endTime(star: star)
         
         let startTimeContent = buildNotificationContent(mode: startType)
-        let finishTimeContent = buildNotificationContent(mode: finishType)
+        let endTimeContent = buildNotificationContent(mode: endType)
         
         let startTimes = star.schedule.starTimeDateComponentsList()
-        let finishTimes = star.schedule.finishTimeDateComponentsList()
+        let endTimes = star.schedule.finishTimeDateComponentsList()
         
         startTimes.forEach {
             scheduleNotification(
@@ -72,11 +72,11 @@ final class NotificationManager: NSObject {
             )
         }
         
-        finishTimes.forEach {
+        endTimes.forEach {
             scheduleNotification(
                 dateComponents: $0,
-                type: finishType,
-                content: finishTimeContent
+                type: endType,
+                content: endTimeContent
             )
         }
     }
@@ -84,7 +84,7 @@ final class NotificationManager: NSObject {
     // 알림 삭제 (예약 취소)
     func cancelNotification(star: Star) {
         let startId = NotificationType.startTime(star: star).identifier
-        let finishId = NotificationType.finishTime(star: star).identifier
+        let finishId = NotificationType.endTime(star: star).identifier
         
         // 예약된 알림 삭제
         UNUserNotificationCenter.current()
