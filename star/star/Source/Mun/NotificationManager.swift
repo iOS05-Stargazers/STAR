@@ -86,10 +86,6 @@ final class NotificationManager: NSObject {
         let startId = NotificationType.startTime(star: star).identifier
         let finishId = NotificationType.finishTime(star: star).identifier
         
-        // 전달된 알림 삭제
-        UNUserNotificationCenter.current()
-            .removeDeliveredNotifications(withIdentifiers: [startId, finishId])
-        
         // 예약된 알림 삭제
         UNUserNotificationCenter.current()
             .removePendingNotificationRequests(withIdentifiers: [startId, finishId])
