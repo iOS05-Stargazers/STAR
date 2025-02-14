@@ -9,12 +9,18 @@ import SwiftUI
 import FamilyControls
 
 struct FamilyActivityPickerWrapper: View {
+    @Environment(\.dismiss) private var dismiss
     @Binding var isPresented: Bool
     @Binding var selection: FamilyActivitySelection
     
     var body: some View {
         Color.clear
             .familyActivityPicker(isPresented: $isPresented, selection: $selection)
+            .onChange(of: isPresented) { newValue in
+                if !newValue {
+                    dismiss()
+                }
+            }
             .onChange(of: selection) { newSelection in
                 let applications = selection.applications
                 let categories = selection.categories
