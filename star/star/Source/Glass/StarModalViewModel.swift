@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FamilyControls
 import RxSwift
 import RxCocoa
 
@@ -43,9 +44,11 @@ final class StarModalViewModel {
     private let disposeBag = DisposeBag()
     
     private var starName: String = ""
+    var familyActivitySelection = FamilyActivitySelection()
     private var weekDays: Set<WeekDay> = [] // 선택 요일(반복 주기) 담는 배열
     private var startTime: StarTime = StarTime(hour: 00, minute: 00)
     private var endTime: StarTime = StarTime(hour: 23, minute: 59)
+
     
     init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
         switch mode {
@@ -54,10 +57,11 @@ final class StarModalViewModel {
         case .edit(let star):
             starRelay.accept(star)
             starName = star.title
-            startTime = star.schedule.startTime
-            endTime = star.schedule.finishTime
+            familyActivitySelection = star.blockList
             weekDays = star.schedule.weekDays
             weekDaysRelay.accept(star.schedule.weekDays)
+            startTime = star.schedule.startTime
+            endTime = star.schedule.endTime
         }
         self.refreshRelay = refreshRelay
     }
@@ -132,24 +136,32 @@ final class StarModalViewModel {
                     
                     let star = Star(identifier: star.identifier,
                                     title: owner.starName,
-                                    blockList: [],
+                                    blockList: owner.familyActivitySelection,
                                     schedule: Schedule(startTime: owner.startTime,
-                                                       finishTime: owner.endTime,
+                                                       endTime: owner.endTime,
                                                        weekDays: owner.weekDays))
                     
                     owner.starManager.update(star)
+                    NotificationManager().scheduleNotificaions(star: star)
+                    
+                    BlockManager().block(star: star,
+                                         completion: { _ in FamilyControlsManager.refreshList() })
 
                 // CREATE
                 } else {
                    
                     let star = Star(identifier: UUID(),
                                     title: owner.starName,
-                                    blockList: [],
+                                    blockList: owner.familyActivitySelection,
                                     schedule: Schedule(startTime: owner.startTime,
-                                                       finishTime: owner.endTime,
+                                                       endTime: owner.endTime,
                                                        weekDays: owner.weekDays))
-
+                    
                     owner.starManager.create(star)
+                    NotificationManager().scheduleNotificaions(star: star)
+                    
+                    BlockManager().block(star: star,
+                                         completion: { _ in FamilyControlsManager.refreshList() })
                 }
                 
                 owner.closeAlert()
@@ -175,10 +187,10 @@ extension StarModalViewModel {
     struct Input {
         let nameTextFieldInput: Observable<String>
         let nameClear: Observable<Void>
+        let weekDaysState: Observable<(WeekDay, Bool)>
         let startTimeRelay: Observable<Date>
         let endTimeRelay: Observable<Date>
         let addStarTap: Observable<Void>
-        let weekDaysState: Observable<(WeekDay, Bool)>
     }
     
     struct Output {
