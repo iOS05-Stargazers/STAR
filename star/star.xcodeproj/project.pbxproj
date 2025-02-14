@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		233660FD2D5DC25600C5F383 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233660FC2D5DC25600C5F383 /* DeviceActivity.framework */; };
+		233661052D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 233660FA2D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		23CC31AC2D40B3480026CF54 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 23CC31AB2D40B3480026CF54 /* Then */; };
 		23CC31AF2D40B3570026CF54 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23CC31AE2D40B3570026CF54 /* SnapKit */; };
 		23CF7FEF2D45DE110019D597 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 23CF7FEE2D45DE110019D597 /* RxCocoa */; };
@@ -16,6 +18,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		233661032D5DC25600C5F383 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71F41ED42D3FC73300257988 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 233660F92D5DC25600C5F383;
+			remoteInfo = "DeviceActivityMonitor+Extension";
+		};
 		71F41EF62D3FC73500257988 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 71F41ED42D3FC73300257988 /* Project object */;
@@ -32,13 +41,63 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2336610A2D5DC25600C5F383 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				233661052D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		233660FA2D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DeviceActivityMonitor+Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		233660FC2D5DC25600C5F383 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		71F41EDC2D3FC73300257988 /* star.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = star.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F41EF52D3FC73500257988 /* starTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F41EFF2D3FC73500257988 /* starUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		233661092D5DC25600C5F383 /* Exceptions for "DeviceActivityMonitor+Extension" folder in "DeviceActivityMonitor+Extension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */;
+		};
+		2336610F2D5DC39F00C5F383 /* Exceptions for "star" folder in "DeviceActivityMonitor+Extension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppGroups.swift,
+				"Source/Core/Extension/FamilyAcitivitySelection+Extension.swift",
+				Source/Eden/FamilyControlsManager.swift,
+				Source/Jerry/Star/JSONCodable.swift,
+				Source/Jerry/Star/Schedule/Schedule.swift,
+				Source/Jerry/Star/Schedule/StarTime/StarTime.swift,
+				Source/Jerry/Star/Schedule/StarTime/StarTimeFormatter.swift,
+				Source/Jerry/Star/Schedule/StarTime/StarTimeTranslator.swift,
+				Source/Jerry/Star/Schedule/WeekDay/WeekDay.swift,
+				Source/Jerry/Star/Schedule/WeekDay/WeekDayFormatter.swift,
+				Source/Jerry/Star/Schedule/WeekDay/WeekDayTranslator.swift,
+				Source/Jerry/Star/Star.swift,
+				Source/Jerry/Star/StarManager.swift,
+				Source/Jerry/Star/TestDescriptionConvertible.swift,
+				Source/Jerry/Star/UserDefaultsManager/StarIDFormatter.swift,
+				Source/Jerry/Star/UserDefaultsManager/StarIDManager.swift,
+				Source/Jerry/Star/UserDefaultsManager/StarUserDefaultsManager.swift,
+				Source/Jerry/StarState/ScheduleCalculator.swift,
+				Source/Jerry/StarState/StarState.Style.swift,
+				Source/Jerry/StarState/StarState.swift,
+				Source/Jerry/StarState/StarStateFormatter.swift,
+			);
+			target = 233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */;
+		};
 		71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -49,10 +108,19 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		233660FE2D5DC25600C5F383 /* DeviceActivityMonitor+Extension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				233661092D5DC25600C5F383 /* Exceptions for "DeviceActivityMonitor+Extension" folder in "DeviceActivityMonitor+Extension" target */,
+			);
+			path = "DeviceActivityMonitor+Extension";
+			sourceTree = "<group>";
+		};
 		71F41EDE2D3FC73300257988 /* star */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				71F41F072D3FC73500257988 /* Exceptions for "star" folder in "star" target */,
+				2336610F2D5DC39F00C5F383 /* Exceptions for "star" folder in "DeviceActivityMonitor+Extension" target */,
 			);
 			path = star;
 			sourceTree = "<group>";
@@ -70,6 +138,14 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		233660F72D5DC25600C5F383 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233660FD2D5DC25600C5F383 /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71F41ED92D3FC73300257988 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -100,12 +176,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		233660FB2D5DC25600C5F383 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				233660FC2D5DC25600C5F383 /* DeviceActivity.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		71F41ED32D3FC73300257988 = {
 			isa = PBXGroup;
 			children = (
 				71F41EDE2D3FC73300257988 /* star */,
 				71F41EF82D3FC73500257988 /* starTests */,
 				71F41F022D3FC73500257988 /* starUITests */,
+				233660FE2D5DC25600C5F383 /* DeviceActivityMonitor+Extension */,
+				233660FB2D5DC25600C5F383 /* Frameworks */,
 				71F41EDD2D3FC73300257988 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,6 +202,7 @@
 				71F41EDC2D3FC73300257988 /* star.app */,
 				71F41EF52D3FC73500257988 /* starTests.xctest */,
 				71F41EFF2D3FC73500257988 /* starUITests.xctest */,
+				233660FA2D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +210,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 233661062D5DC25600C5F383 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitor+Extension" */;
+			buildPhases = (
+				233660F62D5DC25600C5F383 /* Sources */,
+				233660F72D5DC25600C5F383 /* Frameworks */,
+				233660F82D5DC25600C5F383 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				233660FE2D5DC25600C5F383 /* DeviceActivityMonitor+Extension */,
+			);
+			name = "DeviceActivityMonitor+Extension";
+			packageProductDependencies = (
+			);
+			productName = "DeviceActivityMonitor+Extension";
+			productReference = 233660FA2D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		71F41EDB2D3FC73300257988 /* star */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71F41F082D3FC73500257988 /* Build configuration list for PBXNativeTarget "star" */;
@@ -130,10 +239,12 @@
 				71F41ED82D3FC73300257988 /* Sources */,
 				71F41ED92D3FC73300257988 /* Frameworks */,
 				71F41EDA2D3FC73300257988 /* Resources */,
+				2336610A2D5DC25600C5F383 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				233661042D5DC25600C5F383 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				71F41EDE2D3FC73300257988 /* star */,
@@ -204,9 +315,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					233660F92D5DC25600C5F383 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					71F41EDB2D3FC73300257988 = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -243,11 +357,19 @@
 				71F41EDB2D3FC73300257988 /* star */,
 				71F41EF42D3FC73500257988 /* starTests */,
 				71F41EFE2D3FC73500257988 /* starUITests */,
+				233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		233660F82D5DC25600C5F383 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71F41EDA2D3FC73300257988 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +394,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		233660F62D5DC25600C5F383 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71F41ED82D3FC73300257988 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,6 +425,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		233661042D5DC25600C5F383 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */;
+			targetProxy = 233661032D5DC25600C5F383 /* PBXContainerItemProxy */;
+		};
 		71F41EF72D3FC73500257988 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 71F41EDB2D3FC73300257988 /* star */;
@@ -309,6 +443,64 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		233661072D5DC25600C5F383 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "DeviceActivityMonitor+Extension/DeviceActivityMonitor_Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DeviceActivityMonitor+Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "DeviceActivityMonitor+Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.DeviceActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		233661082D5DC25600C5F383 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "DeviceActivityMonitor+Extension/DeviceActivityMonitor_Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DeviceActivityMonitor+Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "DeviceActivityMonitor+Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.DeviceActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		71F41F092D3FC73500257988 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -316,11 +508,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = star/App/App.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6ZNFG9P6YH;
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = star/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = STAR;
@@ -338,7 +528,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = group;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -356,11 +545,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = star/App/App.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6ZNFG9P6YH;
+				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = star/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = STAR;
@@ -378,7 +565,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = group;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -583,6 +769,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		233661062D5DC25600C5F383 /* Build configuration list for PBXNativeTarget "DeviceActivityMonitor+Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				233661072D5DC25600C5F383 /* Debug */,
+				233661082D5DC25600C5F383 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		71F41ED72D3FC73300257988 /* Build configuration list for PBXProject "star" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

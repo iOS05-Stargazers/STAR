@@ -29,4 +29,5 @@ final class StarManager {
     func update(_ star: Star) {
         userDefaultsManager.update(star)
     }
+    
 }
