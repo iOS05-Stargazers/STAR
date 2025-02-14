@@ -11,7 +11,7 @@ import Then
 
 final class OnboardingViewController: UIViewController {
     
-    private let onboardingCustomView = OnboardingCustomView()
+    private let onboardingView = OnboardingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +19,9 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.addSubview(onboardingCustomView)
+        view.addSubview(onboardingView)
         
-        onboardingCustomView.snp.makeConstraints {
+        onboardingView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

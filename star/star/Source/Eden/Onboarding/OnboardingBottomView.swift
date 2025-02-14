@@ -1,5 +1,5 @@
 //
-//  OnboardingCustomBottomView.swift
+//  OnboardingBottomView.swift
 //  star
 //
 //  Created by Eden on 2/13/25.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class OnboardingCustomBottomView: UIView {
+final class OnboardingBottomView: UIView {
     
     // MARK: - UI Components
     
