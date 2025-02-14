@@ -125,6 +125,7 @@ extension StarListViewModel {
         
         input.addButtonTapped
             .withUnretained(self)
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { _ in
                 self.updateCreationAvailability()
             }).disposed(by: disposeBag)
