@@ -13,6 +13,22 @@ struct Schedule: Codable {
     let startTime: StarTime
     let finishTime: StarTime
     let weekDays: Set<WeekDay>
+    
+    func starTimeDateComponentsList() -> [DateComponents] {
+        return weekDays.compactMap {
+            DateComponents(hour: startTime.hour,
+                           minute: startTime.minute,
+                           weekday: $0.rawValue)
+        }
+    }
+    
+    func finishTimeDateComponentsList() -> [DateComponents] {
+        return weekDays.compactMap {
+            DateComponents(hour: finishTime.hour,
+                           minute: finishTime.minute,
+                           weekday: $0.rawValue)
+        }
+    }
 }
 
 extension Schedule: TestDescriptionConvertible {
