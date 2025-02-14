@@ -16,7 +16,7 @@ final class StarUserDefaultsManager {
     
     static let shared = StarUserDefaultsManager()
     
-    private init(_ userDefaults: UserDefaults = UserDefaults.standard) {
+    private init(_ userDefaults: UserDefaults = UserDefaults.appGroups) {
         self.userDefaults = userDefaults
         self.starIDManager = StarIDManager(userDefaults: userDefaults)
     }

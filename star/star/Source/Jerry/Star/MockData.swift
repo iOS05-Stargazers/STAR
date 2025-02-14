@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FamilyControls
 
 private let starID = UUID()
-private let blockList = [UUID(), UUID()]
+private let blockList = FamilyActivitySelection()
 private let weekDayAllCaseSet = Set<WeekDay>(WeekDay.allCases)
 private let oneDayLater = WeekDay(from: .now + ( 60 * 60 * 24 ))!
 private let threeDayLater = WeekDay(from: .now + ( 60 * 60 * 24 * 3 ))!
@@ -25,78 +26,78 @@ struct MockData {
     private static let starTime3 = StarTime(from: "10:10")
     
     private static let schedule1 = Schedule(startTime: StarTime(from: "23:58"),
-                                            finishTime: StarTime(from: "23:59"),
+                                            endTime: StarTime(from: "23:59"),
                                             weekDays: [.thu])
     private static let schedule2 = Schedule(startTime: StarTime(from: "00:00"),
-                                            finishTime: StarTime(from: "23:59"),
+                                            endTime: StarTime(from: "23:59"),
                                             weekDays: weekDayAllCaseSet)
     // 진행중 1시간 후 종료
     private static let ongoingOneHourSchedule = Schedule(startTime: StarTime(date: oneHourBefore),
-                                                         finishTime: StarTime(date: oneHourLater),
+                                                         endTime: StarTime(date: oneHourLater),
                                                          weekDays: weekDayAllCaseSet)
     // 진행중 3시간 후 종료
     private static let ongoingThreehourSchedule = Schedule(startTime: StarTime(date: threeHourBefore),
-                                                           finishTime: StarTime(date: threeHourLater),
+                                                           endTime: StarTime(date: threeHourLater),
                                                            weekDays: weekDayAllCaseSet)
     // 대기중 1분 후 시작
     private static let pendingOneMinuteSchedule = Schedule(startTime: StarTime(date: .now + 61),
-                                                           finishTime: StarTime(date: .now + 62),
+                                                           endTime: StarTime(date: .now + 62),
                                                            weekDays: weekDayAllCaseSet)
     // 대기중 10분 후 시작
     private static let pendingTenMinuteSchedule = Schedule(startTime: StarTime(date: .now + 600),
-                                                           finishTime: StarTime(date: .now + 601),
+                                                           endTime: StarTime(date: .now + 601),
                                                            weekDays: weekDayAllCaseSet)
     // 대기중 3시간 후 시작
     private static let pendingThreeHourSchedule = Schedule(startTime: StarTime(date: threeHourLater),
-                                                           finishTime: StarTime(date: threeHourLater + 1),
+                                                           endTime: StarTime(date: threeHourLater + 1),
                                                            weekDays: weekDayAllCaseSet)
     private static let pendingOneDaySchedule = Schedule(startTime: StarTime(date: .now),
-                                                        finishTime: StarTime(date: .now),
+                                                        endTime: StarTime(date: .now),
                                                         weekDays: [oneDayLater])
     private static let pendingThreeDaySchedule = Schedule(startTime: StarTime(date: .now),
-                                                          finishTime: StarTime(date: .now),
+                                                          endTime: StarTime(date: .now),
                                                           weekDays: [threeDayLater])
     
     static let beforeUpdate = { Star(identifier: starID,
                                       title: "업데이트 전 스타",
-                                      blockList: [],
+                                     blockList: FamilyActivitySelection(),
                                       schedule: ongoingOneHourSchedule) }()
     static let afterUpdate = { Star(identifier: starID,
                                       title: "업데이트 후 스타",
-                                      blockList: [],
+                                      blockList: FamilyActivitySelection(),
                                       schedule: ongoingOneHourSchedule) }()
     
     static let ongingOneHour = { Star(identifier: UUID(),
                                       title: "진행중 1시간",
-                                      blockList: [],
+                                      blockList: FamilyActivitySelection(),
                                       schedule: ongoingOneHourSchedule) }()
     
     static let ongingThreeHour = { Star(identifier: UUID(),
                                         title: "진행중 3시간",
-                                        blockList: [],
+                                        blockList: FamilyActivitySelection(),
                                         schedule: ongoingThreehourSchedule) }()
     
     static let pendingOneMinute = { Star(identifier: UUID(),
                                          title: "대기중 1분",
-                                         blockList: [],
+                                         blockList: FamilyActivitySelection(),
                                          schedule: pendingOneMinuteSchedule)  }()
     
     static let pendingTenMinute = { Star(identifier: UUID(),
                                          title: "대기중 10분",
-                                         blockList: [],
+                                         blockList: FamilyActivitySelection(),
                                          schedule: pendingTenMinuteSchedule) }()
     
     static let pendingThreeHour = { Star(identifier: UUID(),
                                          title: "대기중 3시간",
-                                         blockList: [],
+                                         blockList: FamilyActivitySelection(),
                                          schedule: pendingThreeHourSchedule) }()
     static let pendingOneDay = { Star(identifier: UUID(),
                                       title: "대기중 1일",
-                                      blockList: [],
+                                      blockList: FamilyActivitySelection(),
                                       schedule: pendingOneDaySchedule) }()
     static let pendingThreeDay = { Star(identifier: UUID(),
                                         title: "대기중 3일",
-                                        blockList: [],
+                                        blockList: FamilyActivitySelection(),
                                         schedule: pendingThreeDaySchedule) }()
     
     static func printWhole() {
