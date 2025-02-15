@@ -1,5 +1,5 @@
 //
-//  OnboardingCarouselView.swift
+//  OnboardingCollectionView.swift
 //  star
 //
 //  Created by Eden on 2/14/25.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - UI Components
     
