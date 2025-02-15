@@ -13,6 +13,12 @@ final class OnboardingView: UIView {
     
     // MARK: - UI Components
     
+    
+    private let imageView = UIImageView().then {
+        $0.image = UIImage(named: "appMockupSample")
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+    }
     private let collectionView = OnboardingCollectionView()
     private let bottomView = OnboardingBottomView()
     
@@ -33,7 +39,13 @@ final class OnboardingView: UIView {
         guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
         backgroundColor = UIColor(patternImage: backgroundImage)
         
-        addSubviews(collectionView, bottomView)
+        addSubviews(imageView, collectionView, bottomView)
+        
+        imageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-40)
+            $0.width.equalToSuperview().multipliedBy(0.6)
+        }
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
