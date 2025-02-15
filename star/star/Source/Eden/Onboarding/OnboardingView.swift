@@ -13,7 +13,6 @@ final class OnboardingView: UIView {
     
     // MARK: - UI Components
     
-    
     private let imageView = UIImageView().then {
         $0.image = UIImage(named: "appMockupSample")
         $0.contentMode = .scaleAspectFit

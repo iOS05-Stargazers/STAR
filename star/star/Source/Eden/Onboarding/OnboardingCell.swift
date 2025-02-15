@@ -28,10 +28,10 @@ final class OnboardingCell: UICollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    private let pageControl = UIPageControl().then {
+    let pageControl = UIPageControl().then {
         $0.numberOfPages = 4
         $0.currentPageIndicatorTintColor = .starButtonPurple
-        $0.pageIndicatorTintColor = .lightGray
+        $0.pageIndicatorTintColor = .starPrimaryText
     }
     
     // MARK: - Init
@@ -62,7 +62,7 @@ final class OnboardingCell: UICollectionViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(descriptionLabel.snp.top).offset(-12)
+            $0.bottom.equalTo(descriptionLabel.snp.top).offset(-40)
         }
         
         descriptionLabel.snp.makeConstraints {

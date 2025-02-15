@@ -53,13 +53,13 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
-        
-//        cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
+        cell.pageControl.currentPage = indexPath.item
+        cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
         
         return cell
     }
@@ -68,5 +68,15 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
+        
+        for cell in collectionView.visibleCells {
+            if let onboardingCell = cell as? OnboardingCell {
+                onboardingCell.pageControl.currentPage = Int(pageIndex)
+            }
+        }
     }
 }
