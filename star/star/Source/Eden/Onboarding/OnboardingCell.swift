@@ -68,7 +68,7 @@ final class OnboardingCell: UICollectionViewCell {
         imageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(-40)
-            $0.width.equalToSuperview().multipliedBy(0.7)
+            $0.width.equalToSuperview().multipliedBy(0.6)
         }
         
         titleLabel.snp.makeConstraints {
@@ -86,5 +86,10 @@ final class OnboardingCell: UICollectionViewCell {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(20)
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = bounds
     }
 }

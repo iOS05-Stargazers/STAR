@@ -1,29 +1,21 @@
-//
-//  OnboardingCollectionView.swift
-//  star
-//
-//  Created by Eden on 2/14/25.
-//
-
 import UIKit
 import SnapKit
 import Then
 
-final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - UI Components
     
-    private let layout = UICollectionViewFlowLayout().then {
-        $0.scrollDirection = .horizontal
-        $0.minimumLineSpacing = 0
-        $0.itemSize = UIScreen.main.bounds.size
-    }
-    
     private let collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
-            $0.backgroundColor = .red
+            $0.backgroundColor = .clear
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
         return collectionView
     }()
@@ -55,30 +47,26 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutIfNeeded()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return 4
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         
-        // TODO: - 실제 온보딩 뷰 데이터 추가
-        
         cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
         
         return cell
     }
     
-    // MARK: - UICollectionViewDelegateFlowLayout (추가)
+    // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 }
-
