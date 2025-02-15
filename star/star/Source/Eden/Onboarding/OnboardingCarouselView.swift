@@ -16,6 +16,7 @@ final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollecti
     private let layout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 0
+        $0.itemSize = UIScreen.main.bounds.size
     }
     
     private let collectionView: UICollectionView = {
@@ -68,6 +69,12 @@ final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollecti
         cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
         
         return cell
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout (추가)
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
 }
 
