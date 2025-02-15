@@ -59,7 +59,7 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         
-        cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
+//        cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
         
         return cell
     }

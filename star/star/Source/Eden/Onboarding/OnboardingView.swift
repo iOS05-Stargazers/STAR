@@ -20,7 +20,6 @@ final class OnboardingView: UIView {
         $0.clipsToBounds = true
     }
     private let collectionView = OnboardingCollectionView()
-    private let bottomView = OnboardingBottomView()
     
     // MARK: - Init
     
@@ -39,22 +38,16 @@ final class OnboardingView: UIView {
         guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
         backgroundColor = UIColor(patternImage: backgroundImage)
         
-        addSubviews(imageView, collectionView, bottomView)
+        addSubviews(imageView, collectionView)
         
         imageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-40)
+            $0.centerY.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.6)
         }
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-        
-        bottomView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(440)
         }
         
         bringSubviewToFront(collectionView)
