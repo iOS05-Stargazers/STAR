@@ -55,11 +55,18 @@ final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollecti
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        //        return 4
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
+        
+        // TODO: - 실제 온보딩 뷰 데이터 추가
+        
+        cell.imageView.image = UIImage(named: "appMockupSample")
+        cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
+        
         return cell
     }
 }

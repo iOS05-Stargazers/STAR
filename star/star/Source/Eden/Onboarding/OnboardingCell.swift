@@ -15,17 +15,19 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let imageView = UIImageView().then {
+    let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
     }
     
-    private let titleLabel = UILabel().then {
-        $0.font = UIFont.boldSystemFont(ofSize: 20)
+    let titleLabel = UILabel().then {
+        $0.text = "당신의 디지털 시간 관리 단위, 스타"
+        $0.font = UIFont.boldSystemFont(ofSize: 12)
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
     
-    private let descriptionLabel = UILabel().then {
+    let descriptionLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 16)
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
@@ -53,14 +55,17 @@ final class OnboardingCell: UICollectionViewCell {
         )
         
         imageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.8)
+            $0.height.equalTo(UIScreen.main.bounds.height * 0.5)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
         }
-        
+
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
