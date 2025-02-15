@@ -14,6 +14,7 @@ final class OnboardingView: UIView {
     // MARK: - UI Components
     
     private let bottomView = OnboardingBottomView()
+    private let carouselView = OnboardingCarouselView()
     
     // MARK: - Init
     
@@ -32,12 +33,18 @@ final class OnboardingView: UIView {
         guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
         backgroundColor = UIColor(patternImage: backgroundImage)
         
-        addSubviews(bottomView)
+        addSubviews(carouselView, bottomView)
+        
+        carouselView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview() 
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(440)
         }
+        
+        bringSubviewToFront(carouselView)
     }
 }

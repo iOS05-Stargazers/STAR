@@ -23,7 +23,7 @@ final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollecti
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
-            $0.backgroundColor = .clear
+            $0.backgroundColor = .red
         }
         return collectionView
     }()
@@ -53,6 +53,11 @@ final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollecti
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutIfNeeded()
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -65,7 +70,6 @@ final class OnboardingCarouselView: UIView, UICollectionViewDelegate, UICollecti
         
         // TODO: - 실제 온보딩 뷰 데이터 추가
         
-        cell.imageView.image = UIImage(named: "appMockupSample")
         cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
         
         return cell

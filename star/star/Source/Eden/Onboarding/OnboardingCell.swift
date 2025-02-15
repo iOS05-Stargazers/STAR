@@ -16,9 +16,13 @@ final class OnboardingCell: UICollectionViewCell {
     // MARK: - UI Components
     
     let imageView = UIImageView().then {
+        $0.image = UIImage(named: "appMockupSample")
         $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
     }
+    
+    /// 강조 요소 (버튼, 아이콘 등 동적 추가)
+    var highlightElements: [UIView] = []
     
     let titleLabel = UILabel().then {
         $0.text = "당신의 디지털 시간 관리 단위, 스타"
@@ -32,6 +36,12 @@ final class OnboardingCell: UICollectionViewCell {
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
+    }
+    
+    private  let pageControl = UIPageControl().then {
+        $0.numberOfPages = 4
+        $0.currentPageIndicatorTintColor = .starButtonPurple
+        $0.pageIndicatorTintColor = .starPrimaryText
     }
     
     // MARK: - Init
@@ -51,25 +61,30 @@ final class OnboardingCell: UICollectionViewCell {
         contentView.addSubviews(
             imageView,
             titleLabel,
-            descriptionLabel
+            descriptionLabel,
+            pageControl
         )
         
         imageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.8)
-            $0.height.equalTo(UIScreen.main.bounds.height * 0.5)
+            $0.centerY.equalToSuperview().offset(-40)
+            $0.width.equalToSuperview().multipliedBy(0.7)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
         }
-
+        
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        pageControl.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(20)
         }
     }
 }
