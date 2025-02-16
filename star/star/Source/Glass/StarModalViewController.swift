@@ -15,12 +15,31 @@ import Then
 enum TimeType {
     case startTime(starTime: StarTime)
     case endTime(starTime: StarTime)
+    
+    var text: String {
+        switch self {
+        case .startTime:
+            return "시작 시간"
+        case .endTime:
+            return "종료 시간"
+        }
+    }
+    
+    var starTime: StarTime {
+        switch self {
+        case .startTime(let starTime), .endTime(let starTime):
+            return starTime
+        }
+    }
 }
 
 final class StarModalViewController: UIViewController {
     
     private let starModalView = StarModalView()
     private let viewModel: StarModalViewModel
+    
+    let startTimeRelay = PublishRelay<StarTime>()
+    let endTimeRelay = PublishRelay<StarTime>()
     private let disposeBag = DisposeBag()
     
     private var familyActivitySelection = FamilyActivitySelection()
@@ -36,14 +55,10 @@ final class StarModalViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        setup()
+        super.viewDidLoad()
+        view = starModalView
         bind()
         setModalAction()
-        setDatePickerAction()
-    }
-    
-    private func setup() {
-        view = starModalView
     }
 }
 
@@ -55,20 +70,20 @@ extension StarModalViewController {
         // 스타 이름 입력 텍스트필드
         starModalView.nameTextField.rx.text
             .subscribe(onNext: { data in
-            guard let text = data else { return }
-            
-            // 16자 입력제한
-            if text.count > 16 {
-                self.starModalView.nameTextField.text = String(text.prefix(16))
-            }
-        }).disposed(by: disposeBag)
+                guard let text = data else { return }
+                
+                // 16자 입력제한
+                if text.count > 16 {
+                    self.starModalView.nameTextField.text = String(text.prefix(16))
+                }
+            }).disposed(by: disposeBag)
         
         // 텍스트필드 클리어버튼
         starModalView.clearButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-            owner.starModalView.nameTextField.text = ""
-        }).disposed(by: disposeBag)
+                owner.starModalView.nameTextField.text = ""
+            }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼
         starModalView.appLockButton.rx.tap.withUnretained(self).bind { owner, _ in
@@ -88,42 +103,26 @@ extension StarModalViewController {
         starModalView.nameTextField.rx
             .controlEvent(.editingDidEndOnExit)
             .bind { [weak self] in
-            self?.starModalView.nameTextField.resignFirstResponder()
-        }.disposed(by: disposeBag)
-    }
-    
-    private func setDatePickerAction() {
-        // 시작/종료 시간 버튼 탭
-        Observable.merge(
-            starModalView.startTimeButton.rx.tap.map { "시작 시간" },
-            starModalView.endTimeButton.rx.tap.map { "종료 시간" }
-        ).withUnretained(self).subscribe(onNext: { owner, msg in
-            owner.starModalView.toolbarTitle.text = msg // toolbar 타이틀 설정
-            owner.starModalView.hiddenTextField.becomeFirstResponder() // datePicker 열기
-        }).disposed(by: disposeBag)
+                self?.starModalView.nameTextField.resignFirstResponder()
+            }.disposed(by: disposeBag)
         
-        // 선택 버튼 탭
-        starModalView.selectButton.rx.tap
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-            let selectTime = owner.dateToString(date: owner.starModalView.datePicker.date)
-            
-            // 버튼에 시간 표시
-            if owner.starModalView.toolbarTitle.text == "시작 시간" {
-                owner.starModalView.startTimeButton.setTitle(selectTime, for: .normal)
-                
-            } else {
-                owner.starModalView.endTimeButton.setTitle(selectTime, for: .normal)
-            }
-            
-            owner.starModalView.hiddenTextField.resignFirstResponder() // datePicker 닫기
-        }).disposed(by: disposeBag)
+        // 시작시간 버튼 탭
+        starModalView.startTimeButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                guard let startTime = owner.starModalView.startTimeButton.titleLabel?.text else { return }
+                let starTime = StarTime(from: startTime)
+                owner.connectPickerModal(mode: .startTime(starTime: starTime))
+            }).disposed(by: disposeBag)
         
-        // 취소 버튼 탭
-        starModalView.cancelButton.rx.tap.subscribe(onNext: {
-            self.starModalView.hiddenTextField.resignFirstResponder() // datePicker 닫기
-        }).disposed(by: disposeBag)
-        
+        // 종료시간 버튼 탭
+        starModalView.endTimeButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                guard let endTime = owner.starModalView.endTimeButton.titleLabel?.text else { return }
+                let starTime = StarTime(from: endTime)
+                owner.connectPickerModal(mode: .endTime(starTime: starTime))
+            }).disposed(by: disposeBag)
     }
     
     // 날짜 포맷 변환
@@ -132,6 +131,31 @@ extension StarModalViewController {
         dateFormetter.dateFormat = "HH:mm"
         
         return dateFormetter.string(from: date)
+    }
+    
+    // 모달창 연결
+    private func connectPickerModal(mode: TimeType) {
+        let pickerViewModel = TimePickerModalViewModel(mode: mode,
+                                                   startTimeRelay: startTimeRelay,
+                                                   endTimeRelay: endTimeRelay)
+        let pickerModalViewController = TimePickerModalViewController(viewModel: pickerViewModel)
+        pickerModalViewController.modalPresentationStyle = .pageSheet
+        
+        // 모달 화면 높이 설정
+        if let sheet = pickerModalViewController.sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                sheet.detents = [
+                    .custom { _ in
+                        return 400
+                    }
+                ]
+            } else {
+                sheet.detents = [.medium()]
+            }
+        }
+        
+        pickerModalViewController.view.layer.cornerRadius = 40
+        present(pickerModalViewController, animated: true)
     }
 }
 
@@ -155,37 +179,32 @@ extension StarModalViewController {
             starModalView.saturdayButton.buttonState.asObservable(),
             starModalView.sundayButton.buttonState.asObservable()
         )
-        
-        let startTimeRelay = PublishRelay<Date>()
-        let endTimeRelay = PublishRelay<Date>()
-        
-        // DatePicker
-        starModalView.selectButton.rx.tap
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-            let time = owner.starModalView.datePicker.date
-            
-            if owner.starModalView.toolbarTitle.text == "시작 시간" {
-                startTimeRelay.accept(time)
-            } else {
-                endTimeRelay.accept(time)
-            }
-            
+                
+        // 시작시간/종료시간
+        // 시작시간 타이틀 바인딩
+        startTimeRelay.withUnretained(self).subscribe(onNext: { owner, starTime in
+            let text = StarTimeFormatter.convert(starTime)
+            owner.starModalView.startTimeButton.setTitle(text, for: .normal)
         }).disposed(by: disposeBag)
-
+        
+        // 종료시간 타이틀 바인딩
+        endTimeRelay.withUnretained(self).subscribe(onNext: { owner, starTime in
+            let text = StarTimeFormatter.convert(starTime)
+            owner.starModalView.endTimeButton.setTitle(text, for: .normal)
+        }).disposed(by: disposeBag)
+        
         // 스타 생성하기 버튼
         let addStarButtonTap = starModalView.addStarButton.rx.tap.asObservable()
         
         let input = StarModalViewModel.Input(nameTextFieldInput: name,
                                              nameClear: nameClear,
                                              weekDaysState: weekDaysState,
+                                             addStarTap: addStarButtonTap,
                                              startTimeRelay: startTimeRelay.asObservable(),
-                                             endTimeRelay: endTimeRelay.asObservable(),
-                                             addStarTap: addStarButtonTap
-                                             )
+                                             endTimeRelay: endTimeRelay.asObservable())
         
         let output = viewModel.transform(input: input)
-                
+        
         // 스타 바인딩(edit 모드일 때 방출)
         output.star
             .drive(with: self, onNext: { owner, star in

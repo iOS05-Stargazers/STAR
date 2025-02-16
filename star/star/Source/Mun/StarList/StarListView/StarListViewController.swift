@@ -132,15 +132,8 @@ extension StarListViewController {
     private func connectCreateModal(mode: StarModalMode) {
         let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
         let modalVC = StarModalViewController(viewModel: modalViewModel)
-        modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
-            let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
-            return modalHeight
-        })
-        ]
-        modalVC.sheetPresentationController?.selectedDetentIdentifier = .medium
-        modalVC.sheetPresentationController?.prefersGrabberVisible = true
-        modalVC.modalPresentationStyle = .formSheet
-        modalVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        modalVC.modalPresentationStyle = .custom
+        modalVC.transitioningDelegate = self
         modalVC.view.layer.cornerRadius = 40
         present(modalVC, animated: true)
     }
@@ -154,5 +147,16 @@ extension StarListViewController {
             guard let text = result.text else { return }
             self.starListView.toastMessageView.showToastMessage(text)
         }
+    }
+}
+
+// MARK: - CustomModalTransition에서 설정한 커스텀 모달 애니메이션 적용
+
+extension StarListViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController? {
+        return CustomPresentationController(presentedViewController: presented,
+                                            presenting: presenting)
     }
 }
