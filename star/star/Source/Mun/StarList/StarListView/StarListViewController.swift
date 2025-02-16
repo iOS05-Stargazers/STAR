@@ -197,7 +197,7 @@ extension StarListViewController {
     // 휴식중 화면 모달 연결
     private func connectRestingModal(_ restEndTime: Date) {
         let leftTime = restEndTime.timeIntervalSince(Date())
-        let restingViewModel = RestingViewModel(initialTime: Int(leftTime))
+        let restingViewModel = RestingViewModel()
         let restingViewController = RestingViewController(viewModel: restingViewModel)
         restingViewController.view.backgroundColor = .starModalOverlayBG
         restingViewController.modalPresentationStyle = .overFullScreen

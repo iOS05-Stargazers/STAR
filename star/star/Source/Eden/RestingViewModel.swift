@@ -12,14 +12,16 @@ import RxCocoa
 final class RestingViewModel {
     
     private let disposeBag = DisposeBag()
-    private let initialTime: Int
     
     private let timerSubject: BehaviorRelay<Int>
     private let timerEndedSubject = PublishRelay<Void>()
     
-    init(initialTime: Int) {
-        self.initialTime = initialTime
-        self.timerSubject = BehaviorRelay<Int>(value: initialTime)
+    init() {
+        if let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) {
+            self.timerSubject = .init(value: Int(time))
+        } else {
+            self.timerSubject = .init(value: 1200)
+        }
     }
     
     // MARK: - Format Time
@@ -35,16 +37,16 @@ final class RestingViewModel {
     private func startCountdown() {
         Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
             .withUnretained(self)
-            .take(initialTime)
-            .subscribe(onNext: { owner, _ in
-                let newValue = max(owner.timerSubject.value - 1, 0)
-                owner.timerSubject.accept(newValue)
-            }, onCompleted: { [weak self] in
-                guard let self = self else { return }
-                UserDefaults.standard.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
-                self.timerEndedSubject.accept(()) // 모달 닫기 이벤트 실행
-            })
-            .disposed(by: disposeBag)
+            .map { owner, _ in
+                guard let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) else { return (owner, 0) }
+                return (owner, Int(time))
+            }.subscribe(onNext: { owner, value in
+                if value > 0 {
+                    owner.timerSubject.accept(value)
+                } else {
+                    owner.timerEndedSubject.accept(())
+                }
+            }).disposed(by: disposeBag)
     }
 }
 
