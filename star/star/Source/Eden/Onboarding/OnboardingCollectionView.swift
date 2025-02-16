@@ -26,6 +26,12 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         return collectionView
     }()
     
+    private let pageControl = UIPageControl().then {
+        $0.numberOfPages = 4
+        $0.currentPageIndicatorTintColor = .starButtonPurple
+        $0.pageIndicatorTintColor = .starPrimaryText
+    }
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -40,7 +46,7 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     // MARK: - Setup UI
     
     private func setupUI() {
-        addSubview(collectionView)
+        addSubviews(collectionView, pageControl)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -48,6 +54,11 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        pageControl.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(40)
         }
     }
     
@@ -83,7 +94,7 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
         
-        cell.pageControl.currentPage = indexPath.item
+        self.pageControl.currentPage = indexPath.item
         cell.descriptionLabel.text = pageData.description
         
         // TODO: - 요소 assets 추가 후 구현
@@ -105,11 +116,5 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
-        
-        for cell in collectionView.visibleCells {
-            if let onboardingCell = cell as? OnboardingCell {
-                onboardingCell.pageControl.currentPage = Int(pageIndex)
-            }
-        }
     }
 }

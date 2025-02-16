@@ -37,13 +37,6 @@ final class OnboardingCell: UICollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    /// 페이지 컨트롤
-    let pageControl = UIPageControl().then {
-        $0.numberOfPages = 4
-        $0.currentPageIndicatorTintColor = .starButtonPurple
-        $0.pageIndicatorTintColor = .starPrimaryText
-    }
-    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -65,8 +58,7 @@ final class OnboardingCell: UICollectionViewCell {
             mockupImageView,
             gradientView,
             titleLabel,
-            descriptionLabel,
-            pageControl
+            descriptionLabel
         )
         
         mockupImageView.snp.makeConstraints {
@@ -89,11 +81,6 @@ final class OnboardingCell: UICollectionViewCell {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(gradientView.snp.centerY)
             $0.leading.trailing.equalToSuperview().inset(20)
-        }
-        
-        pageControl.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(48)
         }
         
         applyGradientBackground()
