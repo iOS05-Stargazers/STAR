@@ -51,9 +51,10 @@ extension StarListViewController {
     
     private func bind() {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
+        let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
-            addButtonTapped: starListView.addStarButton.rx.tap.asObservable(),
+            addButtonTapped: addButtonTapped,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
 
