@@ -1,8 +1,13 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    private let disposeBag = DisposeBag()
+    var viewModel: OnboardingViewModel?
     
     // MARK: - UI Components
     
@@ -51,16 +56,39 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    // MARK: - Bind ViewModel
+    
+    func bind(viewModel: OnboardingViewModel) {
+        self.viewModel = viewModel
+        
+        viewModel.currentPage
+            .asDriver()
+            .drive(with: self) { owner, page in
+                owner.collectionView.scrollToItem(
+                    at: IndexPath(item: page, section: 0),
+                    at: .centeredHorizontally,
+                    animated: true
+                )
+            }
+            .disposed(by: disposeBag)
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return viewModel?.pages.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
+        guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
+        
         cell.pageControl.currentPage = indexPath.item
-        cell.descriptionLabel.text = "스타를 추가하기를 통해\n스타를 생성할 수 있어요."
+        cell.descriptionLabel.text = pageData.description
+        
+        // TODO: - 요소 assets 추가 후 구현
+        
+        cell.highlightElements = pageData.highlightElements
         
         return cell
     }

@@ -32,6 +32,9 @@ final class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bind()
+        
+        navigationItem.hidesBackButton = true
     }
     
     // MARK: - Set Up UI
