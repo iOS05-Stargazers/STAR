@@ -8,7 +8,7 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    /// 목업 이미지
+    /// 목업 이미지 
     private let mockupImageView = UIImageView().then {
         $0.image = UIImage(named: "appMockupSample")
         $0.contentMode = .scaleAspectFit
@@ -18,9 +18,10 @@ final class OnboardingCell: UICollectionViewCell {
     /// 강조 요소 (버튼, 아이콘 등 동적 추가)
     var highlightElements: [UIView] = []
     
-    /// 그라데이션 배경 뷰
+    /// 하단 그라디언트  뷰
     private let gradientView = UIView()
     
+    /// 스타 소개 레이블
     private let titleLabel = UILabel().then {
         $0.text = "당신의 디지털 시간 관리 단위, 스타"
         $0.font = UIFont.systemFont(ofSize: 16)
@@ -28,6 +29,7 @@ final class OnboardingCell: UICollectionViewCell {
         $0.textAlignment = .center
     }
     
+    /// 온보딩 설명 레이블
     let descriptionLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 24)
         $0.textColor = .starPrimaryText
@@ -35,6 +37,7 @@ final class OnboardingCell: UICollectionViewCell {
         $0.numberOfLines = 0
     }
     
+    /// 페이지 컨트롤
     let pageControl = UIPageControl().then {
         $0.numberOfPages = 4
         $0.currentPageIndicatorTintColor = .starButtonPurple
