@@ -31,15 +31,14 @@ struct FamilyControlsManager {
 }
 
 extension FamilyControlsManager {
-    
+    // 앱 리스트 업데이트
     func updateBlockList() {
         let onRest: Bool = ( UserDefaults.appGroups.restEndTimeGet() != nil )
         
         onRest ? clearBlockList() : refreshBlockList()
     }
-    
+    // 휴식중이 아닌 경우, ongoing 상태인 스타들의 리스트를 취합해 앱 잠금 리스트 업데이트 
     private func refreshBlockList() {
-
         var ongoingSelection = FamilyActivitySelection()
         
         StarManager.shared.read()
@@ -49,11 +48,11 @@ extension FamilyControlsManager {
         
         setSelection(ongoingSelection)
     }
-    
+    // 휴식중인 경우, 앱 잠금 리스트 비우기
     private func clearBlockList() {
         setSelection(.init())
     }
-    
+    // 앱 잠금 리스트를 입력받아 업데이트
     private func setSelection(_ selection: FamilyActivitySelection) {
         store.shield.applicationCategories = .specific(selection.categoryTokens)
         store.shield.applications = selection.applicationTokens
