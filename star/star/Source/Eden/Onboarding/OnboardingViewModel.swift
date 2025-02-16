@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Then
 import RxSwift
 import RxCocoa
 
@@ -13,7 +14,9 @@ final class OnboardingViewModel {
     
     let pages: [OnboardingModel] = [
         OnboardingModel(
-            highlightElements: [UIImageView()],
+            highlightElements: [
+                UIImageView(image: UIImage(named: "starButton"))
+            ],
             description: "스타 추가하기를 통해\n스타를 생성할 수 있어요."
         ),
         OnboardingModel(

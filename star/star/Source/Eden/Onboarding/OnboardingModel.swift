@@ -8,6 +8,11 @@
 import UIKit
 
 struct OnboardingModel {
-    let highlightElements: [UIView] // 강조 요소
+    let highlightElements: [OnboardingHighlightElement] // 강조 요소
     let description: String
+}
+
+struct OnboardingHighlightElement {
+    let view: [UIView]
+    let position: (xMultiplier: CGFloat, yMultiplier: CGFloat)
 }
