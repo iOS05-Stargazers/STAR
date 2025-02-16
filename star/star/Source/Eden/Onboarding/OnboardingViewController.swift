@@ -7,22 +7,46 @@
 
 import UIKit
 import SnapKit
-import Then
+import RxSwift
+import RxCocoa
 
 final class OnboardingViewController: UIViewController {
     
-    private let onboardingView = OnboardingCollectionView()
+    private let collectionView = OnboardingCollectionView()
+    private let viewModel: OnboardingViewModel
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - init
+    
+    init(viewModel: OnboardingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    // MARK: - Set Up UI
+    
     private func setupUI() {
-        view.addSubview(onboardingView)
+        view.addSubview(collectionView)
         
-        onboardingView.snp.makeConstraints {
+        collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    // MARK: - Bind ViewModel
+    
+    private func bind() {
+        collectionView.bind(viewModel: viewModel)
     }
 }
