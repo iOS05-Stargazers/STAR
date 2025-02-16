@@ -38,7 +38,6 @@ final class TimePickerModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = modalView
-        pickerDataBind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,19 +59,6 @@ final class TimePickerModalViewController: UIViewController {
                                             inComponent: 1,
                                             animated: false)
     }
-    
-    private func pickerDataBind() {
-        // UIPickerView에 data 연결
-        let pickerData = Observable.combineLatest(hourData, minuteData) {
-            // 시, 분 데이터를 HH:mm 형태로 변환
-            ($0.map { String(format: "%02d", $0) },
-             $1.map { String(format: "%02d", $0) })
-        }
-        
-        pickerData
-            .bind(to: modalView.pickerView.rx.items(adapter: PickerViewAdapter()))
-            .disposed(by: disposeBag)
-    }
 }
 
 // MARK: - ViewModel Bind
@@ -87,9 +73,17 @@ extension TimePickerModalViewController {
             }).disposed(by: disposeBag)
         
         let input = TimePickerModalViewModel.Input(startTimeRelay: startTimeRelay.asObservable(),
-                                               endTimeRelay: endTimeRelay.asObservable())
+                                                   endTimeRelay: endTimeRelay.asObservable())
         
-        _ = viewModel.transform(input: input)
+        let output = viewModel.transform(input: input)
+        
+        // UIPickerView 데이터 바인딩
+        Observable.combineLatest(output.hourData.asObservable(),
+                                 output.minuteData.asObservable()) {
+            ($0.map { String(format: "%02d", $0) }, // 시간 데이터 HH 형태로 변환
+             $1.map { String(format: "%02d", $0) }) // 분 데이터 mm 형태로 변환
+        }.bind(to: modalView.pickerView.rx.items(adapter: PickerViewAdapter()))
+            .disposed(by: disposeBag)
         
     }
     

@@ -15,6 +15,11 @@ final class TimePickerModalViewModel {
     private let startTimeRelay: PublishRelay<StarTime>
     private let endTimeRelay: PublishRelay<StarTime>
     
+    // UIPickerView 데이터
+    let hourData = Observable.just(Array(0...23))  // "0" ~ "23"
+    let minuteData = Observable.just(Array(0...59)) // "0" ~ "59"
+    
+    // 시작시간/종료시간 구분 enum
     let pickerMode: TimeType
     
     init(mode: TimeType,
@@ -40,7 +45,9 @@ final class TimePickerModalViewModel {
         }).disposed(by: disposeBag)
         
         return Output(startTimeRelay: startTimeRelay.asDriver(onErrorDriveWith: .empty()),
-                      endTimeRelay: endTimeRelay.asDriver(onErrorDriveWith: .empty()))
+                      endTimeRelay: endTimeRelay.asDriver(onErrorDriveWith: .empty()),
+                      hourData: hourData.asDriver(onErrorDriveWith: .empty()),
+                      minuteData: minuteData.asDriver(onErrorDriveWith: .empty()))
     }
     
 }
@@ -56,5 +63,7 @@ extension TimePickerModalViewModel {
     struct Output {
         let startTimeRelay: Driver<StarTime>
         let endTimeRelay: Driver<StarTime>
+        let hourData: Driver<Array<Int>>
+        let minuteData: Driver<Array<Int>>
     }
 }
