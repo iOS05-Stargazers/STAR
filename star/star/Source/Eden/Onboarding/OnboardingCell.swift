@@ -8,7 +8,7 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    /// 목업 이미지 
+    /// 목업 이미지
     private let mockupImageView = UIImageView().then {
         $0.image = UIImage(named: "appMockupSample")
         $0.contentMode = .scaleAspectFit
@@ -31,7 +31,7 @@ final class OnboardingCell: UICollectionViewCell {
     
     /// 온보딩 설명 레이블
     let descriptionLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 24)
+        $0.font = UIFont.systemFont(ofSize: 20)
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
@@ -74,7 +74,7 @@ final class OnboardingCell: UICollectionViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(descriptionLabel.snp.top).offset(-20)
+            $0.bottom.equalTo(descriptionLabel.snp.top).offset(-24)
         }
         
         descriptionLabel.snp.makeConstraints {
