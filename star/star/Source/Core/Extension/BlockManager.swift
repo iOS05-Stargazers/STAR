@@ -28,7 +28,33 @@ struct BlockManager {
         
         setSchedule(name: .init(from: star), blockSchedule)
     }
+
+    // 스케쥴 삭제 ( 스타 삭제 시 사용 )
+    func deleteSchedule(_ star: Star) {
+        deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])
+    }
     
+    // 스케쥴 업데이트 ( 스타 수정 시 사용 )
+    func updateSchedule(_ star: Star) {
+        deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])
+        creatSchedule(star: star)
+    }
+    
+    // DeviceActivitySchedule 를 입력받아 스케쥴 모니터링을 시작시킵니다.
+    private func setSchedule(name activityName: DeviceActivityName,
+                             _ schedule: DeviceActivitySchedule) {
+        do {
+            try deviceActivityCenter.startMonitoring(activityName,
+                                                     during: schedule)
+        } catch {
+            print(error.localizedDescription)
+        }
+        FamilyControlsManager().updateBlockList()
+    }
+    
+}
+
+extension BlockManager {
     // 휴식 스케쥴 추가
     func rest() {
         guard let restEndTime = UserDefaults.appGroups.restEndTimeGet() else { return }
@@ -43,40 +69,9 @@ struct BlockManager {
         
         setSchedule(name: .rest, blockSchedule)
     }
-    
+    // 저장된 휴식을 임의로 종료시킬 경우 스케쥴을 중단시킵니다.
     func endRest() {
         deviceActivityCenter.stopMonitoring([.rest])
     }
-    
-    private func setSchedule(name activityName: DeviceActivityName,
-                             _ schedule: DeviceActivitySchedule) {
-        do {
-            try deviceActivityCenter.startMonitoring(activityName,
-                                                     during: schedule)
-        } catch {
-            print(error.localizedDescription)
-        }
-        FamilyControlsManager().updateBlockList()
-    }
-    
-    func refreshSchedule() {
-        resetSchedule()
 
-        StarManager.shared.read()
-            .forEach { creatSchedule(star: $0) }
-    }
-    
-    func deleteSchedule(_ star: Star) {
-        deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])
-    }
-    
-    func updateSchedule(_ star: Star) {
-        deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])
-        creatSchedule(star: star)
-    }
-    
-    private func resetSchedule() {
-        let deviceActivityCenter = DeviceActivityCenter()
-        deviceActivityCenter.stopMonitoring([])
-    }
 }
