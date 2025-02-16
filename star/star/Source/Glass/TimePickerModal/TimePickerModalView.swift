@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PickerModalView: UIView {
+final class TimePickerModalView: UIView {
     
     let titleLabel = UILabel().then {
         $0.font = Fonts.modalTitle

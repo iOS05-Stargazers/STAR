@@ -9,10 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class PickerModalViewController: UIViewController {
+final class TimePickerModalViewController: UIViewController {
     
-    private let modalView = PickerModalView()
-    private let viewModel: PickerModalViewModel
+    private let modalView = TimePickerModalView()
+    private let viewModel: TimePickerModalViewModel
     private let disposeBag = DisposeBag()
     
     let startTimeRelay = PublishRelay<StarTime>()
@@ -24,7 +24,7 @@ final class PickerModalViewController: UIViewController {
     
     private let pickerMode: TimeType
     
-    init(viewModel: PickerModalViewModel) {
+    init(viewModel: TimePickerModalViewModel) {
         self.viewModel = viewModel
         self.pickerMode = viewModel.pickerMode
         super.init(nibName: nil, bundle: nil)
@@ -77,7 +77,7 @@ final class PickerModalViewController: UIViewController {
 
 // MARK: - ViewModel Bind
 
-extension PickerModalViewController {
+extension TimePickerModalViewController {
     private func bind(mode: TimeType) {
         
         modalView.timeSelectButton.rx.tap
@@ -86,7 +86,7 @@ extension PickerModalViewController {
                 owner.timeSelect(mode: owner.pickerMode)
             }).disposed(by: disposeBag)
         
-        let input = PickerModalViewModel.Input(startTimeRelay: startTimeRelay.asObservable(),
+        let input = TimePickerModalViewModel.Input(startTimeRelay: startTimeRelay.asObservable(),
                                                endTimeRelay: endTimeRelay.asObservable())
         
         _ = viewModel.transform(input: input)

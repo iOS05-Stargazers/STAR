@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class PickerModalViewModel {
+final class TimePickerModalViewModel {
     
     private let disposeBag = DisposeBag()
     private let startTimeRelay: PublishRelay<StarTime>
@@ -45,7 +45,7 @@ final class PickerModalViewModel {
     
 }
 
-extension PickerModalViewModel {
+extension TimePickerModalViewModel {
     
     struct Input {
         let startTimeRelay: Observable<StarTime>

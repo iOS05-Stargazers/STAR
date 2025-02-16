@@ -135,10 +135,10 @@ extension StarModalViewController {
     
     // 모달창 연결
     private func connectPickerModal(mode: TimeType) {
-        let pickerViewModel = PickerModalViewModel(mode: mode,
+        let pickerViewModel = TimePickerModalViewModel(mode: mode,
                                                    startTimeRelay: startTimeRelay,
                                                    endTimeRelay: endTimeRelay)
-        let pickerModalViewController = PickerModalViewController(viewModel: pickerViewModel)
+        let pickerModalViewController = TimePickerModalViewController(viewModel: pickerViewModel)
         pickerModalViewController.modalPresentationStyle = .pageSheet
         
         // 모달 화면 높이 설정
