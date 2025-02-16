@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class StarListViewController: UIViewController, UIViewControllerTransitioningDelegate {
+final class StarListViewController: UIViewController {
     
     // MARK: - UI 컴포넌트
     
@@ -138,27 +138,25 @@ extension StarListViewController {
         present(modalVC, animated: true)
     }
     
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return CustomPresentationController(presentedViewController: presented, presenting: presenting)
+    // 생성 가능 여부 처리
+    private func handleCreationAvailability(_ result: CreationAvailability) {
+        switch result {
+        case .available:
+            connectCreateModal(mode: .create)
+        case .unavailable:
+            guard let text = result.text else { return }
+            self.starListView.toastMessageView.showToastMessage(text)
+        }
     }
 }
 
-class CustomModalTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
-    }
+// MARK: - CustomModalTransition에서 설정한 커스텀 모달 애니메이션 적용
 
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let toView = transitionContext.view(forKey: .to) else { return }
-        let containerView = transitionContext.containerView
-        
-        toView.frame.origin.y = containerView.bounds.height
-        containerView.addSubview(toView)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            toView.frame.origin.y = containerView.bounds.height - toView.frame.height
-        }) { _ in
-            transitionContext.completeTransition(true)
-        }
+extension StarListViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController? {
+        return CustomPresentationController(presentedViewController: presented,
+                                            presenting: presenting)
     }
 }
