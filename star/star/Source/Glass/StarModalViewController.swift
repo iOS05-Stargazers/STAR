@@ -39,6 +39,7 @@ final class StarModalViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         view = starModalView
         bind()
         setModalAction()

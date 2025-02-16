@@ -34,6 +34,7 @@ final class PickerModalViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         view = modalView
         pickerDataBind()
     }
