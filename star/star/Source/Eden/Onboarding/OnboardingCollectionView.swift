@@ -97,7 +97,6 @@ final class OnboardingCollectionView: UIView {
             })
             .disposed(by: disposeBag)
     }
-    
 }
 
 extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -116,7 +115,11 @@ extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDa
         
         // TODO: - 요소 assets 추가 후 구현
         
-        cell.highlightElements = pageData.highlightElements
+        if let elements = pageData.highlightElements {
+            cell.highlightElements = elements
+        } else {
+            cell.highlightElements = []
+        }
         
         return cell
     }

@@ -16,7 +16,11 @@ final class OnboardingCell: UICollectionViewCell {
     }
     
     /// 강조 요소 (버튼, 아이콘 등 동적 추가)
-    var highlightElements: [UIView] = []
+    var highlightElements: [OnboardingHighlightElement] = [] {
+        didSet {
+            setupHighlightElements()
+        }
+    }
     
     /// 하단 그라디언트  뷰
     private let gradientView = UIView()
@@ -86,6 +90,21 @@ final class OnboardingCell: UICollectionViewCell {
         applyGradientBackground()
     }
     
+    /// 강조 요소 추가 및 위치 설정
+    private func setupHighlightElements() {
+        highlightElements.forEach { element in
+            let imageView = element.imageView
+            contentView.addSubview(imageView)
+            
+            imageView.snp.makeConstraints {
+                $0.centerX.equalToSuperview().multipliedBy(element.position.xMultiplier * 2)
+                $0.centerY.equalToSuperview().multipliedBy(element.position.yMultiplier * 2)
+                $0.leading.equalToSuperview().inset(element.leadingInset)
+                $0.trailing.equalToSuperview().inset(element.trailingInset)
+            }
+        }
+    }
+    
     /// 그라데이션 배경 적용
     private func applyGradientBackground() {
         let gradientLayer = CAGradientLayer()
@@ -112,3 +131,4 @@ final class OnboardingCell: UICollectionViewCell {
         }
     }
 }
+
