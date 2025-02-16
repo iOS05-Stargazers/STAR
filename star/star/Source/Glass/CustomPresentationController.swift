@@ -13,6 +13,8 @@ import RxCocoa
 
 final class CustomPresentationController: UIPresentationController {
     
+    private let disposeBag = DisposeBag()
+    
     // MARK: - UI
     
     private let behindView = UIView().then { // 모달 뒷배경
@@ -21,7 +23,7 @@ final class CustomPresentationController: UIPresentationController {
     }
     
     private let grabberView = CustomGrabberView()
-    let panGestureRecognizer = UIPanGestureRecognizer()
+    private let panGestureRecognizer = UIPanGestureRecognizer()
     
     // MARK: - Initializer
     
@@ -29,6 +31,7 @@ final class CustomPresentationController: UIPresentationController {
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         setupGrabber()
         setupPanGesture()
+        panGestureBind()
     }
     
     private func setupGrabber() {
@@ -40,24 +43,27 @@ final class CustomPresentationController: UIPresentationController {
             $0.top.equalTo(view.snp.top).inset(8)
         }
     }
-    
-    
 }
 
 // MARK: - 모달 제어 메서드
 
 extension CustomPresentationController {
+    
     // 모달 드래그 동작 설정
     private func setupPanGesture() {
-        // UIPanGestureRecognizer : 드래그 감지
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
-                                                          action: #selector(handlePanGesture(_:)))
-        
         presentedViewController.view.addGestureRecognizer(panGestureRecognizer) // 모달 뷰에 제스처 추가
     }
     
+    // panGestureRecognizer bind
+    private func panGestureBind() {
+        panGestureRecognizer.rx.event
+            .asDriver()
+            .drive(with: self, onNext: { owner, gesture in
+                owner.handlePanGesture(gesture)
+        }).disposed(by: disposeBag)
+    }
+    
     // 드래그 감지 및 동작
-    @objc
     private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: presentedView) // 드래그 수치
         let progress = translation.y / (containerView?.bounds.height ?? 1) // 화면 대비 드래그 비율 (0~1)
@@ -78,8 +84,6 @@ extension CustomPresentationController {
         default: break
         }
     }
-    
-    
     
     // 모달이 나타날 때
     override func presentationTransitionWillBegin() {
