@@ -128,7 +128,9 @@ extension RestSettingModalViewController {
                 
                 owner.dismiss(animated: true) // 모달 창 닫기
                 // 휴식시간 저장
-                guard let time = UserDefaults.standard.restEndTimeSet(restTime) else { return }
+                guard let time = UserDefaults.appGroups.restEndTimeSet(restTime) else { return }
+                BlockManager().rest()
+                FamilyControlsManager().updateBlockList()
                 owner.restSettingCompleteRelay.accept(time)
             }).disposed(by: disposeBag)
     }

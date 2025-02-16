@@ -144,8 +144,7 @@ final class StarModalViewModel {
                     owner.starManager.update(star)
                     NotificationManager().scheduleNotificaions(star: star)
                     
-                    BlockManager().block(star: star,
-                                         completion: { _ in FamilyControlsManager.refreshList() })
+                    BlockManager().updateSchedule(star)
 
                 // CREATE
                 } else {
@@ -160,8 +159,7 @@ final class StarModalViewModel {
                     owner.starManager.create(star)
                     NotificationManager().scheduleNotificaions(star: star)
                     
-                    BlockManager().block(star: star,
-                                         completion: { _ in FamilyControlsManager.refreshList() })
+                    BlockManager().creatSchedule(star: star)
                 }
                 
                 owner.closeAlert()

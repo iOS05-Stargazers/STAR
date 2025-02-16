@@ -7,10 +7,13 @@
 
 import Foundation
 import FamilyControls
+import ManagedSettings
 
 struct FamilyControlsManager {
     
-    let center =  AuthorizationCenter.shared
+    private let center =  AuthorizationCenter.shared
+    
+    private let store = ManagedSettingsStore()
     
     func requestAuthorization(completionHandler: @escaping (() -> Void)) {
         Task {
@@ -29,8 +32,31 @@ struct FamilyControlsManager {
 
 extension FamilyControlsManager {
     
-    static func refreshList() {
-        FamilyActivitySelection.refreshBlockList()
+    func updateBlockList() {
+        let onRest: Bool = ( UserDefaults.appGroups.restEndTimeGet() != nil )
+        
+        onRest ? clearBlockList() : refreshBlockList()
     }
     
+    private func refreshBlockList() {
+
+        var ongoingSelection = FamilyActivitySelection()
+        
+        StarManager.shared.read()
+            .filter { $0.state().style == .ongoing }
+            .map { $0.blockList }
+            .forEach { ongoingSelection.add($0) }
+        
+        setSelection(ongoingSelection)
+    }
+    
+    private func clearBlockList() {
+        setSelection(.init())
+    }
+    
+    private func setSelection(_ selection: FamilyActivitySelection) {
+        store.shield.applicationCategories = .specific(selection.categoryTokens)
+        store.shield.applications = selection.applicationTokens
+        store.shield.webDomains = selection.webDomainTokens
+    }
 }

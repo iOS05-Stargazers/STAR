@@ -41,7 +41,8 @@ final class RestingViewModel {
                 owner.timerSubject.accept(newValue)
             }, onCompleted: { [weak self] in
                 guard let self = self else { return }
-                UserDefaults.standard.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
+                UserDefaults.appGroups.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
+                FamilyControlsManager().updateBlockList()
                 self.timerEndedSubject.accept(()) // 모달 닫기 이벤트 실행
             })
             .disposed(by: disposeBag)
@@ -71,7 +72,8 @@ extension RestingViewModel {
         input.stopTimer
             .withUnretained(self)
             .emit(onNext: { owner, _ in
-                UserDefaults.standard.restEndTimeDelete()
+                UserDefaults.appGroups.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
+                FamilyControlsManager().updateBlockList()
                 owner.timerSubject.accept(0)
                 owner.timerEndedSubject.accept(())
             })

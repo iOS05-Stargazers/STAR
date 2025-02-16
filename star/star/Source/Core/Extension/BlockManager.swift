@@ -11,13 +11,11 @@ import FamilyControls
 import DeviceActivity
 
 struct BlockManager {
-        
-    // 앱 차단 로직
-    func block(star: Star, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        // DeviceActivityCenter를 사용하여 모든 선택한 앱 토큰에 대한 액티비티 차단
-        let deviceActivityCenter = DeviceActivityCenter()
-        
+    
+    private let deviceActivityCenter = DeviceActivityCenter()
+    
+    // 스타 스케쥴 추가
+    func creatSchedule(star: Star) {
         let startTime = star.schedule.startTime
         let endTime = star.schedule.endTime
         
@@ -27,28 +25,54 @@ struct BlockManager {
             intervalEnd: DateComponents(hour: endTime.hour, minute: endTime.minute),
             repeats: true
         )
- 
-        do {
-            try deviceActivityCenter.startMonitoring(DeviceActivityName(star.identifier.uuidString),
-                                                     during: blockSchedule)
-        } catch {
-            completion(.failure(error))
-            return
-        }
-        completion(.success(()))
+        
+        setSchedule(name: .init(from: star), blockSchedule)
     }
     
-    func activities() {
-        print(DeviceActivityCenter().activities.map { $0.rawValue })
+    // 휴식 스케쥴 추가
+    func rest() {
+        guard let restEndTime = UserDefaults.appGroups.restEndTimeGet() else { return }
+        let startTime = StarTime(date: .now.addingTimeInterval(-900))
+        let endTime = StarTime(date: restEndTime)
+        
+        let blockSchedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: startTime.hour, minute: startTime.minute),
+            intervalEnd: DateComponents(hour: endTime.hour, minute: endTime.minute),
+            repeats: false
+        )
+        
+        setSchedule(name: .rest, blockSchedule)
+    }
+    
+    func endRest() {
+        deviceActivityCenter.stopMonitoring([.rest])
+    }
+    
+    private func setSchedule(name activityName: DeviceActivityName,
+                             _ schedule: DeviceActivitySchedule) {
+        do {
+            try deviceActivityCenter.startMonitoring(activityName,
+                                                     during: schedule)
+        } catch {
+            print(error.localizedDescription)
+        }
+        FamilyControlsManager().updateBlockList()
     }
     
     func refreshSchedule() {
-        self.resetSchedule()
+        resetSchedule()
 
         StarManager.shared.read()
-            .forEach {
-                self.block(star: $0, completion: { _ in })
-            }
+            .forEach { creatSchedule(star: $0) }
+    }
+    
+    func deleteSchedule(_ star: Star) {
+        deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])
+    }
+    
+    func updateSchedule(_ star: Star) {
+        deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])
+        creatSchedule(star: star)
     }
     
     private func resetSchedule() {
