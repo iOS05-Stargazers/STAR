@@ -51,8 +51,10 @@ extension StarListViewController {
     
     private func bind() {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
+        let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
+            addButtonTapped: addButtonTapped,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
 
@@ -78,11 +80,10 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
-        // 추가하기 버튼 이벤트 처리
-        starListView.addStarButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectCreateModal(mode: .create)
+        // 생성 가능 여부 바인딩
+        output.creationAvailability
+            .drive(with:self, onNext: { owner, result in
+                owner.handleCreationAvailability(result)
             })
             .disposed(by: disposeBag)
         
@@ -142,5 +143,16 @@ extension StarListViewController {
         modalVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         modalVC.view.layer.cornerRadius = 40
         present(modalVC, animated: true)
+    }
+    
+    // 생성 가능 여부 처리
+    private func handleCreationAvailability(_ result: CreationAvailability) {
+        switch result {
+        case .available:
+            connectCreateModal(mode: .create)
+        case .unavailable:
+            guard let text = result.text else { return }
+            self.starListView.toastMessageView.showToastMessage(text)
+        }
     }
 }

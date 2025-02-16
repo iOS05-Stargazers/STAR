@@ -49,6 +49,9 @@ class StarListView: UIView {
     // 스타 리스트 컬렉션뷰
     let starListCollectionView = StarListCollectionView()
     
+    // 토스트 메세지 뷰
+    let toastMessageView = ToastMessageView()
+    
     // MARK: - 초기화
 
     override init(frame: CGRect) {
@@ -69,7 +72,8 @@ class StarListView: UIView {
         [
             topView,
             starListCollectionView,
-            addStarButton
+            addStarButton,
+            toastMessageView
         ].forEach { addSubview($0) }
         
         [
@@ -115,6 +119,11 @@ class StarListView: UIView {
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
             $0.height.equalTo(56)
             $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        toastMessageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
         }
         
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
