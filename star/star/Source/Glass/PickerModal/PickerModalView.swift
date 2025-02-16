@@ -12,7 +12,6 @@ import Then
 final class PickerModalView: UIView {
     
     let titleLabel = UILabel().then {
-        $0.text = ""
         $0.font = Fonts.modalTitle
         $0.textColor = .starPrimaryText
     }
@@ -31,7 +30,7 @@ final class PickerModalView: UIView {
     private let grabber = CustomGrabberView()
     
     let timeSelectButton = GradientButton(type: .system).then {
-        $0.setTitle("시간설정", for: .normal)
+        $0.setTitle("설정하기", for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = Fonts.buttonTitle
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음

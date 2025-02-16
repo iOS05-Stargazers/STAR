@@ -15,6 +15,22 @@ import Then
 enum TimeType {
     case startTime(starTime: StarTime)
     case endTime(starTime: StarTime)
+    
+    var text: String {
+        switch self {
+        case .startTime:
+            return "시작 시간"
+        case .endTime:
+            return "종료 시간"
+        }
+    }
+    
+    var starTime: StarTime {
+        switch self {
+        case .startTime(let starTime), .endTime(let starTime):
+            return starTime
+        }
+    }
 }
 
 final class StarModalViewController: UIViewController {

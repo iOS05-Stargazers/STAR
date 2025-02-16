@@ -27,11 +27,15 @@ final class PickerModalViewModel {
     
     func transform(input: Input) -> Output{
         
-        input.startTimeRelay.withUnretained(self).subscribe(onNext: { owner, starTime in
+        input.startTimeRelay
+            .withUnretained(self)
+            .subscribe(onNext: { owner, starTime in
             owner.startTimeRelay.accept(starTime)
         }).disposed(by: disposeBag)
         
-        input.endTimeRelay.withUnretained(self).subscribe(onNext: { owner, starTime in
+        input.endTimeRelay
+            .withUnretained(self)
+            .subscribe(onNext: { owner, starTime in
             owner.endTimeRelay.accept(starTime)
         }).disposed(by: disposeBag)
         

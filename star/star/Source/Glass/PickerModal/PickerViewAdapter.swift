@@ -16,7 +16,7 @@ final class PickerViewAdapter: NSObject, UIPickerViewDataSource, UIPickerViewDel
     private var minuteData: [String] = []
     
     // RxSwift에서 데이터 변경 시 호출됨
-    func pickerView(_ pickerView: UIPickerView, observedEvent: Event<([String], [String])>) {
+    func pickerView(_ pickerView: UIPickerView, observedEvent: Event<Element>) {
         Binder(self) { adapter, data in
             adapter.hourData = data.0
             adapter.minuteData = data.1

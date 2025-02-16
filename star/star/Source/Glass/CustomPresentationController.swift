@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 final class CustomPresentationController: UIPresentationController {
     
@@ -19,6 +21,7 @@ final class CustomPresentationController: UIPresentationController {
     }
     
     private let grabberView = CustomGrabberView()
+    let panGestureRecognizer = UIPanGestureRecognizer()
     
     // MARK: - Initializer
     
@@ -37,6 +40,8 @@ final class CustomPresentationController: UIPresentationController {
             $0.top.equalTo(view.snp.top).inset(8)
         }
     }
+    
+    
 }
 
 // MARK: - 모달 제어 메서드
@@ -74,8 +79,11 @@ extension CustomPresentationController {
         }
     }
     
+    
+    
     // 모달이 나타날 때
     override func presentationTransitionWillBegin() {
+        super.presentationTransitionWillBegin()
         guard let containerView = containerView else { return }
         behindView.frame = containerView.bounds
         containerView.insertSubview(behindView, at: 0) // insertSubview : 뷰를 뒤로 보낼때 사용
@@ -92,6 +100,7 @@ extension CustomPresentationController {
     
     // 모달이 사라질 때
     override func dismissalTransitionWillBegin() {
+        super.dismissalTransitionWillBegin()
         // 배경 효과 제거
         if let transitionCoordinator = presentedViewController.transitionCoordinator {
             transitionCoordinator.animate(alongsideTransition: { _ in
