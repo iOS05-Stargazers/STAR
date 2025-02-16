@@ -7,7 +7,7 @@
 
 import Foundation
 import FamilyControls
-import ManagedSettings
+//import ManagedSettings
 
 // MARK: - FamilyActivitySelection Parser
 
@@ -40,24 +40,8 @@ extension FamilyActivitySelection {
 // 데이터 리프레쉬
 extension FamilyActivitySelection {
     
-    // 활성화중인 스타를 연산해 앱 잠금 리스트 업데이트
-    static func refreshBlockList() {
-        let store = ManagedSettingsStore()
-
-        var ongoingSelection = FamilyActivitySelection()
-        
-        StarManager.shared.read()
-            .filter { $0.state().style == .ongoing }
-            .map { $0.blockList }
-            .forEach { ongoingSelection.add($0) }
-        
-        store.shield.applicationCategories = .specific(ongoingSelection.categoryTokens)
-        store.shield.applications = ongoingSelection.applicationTokens
-        store.shield.webDomains = ongoingSelection.webDomainTokens
-    }
-    
     // FamilyActivitySelection 토큰 합 연산
-    private mutating func add(_ selection: FamilyActivitySelection) {
+    mutating func add(_ selection: FamilyActivitySelection) {
         self.applicationTokens = applicationTokens.union(selection.applicationTokens)
         self.categoryTokens = categoryTokens.union(selection.categoryTokens)
         self.webDomainTokens = webDomainTokens.union(selection.webDomainTokens)

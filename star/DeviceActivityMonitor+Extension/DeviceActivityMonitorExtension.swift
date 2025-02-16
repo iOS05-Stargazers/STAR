@@ -14,15 +14,14 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         super.intervalDidStart(for: activity)
         
         // Handle the start of the interval.
-        FamilyControlsManager.refreshList()
+        FamilyControlsManager().updateBlockList()
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
         
         // Handle the end of the interval.
-        
-        FamilyControlsManager.refreshList()
+        FamilyControlsManager().updateBlockList()
     }
     
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {
