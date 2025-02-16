@@ -4,7 +4,7 @@ import Then
 import RxSwift
 import RxCocoa
 
-final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class OnboardingCollectionView: UIView {
     
     private let disposeBag = DisposeBag()
     var viewModel: OnboardingViewModel?
@@ -60,6 +60,8 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(40)
         }
+        
+        bringSubviewToFront(pageControl)
     }
     
     override func layoutSubviews() {
@@ -72,17 +74,33 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
     func bind(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
         
+        /// 현재 페이지 변경 시 컬렉션뷰 스크롤
         viewModel.currentPage
             .asDriver()
+            .distinctUntilChanged()
             .drive(with: self) { owner, page in
                 owner.collectionView.scrollToItem(
                     at: IndexPath(item: page, section: 0),
                     at: .centeredHorizontally,
                     animated: true
                 )
+                owner.pageControl.currentPage = page
             }
             .disposed(by: disposeBag)
+        
+        /// 페이지 컨트롤 클릭 시 해당 페이지로 이동
+        pageControl.rx.controlEvent(.valueChanged)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                let pageIndex = owner.pageControl.currentPage
+                owner.viewModel?.currentPage.accept(pageIndex)
+            })
+            .disposed(by: disposeBag)
     }
+    
+}
+
+extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - UICollectionViewDataSource
     
@@ -94,7 +112,6 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
         
-        self.pageControl.currentPage = indexPath.item
         cell.descriptionLabel.text = pageData.description
         
         // TODO: - 요소 assets 추가 후 구현
@@ -114,7 +131,15 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
+    // MARK: - 페이지 컨트롤과 스크롤 연동
+    
+    /// 사용자의 스와이프 종료 시 페이지 업데이트 (중복 방지)
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let pageIndex = Int(round(targetContentOffset.pointee.x / scrollView.frame.width))
+        
+        // 중복 호출 방지
+        if viewModel?.currentPage.value != pageIndex {
+            viewModel?.currentPage.accept(pageIndex)
+        }
     }
 }
