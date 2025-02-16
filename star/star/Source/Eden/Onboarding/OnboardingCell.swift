@@ -8,6 +8,13 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
+    /// 목업 이미지
+    private let mockupImageView = UIImageView().then {
+        $0.image = UIImage(named: "appMockupSample")
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+    }
+    
     /// 강조 요소 (버튼, 아이콘 등 동적 추가)
     var highlightElements: [UIView] = []
     
@@ -16,14 +23,14 @@ final class OnboardingCell: UICollectionViewCell {
     
     private let titleLabel = UILabel().then {
         $0.text = "당신의 디지털 시간 관리 단위, 스타"
-        $0.font = UIFont.boldSystemFont(ofSize: 14)
-        $0.textColor = .white
+        $0.font = UIFont.systemFont(ofSize: 16)
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
     
     let descriptionLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 16)
-        $0.textColor = .white
+        $0.font = UIFont.systemFont(ofSize: 24)
+        $0.textColor = .starPrimaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
@@ -48,12 +55,22 @@ final class OnboardingCell: UICollectionViewCell {
     // MARK: - Setup UI
     
     private func setupUI() {
+        guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
+        backgroundColor = UIColor(patternImage: backgroundImage)
+        
         contentView.addSubviews(
+            mockupImageView,
             gradientView,
             titleLabel,
             descriptionLabel,
             pageControl
         )
+        
+        mockupImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.6)
+        }
         
         gradientView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
@@ -62,18 +79,18 @@ final class OnboardingCell: UICollectionViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(descriptionLabel.snp.top).offset(-40)
+            $0.bottom.equalTo(descriptionLabel.snp.top).offset(-20)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(pageControl.snp.top).offset(-20)
+            $0.top.equalTo(gradientView.snp.centerY)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         pageControl.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(40)
+            $0.bottom.equalToSuperview().inset(48)
         }
         
         applyGradientBackground()
