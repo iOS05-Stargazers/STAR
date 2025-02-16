@@ -11,7 +11,7 @@ import Then
 
 final class OnboardingViewController: UIViewController {
     
-    private let onboardingView = OnboardingView()
+    private let onboardingView = OnboardingCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

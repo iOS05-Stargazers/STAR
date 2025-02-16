@@ -16,6 +16,7 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
             $0.showsHorizontalScrollIndicator = false
             $0.backgroundColor = .clear
             $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.bounces = false
         }
         return collectionView
     }()
@@ -62,6 +63,10 @@ final class OnboardingCollectionView: UIView, UICollectionViewDelegate, UICollec
         cell.descriptionLabel.text = "스타를 추가하기를 통해 시간을 설정하세요."
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
