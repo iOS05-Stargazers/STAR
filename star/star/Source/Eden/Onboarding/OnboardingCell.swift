@@ -8,6 +8,8 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
+    
+    
     /// 목업 이미지
     private let mockupImageView = UIImageView().then {
         $0.image = UIImage(named: "mockupImage")
@@ -99,8 +101,7 @@ final class OnboardingCell: UICollectionViewCell {
             imageView.snp.makeConstraints {
                 $0.centerX.equalToSuperview().multipliedBy(element.position.xMultiplier)
                 $0.centerY.equalToSuperview().multipliedBy(element.position.yMultiplier)
-                $0.leading.equalToSuperview().inset(element.leadingInset)
-                $0.trailing.equalToSuperview().inset(element.trailingInset)
+                $0.leading.trailing.equalToSuperview().inset(element.leadingInset)
             }
         }
     }

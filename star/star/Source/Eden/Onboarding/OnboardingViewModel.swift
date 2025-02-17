@@ -45,7 +45,7 @@ final class OnboardingViewModel {
                 ),
                 OnboardingHighlightElement(
                     image: UIImage(systemName: "hand.draw.fill"),
-                    position: (xMultiplier: 0.8, yMultiplier: 0.75),
+                    position: (xMultiplier: 0.5, yMultiplier: 0.85),
                     leadingInset: 0,
                     trailingInset: 0
                 )
@@ -56,7 +56,7 @@ final class OnboardingViewModel {
             highlightElements: [
                 OnboardingHighlightElement(
                     image: UIImage(systemName: "hand.tap.fill"),
-                    position: (xMultiplier: 0.85, yMultiplier: 0.32),
+                    position: (xMultiplier: 0.7, yMultiplier: 0.2),
                     leadingInset: 0,
                     trailingInset: 0
                 )
