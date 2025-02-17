@@ -60,7 +60,7 @@ final class OnboardingCell: UICollectionViewCell {
         mockupImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.6)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         gradientView.snp.makeConstraints {
