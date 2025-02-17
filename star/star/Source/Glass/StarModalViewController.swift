@@ -233,7 +233,7 @@ extension StarModalViewController {
         // 입력값 에러 바인딩
         output.starModalInputState
             .drive(with: self, onNext: { owner, error in
-                owner.showToastMessage(error.text)
+                owner.starModalView.toastMessageView.showToastMessage(error.text)
             })
             .disposed(by: disposeBag)
         
@@ -255,18 +255,6 @@ extension StarModalViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-    // 토스트 메세지 띄우기
-    private func showToastMessage(_ message: String) {
-        UIView.animate(withDuration: 1.0, delay: 1.5, options: .curveEaseIn, animations: {
-            self.starModalView.toastView.isHidden = false
-            self.starModalView.toastView.alpha = 0.0
-            self.starModalView.toastLable.text = message
-        }) { _ in
-            self.starModalView.toastView.isHidden = true
-            self.starModalView.toastView.alpha = 1
-        }
     }
     
     // 모달 종료
