@@ -275,13 +275,13 @@ extension StarModalViewController {
     private func appPicker() {
         // MARK: - UIKit 기반인 ViewController에서 SwiftUI 기반의 View를 불러오기 위한 임시 변수
         let tempIsPresentedBinding = Binding<Bool>(
-            get: { self.isFamilyActivityPickerPresented },
-            set: { self.isFamilyActivityPickerPresented = $0 }
+            get: { [weak self] in self?.isFamilyActivityPickerPresented ?? .init() },
+            set: { [weak self] in self?.isFamilyActivityPickerPresented = $0 }
         )
         
         let tempSelectionBinding = Binding<FamilyActivitySelection>(
-            get: { self.familyActivitySelection },
-            set: { self.familyActivitySelection = $0 }
+            get: { [weak self] in self?.familyActivitySelection ?? .init() },
+            set: { [weak self] in self?.familyActivitySelection = $0 }
         )
         
         let hostingVC = UIHostingController(
@@ -295,21 +295,19 @@ extension StarModalViewController {
         hostingVC.view.backgroundColor = .clear
         
         let isPresentedBinding = Binding<Bool>(
-            get: { self.isFamilyActivityPickerPresented },
-            set: { newValue in
-                self.isFamilyActivityPickerPresented = newValue
+            get: { [weak self] in self?.isFamilyActivityPickerPresented ?? .init() },
+            set: {  [weak self] newValue in
+                self?.isFamilyActivityPickerPresented = newValue
                 // picker가 닫힐 때(newValue가 false) 필요한 작업을 추가할 수 있음
                 hostingVC.dismiss(animated: true)
             }
         )
         
         let selectionBinding = Binding<FamilyActivitySelection>(
-            get: { self.familyActivitySelection },
-            set: { newSelection in
-                self.familyActivitySelection = newSelection
-                // 선택 결과를 viewModel이나 다른 곳에 전달할 수 있음
-                print("선택된 Family Activity: \(newSelection)")
-                self.viewModel.familyActivitySelection = newSelection
+            get: { [weak self] in self?.familyActivitySelection ?? .init() },
+            set: { [weak self] newSelection in
+                self?.familyActivitySelection = newSelection
+                self?.viewModel.familyActivitySelection = newSelection
                 hostingVC.dismiss(animated: true)
             }
         )

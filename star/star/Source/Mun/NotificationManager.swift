@@ -45,11 +45,7 @@ final class NotificationManager: NSObject {
     // 알림 권한 요청
     func requestNotificationAuthorization() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { granted, error in
-            if let error = error {
-                print("Authorization Error", error.localizedDescription)
-                return
-            }
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in
         }
     }
     
@@ -117,11 +113,7 @@ final class NotificationManager: NSObject {
         )
         
         // 알림 등록
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Notification Error: ", error)
-            }
-        }
+        UNUserNotificationCenter.current().add(request) { _ in }
     }
 }
 

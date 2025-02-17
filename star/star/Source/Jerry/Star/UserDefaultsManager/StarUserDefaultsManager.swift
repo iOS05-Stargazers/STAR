@@ -26,10 +26,7 @@ final class StarUserDefaultsManager {
     private let starIDManager: StarIDManager
     
     func create(_ star: Star) {
-        guard let data = star.jsonData() else {
-            print("\(star.title) - 데이터 저장 실패")
-            return
-        }
+        guard let data = star.jsonData() else { return }
         
         let id = star.identifier
         starIDManager.appendID(id)
@@ -42,9 +39,7 @@ final class StarUserDefaultsManager {
     
     func update(_ star: Star) {
         let id = star.identifier
-        guard let data = star.jsonData() else {
-            print("\(star.title) - 데이터 저장 실패")
-            return }
+        guard let data = star.jsonData() else { return }
         
         userDefaults.set(data, forKey: StarIDFormatter.key(id))
     }
