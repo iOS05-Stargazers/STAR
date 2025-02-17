@@ -8,20 +8,10 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    
-    
     /// 목업 이미지
     private let mockupImageView = UIImageView().then {
-        $0.image = UIImage(named: "mockupImage")
         $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
-    }
-    
-    /// 강조 요소 (버튼, 아이콘 등 동적 추가)
-    var highlightElements: [OnboardingHighlightElement] = [] {
-        didSet {
-            setupHighlightElements()
-        }
     }
     
     /// 하단 그라디언트  뷰
@@ -92,18 +82,9 @@ final class OnboardingCell: UICollectionViewCell {
         applyGradientBackground()
     }
     
-    /// 강조 요소 추가 및 위치 설정
-    private func setupHighlightElements() {
-        highlightElements.forEach { element in
-            let imageView = element.imageView
-            contentView.addSubview(imageView)
-            
-            imageView.snp.makeConstraints {
-                $0.centerX.equalToSuperview().multipliedBy(element.position.xMultiplier)
-                $0.centerY.equalToSuperview().multipliedBy(element.position.yMultiplier)
-                $0.leading.trailing.equalToSuperview().inset(element.leadingInset)
-            }
-        }
+    func configure(with model: OnboardingModel) {
+        mockupImageView.image = model.image
+        descriptionLabel.text = model.description
     }
     
     /// 그라데이션 배경 적용

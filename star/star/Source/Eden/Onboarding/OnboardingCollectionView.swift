@@ -111,15 +111,7 @@ extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
         
-        cell.descriptionLabel.text = pageData.description
-        
-        // TODO: - 요소 assets 추가 후 구현
-        
-        if let elements = pageData.highlightElements {
-            cell.highlightElements = elements
-        } else {
-            cell.highlightElements = []
-        }
+        cell.configure(with: pageData)
         
         return cell
     }
