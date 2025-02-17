@@ -42,12 +42,25 @@ final class OnboardingViewModel {
                     position: (xMultiplier: 0.5, yMultiplier: 0.75),
                     leadingInset: 20,
                     trailingInset: 20
+                ),
+                OnboardingHighlightElement(
+                    image: UIImage(systemName: "hand.draw.fill"),
+                    position: (xMultiplier: 0.8, yMultiplier: 0.75),
+                    leadingInset: 0,
+                    trailingInset: 0
                 )
             ],
             description: "왼쪽으로 스와이프하여\n스타를 삭제할 수 있습니다."
         ),
         OnboardingModel(
-            highlightElements: nil,
+            highlightElements: [
+                OnboardingHighlightElement(
+                    image: UIImage(systemName: "hand.tap.fill"),
+                    position: (xMultiplier: 0.85, yMultiplier: 0.32),
+                    leadingInset: 0,
+                    trailingInset: 0
+                )
+            ],
             description: "휴식 버튼을 누르면\n휴식 모드로 전환할 수 있습니다."
         )
     ]
