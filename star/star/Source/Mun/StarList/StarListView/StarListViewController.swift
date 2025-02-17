@@ -30,7 +30,6 @@ final class StarListViewController: UIViewController {
     override func loadView() {
         view = starListView
         bind()
-
     }
     
     override func viewDidLoad() {
@@ -42,7 +41,6 @@ final class StarListViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
-    //    }
 }
 
 // MARK: - bind
