@@ -28,7 +28,6 @@ final class OnboardingCollectionView: UIView {
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
             $0.backgroundColor = .clear
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.bounces = false
         }
         return collectionView
