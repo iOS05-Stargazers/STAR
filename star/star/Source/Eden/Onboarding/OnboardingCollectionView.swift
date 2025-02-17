@@ -117,6 +117,10 @@ final class OnboardingCollectionView: UIView {
                     animated: true
                 )
                 owner.pageControl.currentPage = page
+                
+                // 마지막 페이지에서 skipButton 문구 변경
+                let isLastPage = page == (owner.viewModel?.pages.count ?? 1) - 1
+                owner.skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
             })
             .disposed(by: disposeBag)
         
