@@ -32,4 +32,5 @@ final class OnboardingViewModel {
     ]
     
     let currentPage = BehaviorRelay<Int>(value: 0) // 초기 페이지 0
+    let closeEvent = PublishRelay<Void>() // 온보딩 닫기
 }
