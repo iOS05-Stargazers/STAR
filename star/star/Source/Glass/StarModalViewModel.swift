@@ -17,6 +17,7 @@ enum StarModalMode {
 
 enum StarModalInputState {
     case noName
+    case noApplist
     case noSchedule
     case overFinishTime
     
@@ -24,10 +25,13 @@ enum StarModalInputState {
         switch self {
         case .noName:
             return "이름을 입력해주세요."
+        case .noApplist:
+            return "하나 이상의 앱을 선택해주세요."
         case .noSchedule:
             return "하나 이상의 반복 주기를 선택해주세요."
         case .overFinishTime:
-            return "시작 시간은 종료 시간보다 빨라야합니다."
+            return "시작은 종료보다 15분 이상 빨라야 합니다."
+
         }
     }
 }
@@ -106,12 +110,19 @@ final class StarModalViewModel {
         
         // 스타 생성/수정
         input.addStarTap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 
                 // 이름 확인
                 if owner.starName == "" {
                     owner.starModalInputStateRelay.accept(.noName)
+                    return
+                }
+                
+                // 앱 잠금 확인
+                if owner.familyActivitySelection.isEmpty {
+                    owner.starModalInputStateRelay.accept(.noApplist)
                     return
                 }
                 
@@ -122,12 +133,11 @@ final class StarModalViewModel {
                 }
                 
                 // 시작시간이 종료시간보다 이른지 확인
-                if owner.startTime.hour > owner.endTime.hour ||
-                    (owner.startTime.hour == owner.endTime.hour &&
-                     owner.startTime.minute >= owner.endTime.minute) {
-                    
+                let startTotalMinute = owner.startTime.hour * 60 + owner.startTime.minute
+                let endTotalMinute = owner.endTime.hour * 60 + owner.endTime.minute
+                
+                if startTotalMinute + 15 > endTotalMinute {
                     owner.starModalInputStateRelay.accept(.overFinishTime)
-                    
                     return
                 }
                 

@@ -139,18 +139,7 @@ final class StarModalView: UIView {
     // MARK: - 토스트
     
     // 토스트 뷰
-    let toastView = UIView().then {
-        $0.backgroundColor = .starAppBG.withAlphaComponent(0.7)
-        $0.layer.cornerRadius = 16
-        $0.isHidden = true
-    }
-    
-    // 토스트 라벨
-    let toastLable = UILabel().then {
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.toastMessage
-        $0.sizeToFit()
-    }
+    let toastMessageView = ToastMessageView()
     
     // MARK: - 초기화
     
@@ -168,14 +157,14 @@ final class StarModalView: UIView {
         
         // 이름
         [
-        nameLabel,
-        nameTextField
+            nameLabel,
+            nameTextField
         ].forEach { nameStackView.addSubview($0) }
         
         // 앱 잠금
         [
-        appLockLabel,
-        appLockButton
+            appLockLabel,
+            appLockButton
         ].forEach { appLockStackView.addSubview($0) }
         
         // 반복 주기 - 요일버튼 추가
@@ -185,33 +174,31 @@ final class StarModalView: UIView {
         
         // 시작시간
         [
-        startTimeLabel,
-        startTimeButton
+            startTimeLabel,
+            startTimeButton
         ].forEach { startTimeStackView.addSubview($0) }
         
         // 종료시간
         [
-        endTimeLabel,
-        endTimeButton
+            endTimeLabel,
+            endTimeButton
         ].forEach { endTimeStackView.addSubview($0) }
         
         [
-        repeatCycleLabel,
-        weekStackView,
-        startTimeStackView,
-        endTimeStackView
+            repeatCycleLabel,
+            weekStackView,
+            startTimeStackView,
+            endTimeStackView
         ].forEach { scheduleConfigStackView.addSubview($0) }
         
-        toastView.addSubview(toastLable)
-                
         [
-        titleLabel,
-        subtitleLabel,
-        nameStackView,
-        appLockStackView,
-        scheduleConfigStackView,
-        addStarButton,
-        toastView
+            titleLabel,
+            subtitleLabel,
+            nameStackView,
+            appLockStackView,
+            scheduleConfigStackView,
+            addStarButton,
+            toastMessageView
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
@@ -270,14 +257,14 @@ final class StarModalView: UIView {
             $0.top.equalTo(scheduleConfigStackView.snp.top).inset(16)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
         }
-
+        
         weekStackView.snp.makeConstraints {
             $0.top.equalTo(repeatCycleLabel.snp.bottom).offset(12)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
             $0.height.equalTo(36)
             $0.width.equalTo(scheduleConfigStackView.snp.width).inset(16)
         }
-
+        
         // 디바이스에 따라 요일 버튼 너비 조절
         weekButtons.forEach { button in
             button.snp.makeConstraints {
@@ -287,7 +274,7 @@ final class StarModalView: UIView {
             
             button.layer.cornerRadius = 18
         }
-
+        
         startTimeStackView.snp.makeConstraints {
             $0.top.equalTo(weekStackView.snp.bottom).offset(16)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
@@ -304,7 +291,7 @@ final class StarModalView: UIView {
             $0.centerY.equalTo(startTimeStackView)
             $0.trailing.equalTo(startTimeStackView.snp.trailing)
         }
-
+        
         endTimeStackView.snp.makeConstraints {
             $0.top.equalTo(startTimeStackView.snp.bottom)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
@@ -328,15 +315,9 @@ final class StarModalView: UIView {
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
-        toastView.snp.makeConstraints {
-            $0.width.equalTo(toastLable.snp.width).multipliedBy(1.15)
-            $0.height.equalTo(toastLable.snp.height).multipliedBy(2)
+        toastMessageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
-        }
-        
-        toastLable.snp.makeConstraints {
-            $0.center.equalToSuperview()
         }
     }
 }
