@@ -29,6 +29,7 @@ final class OnboardingCollectionView: UIView {
         $0.showsHorizontalScrollIndicator = false
         $0.backgroundColor = .clear
         $0.bounces = false
+        $0.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
     }
     
     private let pageControl = UIPageControl().then {
@@ -55,8 +56,6 @@ final class OnboardingCollectionView: UIView {
     
     private func setupUI() {
         addSubviews(collectionView, skipButton, pageControl)
-        
-        collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -123,7 +122,6 @@ final class OnboardingCollectionView: UIView {
         pageChangedObservable
             .bind(to: pageChanged)
             .disposed(by: disposeBag)
-        
     }
 }
 
