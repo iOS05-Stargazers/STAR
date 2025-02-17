@@ -36,6 +36,23 @@ class StarListView: UIView {
         $0.font = Fonts.todayDate
     }
     
+    // 휴식 뷰
+    private let restView = UIView()
+    
+    // 휴식 버튼
+    let restButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(systemName: "cup.and.saucer.fill"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
+        $0.tintColor = .starSecondaryText
+    }
+    
+    // 휴식 라벨
+    let restButtonLabel = UILabel().then {
+        $0.text = "OFF"
+        $0.font = Fonts.buttonDescription
+        $0.textColor = .starSecondaryText
+    }
+    
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
             $0.setTitle("스타 추가하기", for: .normal)
@@ -72,8 +89,9 @@ class StarListView: UIView {
         [
             topView,
             starListCollectionView,
-            addStarButton,
-            toastMessageView
+            restView,
+            toastMessageView,
+            addStarButton
         ].forEach { addSubview($0) }
         
         [
@@ -81,6 +99,13 @@ class StarListView: UIView {
             logoTitleImageView,
             todayDateLabel
         ].forEach { topView.addSubview($0) }
+        
+        [
+            restButton,
+            restButtonLabel
+        ].forEach {
+            restView.addSubview($0)
+        }
                 
         topView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(16)
@@ -112,6 +137,22 @@ class StarListView: UIView {
             $0.top.equalTo(topView.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-32)
+        }
+        
+        restView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(32)
+            $0.bottom.equalTo(todayDateLabel.snp.bottom)
+            $0.width.height.equalTo(50)
+        }
+        
+        restButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(restButtonLabel.snp.top).offset(-4)
+        }
+        
+        restButtonLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalTo(todayDateLabel.snp.centerY)
         }
         
         addStarButton.snp.makeConstraints {

@@ -10,5 +10,9 @@ import ManagedSettings
 import DeviceActivity
 
 extension DeviceActivityName {
-    static let daily = Self("daily")
+    static let rest = Self("rest")
+    
+    init(from star: Star) {
+        self = .init(star.identifier.uuidString)
+    }
 }
