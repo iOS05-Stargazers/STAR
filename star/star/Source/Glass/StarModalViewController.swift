@@ -112,15 +112,17 @@ extension StarModalViewController {
         let tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
         
-        tapGesture.rx.event.bind { [weak self] _ in
+        tapGesture.rx.event
+            .bind { [weak self] _ in
             self?.view.endEditing(true)
         }.disposed(by: disposeBag)
         
         // 키보드 return키 입력시 키보드 내리기
         starModalView.nameTextField.rx
             .controlEvent(.editingDidEndOnExit)
-            .bind { [weak self] in
-                self?.starModalView.nameTextField.resignFirstResponder()
+            .withUnretained(self)
+            .bind { owner, _ in
+                owner.starModalView.nameTextField.resignFirstResponder()
             }.disposed(by: disposeBag)
         
         // 시작시간 버튼 탭
