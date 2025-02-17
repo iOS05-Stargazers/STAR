@@ -19,7 +19,7 @@ final class SpaceViewController: UIViewController {
     // 로고 이미지
     private let logoImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "logo")
+        $0.image = UIImage.logo
     }
     
     // 로고 타이틀 이미지

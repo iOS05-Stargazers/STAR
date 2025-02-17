@@ -32,6 +32,7 @@ final class StarModalView: UIView {
         $0.text = "잠금할 앱과 시간을 설정해 주세요"
         $0.textColor = .starSecondaryText
         $0.font = Fonts.modalSubtitle
+//        $0.minimumScaleFactor = 0.7
     }
     
     // nameLabel, nameTextField를 담는 스택뷰
@@ -68,7 +69,7 @@ final class StarModalView: UIView {
     private lazy var appLockLabel = makeLabel("앱 잠금")
     
     let appLockButton = UIButton(type: .system).then {
-        $0.setTitle("없음 >", for: .normal)
+        $0.setTitle("선택 >", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = Fonts.modalSectionOption
     }
@@ -138,60 +139,7 @@ final class StarModalView: UIView {
     // MARK: - 토스트
     
     // 토스트 뷰
-    let toastView = UIView().then {
-        $0.backgroundColor = .starAppBG.withAlphaComponent(0.7)
-        $0.layer.cornerRadius = 16
-        $0.isHidden = true
-    }
-    
-    // 토스트 라벨
-    let toastLable = UILabel().then {
-        $0.textColor = .starPrimaryText
-        $0.font = Fonts.toastMessage
-        $0.sizeToFit()
-    }
-    
-    // MARK: - DatePicker
-    
-    let datePicker = UIDatePicker().then {
-        $0.datePickerMode = .time // 모드: 시간
-        $0.preferredDatePickerStyle = .wheels
-        $0.locale = Locale(identifier: "ko_KR") // 24시간 형식 사용
-        $0.setValue(UIColor.starDisabledTagBG, forKey: "backgroundColor")
-        $0.setValue(UIColor.starPrimaryText, forKey: "textColor")
-    }
-    
-    lazy var hiddenTextField = UITextField().then {
-        $0.inputView = datePicker
-        $0.inputAccessoryView = toolbar
-    }
-    
-    let toolbarTitle = UILabel().then {
-        $0.textColor = .starSecondaryText
-        $0.font = .systemFont(ofSize: 18, weight: .bold)
-    }
-    
-    lazy var toolbar = UIToolbar().then {
-        // toolbar에서 버튼 사이 간격(공간)을 담당
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let titleItem = UIBarButtonItem().then {
-            $0.customView = toolbarTitle
-        }
-        $0.items = [cancelButton, flexibleSpace, titleItem, flexibleSpace, selectButton]
-        $0.sizeToFit()
-        $0.isTranslucent = false
-        $0.barTintColor = .starAlertBG
-    }
-    
-    let cancelButton = UIBarButtonItem().then {
-        $0.title = "취소"
-        $0.style = .plain
-    }
-    
-    let selectButton = UIBarButtonItem().then {
-        $0.title = "선택"
-        $0.style = .done
-    }
+    let toastMessageView = ToastMessageView()
     
     // MARK: - 초기화
     
@@ -209,14 +157,14 @@ final class StarModalView: UIView {
         
         // 이름
         [
-        nameLabel,
-        nameTextField
+            nameLabel,
+            nameTextField
         ].forEach { nameStackView.addSubview($0) }
         
         // 앱 잠금
         [
-        appLockLabel,
-        appLockButton
+            appLockLabel,
+            appLockButton
         ].forEach { appLockStackView.addSubview($0) }
         
         // 반복 주기 - 요일버튼 추가
@@ -226,48 +174,45 @@ final class StarModalView: UIView {
         
         // 시작시간
         [
-        startTimeLabel,
-        startTimeButton
+            startTimeLabel,
+            startTimeButton
         ].forEach { startTimeStackView.addSubview($0) }
         
         // 종료시간
         [
-        endTimeLabel,
-        endTimeButton
+            endTimeLabel,
+            endTimeButton
         ].forEach { endTimeStackView.addSubview($0) }
         
         [
-        repeatCycleLabel,
-        weekStackView,
-        startTimeStackView,
-        endTimeStackView
+            repeatCycleLabel,
+            weekStackView,
+            startTimeStackView,
+            endTimeStackView
         ].forEach { scheduleConfigStackView.addSubview($0) }
         
-        toastView.addSubview(toastLable)
-                
         [
-        titleLabel,
-        subtitleLabel,
-        nameStackView,
-        appLockStackView,
-        scheduleConfigStackView,
-        addStarButton,
-        hiddenTextField,
-        toastView
+            titleLabel,
+            subtitleLabel,
+            nameStackView,
+            appLockStackView,
+            scheduleConfigStackView,
+            addStarButton,
+            toastMessageView
         ].forEach { addSubview($0) }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(30)
+            $0.bottom.equalTo(subtitleLabel.snp.top).offset(-8)
             $0.leading.equalToSuperview().offset(20)
         }
         
         subtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.bottom.equalTo(nameStackView.snp.top).offset(-20)
             $0.leading.equalToSuperview().offset(20)
         }
         
         nameStackView.snp.makeConstraints {
-            $0.top.equalTo(subtitleLabel.snp.bottom).offset(18)
+            $0.bottom.equalTo(appLockStackView.snp.top).offset(-20)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(52)
@@ -285,7 +230,7 @@ final class StarModalView: UIView {
         }
         
         appLockStackView.snp.makeConstraints {
-            $0.top.equalTo(nameStackView.snp.bottom).offset(20)
+            $0.bottom.equalTo(scheduleConfigStackView.snp.top).offset(-20)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(52)
@@ -302,7 +247,7 @@ final class StarModalView: UIView {
         }
         
         scheduleConfigStackView.snp.makeConstraints {
-            $0.top.equalTo(appLockStackView.snp.bottom).offset(20)
+            $0.bottom.equalTo(addStarButton.snp.top).offset(-30)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(203)
@@ -312,14 +257,14 @@ final class StarModalView: UIView {
             $0.top.equalTo(scheduleConfigStackView.snp.top).inset(16)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
         }
-
+        
         weekStackView.snp.makeConstraints {
             $0.top.equalTo(repeatCycleLabel.snp.bottom).offset(12)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
             $0.height.equalTo(36)
             $0.width.equalTo(scheduleConfigStackView.snp.width).inset(16)
         }
-
+        
         // 디바이스에 따라 요일 버튼 너비 조절
         weekButtons.forEach { button in
             button.snp.makeConstraints {
@@ -329,7 +274,7 @@ final class StarModalView: UIView {
             
             button.layer.cornerRadius = 18
         }
-
+        
         startTimeStackView.snp.makeConstraints {
             $0.top.equalTo(weekStackView.snp.bottom).offset(16)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
@@ -346,7 +291,7 @@ final class StarModalView: UIView {
             $0.centerY.equalTo(startTimeStackView)
             $0.trailing.equalTo(startTimeStackView.snp.trailing)
         }
-
+        
         endTimeStackView.snp.makeConstraints {
             $0.top.equalTo(startTimeStackView.snp.bottom)
             $0.leading.equalTo(scheduleConfigStackView.snp.leading).inset(16)
@@ -370,15 +315,9 @@ final class StarModalView: UIView {
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
-        toastView.snp.makeConstraints {
-            $0.width.equalTo(toastLable.snp.width).multipliedBy(1.15)
-            $0.height.equalTo(toastLable.snp.height).multipliedBy(2)
+        toastMessageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
-        }
-        
-        toastLable.snp.makeConstraints {
-            $0.center.equalToSuperview()
         }
     }
 }
@@ -393,8 +332,8 @@ extension StarModalView {
         nameTextField.text = star.title
         
         let starTime = star.schedule.startTime.coreDataForm()
-        let finishTime = star.schedule.finishTime.coreDataForm()
+        let endTime = star.schedule.endTime.coreDataForm()
         startTimeButton.setTitle(starTime, for: .normal)
-        endTimeButton.setTitle(finishTime, for: .normal)
+        endTimeButton.setTitle(endTime, for: .normal)
     }
 }

@@ -21,6 +21,10 @@ final class StarDeleteAlertViewModel {
     // 스타 삭제
     private func performStarDeletion() {
         StarManager.shared.delete(star)
+        NotificationManager().cancelNotification(star: star)
+        BlockManager().deleteSchedule(star)
+
+        FamilyControlsManager().updateBlockList()
     }
     
     // 종료 방출

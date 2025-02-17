@@ -8,6 +8,28 @@
 import Foundation
 import RxSwift
 import RxCocoa
+
+enum StarModalState {
+    case onboarding
+    case restStart
+    case restSetting
+    case resting
+}
+
+ // 셀 뷰모델
+enum CreationAvailability {
+    case available
+    case unavailable
+    
+    var text: String? {
+        switch self {
+        case .available:
+            return nil
+        case .unavailable:
+            return "최대 15개의 스타를 저장할 수 있어요."
+        }
+    }
+}
  
  // 셀 뷰모델   
 final class StarListViewModel {
@@ -16,8 +38,36 @@ final class StarListViewModel {
     private let dateRelay = PublishRelay<Date>()
     private let starStatusRelay = PublishRelay<StarState>()
     private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
-    let refreshRelay = PublishRelay<Void>() // 추후 리팩토링 예정
+    private let starModalStateRelay = PublishRelay<StarModalState>()
+    let refreshRelay = PublishRelay<Void>()
+    let restStartCompleteRelay = PublishRelay<Void>()
+    let restSettingCompleteRelay = PublishRelay<Date>()
+    private let creationAvailabilityRelay = PublishRelay<CreationAvailability>()
     private let disposeBag = DisposeBag()
+    
+    // 어떤 모달 띄워줄 지 확인하는 메서드
+    private func checkModalState() {
+        if !UserDefaults.standard.isCoachMarkShown {
+            starModalStateRelay.accept(.onboarding)
+        } else {
+            fetchData()
+            guard let restEndTime = UserDefaults.appGroups.restEndTimeGet(),
+            Date() < restEndTime else { return }
+            starModalStateRelay.accept(.resting)
+        }
+    }
+    
+    // 삭제 버튼 누르면 스타 방출
+    private func emitSelectedStar(_ index: Int) {
+        let stars = starsRelay.value
+        selectedStarRelay.accept(stars[index])
+    }
+    
+    // 데이터 fetch
+    private func fetchData() {
+        fetchStars()
+        fetchDate()
+    }
 
     // 스타 fetch
     private func fetchStars() {
@@ -35,12 +85,8 @@ final class StarListViewModel {
             }
         }
                 
-        // 남은 시간이 0이 되면 데이터 fetch
-        Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false) { [weak self] _ in
-            guard let self else { return }
-            self.fetchStars()
-        }
-        
+        scheduleStarFetch(minTimeStar)
+
         let sortedData = starData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
         starsRelay.accept(sortedData)
     }
@@ -59,10 +105,18 @@ final class StarListViewModel {
         }
     }
     
-    // 삭제 버튼 누르면 스타 방출
-    private func emitSelectedStar(_ index: Int) {
-        let stars = starsRelay.value
-        selectedStarRelay.accept(stars[index])
+    // 일정 시간이 지나면 스타 데이터를 다시 가져오는 메서드
+    private func scheduleStarFetch(_ minTimeStar: TimeInterval) {
+        Timer.scheduledTimer(withTimeInterval: minTimeStar, repeats: false) { [weak self] _ in
+            guard let self else { return }
+            self.fetchStars()
+        }
+    }
+    
+    // 생성 가능 여부 업데이트
+    private func updateCreationAvailability() {
+        let result: CreationAvailability = starsRelay.value.count > 14 ? .unavailable : .available
+        creationAvailabilityRelay.accept(result)
     }
 }
 
@@ -70,6 +124,7 @@ extension StarListViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let addButtonTapped: Observable<Void>
         let deleteAction: PublishSubject<Int>
     }
     
@@ -77,7 +132,8 @@ extension StarListViewModel {
         let starDataSource: Driver<[Star]>
         let date: Driver<Date>
         let star: Driver<Star>
-
+        let starModalState: Driver<StarModalState>
+        let creationAvailability: Driver<CreationAvailability>
     }
     
     func transform(_ input: Input) -> Output {
@@ -85,6 +141,18 @@ extension StarListViewModel {
             .withUnretained(self)
             .subscribe(onNext: { _ in
                 self.fetchStars()
+            })
+            .disposed(by: disposeBag)
+        
+        restStartCompleteRelay
+            .subscribe(onNext: {
+                self.starModalStateRelay.accept(.restSetting)
+            })
+            .disposed(by: disposeBag)
+
+        restSettingCompleteRelay
+            .subscribe(onNext: { date in
+                self.starModalStateRelay.accept(.resting)
             })
             .disposed(by: disposeBag)
         
@@ -97,12 +165,20 @@ extension StarListViewModel {
         input.viewWillAppear
             .withUnretained(self)
             .subscribe(onNext:  { _ in
-                self.fetchStars()
-                self.fetchDate()
+                self.checkModalState()
+            }).disposed(by: disposeBag)
+        
+        input.addButtonTapped
+            .withUnretained(self)
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { _ in
+                self.updateCreationAvailability()
             }).disposed(by: disposeBag)
         
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()),
-                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()))
+                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
+                      starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
+                      creationAvailability: creationAvailabilityRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }

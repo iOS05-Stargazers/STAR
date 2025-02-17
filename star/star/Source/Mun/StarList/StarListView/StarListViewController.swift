@@ -5,6 +5,11 @@
 //  Created by 서문가은 on 1/22/25.
 //
 
+
+// viewDidLoad -> 휴식중인지 확인(userDefaults)
+// 맞으면 모달 연결
+// 휴식 설정 화면에서 휴식하기 누르면 starListVM에서 이벤트 방출 받고, 휴식중 화면 띄우기
+
 import UIKit
 import SnapKit
 import RxSwift
@@ -24,24 +29,18 @@ final class StarListViewController: UIViewController {
     
     override func loadView() {
         view = starListView
+        bind()
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         setupSwipeActions()
-        
-        navigationItem.hidesBackButton = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 온보딩 뷰를 보여주지 않았다면 온보딩뷰 표시
-        //        if !UserDefaults.standard.isCoachMarkShown {
-        let onboardingViewModel = OnboardingViewModel()
-        let onboardingViewController = OnboardingViewController(viewModel: onboardingViewModel)
-        onboardingViewController.modalPresentationStyle = .overFullScreen
-        present(onboardingViewController, animated: false)
+        self.navigationController?.navigationBar.isHidden = true
     }
     //    }
 }
@@ -51,12 +50,15 @@ final class StarListViewController: UIViewController {
 extension StarListViewController {
     
     private func bind() {
+
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
+        let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
+            addButtonTapped: addButtonTapped,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
-
+        
         // 컬렉션뷰 데이터 바인딩
         output.starDataSource
             .drive(starListView.starListCollectionView.rx.items(
@@ -79,11 +81,31 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
+        // 스타 모달 상태 바인딩
+        output.starModalState
+            .drive(with: self, onNext: { owner, thisModal in
+                owner.connectModal(thisModal)
+            })
+            .disposed(by: disposeBag)
+        
+        // 휴식 버튼 이벤트 처리
+        starListView.restButton.rx.tap
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.connectRestStartModal()
+            })
+            .disposed(by: disposeBag)
+        
         // 추가하기 버튼 이벤트 처리
         starListView.addStarButton.rx.tap
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.connectCreateModal(mode: .create)
+            }).disposed(by: disposeBag)
+        // 생성 가능 여부 바인딩
+        output.creationAvailability
+            .drive(with:self, onNext: { owner, result in
+                owner.handleCreationAvailability(result)
             })
             .disposed(by: disposeBag)
         
@@ -100,6 +122,7 @@ extension StarListViewController {
 // MARK: - 실행 메서드
 
 extension StarListViewController {
+    
     // 스와이프 액션 설정
     private func setupSwipeActions() {
         starListView.starListCollectionView.addSwipeAction(
@@ -119,6 +142,20 @@ extension StarListViewController {
         )
     }
     
+    // 모달 연결
+    private func connectModal(_ modal: StarModalState) {
+        switch modal {
+        case .onboarding:
+            connnectOnboarding()
+        case .restSetting:
+            connectRestSettingModal()
+        case .restStart:
+            connectRestStartModal()
+        case .resting:
+            connectRestingModal()
+        }
+    }
+    
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
@@ -128,20 +165,82 @@ extension StarListViewController {
         present(starDeleteAlertViewController, animated: false)
     }
     
+    // 온보딩 모달 연결
+    private func connnectOnboarding() {
+        let onboardingViewController = OnboardingViewController(viewModel: OnboardingViewModel())
+        onboardingViewController.modalPresentationStyle = .overFullScreen
+        present(onboardingViewController, animated: false)
+    }
+    
+    // 휴식 진입 화면 모달 연결
+    private func connectRestStartModal() {
+        let restStartViewModel = RestStartViewModel(restStartCompleteRelay: viewModel.restStartCompleteRelay)
+        let restStartViewController = RestStartViewController(restStartViewModel: restStartViewModel)
+        restStartViewController.view.backgroundColor = .starModalOverlayBG
+        restStartViewController.modalPresentationStyle = .overFullScreen
+        present(restStartViewController, animated: true)
+    }
+    
+    // 휴식 설정 화면 모달 연결
+    private func connectRestSettingModal() {
+        let restSettingModalViewController = RestSettingModalViewController(restingCompleteRelay: viewModel.restSettingCompleteRelay)
+        restSettingModalViewController.modalPresentationStyle = .pageSheet
+        restSettingModalViewController.sheetPresentationController?.prefersGrabberVisible = true
+        
+        // 모달 화면 높이 설정
+        if let sheet = restSettingModalViewController.sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                sheet.detents = [
+                    .custom { _ in
+                        return 350
+                    }
+                ]
+            } else {
+                sheet.detents = [.medium()]
+            }
+        }
+        
+        restSettingModalViewController.view.layer.cornerRadius = 40
+        present(restSettingModalViewController, animated: true)
+    }
+    
+    // 휴식중 화면 모달 연결
+    private func connectRestingModal() {
+        let restingViewController = RestingViewController()
+        restingViewController.view.backgroundColor = .starModalOverlayBG
+        restingViewController.modalPresentationStyle = .overFullScreen
+        present(restingViewController, animated: true)
+    }
+    
     // 생성하기 모달 연결
     private func connectCreateModal(mode: StarModalMode) {
         let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
         let modalVC = StarModalViewController(viewModel: modalViewModel)
-        modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
-            let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
-            return modalHeight
-        })
-        ]
-        modalVC.sheetPresentationController?.selectedDetentIdentifier = .medium
-        modalVC.sheetPresentationController?.prefersGrabberVisible = true
-        modalVC.modalPresentationStyle = .formSheet
-        modalVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        modalVC.modalPresentationStyle = .custom
+        modalVC.transitioningDelegate = self
         modalVC.view.layer.cornerRadius = 40
         present(modalVC, animated: true)
+    }
+    
+    // 생성 가능 여부 처리
+    private func handleCreationAvailability(_ result: CreationAvailability) {
+        switch result {
+        case .available:
+            connectCreateModal(mode: .create)
+        case .unavailable:
+            guard let text = result.text else { return }
+            self.starListView.toastMessageView.showToastMessage(text)
+        }
+    }
+}
+
+// MARK: - CustomModalTransition에서 설정한 커스텀 모달 애니메이션 적용
+
+extension StarListViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController? {
+        return CustomPresentationController(presentedViewController: presented,
+                                            presenting: presenting)
     }
 }
