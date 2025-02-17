@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - 커스텀 모달 전환 애니메이션 정의
 
-class CustomModalTransition: NSObject, UIViewControllerAnimatedTransitioning {
+final class CustomModalTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3

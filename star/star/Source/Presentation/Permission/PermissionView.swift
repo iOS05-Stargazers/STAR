@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PermissionView: UIView {
+final class PermissionView: UIView {
     
     // MARK: - UI Components
     

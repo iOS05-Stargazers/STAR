@@ -12,7 +12,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-class StarListCollectionViewCell: UICollectionViewCell {
+final class StarListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI 컴포넌트
     

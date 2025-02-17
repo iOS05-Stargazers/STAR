@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StarListCollectionView: UICollectionView {
+final class StarListCollectionView: UICollectionView {
     
     // MARK: - 초기화
     

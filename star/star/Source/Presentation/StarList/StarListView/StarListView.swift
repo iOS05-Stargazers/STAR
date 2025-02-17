@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class StarListView: UIView {
+final class StarListView: UIView {
     
     // MARK: - UI 컴포넌트
     

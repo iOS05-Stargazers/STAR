@@ -45,7 +45,7 @@ struct BlockManager {
             try deviceActivityCenter.startMonitoring(activityName,
                                                      during: schedule)
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error.localizedDescription)
         }
         FamilyControlsManager().updateBlockList()
     }

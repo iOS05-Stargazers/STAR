@@ -57,7 +57,7 @@ final class StarEditViewModel {
     init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
         switch mode {
         case .create:
-            print("")
+            break
         case .edit(let star):
             starRelay.accept(star) // StarEditView에 데이터 방출
             starName = star.title

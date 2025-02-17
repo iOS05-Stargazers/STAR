@@ -10,7 +10,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-class StarListCollectionViewCellViewModel {
+final class StarListCollectionViewCellViewModel {
     
     private let state: BehaviorRelay<StarState.Style>
     private let time = BehaviorRelay<String>(value: "")
