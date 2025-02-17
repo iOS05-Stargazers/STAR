@@ -44,7 +44,7 @@ final class RestSettingModalViewController: UIViewController {
     
     let restButton = GradientButton(type: .system).then {
         $0.setTitle("휴식하기", for: .normal)
-        $0.setTitleColor(.starButtonNavy, for: .normal)
+        $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.titleLabel?.font = Fonts.buttonTitle
         $0.backgroundColor = .starDisabledTagBG
         $0.layer.cornerRadius = 28
