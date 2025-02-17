@@ -8,24 +8,6 @@
 import UIKit
 
 struct OnboardingModel {
-    let highlightElements: [OnboardingHighlightElement]? // 강조 요소
+    let image: UIImage
     let description: String
 }
-
-struct OnboardingHighlightElement {
-    let imageView: UIImageView
-    let position: (xMultiplier: CGFloat, yMultiplier: CGFloat)
-    let leadingInset: CGFloat
-    
-    init(image: UIImage?, position: (xMultiplier: CGFloat, yMultiplier: CGFloat), leadingInset: CGFloat, trailingInset: CGFloat) {
-        self.imageView = UIImageView(image: image)
-        self.imageView.contentMode = .scaleAspectFit
-        self.imageView.clipsToBounds = true
-        self.imageView.tintColor = .starPrimaryText
-        self.imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 40)
-
-        self.position = position
-        self.leadingInset = leadingInset
-    }
-}
-
