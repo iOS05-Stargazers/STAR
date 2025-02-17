@@ -27,7 +27,7 @@ enum StarModalInputState {
         case .noSchedule:
             return "하나 이상의 반복 주기를 선택해주세요."
         case .overFinishTime:
-            return "시작 시간은 종료 시간보다 빨라야합니다."
+            return "시작 시간은 종료 시간보다 최소 15분 빨라야 합니다."
         }
     }
 }
@@ -122,12 +122,11 @@ final class StarModalViewModel {
                 }
                 
                 // 시작시간이 종료시간보다 이른지 확인
-                if owner.startTime.hour > owner.endTime.hour ||
-                    (owner.startTime.hour == owner.endTime.hour &&
-                     owner.startTime.minute >= owner.endTime.minute) {
-                    
+                let startTotalMinute = owner.startTime.hour * 60 + owner.startTime.minute
+                let endTotalMinute = owner.endTime.hour * 60 + owner.endTime.minute
+                
+                if startTotalMinute + 15 > endTotalMinute {
                     owner.starModalInputStateRelay.accept(.overFinishTime)
-                    
                     return
                 }
                 
