@@ -10,7 +10,7 @@ final class OnboardingCell: UICollectionViewCell {
     
     /// 목업 이미지
     private let mockupImageView = UIImageView().then {
-        $0.image = UIImage(named: "appMockupSample")
+        $0.image = UIImage(named: "mockupImage")
         $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
     }

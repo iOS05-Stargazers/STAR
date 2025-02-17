@@ -17,24 +17,24 @@ final class OnboardingViewModel {
             highlightElements: [
                 OnboardingHighlightElement(
                     image: UIImage(named: "starButton"),
-                    position: (xMultiplier: 0.5, yMultiplier: 1),
+                    position: (xMultiplier: 0.5, yMultiplier: 1.1),
                     leadingInset: 20,
                     trailingInset: 20
                 )
             ],
-            description: "스타 추가하기를 통해\n스타를 생성할 수 있어요."
+            description: "\"스타 추가하기\"를 통해\n스타를 생성할 수 있습니다."
         ),
         OnboardingModel(
             highlightElements: nil,
-            description: "스타를 선택해\n시간과 설정을 변경할 수 있어요."
+            description: "목록의 스타를 선택하면\n스타를 수정할 수 있습니다."
         ),
         OnboardingModel(
             highlightElements: nil,
-            description: "카드를 스와이프해\n스타를 삭제할 수 있어요."
+            description: "왼쪽으로 스와이프하여\n스타를 삭제할 수 있습니다."
         ),
         OnboardingModel(
             highlightElements: nil,
-            description: "휴식 버튼을 눌러\n휴식시간을 설정하세요."
+            description: "휴식 버튼을 누르면\n휴식 모드로 전환할 수 있습니다."
         )
     ]
     

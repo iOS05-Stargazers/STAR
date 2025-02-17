@@ -33,8 +33,6 @@ final class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
-        
-        navigationItem.hidesBackButton = true
     }
     
     // MARK: - Set Up UI
