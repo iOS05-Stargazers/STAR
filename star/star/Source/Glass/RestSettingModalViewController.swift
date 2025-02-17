@@ -49,7 +49,8 @@ final class RestSettingModalViewController: UIViewController {
         $0.backgroundColor = .starDisabledTagBG
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
-        $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow], direction: .horizontal)
+        $0.applyGradient(colors: [.starButtonWhite, .starButtonYellow],
+                         direction: .horizontal)
     }
     
     init(restingCompleteRelay: PublishRelay<Date>) {
@@ -69,11 +70,14 @@ final class RestSettingModalViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .starModalBG
         
-        view.addSubview(titleLabel)
-        view.addSubview(textLabel)
+        [
+            titleLabel,
+            textLabel,
+            pickerView,
+            restButton
+        ].forEach { view.addSubview($0) }
+        
         pickerView.addSubview(pickerLabel)
-        view.addSubview(pickerView)
-        view.addSubview(restButton)
         
         titleLabel.snp.makeConstraints {
             $0.bottom.equalTo(textLabel.snp.top)

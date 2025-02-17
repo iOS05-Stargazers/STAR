@@ -32,6 +32,7 @@ final class StarModalView: UIView {
         $0.text = "잠금할 앱과 시간을 설정해 주세요"
         $0.textColor = .starSecondaryText
         $0.font = Fonts.modalSubtitle
+//        $0.minimumScaleFactor = 0.7
     }
     
     // nameLabel, nameTextField를 담는 스택뷰
