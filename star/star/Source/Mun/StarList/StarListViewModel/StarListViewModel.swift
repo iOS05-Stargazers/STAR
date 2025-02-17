@@ -17,6 +17,21 @@ enum StarModalState {
 }
 
  // 셀 뷰모델
+enum CreationAvailability {
+    case available
+    case unavailable
+    
+    var text: String? {
+        switch self {
+        case .available:
+            return nil
+        case .unavailable:
+            return "최대 15개의 스타를 저장할 수 있어요."
+        }
+    }
+}
+ 
+ // 셀 뷰모델   
 final class StarListViewModel {
         
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
@@ -27,6 +42,7 @@ final class StarListViewModel {
     let refreshRelay = PublishRelay<Void>()
     let restStartCompleteRelay = PublishRelay<Void>()
     let restSettingCompleteRelay = PublishRelay<Date>()
+    private let creationAvailabilityRelay = PublishRelay<CreationAvailability>()
     private let disposeBag = DisposeBag()
     
     // 어떤 모달 띄워줄 지 확인하는 메서드
@@ -96,12 +112,19 @@ final class StarListViewModel {
             self.fetchStars()
         }
     }
+    
+    // 생성 가능 여부 업데이트
+    private func updateCreationAvailability() {
+        let result: CreationAvailability = starsRelay.value.count > 14 ? .unavailable : .available
+        creationAvailabilityRelay.accept(result)
+    }
 }
 
 extension StarListViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let addButtonTapped: Observable<Void>
         let deleteAction: PublishSubject<Int>
     }
     
@@ -110,6 +133,7 @@ extension StarListViewModel {
         let date: Driver<Date>
         let star: Driver<Star>
         let starModalState: Driver<StarModalState>
+        let creationAvailability: Driver<CreationAvailability>
     }
     
     func transform(_ input: Input) -> Output {
@@ -144,9 +168,17 @@ extension StarListViewModel {
                 self.checkModalState()
             }).disposed(by: disposeBag)
         
+        input.addButtonTapped
+            .withUnretained(self)
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { _ in
+                self.updateCreationAvailability()
+            }).disposed(by: disposeBag)
+        
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()),
                       star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
-                      starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()))
+                      starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
+                      creationAvailability: creationAvailabilityRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }

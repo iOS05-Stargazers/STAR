@@ -49,9 +49,12 @@ final class StarListViewController: UIViewController {
 extension StarListViewController {
     
     private func bind() {
-        let viewWillAppears = rx.methodInvoked(#selector(viewDidLoad)).map { _ in }
+
+        let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
+        let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
+            addButtonTapped: addButtonTapped,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
         
@@ -97,6 +100,11 @@ extension StarListViewController {
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.connectCreateModal(mode: .create)
+            }).disposed(by: disposeBag)
+        // 생성 가능 여부 바인딩
+        output.creationAvailability
+            .drive(with:self, onNext: { owner, result in
+                owner.handleCreationAvailability(result)
             })
             .disposed(by: disposeBag)
         
@@ -207,16 +215,31 @@ extension StarListViewController {
     private func connectCreateModal(mode: StarModalMode) {
         let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
         let modalVC = StarModalViewController(viewModel: modalViewModel)
-        modalVC.sheetPresentationController?.detents = [.custom(resolver: { context in
-            let modalHeight = UIScreen.main.bounds.size.height - self.starListView.topView.frame.maxY - self.view.safeAreaInsets.bottom - 4
-            return modalHeight
-        })
-        ]
-        modalVC.sheetPresentationController?.selectedDetentIdentifier = .medium
-        modalVC.sheetPresentationController?.prefersGrabberVisible = true
-        modalVC.modalPresentationStyle = .formSheet
-        modalVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        modalVC.modalPresentationStyle = .custom
+        modalVC.transitioningDelegate = self
         modalVC.view.layer.cornerRadius = 40
         present(modalVC, animated: true)
+    }
+    
+    // 생성 가능 여부 처리
+    private func handleCreationAvailability(_ result: CreationAvailability) {
+        switch result {
+        case .available:
+            connectCreateModal(mode: .create)
+        case .unavailable:
+            guard let text = result.text else { return }
+            self.starListView.toastMessageView.showToastMessage(text)
+        }
+    }
+}
+
+// MARK: - CustomModalTransition에서 설정한 커스텀 모달 애니메이션 적용
+
+extension StarListViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController? {
+        return CustomPresentationController(presentedViewController: presented,
+                                            presenting: presenting)
     }
 }

@@ -18,7 +18,7 @@ struct ScheduleCalculator {
     private static func style(schedule: Schedule) -> StarState.Style {
         let startTime = schedule.startTime
         let endTime = schedule.endTime
-        let state: StarState.Style
+//        let state: StarState.Style
         for weekDay in schedule.weekDays {
             if contains(weekDay: weekDay, startTime: startTime, endTime: endTime) {
                 return .ongoing
