@@ -19,19 +19,17 @@ final class OnboardingCollectionView: UIView {
         $0.contentHorizontalAlignment = .right
     }
     
-    private let collectionView: UICollectionView = {
+    private let collectionView = UICollectionView().then {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-            $0.isPagingEnabled = true
-            $0.showsHorizontalScrollIndicator = false
-            $0.backgroundColor = .clear
-            $0.bounces = false
-        }
-        return collectionView
-    }()
+        $0.collectionViewLayout = layout
+        $0.isPagingEnabled = true
+        $0.showsHorizontalScrollIndicator = false
+        $0.backgroundColor = .clear
+        $0.bounces = false
+    }
     
     private let pageControl = UIPageControl().then {
         $0.numberOfPages = 4
@@ -58,8 +56,6 @@ final class OnboardingCollectionView: UIView {
     private func setupUI() {
         addSubviews(collectionView, skipButton, pageControl)
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         
         collectionView.snp.makeConstraints {
