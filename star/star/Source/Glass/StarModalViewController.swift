@@ -85,6 +85,22 @@ extension StarModalViewController {
                 owner.starModalView.nameTextField.text = ""
             }).disposed(by: disposeBag)
         
+        // 텍스트필드를 입력하면 placeholder 삭제
+        starModalView.nameTextField.rx
+            .controlEvent(.editingDidBegin)
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.starModalView.nameTextField.placeholder = ""
+        }).disposed(by: disposeBag)
+        
+        // 텍스트필드 입력이 끝나면 placeholder 복구
+        starModalView.nameTextField.rx
+            .controlEvent(.editingDidEnd)
+            .asDriver()
+            .drive(with: self, onNext: { owner, _ in
+                owner.starModalView.nameTextField.placeholder = "이름을 입력하세요"
+        }).disposed(by: disposeBag)
+        
         // 앱 잠금 버튼
         starModalView.appLockButton.rx.tap.withUnretained(self).bind { owner, _ in
             print("앱 잠금 버튼 클릭")
