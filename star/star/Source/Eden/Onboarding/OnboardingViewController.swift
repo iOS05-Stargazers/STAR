@@ -63,6 +63,7 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func navigateToStarList() {
+        UserDefaults.standard.isCoachMarkShown = true
         dismiss(animated: false, completion: nil)
     }
 }
