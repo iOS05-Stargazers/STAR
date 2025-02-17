@@ -15,10 +15,12 @@ final class OnboardingViewModel {
     
     struct Input {
         let skipTapped: Observable<Void>
+        let pageChanged: Observable<Int>
     }
     
     struct Output {
         let skipTrigger: Driver<Void>
+        let currentPage: Driver<Int>
     }
     
     let pages: [OnboardingModel] = [
@@ -41,11 +43,20 @@ final class OnboardingViewModel {
     ]
     
     let currentPage = BehaviorRelay<Int>(value: 0) // 초기 페이지 0
+    private let skipRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
-        let skipTrigger = input.skipTapped
-            .asDriver(onErrorDriveWith: .empty())
+        input.pageChanged
+            .bind(to: currentPage)
+            .disposed(by: disposeBag)
         
-        return Output(skipTrigger: skipTrigger)
+        input.skipTapped
+            .bind(to: skipRelay)
+            .disposed(by: disposeBag)
+        
+        return Output(
+            skipTrigger: skipRelay.asDriver(onErrorDriveWith: .empty()),
+            currentPage: currentPage.asDriver()
+        )
     }
 }

@@ -49,5 +49,20 @@ final class OnboardingViewController: UIViewController {
     
     private func bind() {
         collectionView.bind(viewModel: viewModel)
+        
+        viewModel.transform(
+            input: OnboardingViewModel.Input(
+                skipTapped: collectionView.skipButton.rx.tap.asObservable(),
+                pageChanged: collectionView.pageChanged.asObservable()
+            )
+        ).skipTrigger
+            .drive(with: self, onNext: { owner, _ in
+                owner.navigateToStarList()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func navigateToStarList() {
+        dismiss(animated: false, completion: nil)
     }
 }

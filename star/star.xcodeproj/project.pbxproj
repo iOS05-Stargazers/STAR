@@ -234,6 +234,7 @@
 				23CC31AD2D40B3570026CF54 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				23CF7FED2D45DE110019D597 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				23CF7FF42D45DFDC0019D597 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
+				F23303372D63222D0059F859 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 71F41EDD2D3FC73300257988 /* Products */;
@@ -652,6 +653,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.1;
+			};
+		};
+		F23303372D63222D0059F859 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

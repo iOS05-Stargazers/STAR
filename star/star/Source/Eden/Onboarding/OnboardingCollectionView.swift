@@ -11,6 +11,14 @@ final class OnboardingCollectionView: UIView {
     
     // MARK: - UI Components
     
+    /// 온보딩 skip 버튼
+    let skipButton = UIButton().then {
+        $0.setTitle("건너뛰기", for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        $0.setTitleColor(.starPrimaryText, for: .normal)
+        $0.contentHorizontalAlignment = .right
+    }
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -32,6 +40,9 @@ final class OnboardingCollectionView: UIView {
         $0.pageIndicatorTintColor = .starPrimaryText
     }
     
+    let skipTapped = PublishRelay<Void>()
+    let pageChanged = PublishRelay<Int>()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -46,7 +57,7 @@ final class OnboardingCollectionView: UIView {
     // MARK: - Setup UI
     
     private func setupUI() {
-        addSubviews(collectionView, pageControl)
+        addSubviews(collectionView, skipButton, pageControl)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -54,6 +65,11 @@ final class OnboardingCollectionView: UIView {
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        skipButton.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(16)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         pageControl.snp.makeConstraints {
@@ -74,34 +90,47 @@ final class OnboardingCollectionView: UIView {
     func bind(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
         
-        /// 현재 페이지 변경 시 컬렉션뷰 스크롤
-        viewModel.currentPage
-            .asDriver()
+        /// 사용자가 스크롤을 멈추면 현재 페이지를 감지하여 업데이트
+        let pageChangedObservable = collectionView.rx.didEndDecelerating
+            .map { [weak self] in
+                guard let self = self else { return 0 }
+                let pageIndex = Int(round(self.collectionView.contentOffset.x / self.collectionView.frame.width))
+                return pageIndex
+            }
             .distinctUntilChanged()
-            .drive(with: self) { owner, page in
+        
+        /// Input: View에서 발생한 이벤트를 ViewModel로 전달
+        let input = OnboardingViewModel.Input(
+            skipTapped: skipButton.rx.tap.asObservable(),
+            pageChanged: pageChangedObservable
+        )
+        
+        /// Output: ViewModel에서 가공된 데이터를 View에 반영
+        let output = viewModel.transform(input: input)
+        
+        /// 현재 페이지가 변경되면 컬렉션 뷰를 해당 페이지로 스크롤
+        output.currentPage
+            .drive(with: self, onNext: { owner, page in
                 owner.collectionView.scrollToItem(
                     at: IndexPath(item: page, section: 0),
                     at: .centeredHorizontally,
                     animated: true
                 )
                 owner.pageControl.currentPage = page
-            }
-            .disposed(by: disposeBag)
-        
-        /// 페이지 컨트롤 클릭 시 해당 페이지로 이동
-        pageControl.rx.controlEvent(.valueChanged)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                let pageIndex = owner.pageControl.currentPage
-                owner.viewModel?.currentPage.accept(pageIndex)
             })
             .disposed(by: disposeBag)
+        
+        /// 사용자가 스크롤하면 현재 페이지를 감지하여 Relay에 전달
+        pageChangedObservable
+            .bind(to: pageChanged)
+            .disposed(by: disposeBag)
+        
     }
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+
 extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel?.pages.count ?? 0
@@ -110,29 +139,21 @@ extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
-        
         cell.configure(with: pageData)
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets.zero
     }
-    
-    // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
     
-    // MARK: - 페이지 컨트롤과 스크롤 연동
-    
     /// 사용자의 스와이프 종료 시 페이지 업데이트 (중복 방지)
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let pageIndex = Int(round(targetContentOffset.pointee.x / scrollView.frame.width))
-        
-        // 중복 호출 방지
         if viewModel?.currentPage.value != pageIndex {
             viewModel?.currentPage.accept(pageIndex)
         }

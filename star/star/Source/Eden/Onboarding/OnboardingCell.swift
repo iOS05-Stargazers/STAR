@@ -8,15 +8,6 @@ final class OnboardingCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    /// 온보딩 모달 닫기 버튼
-    let skipLabel = UILabel().then {
-        $0.text = "건너뛰기"
-        $0.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        $0.textColor = .starPrimaryText
-        $0.textAlignment = .right
-        $0.isUserInteractionEnabled = true
-    }
-    
     /// 목업 이미지
     private let mockupImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -60,17 +51,11 @@ final class OnboardingCell: UICollectionViewCell {
         backgroundColor = UIColor(patternImage: backgroundImage)
         
         contentView.addSubviews(
-            skipLabel,
             mockupImageView,
             gradientView,
             titleLabel,
             descriptionLabel
         )
-        
-        skipLabel.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(16)
-            $0.trailing.equalToSuperview().inset(20)
-        }
         
         mockupImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
