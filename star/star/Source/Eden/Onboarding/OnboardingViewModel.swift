@@ -17,7 +17,7 @@ final class OnboardingViewModel {
             highlightElements: [
                 OnboardingHighlightElement(
                     image: UIImage(named: "starButton"),
-                    position: (xMultiplier: 0.5, yMultiplier: 0.55),
+                    position: (xMultiplier: 0.5, yMultiplier: 1),
                     leadingInset: 20,
                     trailingInset: 20
                 )

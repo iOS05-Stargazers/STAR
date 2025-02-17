@@ -97,8 +97,8 @@ final class OnboardingCell: UICollectionViewCell {
             contentView.addSubview(imageView)
             
             imageView.snp.makeConstraints {
-                $0.centerX.equalToSuperview().multipliedBy(element.position.xMultiplier * 2)
-                $0.centerY.equalToSuperview().multipliedBy(element.position.yMultiplier * 2)
+                $0.centerX.equalToSuperview().multipliedBy(element.position.xMultiplier)
+                $0.centerY.equalToSuperview().multipliedBy(element.position.yMultiplier)
                 $0.leading.equalToSuperview().inset(element.leadingInset)
                 $0.trailing.equalToSuperview().inset(element.trailingInset)
             }
