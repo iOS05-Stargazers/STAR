@@ -13,16 +13,8 @@ final class RestingViewModel {
     
     private let disposeBag = DisposeBag()
     
-    private let timerSubject: BehaviorRelay<Int>
+    private let timerSubject = PublishRelay<Int>()
     private let timerEndedSubject = PublishRelay<Void>()
-    
-    init() {
-        if let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) {
-            self.timerSubject = .init(value: Int(time))
-        } else {
-            self.timerSubject = .init(value: 1200)
-        }
-    }
     
     // MARK: - Format Time
     
@@ -35,12 +27,12 @@ final class RestingViewModel {
     // MARK: - Timer 카운트 다운 로직
     
     private func startCountdown() {
-        Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
+        Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
+            .map {  _ in
+                guard let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) else { return 0 }
+                return Int(time) }
             .withUnretained(self)
-            .map { owner, _ in
-                guard let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) else { return (owner, 0) }
-                return (owner, Int(time))
-            }.subscribe(onNext: { owner, value in
+            .subscribe(onNext: { owner, value in
                 if value > 0 {
                     owner.timerSubject.accept(value)
                 } else {
@@ -81,7 +73,10 @@ extension RestingViewModel {
             .disposed(by: disposeBag)
         
         let timerText = timerSubject
-            .map { self.formatTime($0) }
+            .withUnretained(self)
+            .map { owenr, value in
+                owenr.formatTime(value)
+            }
             .asDriver(onErrorJustReturn: "00:00")
         
         return Output(
