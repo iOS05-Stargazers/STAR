@@ -12,15 +12,9 @@ import RxCocoa
 final class RestingViewModel {
     
     private let disposeBag = DisposeBag()
-    private let initialTime: Int
     
-    private let timerSubject: BehaviorRelay<Int>
+    private let timerSubject = PublishRelay<Int>()
     private let timerEndedSubject = PublishRelay<Void>()
-    
-    init(initialTime: Int) {
-        self.initialTime = initialTime
-        self.timerSubject = BehaviorRelay<Int>(value: initialTime)
-    }
     
     // MARK: - Format Time
     
@@ -33,19 +27,18 @@ final class RestingViewModel {
     // MARK: - Timer 카운트 다운 로직
     
     private func startCountdown() {
-        Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
+        Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
+            .map {  _ in
+                guard let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) else { return 0 }
+                return Int(time) }
             .withUnretained(self)
-            .take(initialTime)
-            .subscribe(onNext: { owner, _ in
-                let newValue = max(owner.timerSubject.value - 1, 0)
-                owner.timerSubject.accept(newValue)
-            }, onCompleted: { [weak self] in
-                guard let self = self else { return }
-                UserDefaults.appGroups.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
-                FamilyControlsManager().updateBlockList()
-                self.timerEndedSubject.accept(()) // 모달 닫기 이벤트 실행
-            })
-            .disposed(by: disposeBag)
+            .subscribe(onNext: { owner, value in
+                if value > 0 {
+                    owner.timerSubject.accept(value)
+                } else {
+                    owner.timerEndedSubject.accept(())
+                }
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -80,7 +73,10 @@ extension RestingViewModel {
             .disposed(by: disposeBag)
         
         let timerText = timerSubject
-            .map { self.formatTime($0) }
+            .withUnretained(self)
+            .map { owenr, value in
+                owenr.formatTime(value)
+            }
             .asDriver(onErrorJustReturn: "00:00")
         
         return Output(

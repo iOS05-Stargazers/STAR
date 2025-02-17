@@ -28,6 +28,7 @@ final class RestingViewController: UIViewController {
     
     private let timerLabel = UILabel().then {
         $0.font = .monospacedDigitSystemFont(ofSize: 80, weight: .light)
+//        $0.text = "--:--"
         $0.textColor = .starSecondaryText
     }
     
@@ -42,7 +43,7 @@ final class RestingViewController: UIViewController {
     
     // MARK: - Init
     
-    init(viewModel: RestingViewModel) {
+    init(viewModel: RestingViewModel = RestingViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -55,8 +56,8 @@ final class RestingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         bind()
+        setupUI()
     }
     
     // MARK: - Set Up

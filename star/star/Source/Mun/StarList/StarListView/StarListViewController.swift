@@ -29,11 +29,12 @@ final class StarListViewController: UIViewController {
     
     override func loadView() {
         view = starListView
+        bind()
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         setupSwipeActions()
     }
     
@@ -48,7 +49,7 @@ final class StarListViewController: UIViewController {
 extension StarListViewController {
     
     private func bind() {
-        let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
+        let viewWillAppears = rx.methodInvoked(#selector(viewDidLoad)).map { _ in }
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
             deleteAction: deleteActionSubject)
@@ -141,8 +142,8 @@ extension StarListViewController {
             connectRestSettingModal()
         case .restStart:
             connectRestStartModal()
-        case .resting(let date):
-            connectRestingModal(date)
+        case .resting:
+            connectRestingModal()
         }
     }
     
@@ -195,10 +196,8 @@ extension StarListViewController {
     }
     
     // 휴식중 화면 모달 연결
-    private func connectRestingModal(_ restEndTime: Date) {
-        let leftTime = restEndTime.timeIntervalSince(Date())
-        let restingViewModel = RestingViewModel(initialTime: Int(leftTime))
-        let restingViewController = RestingViewController(viewModel: restingViewModel)
+    private func connectRestingModal() {
+        let restingViewController = RestingViewController()
         restingViewController.view.backgroundColor = .starModalOverlayBG
         restingViewController.modalPresentationStyle = .overFullScreen
         present(restingViewController, animated: true)

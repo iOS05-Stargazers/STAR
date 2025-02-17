@@ -13,7 +13,7 @@ enum StarModalState {
     case onboarding
     case restStart
     case restSetting
-    case resting(date: Date)
+    case resting
 }
 
  // 셀 뷰모델
@@ -37,7 +37,7 @@ final class StarListViewModel {
             fetchData()
             guard let restEndTime = UserDefaults.appGroups.restEndTimeGet(),
             Date() < restEndTime else { return }
-            starModalStateRelay.accept(.resting(date: restEndTime))
+            starModalStateRelay.accept(.resting)
         }
     }
     
@@ -128,7 +128,7 @@ extension StarListViewModel {
 
         restSettingCompleteRelay
             .subscribe(onNext: { date in
-                self.starModalStateRelay.accept(.resting(date: date))
+                self.starModalStateRelay.accept(.resting)
             })
             .disposed(by: disposeBag)
         
