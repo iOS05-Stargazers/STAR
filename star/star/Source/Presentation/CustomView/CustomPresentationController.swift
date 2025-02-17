@@ -60,7 +60,7 @@ extension CustomPresentationController {
             .asDriver()
             .drive(with: self, onNext: { owner, gesture in
                 owner.handlePanGesture(gesture)
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
     
     // 드래그 감지 및 동작
@@ -129,7 +129,7 @@ extension CustomPresentationController {
         if safeAreaCheck <= 20 {
             height = 560
         }
-                
+        
         return CGRect(x: 0,
                       y: containerView.bounds.height - height,
                       width: containerView.bounds.width,

@@ -66,7 +66,7 @@ final class RestSettingModalViewController: UIViewController {
         setupUI()
         bind()
     }
-
+    
     private func setupUI() {
         view.backgroundColor = .starModalBG
         

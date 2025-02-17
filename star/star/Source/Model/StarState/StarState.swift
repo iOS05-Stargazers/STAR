@@ -14,7 +14,7 @@ struct StarState {
     let style: Style
     // 남은 시간
     let interval: TimeInterval
-        
+    
     init(schedule: Schedule) {
         let starState = ScheduleCalculator.starState(schedule: schedule)
         self.style = starState.style

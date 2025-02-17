@@ -28,7 +28,7 @@ final class RestingViewController: UIViewController {
     
     private let timerLabel = UILabel().then {
         $0.font = .monospacedDigitSystemFont(ofSize: 80, weight: .light)
-//        $0.text = "--:--"
+        //        $0.text = "--:--"
         $0.textColor = .starSecondaryText
     }
     

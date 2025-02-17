@@ -17,7 +17,7 @@ enum StarModalState {
     case resting
 }
 
- // 셀 뷰모델
+// 셀 뷰모델
 enum CreationAvailability {
     
     case available
@@ -32,10 +32,10 @@ enum CreationAvailability {
         }
     }
 }
- 
- // 셀 뷰모델   
+
+// 셀 뷰모델   
 final class StarListViewModel {
-        
+    
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
     private let dateRelay = PublishRelay<Date>()
     private let starStatusRelay = PublishRelay<StarState>()
@@ -54,7 +54,7 @@ final class StarListViewModel {
         } else {
             fetchData()
             guard let restEndTime = UserDefaults.appGroups.restEndTimeGet(),
-            Date() < restEndTime else { return }
+                  Date() < restEndTime else { return }
             starModalStateRelay.accept(.resting)
         }
     }
@@ -70,7 +70,7 @@ final class StarListViewModel {
         fetchStars()
         fetchDate()
     }
-
+    
     // 스타 fetch
     private func fetchStars() {
         let starData = StarManager.shared.read()
@@ -86,9 +86,9 @@ final class StarListViewModel {
                 minTimeStar = $0.state().interval
             }
         }
-                
+        
         scheduleStarFetch(minTimeStar)
-
+        
         let sortedData = starData.sorted { $0.state() < $1.state() } // 남은 시간이 짧은 순으로 정렬
         starsRelay.accept(sortedData)
     }
@@ -151,7 +151,7 @@ extension StarListViewModel {
                 self.starModalStateRelay.accept(.restSetting)
             })
             .disposed(by: disposeBag)
-
+        
         restSettingCompleteRelay
             .subscribe(onNext: { date in
                 self.starModalStateRelay.accept(.resting)

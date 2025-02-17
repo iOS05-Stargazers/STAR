@@ -21,7 +21,7 @@ final class StarEditView: UIView {
         label.font = Fonts.modalSectionTitle
         return label
     }
-        
+    
     private let titleLabel = UILabel().then {
         $0.text = "스타 생성"
         $0.textColor = .starPrimaryText
@@ -81,7 +81,7 @@ final class StarEditView: UIView {
     }
     
     private lazy var repeatCycleLabel = makeLabel("반복 주기")
-        
+    
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
         $0.axis = .horizontal

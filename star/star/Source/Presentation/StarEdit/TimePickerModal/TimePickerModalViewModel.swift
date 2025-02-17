@@ -35,14 +35,14 @@ final class TimePickerModalViewModel {
         input.startTimeRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, starTime in
-            owner.startTimeRelay.accept(starTime)
-        }).disposed(by: disposeBag)
+                owner.startTimeRelay.accept(starTime)
+            }).disposed(by: disposeBag)
         
         input.endTimeRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, starTime in
-            owner.endTimeRelay.accept(starTime)
-        }).disposed(by: disposeBag)
+                owner.endTimeRelay.accept(starTime)
+            }).disposed(by: disposeBag)
         
         return Output(startTimeRelay: startTimeRelay.asDriver(onErrorDriveWith: .empty()),
                       endTimeRelay: endTimeRelay.asDriver(onErrorDriveWith: .empty()),
@@ -56,7 +56,7 @@ extension TimePickerModalViewModel {
     struct Input {
         let startTimeRelay: Observable<StarTime>
         let endTimeRelay: Observable<StarTime>
-
+        
     }
     
     struct Output {

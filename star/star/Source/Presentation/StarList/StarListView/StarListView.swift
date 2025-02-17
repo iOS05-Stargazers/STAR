@@ -55,13 +55,13 @@ final class StarListView: UIView {
     
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
-            $0.setTitle("스타 추가하기", for: .normal)
-            $0.setTitleColor(.starPrimaryText, for: .normal)
-            $0.titleLabel?.font = Fonts.buttonTitle
-            $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
-            $0.layer.cornerRadius = 28
-            $0.clipsToBounds = true
-        }
+        $0.setTitle("스타 추가하기", for: .normal)
+        $0.setTitleColor(.starPrimaryText, for: .normal)
+        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
+        $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
+    }
     
     // 스타 리스트 컬렉션뷰
     let starListCollectionView = StarListCollectionView()
@@ -70,7 +70,7 @@ final class StarListView: UIView {
     let toastMessageView = ToastMessageView()
     
     // MARK: - 초기화
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -106,7 +106,7 @@ final class StarListView: UIView {
         ].forEach {
             restView.addSubview($0)
         }
-                
+        
         topView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(16)
             $0.leading.equalToSuperview().inset(20)

@@ -16,7 +16,7 @@ extension UILabel {
         
         if let starRange = fullText.range(of: "S T A R") {
             let nsRange = NSRange(starRange, in: fullText)
-        
+            
             if let customFont = UIFont(name: "SEBANGGothicOTFBold", size: font.pointSize) {
                 attributedString.addAttribute(.font, value: customFont, range: nsRange)
             }

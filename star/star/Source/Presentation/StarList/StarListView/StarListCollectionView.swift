@@ -51,7 +51,7 @@ extension StarListCollectionView {
             let listSection = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             listSection.interGroupSpacing = 12 // 셀간 간격
             return listSection
-            }
+        }
         
         self.collectionViewLayout = layout
     }

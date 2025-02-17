@@ -103,47 +103,47 @@ final class MeteorEffectView: UIView {
     
     // 유성 떨어지는 애니메이션
     private func animateMeteor(_ meteor: UIView, delay: Double, duration: Double) {
-            let path = UIBezierPath()
+        let path = UIBezierPath()
+        
+        // 시작 위치를 상단 또는 왼쪽에서 랜덤하게 선택
+        let startFromTop = Bool.random()
+        
+        if startFromTop {
+            // 상단에서 시작하는 경우
+            let startX = CGFloat.random(in: 0..<frame.width)
+            let endX = startX + frame.width
+            path.move(to: CGPoint(x: startX, y: -10))
+            path.addLine(to: CGPoint(x: endX, y: frame.height + 10))
+        } else {
+            // 왼쪽에서 시작하는 경우
+            let startY = CGFloat.random(in: -10..<frame.height/2)
+            let endY = startY + frame.height
             
-            // 시작 위치를 상단 또는 왼쪽에서 랜덤하게 선택
-            let startFromTop = Bool.random()
-            
-            if startFromTop {
-                // 상단에서 시작하는 경우
-                let startX = CGFloat.random(in: 0..<frame.width)
-                let endX = startX + frame.width
-                path.move(to: CGPoint(x: startX, y: -10))
-                path.addLine(to: CGPoint(x: endX, y: frame.height + 10))
-            } else {
-                // 왼쪽에서 시작하는 경우
-                let startY = CGFloat.random(in: -10..<frame.height/2)
-                let endY = startY + frame.height
-                
-                path.move(to: CGPoint(x: -10, y: startY))
-                path.addLine(to: CGPoint(x: frame.width + 10, y: endY))
-            }
-            
-            let animation = CAKeyframeAnimation(keyPath: "position")
-            animation.path = path.cgPath
-            animation.duration = duration
-            animation.beginTime = CACurrentMediaTime() + delay
-            animation.repeatCount = 1 // 무한 반복 대신 1번만 실행
-            animation.calculationMode = .paced
-            animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            animation.isRemovedOnCompletion = true // 애니메이션 완료 후 제거
-            animation.fillMode = .forwards
-            
-            // 애니메이션 완료 후 메테오 제거
-            CATransaction.begin()
-            CATransaction.setCompletionBlock {
-                meteor.removeFromSuperview()
-            }
-            meteor.layer.add(animation, forKey: "meteorMotion")
-            CATransaction.commit()
-            
-            // 애니메이션이 끝나면 새로운 메테오 생성
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
-                self?.createMeteor()
-            }
+            path.move(to: CGPoint(x: -10, y: startY))
+            path.addLine(to: CGPoint(x: frame.width + 10, y: endY))
         }
+        
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.path = path.cgPath
+        animation.duration = duration
+        animation.beginTime = CACurrentMediaTime() + delay
+        animation.repeatCount = 1 // 무한 반복 대신 1번만 실행
+        animation.calculationMode = .paced
+        animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
+        animation.isRemovedOnCompletion = true // 애니메이션 완료 후 제거
+        animation.fillMode = .forwards
+        
+        // 애니메이션 완료 후 메테오 제거
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            meteor.removeFromSuperview()
+        }
+        meteor.layer.add(animation, forKey: "meteorMotion")
+        CATransaction.commit()
+        
+        // 애니메이션이 끝나면 새로운 메테오 생성
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
+            self?.createMeteor()
+        }
+    }
 }

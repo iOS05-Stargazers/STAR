@@ -15,7 +15,7 @@ struct TimeUntilMidnight {
         let year = calendar.component(.year, from: now)
         let month = calendar.component(.month, from: now)
         let day = calendar.component(.day, from: now)
-
+        
         let tomorrow = calendar.date(from: DateComponents(
             year: year,
             month: month,

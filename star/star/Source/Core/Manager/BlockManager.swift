@@ -26,7 +26,7 @@ struct BlockManager {
         
         setSchedule(name: .init(from: star), blockSchedule)
     }
-
+    
     // 스케쥴 삭제 ( 스타 삭제 시 사용 )
     func deleteSchedule(_ star: Star) {
         deviceActivityCenter.stopMonitoring([.init(star.identifier.uuidString)])

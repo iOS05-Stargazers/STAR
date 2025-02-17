@@ -14,7 +14,7 @@ final class CustomModalTransition: NSObject, UIViewControllerAnimatedTransitioni
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3
     }
-
+    
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toView = transitionContext.view(forKey: .to) else { return }
         let containerView = transitionContext.containerView

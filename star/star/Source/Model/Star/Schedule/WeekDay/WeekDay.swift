@@ -43,7 +43,7 @@ extension WeekDay: Comparable {
     
     static func < (lhs: WeekDay, rhs: WeekDay) -> Bool {
         func compareValue(_ int: Int) -> Int {
-          return ( int + 5 ) % 7
+            return ( int + 5 ) % 7
         }
         return compareValue(lhs.rawValue) < compareValue(rhs.rawValue)
     }

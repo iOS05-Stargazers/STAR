@@ -93,18 +93,18 @@ final class AppLaunchViewController: UIViewController {
         // 1초 뒤 실행
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             let center = AuthorizationCenter.shared
-               DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // 1초 후 상태 확인
-                   var rootViewController: UIViewController
-
-                   if center.authorizationStatus == .approved {
-                       // 권한이 승인된 상태 -> StarListViewController로 실행
-                       rootViewController = StarListViewController()
-                   } else {
-                       // 권한 미승인 상태 -> PermissionViewController로 실행
-                       rootViewController = PermissionViewController()
-                   }
-                   self.navigationController?.setViewControllers([rootViewController], animated: true)
-               }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // 1초 후 상태 확인
+                var rootViewController: UIViewController
+                
+                if center.authorizationStatus == .approved {
+                    // 권한이 승인된 상태 -> StarListViewController로 실행
+                    rootViewController = StarListViewController()
+                } else {
+                    // 권한 미승인 상태 -> PermissionViewController로 실행
+                    rootViewController = PermissionViewController()
+                }
+                self.navigationController?.setViewControllers([rootViewController], animated: true)
+            }
         }
     }
 }

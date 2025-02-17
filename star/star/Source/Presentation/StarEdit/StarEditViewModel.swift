@@ -33,7 +33,7 @@ enum StarModalInputState {
             return "하나 이상의 반복 주기를 선택해주세요."
         case .overFinishTime:
             return "시작은 종료보다 15분 이상 빨라야 합니다."
-
+            
         }
     }
 }
@@ -84,15 +84,15 @@ final class StarEditViewModel {
         input.nameClear
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-            owner.starName = ""
-        }).disposed(by: disposeBag)
+                owner.starName = ""
+            }).disposed(by: disposeBag)
         
         // 선택한 요일(반복 주기)
         input.weekDaysState
             .withUnretained(self)
             .subscribe(onNext: { owner, daysState in
-            if daysState.1 { owner.weekDays.insert(daysState.0) } else { owner.weekDays.remove(daysState.0) }
-        }).disposed(by: disposeBag)
+                if daysState.1 { owner.weekDays.insert(daysState.0) } else { owner.weekDays.remove(daysState.0) }
+            }).disposed(by: disposeBag)
         
         // 시작 시간
         input.startTimeRelay
@@ -155,10 +155,10 @@ final class StarEditViewModel {
                     NotificationManager().scheduleNotificaions(star: star)
                     
                     BlockManager().updateSchedule(star)
-
-                // CREATE
+                    
+                    // CREATE
                 } else {
-
+                    
                     let star = Star(identifier: UUID(),
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,

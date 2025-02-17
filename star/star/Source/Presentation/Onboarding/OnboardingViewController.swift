@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 final class OnboardingViewController: UIViewController {
-
+    
     override func loadView() {
         view = OnboardingView()
     }

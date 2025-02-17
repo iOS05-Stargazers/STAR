@@ -20,7 +20,7 @@ final class TimePickerModalView: UIView {
         $0.backgroundColor = .clear
         $0.setValue(UIColor.starPrimaryText, forKey: "textColor")
     }
- 
+    
     private let colon = UILabel().then {
         $0.text = ":"
         $0.textColor = .starSecondaryText

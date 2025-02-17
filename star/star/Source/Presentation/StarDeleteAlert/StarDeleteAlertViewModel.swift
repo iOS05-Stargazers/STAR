@@ -23,7 +23,7 @@ final class StarDeleteAlertViewModel {
         StarManager.shared.delete(star)
         NotificationManager().cancelNotification(star: star)
         BlockManager().deleteSchedule(star)
-
+        
         FamilyControlsManager().updateBlockList()
     }
     

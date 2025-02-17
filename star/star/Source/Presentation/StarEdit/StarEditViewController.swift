@@ -92,7 +92,7 @@ extension StarEditViewController {
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.starEditView.nameTextField.placeholder = ""
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         // 텍스트필드 입력이 끝나면 placeholder 복구
         starEditView.nameTextField.rx
@@ -100,14 +100,14 @@ extension StarEditViewController {
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.starEditView.nameTextField.placeholder = "이름을 입력하세요"
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼
         starEditView.appLockButton.rx.tap
             .withUnretained(self)
             .bind { owner, _ in
                 owner.appPicker()
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         // 텍스트필드 외부 탭 했을때 키보드 내리기
         let tapGesture = UITapGestureRecognizer()
@@ -115,8 +115,8 @@ extension StarEditViewController {
         
         tapGesture.rx.event
             .bind { [weak self] _ in
-            self?.view.endEditing(true)
-        }.disposed(by: disposeBag)
+                self?.view.endEditing(true)
+            }.disposed(by: disposeBag)
         
         // 키보드 return키 입력시 키보드 내리기
         starEditView.nameTextField.rx
@@ -156,8 +156,8 @@ extension StarEditViewController {
     // 모달창 연결
     private func connectPickerModal(mode: TimeType) {
         let pickerViewModel = TimePickerModalViewModel(mode: mode,
-                                                   startTimeRelay: startTimeRelay,
-                                                   endTimeRelay: endTimeRelay)
+                                                       startTimeRelay: startTimeRelay,
+                                                       endTimeRelay: endTimeRelay)
         let pickerModalViewController = TimePickerModalViewController(viewModel: pickerViewModel)
         pickerModalViewController.modalPresentationStyle = .pageSheet
         
@@ -198,33 +198,33 @@ extension StarEditViewController {
             starEditView.saturdayButton.buttonState.asObservable(),
             starEditView.sundayButton.buttonState.asObservable()
         )
-                
+        
         // 시작시간/종료시간
         // 시작시간 타이틀 바인딩
         startTimeRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, starTime in
-            let text = StarTimeFormatter.convert(starTime)
-            owner.starEditView.startTimeButton.setTitle(text, for: .normal)
-        }).disposed(by: disposeBag)
+                let text = StarTimeFormatter.convert(starTime)
+                owner.starEditView.startTimeButton.setTitle(text, for: .normal)
+            }).disposed(by: disposeBag)
         
         // 종료시간 타이틀 바인딩
         endTimeRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, starTime in
-            let text = StarTimeFormatter.convert(starTime)
-            owner.starEditView.endTimeButton.setTitle(text, for: .normal)
-        }).disposed(by: disposeBag)
+                let text = StarTimeFormatter.convert(starTime)
+                owner.starEditView.endTimeButton.setTitle(text, for: .normal)
+            }).disposed(by: disposeBag)
         
         // 스타 생성하기 버튼
         let addStarButtonTap = starEditView.addStarButton.rx.tap.asObservable()
         
         let input = StarEditViewModel.Input(nameTextFieldInput: name,
-                                             nameClear: nameClear,
-                                             weekDaysState: weekDaysState,
-                                             addStarTap: addStarButtonTap,
-                                             startTimeRelay: startTimeRelay.asObservable(),
-                                             endTimeRelay: endTimeRelay.asObservable())
+                                            nameClear: nameClear,
+                                            weekDaysState: weekDaysState,
+                                            addStarTap: addStarButtonTap,
+                                            startTimeRelay: startTimeRelay.asObservable(),
+                                            endTimeRelay: endTimeRelay.asObservable())
         
         let output = viewModel.transform(input: input)
         

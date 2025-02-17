@@ -20,7 +20,7 @@ final class StarListCollectionViewCell: UICollectionViewCell {
     
     private var viewModel: StarListCollectionViewCellViewModel?
     private var disposeBag = DisposeBag()
-
+    
     // 태그 뷰
     private let tagView = GradientView().then {
         $0.layer.cornerRadius = 8
@@ -86,7 +86,7 @@ final class StarListCollectionViewCell: UICollectionViewCell {
         ].forEach {
             addSubview($0)
         }
-
+        
         tagView.addSubview(tagLabel)
         
         tagView.snp.makeConstraints {
@@ -142,7 +142,7 @@ extension StarListCollectionViewCell {
         output.state
             .drive(with: self, onNext: { owner, state in
                 owner.applyStateStyle(state)
-
+                
             })
             .disposed(by: disposeBag)
     }
@@ -153,7 +153,7 @@ extension StarListCollectionViewCell {
             self.tagLabel.text = "진행중"
             self.tagView.gradientLayer.isHidden = false
             self.timerImageView.isHidden = false
-
+            
         case .pending:
             self.tagLabel.text = "대기중"
             self.tagView.gradientLayer.isHidden = true

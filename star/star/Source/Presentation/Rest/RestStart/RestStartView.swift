@@ -52,13 +52,13 @@ final class RestStartView: UIView {
     
     // 취소 버튼
     let cancelButton = GradientButton(type: .system).then {
-            $0.setTitle("취소하기", for: .normal)
-            $0.setTitleColor(.starPrimaryText, for: .normal)
-            $0.titleLabel?.font = Fonts.buttonTitle
-            $0.backgroundColor = .starDisabledTagBG
-            $0.layer.cornerRadius = 28
-            $0.clipsToBounds = true
-        }
+        $0.setTitle("취소하기", for: .normal)
+        $0.setTitleColor(.starPrimaryText, for: .normal)
+        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.backgroundColor = .starDisabledTagBG
+        $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
+    }
     
     // MARK: - 초기화
     
