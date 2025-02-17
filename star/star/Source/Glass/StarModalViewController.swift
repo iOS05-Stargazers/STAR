@@ -69,12 +69,12 @@ extension StarModalViewController {
         
         // 스타 이름 입력 텍스트필드
         starModalView.nameTextField.rx.text
-            .subscribe(onNext: { data in
+            .withUnretained(self)
+            .subscribe(onNext: { onwer, data in
                 guard let text = data else { return }
-                
                 // 16자 입력제한
                 if text.count > 16 {
-                    self.starModalView.nameTextField.text = String(text.prefix(16))
+                    onwer.starModalView.nameTextField.text = String(text.prefix(16))
                 }
             }).disposed(by: disposeBag)
         
@@ -102,9 +102,10 @@ extension StarModalViewController {
         }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼
-        starModalView.appLockButton.rx.tap.withUnretained(self).bind { owner, _ in
-            print("앱 잠금 버튼 클릭")
-            self.appPicker()
+        starModalView.appLockButton.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                owner.appPicker()
         }.disposed(by: disposeBag)
         
         // 텍스트필드 외부 탭 했을때 키보드 내리기
@@ -198,13 +199,17 @@ extension StarModalViewController {
                 
         // 시작시간/종료시간
         // 시작시간 타이틀 바인딩
-        startTimeRelay.withUnretained(self).subscribe(onNext: { owner, starTime in
+        startTimeRelay
+            .withUnretained(self)
+            .subscribe(onNext: { owner, starTime in
             let text = StarTimeFormatter.convert(starTime)
             owner.starModalView.startTimeButton.setTitle(text, for: .normal)
         }).disposed(by: disposeBag)
         
         // 종료시간 타이틀 바인딩
-        endTimeRelay.withUnretained(self).subscribe(onNext: { owner, starTime in
+        endTimeRelay
+            .withUnretained(self)
+            .subscribe(onNext: { owner, starTime in
             let text = StarTimeFormatter.convert(starTime)
             owner.starModalView.endTimeButton.setTitle(text, for: .normal)
         }).disposed(by: disposeBag)
@@ -224,7 +229,7 @@ extension StarModalViewController {
         // 스타 바인딩(edit 모드일 때 방출)
         output.star
             .drive(with: self, onNext: { owner, star in
-                guard let star = star else { return }
+                guard let star else { return }
                 owner.starModalView.configure(star: star)
                 owner.familyActivitySelection = star.blockList
             })

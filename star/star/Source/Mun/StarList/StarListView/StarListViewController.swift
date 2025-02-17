@@ -112,7 +112,7 @@ extension StarListViewController {
         starListView.starListCollectionView.rx.modelSelected(Star.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
-                self.connectCreateModal(mode: .edit(star: star))
+                owner.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
