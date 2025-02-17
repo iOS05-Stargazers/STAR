@@ -47,13 +47,19 @@ final class OnboardingViewModel {
     
     func transform(input: Input) -> Output {
         input.pageChanged
-            .bind(to: currentPage)
+            .withUnretained(self)
+            .bind { owner, page in
+                owner.currentPage.accept(page)
+            }
             .disposed(by: disposeBag)
-        
+
         input.skipTapped
-            .bind(to: skipRelay)
+            .withUnretained(self)
+            .bind { owner, _ in
+                owner.skipRelay.accept(())
+            }
             .disposed(by: disposeBag)
-        
+
         return Output(
             skipTrigger: skipRelay.asDriver(onErrorDriveWith: .empty()),
             currentPage: currentPage.asDriver()
