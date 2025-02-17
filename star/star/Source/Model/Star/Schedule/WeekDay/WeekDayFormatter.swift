@@ -29,5 +29,4 @@ struct WeekDayFormatter {
             return "일"
         }
     }
-    
 }

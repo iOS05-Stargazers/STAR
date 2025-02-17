@@ -60,8 +60,8 @@ struct ScheduleCalculator {
     
     // 시간 범위에 대한 현재시간 포함여부 판별
     private static func between(start: StarTime, end: StarTime) -> Bool {
-        let start = start.testDescription
-        let end = end.testDescription
+        let start = start.coreDataForm()
+        let end = end.coreDataForm()
         let now = nowString()
         return start <= now && now < end
     }

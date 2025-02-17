@@ -32,19 +32,6 @@ final class PermissionView: UIView {
         $0.numberOfLines = 0
     }
     
-    let alertHighlightView = UIView().then {
-        $0.backgroundColor = .clear
-        $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.systemBlue.cgColor
-        $0.layer.cornerRadius = 20
-        $0.isHidden = false
-    }
-    
-    private let arrowImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "arrow.up")?.withTintColor(.systemBlue).withRenderingMode(.alwaysOriginal)
-        $0.isHidden = false
-    }
-    
     private let footerLabel = UILabel().then {
         $0.text = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다."
         $0.font = Fonts.permissionBody
@@ -73,8 +60,6 @@ final class PermissionView: UIView {
         addSubviews(
             titleLabel,
             descriptionLabel,
-            alertHighlightView,
-            arrowImageView,
             footerLabel
         )
         
@@ -87,22 +72,6 @@ final class PermissionView: UIView {
             $0.top.equalTo(titleLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
-        
-        // TODO: - 레이아웃 정의
-        
-//        alertHighlightView.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.centerY.equalToSuperview().offset(16)
-//            $0.width.equalTo(270 + 28)
-//            $0.height.equalTo(195 + 28)
-//        }
-        
-//        arrowImageView.snp.makeConstraints {
-//            $0.top.equalTo(alertHighlightView.snp.bottom).offset(0)
-//            $0.centerX.equalToSuperview().offset(-67.5)
-//            $0.width.equalTo(24)
-//            $0.height.equalTo(40)
-//        }
         
         footerLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-80)

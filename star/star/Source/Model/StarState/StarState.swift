@@ -20,7 +20,6 @@ struct StarState {
         self.style = starState.style
         self.interval = starState.interval
     }
-    
 }
 
 // 진행중, 대기중, 남은 시간에 따른 정렬을 위해 Comparable 채택
@@ -36,7 +35,6 @@ extension StarState: Comparable {
     static func == (lhs: StarState, rhs: StarState) -> Bool {
         return lhs.style == rhs.style && lhs.interval == rhs.interval
     }
-    
 }
 
 // MARK: - StarState.Style

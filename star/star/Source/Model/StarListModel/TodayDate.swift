@@ -8,6 +8,7 @@
 import Foundation
 
 struct TodayDate {
+    
     static func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")

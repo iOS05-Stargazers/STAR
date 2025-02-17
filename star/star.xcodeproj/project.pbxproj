@@ -66,7 +66,6 @@
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarIDManager.swift,
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarUserDefaultsManager.swift,
 				Source/Model/Star/Protocol/JSONCodable.swift,
-				Source/Model/Star/Protocol/TestDescriptionConvertible.swift,
 				Source/Model/Star/Schedule/Schedule.swift,
 				Source/Model/Star/Schedule/StarTime/StarTime.swift,
 				Source/Model/Star/Schedule/StarTime/StarTimeFormatter.swift,

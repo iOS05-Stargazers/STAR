@@ -5,11 +5,6 @@
 //  Created by 서문가은 on 1/22/25.
 //
 
-
-// viewDidLoad -> 휴식중인지 확인(userDefaults)
-// 맞으면 모달 연결
-// 휴식 설정 화면에서 휴식하기 누르면 starListVM에서 이벤트 방출 받고, 휴식중 화면 띄우기
-
 import UIKit
 import SnapKit
 import RxSwift
@@ -30,7 +25,6 @@ final class StarListViewController: UIViewController {
     override func loadView() {
         view = starListView
         bind()
-
     }
     
     override func viewDidLoad() {
@@ -49,7 +43,6 @@ final class StarListViewController: UIViewController {
 extension StarListViewController {
     
     private func bind() {
-
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
@@ -101,6 +94,7 @@ extension StarListViewController {
             .drive(with: self, onNext: { owner, _ in
                 owner.connectCreateModal(mode: .create)
             }).disposed(by: disposeBag)
+        
         // 생성 가능 여부 바인딩
         output.creationAvailability
             .drive(with:self, onNext: { owner, result in
@@ -121,7 +115,6 @@ extension StarListViewController {
 // MARK: - 실행 메서드
 
 extension StarListViewController {
-    
     // 스와이프 액션 설정
     private func setupSwipeActions() {
         starListView.starListCollectionView.addSwipeAction(
@@ -236,6 +229,7 @@ extension StarListViewController {
 // MARK: - CustomModalTransition에서 설정한 커스텀 모달 애니메이션 적용
 
 extension StarListViewController: UIViewControllerTransitioningDelegate {
+    
     func presentationController(forPresented presented: UIViewController,
                                 presenting: UIViewController?,
                                 source: UIViewController) -> UIPresentationController? {

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class PickerViewAdapter: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, RxPickerViewDataSourceType {
+    
     typealias Element = ([String], [String]) // 시간 & 분 데이터
     
     private var hourData: [String] = []
@@ -39,5 +40,4 @@ final class PickerViewAdapter: NSObject, UIPickerViewDataSource, UIPickerViewDel
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return component == 0 ? "\(hourData[row])" : "\(minuteData[row])"
     }
-    
 }

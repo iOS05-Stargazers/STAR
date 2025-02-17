@@ -11,11 +11,13 @@ import RxSwift
 import RxCocoa
 
 enum StarModalMode {
+    
     case create
     case edit(star: Star)
 }
 
 enum StarModalInputState {
+    
     case noName
     case noApplist
     case noSchedule
@@ -52,7 +54,6 @@ final class StarEditViewModel {
     private var weekDays: Set<WeekDay> = [] // 선택 요일(반복 주기) 담는 배열
     private var startTime: StarTime = StarTime(hour: 00, minute: 00)
     private var endTime: StarTime = StarTime(hour: 23, minute: 59)
-
     
     init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
         switch mode {
@@ -71,7 +72,6 @@ final class StarEditViewModel {
     }
     
     func transform(input: Input) -> Output {
-        
         // 텍스트 필드 입력
         input.nameTextFieldInput
             .withUnretained(self)
@@ -188,7 +188,6 @@ final class StarEditViewModel {
     private func closeAlert() {
         refreshRelay.accept(())
     }
-    
 }
 
 extension StarEditViewModel {
@@ -209,5 +208,4 @@ extension StarEditViewModel {
         let refresh: Driver<Void>
         let weekDaysRelay: Driver<Set<WeekDay>>
     }
-    
 }

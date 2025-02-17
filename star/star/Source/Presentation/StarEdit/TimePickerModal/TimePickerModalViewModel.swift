@@ -49,7 +49,6 @@ final class TimePickerModalViewModel {
                       hourData: hourData.asDriver(onErrorDriveWith: .empty()),
                       minuteData: minuteData.asDriver(onErrorDriveWith: .empty()))
     }
-    
 }
 
 extension TimePickerModalViewModel {

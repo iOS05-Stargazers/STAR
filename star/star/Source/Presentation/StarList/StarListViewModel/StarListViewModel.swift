@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 enum StarModalState {
+    
     case onboarding
     case restStart
     case restSetting
@@ -18,6 +19,7 @@ enum StarModalState {
 
  // 셀 뷰모델
 enum CreationAvailability {
+    
     case available
     case unavailable
     

@@ -10,7 +10,9 @@
 import Foundation
 
 // MARK: - appGroups
+
 extension UserDefaults {
+    
     static let appGroups = {
         guard let appGroups = UserDefaults(suiteName: "group.com.stargazers.star") else {
             fatalError("App Groups UserDefaults None")
@@ -20,7 +22,9 @@ extension UserDefaults {
 }
 
 // MARK: - isCoachMarkShown
+
 extension UserDefaults {
+    
     private enum Keys {
         static let isCoachMarkShown = "isCoachMarkShown"
     }
@@ -36,7 +40,9 @@ extension UserDefaults {
 }
 
 // MARK: - restEndTime
+
 extension UserDefaults {
+    
     enum Key {
         static let restEndTime = "restEndTime"
     }
@@ -69,7 +75,6 @@ extension UserDefaults {
         let endTime = calendar.date(byAdding: .minute, value: minutes, to: Date())
         return endTime
     }
-    
 }
 
 

@@ -16,7 +16,6 @@ struct StarTimeFormatter {
         let minute = stringForm(starTime.minute)
         return String(format: "%@:%@", hour, minute)
     }
-    
 }
 
 // MARK: StarTimeFormatter - 내부 사용 메서드
@@ -26,5 +25,4 @@ extension StarTimeFormatter {
     private static func stringForm(_ value: Int) -> String {
         return String(format: "%02d", value)
     }
-    
 }

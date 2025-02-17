@@ -16,6 +16,7 @@ protocol JSONCodable: JSONDecodable, JSONEncodable {}
 protocol JSONDecodable: Decodable {}
 
 extension JSONDecodable {
+    
     init?(from data: Data) {
         guard let value = try? JSONDecoder().decode(Self.self, from: data) else { return nil }
         self = value
@@ -27,6 +28,7 @@ extension JSONDecodable {
 protocol JSONEncodable: Encodable {}
 
 extension JSONEncodable {
+    
     func jsonData() -> Data? {
         guard let data = try? JSONEncoder().encode(self) else { return nil }
         return data

@@ -9,6 +9,7 @@ import Foundation
 import UserNotifications
 
 enum NotificationType {
+    
     case startTime(star: Star)
     case endTime(star: Star)
     
@@ -41,7 +42,6 @@ enum NotificationType {
 }
 
 final class NotificationManager: NSObject {
-    
     // 알림 권한 요청
     func requestNotificationAuthorization() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -118,7 +118,6 @@ final class NotificationManager: NSObject {
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
-    
     // 앱 실행중일 때 처리
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .badge])

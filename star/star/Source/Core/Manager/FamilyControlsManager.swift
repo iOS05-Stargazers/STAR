@@ -12,7 +12,6 @@ import ManagedSettings
 struct FamilyControlsManager {
     
     private let center =  AuthorizationCenter.shared
-    
     private let store = ManagedSettingsStore()
     
     func requestAuthorization(completionHandler: @escaping (() -> Void)) {
@@ -25,7 +24,6 @@ struct FamilyControlsManager {
             }
         }
     }
-    
 }
 
 extension FamilyControlsManager {

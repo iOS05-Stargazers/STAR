@@ -64,6 +64,7 @@ final class TimePickerModalViewController: UIViewController {
 // MARK: - ViewModel Bind
 
 extension TimePickerModalViewController {
+    
     private func bind(mode: TimeType) {
         
         modalView.timeSelectButton.rx.tap

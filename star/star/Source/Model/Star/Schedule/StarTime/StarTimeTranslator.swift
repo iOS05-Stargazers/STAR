@@ -39,7 +39,6 @@ struct StarTimeTranslator {
         let minute = validMinute(minute) ? minute : 0
         return (hour: hour, minute: minute)
     }
-    
 }
 
 // MARK: StarTimeConverter - 내부사용 메서드
@@ -65,5 +64,4 @@ extension StarTimeTranslator {
         let minute = Calendar.current.component(.minute, from: date)
         return validMinute(minute) ? minute : 0
     }
-    
 }

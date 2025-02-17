@@ -72,5 +72,4 @@ struct StarStateFormatter {
     private static func dayForm(_ value: Int) -> String {
         String(format: "%d일 남음", value)
     }
-
 }

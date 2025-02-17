@@ -15,8 +15,7 @@ final class StarListCollectionViewCellViewModel {
     private let state: BehaviorRelay<StarState.Style>
     private let time = BehaviorRelay<String>(value: "")
     private let star: Star
-    private let disposebag = DisposeBag()
-
+    private let disposeBag = DisposeBag()
     
     init(star: Star) {
         self.star = star
@@ -32,7 +31,7 @@ final class StarListCollectionViewCellViewModel {
             .subscribe(onNext: { _ in
                 self.updateTime()
             })
-            .disposed(by: disposebag)
+            .disposed(by: disposeBag)
     }
     
     // 시간 업데이트

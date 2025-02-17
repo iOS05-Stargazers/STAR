@@ -13,6 +13,7 @@ import RxCocoa
 import Then
 
 enum TimeType {
+    
     case startTime(starTime: StarTime)
     case endTime(starTime: StarTime)
     
@@ -65,8 +66,8 @@ final class StarEditViewController: UIViewController {
 // MARK: - Action
 
 extension StarEditViewController {
+    
     private func setModalAction() {
-        
         // 스타 이름 입력 텍스트필드
         starEditView.nameTextField.rx.text
             .withUnretained(self)
@@ -183,7 +184,6 @@ extension StarEditViewController {
 extension StarEditViewController {
     
     private func bind() {
-        
         // 텍스트 필드
         let name = starEditView.nameTextField.rx.text.orEmpty.skip(1).asObservable()
         let nameClear = starEditView.clearButton.rx.tap.asObservable()
@@ -272,8 +272,9 @@ extension StarEditViewController {
 
 // SwiftUI와 FamilyControls를 이용
 extension StarEditViewController {
+    
     private func appPicker() {
-        // MARK: - UIKit 기반인 ViewController에서 SwiftUI 기반의 View를 불러오기 위한 임시 변수
+        // UIKit 기반인 ViewController에서 SwiftUI 기반의 View를 불러오기 위한 임시 변수
         let tempIsPresentedBinding = Binding<Bool>(
             get: { [weak self] in self?.isFamilyActivityPickerPresented ?? .init() },
             set: { [weak self] in self?.isFamilyActivityPickerPresented = $0 }
@@ -289,8 +290,7 @@ extension StarEditViewController {
                                                   selection: tempSelectionBinding)
         )
         
-        // MARK: - hostingVC 설정 갱신을 통해 실제 구현
-        
+        // hostingVC 설정 갱신을 통해 실제 구현
         hostingVC.modalPresentationStyle = .overFullScreen
         hostingVC.view.backgroundColor = .clear
         

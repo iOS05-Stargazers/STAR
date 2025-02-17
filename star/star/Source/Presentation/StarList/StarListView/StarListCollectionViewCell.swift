@@ -19,7 +19,7 @@ final class StarListCollectionViewCell: UICollectionViewCell {
     static let id = "StarListCollectionViewCell"
     
     private var viewModel: StarListCollectionViewCellViewModel?
-    private var disposebag = DisposeBag()
+    private var disposeBag = DisposeBag()
 
     // 태그 뷰
     private let tagView = GradientView().then {
@@ -69,7 +69,7 @@ final class StarListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposebag = DisposeBag()
+        disposeBag = DisposeBag()
     }
     
     // MARK: - 레이아웃 설정
@@ -120,7 +120,6 @@ final class StarListCollectionViewCell: UICollectionViewCell {
     }
 }
 
-
 extension StarListCollectionViewCell {
     // 인스턴스 생성할 때 실행
     func configure(star: Star) {
@@ -138,14 +137,14 @@ extension StarListCollectionViewCell {
             .drive(with: self, onNext: { owner, time in
                 owner.timeLabel.text  = "\(time)"
             })
-            .disposed(by: disposebag)
+            .disposed(by: disposeBag)
         
         output.state
             .drive(with: self, onNext: { owner, state in
                 owner.applyStateStyle(state)
 
             })
-            .disposed(by: disposebag)
+            .disposed(by: disposeBag)
     }
     
     private func applyStateStyle(_ state: StarState.Style) {

@@ -11,6 +11,7 @@ import FamilyControls
 // MARK: - Star
 
 struct Star: JSONCodable {
+    
     let identifier: StarID
     let title: String
     let blockList: FamilyActivitySelection
@@ -19,25 +20,7 @@ struct Star: JSONCodable {
     func state() -> StarState {
         return StarState(schedule: self.schedule)
     }
-
 }
-
-
-extension Star: TestDescriptionConvertible {
-    var testDescription: String {
-        """
-        <Star>
-        ID: \(identifier.uuidString)
-        title: \(title)
-        blockList: \(blockList)
-        schedule:
-        \(schedule.testDescription)
-        """
-    }
-    
-}
-
-
 
 // MARK: - StarID
 

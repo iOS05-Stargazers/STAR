@@ -25,7 +25,6 @@ struct StarTime: Codable {
     func coreDataForm() -> String {
         StarTimeFormatter.convert(self)
     }
-    
 }
 
 // MARK: StarTime - init
@@ -42,12 +41,5 @@ extension StarTime {
         let starTime = StarTimeTranslator.starTime(by: description)
         self.hour = starTime.hour
         self.minute = starTime.minute
-    }
-    
-}
-
-extension StarTime: TestDescriptionConvertible {
-    var testDescription: String {
-        return self.coreDataForm()
     }
 }

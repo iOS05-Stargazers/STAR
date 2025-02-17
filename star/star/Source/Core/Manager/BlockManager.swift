@@ -49,7 +49,6 @@ struct BlockManager {
         }
         FamilyControlsManager().updateBlockList()
     }
-    
 }
 
 extension BlockManager {
@@ -71,5 +70,4 @@ extension BlockManager {
     func endRest() {
         deviceActivityCenter.stopMonitoring([.rest])
     }
-
 }
