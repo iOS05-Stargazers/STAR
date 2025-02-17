@@ -6,11 +6,20 @@
 //
 
 import UIKit
-import Then
 import RxSwift
 import RxCocoa
 
 final class OnboardingViewModel {
+    
+    private let disposeBag = DisposeBag()
+    
+    struct Input {
+        let skipTapped: Observable<Void>
+    }
+    
+    struct Output {
+        let skipTrigger: Driver<Void>
+    }
     
     let pages: [OnboardingModel] = [
         OnboardingModel(
@@ -32,5 +41,11 @@ final class OnboardingViewModel {
     ]
     
     let currentPage = BehaviorRelay<Int>(value: 0) // 초기 페이지 0
-    let closeEvent = PublishRelay<Void>() // 온보딩 닫기
+    
+    func transform(input: Input) -> Output {
+        let skipTrigger = input.skipTapped
+            .asDriver(onErrorDriveWith: .empty())
+        
+        return Output(skipTrigger: skipTrigger)
+    }
 }
