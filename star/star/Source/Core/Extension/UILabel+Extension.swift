@@ -1,5 +1,5 @@
 //
-//  UILabel+Star.swift
+//  UILabel+Extension.swift
 //  star
 //
 //  Created by Eden on 1/26/25.

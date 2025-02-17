@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AppLaunchViewController.swift
 //  test
 //
 //  Created by 0-jerry on 2/6/25.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FamilyControls
 
-final class SpaceViewController: UIViewController {
+final class AppLaunchViewController: UIViewController {
     
     private var starryNightView: StarryNightView!
     private var meteorEffectView: MeteorEffectView!

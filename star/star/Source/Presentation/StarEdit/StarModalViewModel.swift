@@ -1,5 +1,5 @@
 //
-//  StarModalViewModel.swift
+//  StarEditViewModel.swift
 //  star
 //
 //  Created by 안준경 on 1/27/25.
@@ -36,7 +36,7 @@ enum StarModalInputState {
     }
 }
 
-final class StarModalViewModel {
+final class StarEditViewModel {
     
     private let starManager = StarManager.shared
     
@@ -59,7 +59,7 @@ final class StarModalViewModel {
         case .create:
             print("")
         case .edit(let star):
-            starRelay.accept(star) // StarModalView에 데이터 방출
+            starRelay.accept(star) // StarEditView에 데이터 방출
             starName = star.title
             familyActivitySelection = star.blockList
             weekDays = star.schedule.weekDays
@@ -191,7 +191,7 @@ final class StarModalViewModel {
     
 }
 
-extension StarModalViewModel {
+extension StarEditViewModel {
     
     struct Input {
         let nameTextFieldInput: Observable<String>

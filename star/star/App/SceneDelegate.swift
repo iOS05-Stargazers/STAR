@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        navigationController.setViewControllers([SpaceViewController()], animated: true)
+        navigationController.setViewControllers([AppLaunchViewController()], animated: true)
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {

@@ -1,12 +1,41 @@
 //
-//  UserDefaults+RestTime.swift
+//  UserDefaults+Extension.swift
 //  star
 //
+//  Created by 0-jerry on 2/13/25.
+//  Created by Eden on 1/26/25.
 //  Created by 안준경 on 2/12/25.
 //
 
 import Foundation
 
+// MARK: - appGroups
+extension UserDefaults {
+    static let appGroups = {
+        guard let appGroups = UserDefaults(suiteName: "group.com.stargazers.star") else {
+            fatalError("App Groups UserDefaults None")
+        }
+        return appGroups
+    }()
+}
+
+// MARK: - isCoachMarkShown
+extension UserDefaults {
+    private enum Keys {
+        static let isCoachMarkShown = "isCoachMarkShown"
+    }
+    
+    var isCoachMarkShown: Bool {
+        get {
+            bool(forKey: Keys.isCoachMarkShown)
+        }
+        set {
+            set(newValue, forKey: Keys.isCoachMarkShown)
+        }
+    }
+}
+
+// MARK: - restEndTime
 extension UserDefaults {
     enum Key {
         static let restEndTime = "restEndTime"
@@ -42,3 +71,5 @@ extension UserDefaults {
     }
     
 }
+
+

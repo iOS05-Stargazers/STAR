@@ -213,8 +213,8 @@ extension StarListViewController {
     
     // 생성하기 모달 연결
     private func connectCreateModal(mode: StarModalMode) {
-        let modalViewModel = StarModalViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
-        let modalVC = StarModalViewController(viewModel: modalViewModel)
+        let modalViewModel = StarEditViewModel(mode: mode, refreshRelay: viewModel.refreshRelay)
+        let modalVC = StarEditViewController(viewModel: modalViewModel)
         modalVC.modalPresentationStyle = .custom
         modalVC.transitioningDelegate = self
         modalVC.view.layer.cornerRadius = 40

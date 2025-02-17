@@ -1,5 +1,5 @@
 //
-//  StarModalView.swift
+//  StarEditView.swift
 //  star
 //
 //  Created by 안준경 on 1/22/25.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class StarModalView: UIView {
+final class StarEditView: UIView {
     
     // MARK: - 모달 구성 UI
     
@@ -324,7 +324,7 @@ final class StarModalView: UIView {
 
 // MARK: - 데이터 설정
 
-extension StarModalView {
+extension StarEditView {
     
     func configure(star: Star) {
         titleLabel.text = "스타 수정"
