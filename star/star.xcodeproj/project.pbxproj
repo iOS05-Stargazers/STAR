@@ -24,20 +24,6 @@
 			remoteGlobalIDString = 233660F92D5DC25600C5F383;
 			remoteInfo = "DeviceActivityMonitor+Extension";
 		};
-		71F41EF62D3FC73500257988 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 71F41ED42D3FC73300257988 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71F41EDB2D3FC73300257988;
-			remoteInfo = star;
-		};
-		71F41F002D3FC73500257988 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 71F41ED42D3FC73300257988 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71F41EDB2D3FC73300257988;
-			remoteInfo = star;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,8 +44,6 @@
 		233660FA2D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DeviceActivityMonitor+Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		233660FC2D5DC25600C5F383 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		71F41EDC2D3FC73300257988 /* star.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = star.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		71F41EF52D3FC73500257988 /* starTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		71F41EFF2D3FC73500257988 /* starUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -125,16 +109,6 @@
 			path = star;
 			sourceTree = "<group>";
 		};
-		71F41EF82D3FC73500257988 /* starTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = starTests;
-			sourceTree = "<group>";
-		};
-		71F41F022D3FC73500257988 /* starUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = starUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,20 +132,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		71F41EF22D3FC73500257988 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EFC2D3FC73500257988 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -187,8 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				71F41EDE2D3FC73300257988 /* star */,
-				71F41EF82D3FC73500257988 /* starTests */,
-				71F41F022D3FC73500257988 /* starUITests */,
 				233660FE2D5DC25600C5F383 /* DeviceActivityMonitor+Extension */,
 				233660FB2D5DC25600C5F383 /* Frameworks */,
 				71F41EDD2D3FC73300257988 /* Products */,
@@ -199,8 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				71F41EDC2D3FC73300257988 /* star.app */,
-				71F41EF52D3FC73500257988 /* starTests.xctest */,
-				71F41EFF2D3FC73500257988 /* starUITests.xctest */,
 				233660FA2D5DC25600C5F383 /* DeviceActivityMonitor+Extension.appex */,
 			);
 			name = Products;
@@ -260,52 +216,6 @@
 			productReference = 71F41EDC2D3FC73300257988 /* star.app */;
 			productType = "com.apple.product-type.application";
 		};
-		71F41EF42D3FC73500257988 /* starTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 71F41F0D2D3FC73500257988 /* Build configuration list for PBXNativeTarget "starTests" */;
-			buildPhases = (
-				71F41EF12D3FC73500257988 /* Sources */,
-				71F41EF22D3FC73500257988 /* Frameworks */,
-				71F41EF32D3FC73500257988 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				71F41EF72D3FC73500257988 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				71F41EF82D3FC73500257988 /* starTests */,
-			);
-			name = starTests;
-			packageProductDependencies = (
-			);
-			productName = starTests;
-			productReference = 71F41EF52D3FC73500257988 /* starTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		71F41EFE2D3FC73500257988 /* starUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 71F41F102D3FC73500257988 /* Build configuration list for PBXNativeTarget "starUITests" */;
-			buildPhases = (
-				71F41EFB2D3FC73500257988 /* Sources */,
-				71F41EFC2D3FC73500257988 /* Frameworks */,
-				71F41EFD2D3FC73500257988 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				71F41F012D3FC73500257988 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				71F41F022D3FC73500257988 /* starUITests */,
-			);
-			name = starUITests;
-			packageProductDependencies = (
-			);
-			productName = starUITests;
-			productReference = 71F41EFF2D3FC73500257988 /* starUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -321,14 +231,6 @@
 					};
 					71F41EDB2D3FC73300257988 = {
 						CreatedOnToolsVersion = 16.1;
-					};
-					71F41EF42D3FC73500257988 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 71F41EDB2D3FC73300257988;
-					};
-					71F41EFE2D3FC73500257988 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 71F41EDB2D3FC73300257988;
 					};
 				};
 			};
@@ -352,8 +254,6 @@
 			projectRoot = "";
 			targets = (
 				71F41EDB2D3FC73300257988 /* star */,
-				71F41EF42D3FC73500257988 /* starTests */,
-				71F41EFE2D3FC73500257988 /* starUITests */,
 				233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */,
 			);
 		};
@@ -368,20 +268,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		71F41EDA2D3FC73300257988 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EF32D3FC73500257988 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EFD2D3FC73500257988 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -405,20 +291,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		71F41EF12D3FC73500257988 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		71F41EFB2D3FC73500257988 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -426,16 +298,6 @@
 			isa = PBXTargetDependency;
 			target = 233660F92D5DC25600C5F383 /* DeviceActivityMonitor+Extension */;
 			targetProxy = 233661032D5DC25600C5F383 /* PBXContainerItemProxy */;
-		};
-		71F41EF72D3FC73500257988 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 71F41EDB2D3FC73300257988 /* star */;
-			targetProxy = 71F41EF62D3FC73500257988 /* PBXContainerItemProxy */;
-		};
-		71F41F012D3FC73500257988 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 71F41EDB2D3FC73300257988 /* star */;
-			targetProxy = 71F41F002D3FC73500257988 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -691,78 +553,6 @@
 			};
 			name = Release;
 		};
-		71F41F0E2D3FC73500257988 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/star.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/star";
-			};
-			name = Debug;
-		};
-		71F41F0F2D3FC73500257988 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/star.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/star";
-			};
-			name = Release;
-		};
-		71F41F112D3FC73500257988 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = star;
-			};
-			name = Debug;
-		};
-		71F41F122D3FC73500257988 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZNFG9P6YH;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.starUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = star;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -789,24 +579,6 @@
 			buildConfigurations = (
 				71F41F092D3FC73500257988 /* Debug */,
 				71F41F0A2D3FC73500257988 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		71F41F0D2D3FC73500257988 /* Build configuration list for PBXNativeTarget "starTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				71F41F0E2D3FC73500257988 /* Debug */,
-				71F41F0F2D3FC73500257988 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		71F41F102D3FC73500257988 /* Build configuration list for PBXNativeTarget "starUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				71F41F112D3FC73500257988 /* Debug */,
-				71F41F122D3FC73500257988 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
