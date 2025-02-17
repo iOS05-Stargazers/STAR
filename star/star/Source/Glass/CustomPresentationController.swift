@@ -119,9 +119,17 @@ extension CustomPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         
-        //TODO: 디바이스 별 모달 높이 비율이 동일하게 수정 필요
-        let height: CGFloat = 638
+        // 모달 기본 높이
+        var height: CGFloat = 610
         
+        // safeArea의 최상단 Y좌표
+        let safeAreaCheck = containerView.safeAreaLayoutGuide.layoutFrame.minY
+        
+        // iPhone SE
+        if safeAreaCheck <= 20 {
+            height = 560
+        }
+                
         return CGRect(x: 0,
                       y: containerView.bounds.height - height,
                       width: containerView.bounds.width,
