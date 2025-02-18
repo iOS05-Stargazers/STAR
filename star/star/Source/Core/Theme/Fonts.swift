@@ -8,7 +8,6 @@
 import UIKit.UIFont
 
 struct Fonts {
-    
     /// 앱 메인 로고 "STAR" / size : 24 / bold
     static let mainLogo = UIFont(name: "SEBANGGothicOTFBold", size: 24)
     /// 메인 로고 하단에 위치하는 오늘 일자 / size : 16 / semibold
