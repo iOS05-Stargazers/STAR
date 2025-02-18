@@ -58,8 +58,6 @@ final class OnboardingCollectionView: UIView {
     private func setupUI() {
         addSubviews(collectionView, skipButton, pageControl)
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         
         collectionView.snp.makeConstraints {
@@ -82,12 +80,29 @@ final class OnboardingCollectionView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = collectionView.bounds.size
+        }
     }
     
     // MARK: - Bind ViewModel
     
     func bind(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
+        
+        /// 페이지 개수를 UIPageControl에 바인딩
+        viewModel.pages
+            .map { $0.count }
+            .bind(to: pageControl.rx.numberOfPages)
+            .disposed(by: disposeBag)
+        
+        /// 컬렉션 뷰에 데이터 바인딩
+        viewModel.pages
+            .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCell.identifier, cellType: OnboardingCell.self)) { _, page, cell in
+                cell.configure(with: page)
+            }
+            .disposed(by: disposeBag)
         
         /// 사용자가 스크롤을 멈추면 현재 페이지를 감지하여 업데이트
         let pageChangedObservable = collectionView.rx.didEndDecelerating
@@ -109,17 +124,20 @@ final class OnboardingCollectionView: UIView {
         
         /// 현재 페이지가 변경되면 컬렉션 뷰를 해당 페이지로 스크롤
         output.currentPage
-            .drive(with: self, onNext: { owner, page in
-                owner.collectionView.scrollToItem(
+            .withLatestFrom(viewModel.pages.asDriver(onErrorDriveWith: .empty())) { ($0, $1) }
+            .drive(onNext: { [weak self] page, pages in
+                guard let self = self else { return }
+                
+                self.collectionView.scrollToItem(
                     at: IndexPath(item: page, section: 0),
                     at: .centeredHorizontally,
                     animated: true
                 )
-                owner.pageControl.currentPage = page
+                self.pageControl.currentPage = page
                 
                 // 마지막 페이지에서 skipButton 문구 변경
-                let isLastPage = page == (owner.viewModel?.pages.count ?? 1) - 1
-                owner.skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
+                let isLastPage = page == pages.count - 1
+                self.skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
             })
             .disposed(by: disposeBag)
         
@@ -130,34 +148,34 @@ final class OnboardingCollectionView: UIView {
     }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
-
-extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.pages.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
-        guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
-        cell.configure(with: pageData)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
-    }
-    
-    /// 사용자의 스와이프 종료 시 페이지 업데이트 (중복 방지)
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageIndex = Int(round(targetContentOffset.pointee.x / scrollView.frame.width))
-        if viewModel?.currentPage.value != pageIndex {
-            viewModel?.currentPage.accept(pageIndex)
-        }
-    }
-}
+//// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+//
+//extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return viewModel?.pages.count ?? 0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
+//        guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
+//        cell.configure(with: pageData)
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets.zero
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+//    }
+//
+//    /// 사용자의 스와이프 종료 시 페이지 업데이트 (중복 방지)
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        let pageIndex = Int(round(targetContentOffset.pointee.x / scrollView.frame.width))
+//        if viewModel?.currentPage.value != pageIndex {
+//            viewModel?.currentPage.accept(pageIndex)
+//        }
+//    }
+//}
