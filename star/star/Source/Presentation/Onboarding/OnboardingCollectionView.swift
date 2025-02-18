@@ -2,11 +2,9 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
-import RxCocoa
 
 final class OnboardingCollectionView: UIView {
     
-    var pages: [OnboardingModel] = []
     private let disposeBag = DisposeBag()
     
     // MARK: - UI Components
@@ -33,7 +31,7 @@ final class OnboardingCollectionView: UIView {
         return collectionView
     }()
     
-    private let pageControl = UIPageControl().then {
+    let pageControl = UIPageControl().then {
         $0.currentPageIndicatorTintColor = .starButtonPurple
         $0.pageIndicatorTintColor = .starPrimaryText
     }
@@ -84,22 +82,16 @@ final class OnboardingCollectionView: UIView {
     
     // MARK: - UI Update
     
-    func updatePageCount(_ count: Int) {
-        pageControl.numberOfPages = count
-    }
-    
-    func updatePages(_ pages: [OnboardingModel]) {
-        self.pages = pages
-        collectionView.reloadData()
-    }
-    
-    func updateCurrentPage(page: Int) {
-        guard !pages.isEmpty, page < pages.count, collectionView.numberOfItems(inSection: 0) > 0 else { return }
-        
+    func scrollToItem(at page: Int) {
+        guard collectionView.numberOfItems(inSection: 0) > page else { return }
         collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: true)
+    }
+    
+    func updatePageControl(_ page: Int) {
         pageControl.currentPage = page
-        
-        let isLastPage = page == pageControl.numberOfPages - 1
+    }
+    
+    func updateSkipButtonText(isLastPage: Bool) {
         skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
     }
 }
