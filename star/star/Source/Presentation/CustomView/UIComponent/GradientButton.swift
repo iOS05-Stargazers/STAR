@@ -22,7 +22,7 @@ class GradientButton: UIButton, GradientApplicable {
         super.init(frame: frame)
         // 버튼 탭 시 진동
         self.rx.tap.subscribe(onNext: {
-            HapticManager.shared.play(1, style: .impact(.heavy))
+            HapticManager.shared.play(1, style: .impact(.soft))
         }).disposed(by: disposeBag)
     }
     

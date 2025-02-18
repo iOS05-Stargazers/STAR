@@ -85,6 +85,7 @@ extension StarListViewController {
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.connectRestStartModal()
+                HapticManager.shared.play(1, style: .impact(.soft))
             })
             .disposed(by: disposeBag)
         
