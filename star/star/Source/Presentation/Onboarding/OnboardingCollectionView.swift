@@ -147,3 +147,4 @@ final class OnboardingCollectionView: UIView {
             .disposed(by: disposeBag)
     }
 }
+
