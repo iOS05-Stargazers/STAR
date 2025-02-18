@@ -10,6 +10,7 @@ import UIKit.UIFont
 extension UIFont {
     
     enum System {
+        static let semibold12 = UIFont.systemFont(ofSize: 12, weight: .semibold)
         // size: 14
         static let semibold14 = UIFont.systemFont(ofSize: 14, weight: .semibold)
         // size: 16
@@ -32,6 +33,8 @@ extension UIFont {
     
     enum MonospacedDigitSystem {
         static let semibold14 = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .semibold)
+        static let regular32 = UIFont.monospacedSystemFont(ofSize: 32, weight: .regular)
+        static let light80 = UIFont.monospacedDigitSystemFont(ofSize: 80, weight: .light)
     }
     
 }

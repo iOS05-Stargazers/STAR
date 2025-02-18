@@ -20,7 +20,7 @@ final class RestSettingModalViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "휴식하기"
-        $0.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        $0.font = UIFont.System.semibold24
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
