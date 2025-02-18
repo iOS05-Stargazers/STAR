@@ -147,35 +147,3 @@ final class OnboardingCollectionView: UIView {
             .disposed(by: disposeBag)
     }
 }
-
-//// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
-//
-//extension OnboardingCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel?.pages.count ?? 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
-//        guard let pageData = viewModel?.pages[indexPath.item] else { return cell }
-//        cell.configure(with: pageData)
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets.zero
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
-//    }
-//
-//    /// 사용자의 스와이프 종료 시 페이지 업데이트 (중복 방지)
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        let pageIndex = Int(round(targetContentOffset.pointee.x / scrollView.frame.width))
-//        if viewModel?.currentPage.value != pageIndex {
-//            viewModel?.currentPage.accept(pageIndex)
-//        }
-//    }
-//}
