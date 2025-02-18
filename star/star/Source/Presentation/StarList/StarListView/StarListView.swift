@@ -69,6 +69,15 @@ final class StarListView: UIView {
     // 토스트 메세지 뷰
     let toastMessageView = ToastMessageView()
     
+    // 스타 없을 경우 보여지는 라벨
+    let noStarLabel = UILabel().then {
+        $0.text = "아직 스타가 없습니다.\n스타를 생성해주세요!"
+        $0.numberOfLines = 2
+        $0.font = Fonts.starTitle
+        $0.textColor = .starSecondaryText70
+        //$0.isHidden = true
+    }
+    
     // MARK: - 초기화
     
     override init(frame: CGRect) {
@@ -90,6 +99,7 @@ final class StarListView: UIView {
             topView,
             starListCollectionView,
             restView,
+            noStarLabel,
             toastMessageView,
             addStarButton
         ].forEach { addSubview($0) }
@@ -165,6 +175,10 @@ final class StarListView: UIView {
         toastMessageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
+        }
+        
+        noStarLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)

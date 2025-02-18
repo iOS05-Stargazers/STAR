@@ -53,6 +53,12 @@ extension StarListViewController {
         
         // 컬렉션뷰 데이터 바인딩
         output.starDataSource
+            .do(onNext: { [weak self] star in
+                guard let self = self else { return }
+                let starIsEmpty = star.isEmpty ? false : true
+                // 스타가 없으면 스타없음라벨 활성화
+                self.starListView.noStarLabel.isHidden = starIsEmpty
+            })
             .drive(starListView.starListCollectionView.rx.items(
                 cellIdentifier: StarListCollectionViewCell.id,
                 cellType: StarListCollectionViewCell.self)) { row, element, cell in

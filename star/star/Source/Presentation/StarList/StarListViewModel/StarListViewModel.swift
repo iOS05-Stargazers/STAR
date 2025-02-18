@@ -17,7 +17,6 @@ enum StarModalState {
     case resting
 }
 
-// 셀 뷰모델
 enum CreationAvailability {
     
     case available
