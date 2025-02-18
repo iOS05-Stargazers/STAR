@@ -75,7 +75,7 @@ final class StarListView: UIView {
         $0.numberOfLines = 2
         $0.font = Fonts.starTitle
         $0.textColor = .starSecondaryText70
-        //$0.isHidden = true
+        $0.isHidden = true
     }
     
     // MARK: - 초기화

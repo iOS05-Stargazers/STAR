@@ -17,22 +17,32 @@ enum StarModalState {
     case resting
 }
 
+enum Mode {
+    case create // 스타 추가하기
+    case rest // 휴식
+}
+
 enum CreationAvailability {
     
-    case available
-    case unavailable
+    case available(state: Mode)
+    case unavailable(state: Mode)
     
-    var text: String? {
+    var message: String? {
         switch self {
         case .available:
-            return nil
-        case .unavailable:
-            return "최대 15개의 스타를 저장할 수 있어요."
+            return nil // 가능할 때는 메시지가 필요 없음
+        case .unavailable(let mode):
+            switch mode {
+            case .create:
+                return "최대 15개의 스타를 저장할 수 있어요."
+            case .rest:
+                return "휴식할 수 있는 스타가 없어요."
+            }
         }
     }
 }
 
-// 셀 뷰모델   
+// 셀 뷰모델
 final class StarListViewModel {
     
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
@@ -115,8 +125,15 @@ final class StarListViewModel {
     }
     
     // 생성 가능 여부 업데이트
-    private func updateCreationAvailability() {
-        let result: CreationAvailability = starsRelay.value.count > 14 ? .unavailable : .available
+    private func updateCreationAvailability(mode: Mode) {
+        let result: CreationAvailability
+        
+        if mode == .create {
+            result = starsRelay.value.count > 14 ? .unavailable(state: mode) : .available(state: mode)
+        } else {
+            result = starsRelay.value.isEmpty ? .unavailable(state: mode) : .available(state: mode)
+        }
+        
         creationAvailabilityRelay.accept(result)
     }
 }
@@ -126,6 +143,7 @@ extension StarListViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let addButtonTapped: Observable<Void>
+        let restButtonTapped: Observable<Void>
         let deleteAction: PublishSubject<Int>
     }
     
@@ -173,7 +191,14 @@ extension StarListViewModel {
             .withUnretained(self)
             .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { _ in
-                self.updateCreationAvailability()
+                self.updateCreationAvailability(mode: .create)
+            }).disposed(by: disposeBag)
+        
+        input.restButtonTapped
+            .withUnretained(self)
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { _ in
+                self.updateCreationAvailability(mode: .rest)
             }).disposed(by: disposeBag)
         
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),

@@ -45,9 +45,11 @@ extension StarListViewController {
     private func bind() {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
+        let restButtonTapped = starListView.restButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
             addButtonTapped: addButtonTapped,
+            restButtonTapped: restButtonTapped,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
         
@@ -85,21 +87,6 @@ extension StarListViewController {
                 owner.connectModal(thisModal)
             })
             .disposed(by: disposeBag)
-        
-        // 휴식 버튼 이벤트 처리
-        starListView.restButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectRestStartModal()
-            })
-            .disposed(by: disposeBag)
-        
-        // 추가하기 버튼 이벤트 처리
-        starListView.addStarButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectCreateModal(mode: .create)
-            }).disposed(by: disposeBag)
         
         // 생성 가능 여부 바인딩
         output.creationAvailability
@@ -223,10 +210,14 @@ extension StarListViewController {
     // 생성 가능 여부 처리
     private func handleCreationAvailability(_ result: CreationAvailability) {
         switch result {
-        case .available:
-            connectCreateModal(mode: .create)
+        case .available(let state):
+            if state == .create {
+                connectCreateModal(mode: .create)
+            } else {
+                connectRestStartModal()
+            }
         case .unavailable:
-            guard let text = result.text else { return }
+            guard let text = result.message else { return }
             self.starListView.toastMessageView.showToastMessage(text)
         }
     }
