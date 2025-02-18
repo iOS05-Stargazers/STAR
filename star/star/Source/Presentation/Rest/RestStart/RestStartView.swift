@@ -28,7 +28,7 @@ final class RestStartView: UIView {
 스스로 선택할 때 더욱 빛나요.
 """
         $0.numberOfLines = 2
-        $0.font = Fonts.starTitle
+        $0.font = UIFont.System.semibold20
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.textAlignment = .center
         $0.textColor = .starButtonWhite
@@ -54,7 +54,7 @@ final class RestStartView: UIView {
     let cancelButton = GradientButton(type: .system).then {
         $0.setTitle("취소하기", for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true

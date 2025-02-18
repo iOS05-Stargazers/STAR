@@ -15,7 +15,7 @@ final class PermissionView: UIView {
     
     private let titleLabel = UILabel().then {
         $0.text = "스크린타임 권한을 설정해주세요."
-        $0.font = Fonts.permissionTitle
+        $0.font = UIFont.System.bold24
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
@@ -25,7 +25,7 @@ final class PermissionView: UIView {
             fullText: """
                 S T A R 가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.
                 """,
-            font: Fonts.permissionBody,
+            font: UIFont.System.semibold16,
             color: UIColor.starSecondaryText
         )
         $0.textAlignment = .center
@@ -34,7 +34,7 @@ final class PermissionView: UIView {
     
     private let footerLabel = UILabel().then {
         $0.text = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다."
-        $0.font = Fonts.permissionBody
+        $0.font = UIFont.System.semibold16
         $0.textColor = .starSecondaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0

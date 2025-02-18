@@ -34,7 +34,7 @@ final class RestingViewController: UIViewController {
     
     private let endRestButton = GradientButton().then {
         $0.setTitle("휴식 종료하기", for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
