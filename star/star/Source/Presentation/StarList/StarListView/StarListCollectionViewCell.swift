@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import Then
 import SnapKit
+import Then
 import RxSwift
-import RxRelay
-import RxCocoa
 
 final class StarListCollectionViewCell: UICollectionViewCell {
     

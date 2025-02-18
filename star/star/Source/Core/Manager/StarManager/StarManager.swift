@@ -5,8 +5,6 @@
 //  Created by 0-jerry on 1/30/25.
 //
 
-import Foundation
-
 final class StarManager {
     
     static let shared = StarManager()

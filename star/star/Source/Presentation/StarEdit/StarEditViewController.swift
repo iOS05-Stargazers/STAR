@@ -10,7 +10,6 @@ import SwiftUI
 import FamilyControls
 import RxSwift
 import RxCocoa
-import Then
 
 enum TimeType {
     
