@@ -130,7 +130,9 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 - Provide an easy yet safe deletion feature that combines simple swipe actions with custom alerts.
 - Ensure compatibility with small-screen iPhones through Auto Layout and thoughtfully sized buttons for enhanced usability.
 
-## 📦 How to Install  
+## 📦 How to Install 
+(WIP for release in App Store)
+
 1. Clone this repository:  
    ```bash  
    git clone https://github.com/iOS05-Stargazers/STAR.git
