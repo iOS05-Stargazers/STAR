@@ -7,7 +7,38 @@
 
 import UIKit.UIFont
 
+extension UIFont {
+    
+    enum System {
+        // size: 14
+        static let semibold14 = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        // size: 16
+        static let regular16 = UIFont.systemFont(ofSize: 16, weight: .regular)
+        static let medium16 = UIFont.systemFont(ofSize: 16, weight: .medium)
+        static let semibold16 = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        static let black16 = UIFont.systemFont(ofSize: 16, weight: .black)
+        // size: 20
+        static let semibold20 = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        // size: 22
+        static let bold22 = UIFont.systemFont(ofSize: 22, weight: .bold)
+        // size: 24
+        static let semibold24 = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        static let bold24 = UIFont.systemFont(ofSize: 24, weight: .bold)
+    }
+    
+    enum SebangGothic {
+        static let bold24 = UIFont(name: "SEBANGGothicOTFBold", size: 24)
+    }
+    
+    enum MonospacedDigitSystem {
+        static let semibold14 = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .semibold)
+    }
+    
+}
+//SebangGothic.bold24
 struct Fonts {
+
+//    UIFont.System.
     /// 앱 메인 로고 "STAR" / size : 24 / bold
     static let mainLogo = UIFont(name: "SEBANGGothicOTFBold", size: 24)
     /// 메인 로고 하단에 위치하는 오늘 일자 / size : 16 / semibold
