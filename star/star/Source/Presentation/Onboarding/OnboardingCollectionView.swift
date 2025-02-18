@@ -33,12 +33,10 @@ final class OnboardingCollectionView: UIView {
     }()
     
     private let pageControl = UIPageControl().then {
-        //        $0.numberOfPages = 4
         $0.currentPageIndicatorTintColor = .starButtonPurple
         $0.pageIndicatorTintColor = .starPrimaryText
     }
     
-    //    let skipTapped = PublishRelay<Void>()
     let pageChanged = PublishRelay<Int>()
     
     // MARK: - Init
@@ -114,19 +112,19 @@ final class OnboardingCollectionView: UIView {
         currentPage
             .withLatestFrom(pages.asDriver(onErrorDriveWith: .empty())) { ($0, $1) }
             .asDriver(onErrorDriveWith: .empty())
-            .drive(onNext: { [weak self] page, pages in
-                guard let self = self else { return }
+            .drive(with: self, onNext: { owner, values in
+                let (page, pages) = values
                 
-                self.collectionView.scrollToItem(
+                owner.collectionView.scrollToItem(
                     at: IndexPath(item: page, section: 0),
                     at: .centeredHorizontally,
                     animated: true
                 )
-                self.pageControl.currentPage = page
+                owner.pageControl.currentPage = page
                 
                 // 마지막 페이지에서 skipButton 문구 변경
                 let isLastPage = page == pages.count - 1
-                self.skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
+                owner.skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
             })
             .disposed(by: disposeBag)
         
