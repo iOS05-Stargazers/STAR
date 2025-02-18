@@ -118,7 +118,7 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 
 #### Switch to Break Mode
 - Even while a Star is active, users can temporarily disable the Screen Time feature for up to 20 minutes.
-- A user-friendly flow encourages a balanced digital lifestyle.1
+- A user-friendly flow encourages a balanced digital lifestyle.
 
 ## ✨ Considerations
 #### Capabilities
