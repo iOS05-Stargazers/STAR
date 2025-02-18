@@ -29,7 +29,7 @@ final class OnboardingViewModel {
         let currentPage: Driver<Int>
     }
     
-    let pages: [OnboardingModel] = [
+    let pages = BehaviorRelay<[OnboardingModel]>(value: [
         OnboardingModel(
             image: UIImage.onboardingCreate,
             description: "\"스타 추가하기\"를 통해\n스타를 생성할 수 있습니다."
@@ -46,7 +46,7 @@ final class OnboardingViewModel {
             image: UIImage.onboardingRest,
             description: "휴식 버튼을 누르면\n휴식 모드로 전환할 수 있습니다."
         )
-    ]
+    ])
     
     let currentPage = BehaviorRelay<Int>(value: 0) // 초기 페이지 0
     private let skipRelay = PublishRelay<Void>()
