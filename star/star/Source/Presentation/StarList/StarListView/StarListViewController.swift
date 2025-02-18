@@ -150,6 +150,8 @@ extension StarListViewController {
     
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
+        // 삭제 알럿 띄울 시 진동
+        HapticManager.shared.play(1, style: .impact(.soft))
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
