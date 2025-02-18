@@ -6,6 +6,7 @@ import RxCocoa
 
 final class OnboardingCollectionView: UIView {
     
+    var pages: [OnboardingModel] = []
     private let disposeBag = DisposeBag()
     
     // MARK: - UI Components
@@ -18,7 +19,7 @@ final class OnboardingCollectionView: UIView {
         $0.contentHorizontalAlignment = .right
     }
     
-    private let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
@@ -36,8 +37,6 @@ final class OnboardingCollectionView: UIView {
         $0.currentPageIndicatorTintColor = .starButtonPurple
         $0.pageIndicatorTintColor = .starPrimaryText
     }
-    
-    let pageChanged = PublishRelay<Int>()
     
     // MARK: - Init
     
@@ -83,55 +82,24 @@ final class OnboardingCollectionView: UIView {
         }
     }
     
-    // MARK: - Bind
+    // MARK: - UI Update
     
-    func bind(pages: BehaviorRelay<[OnboardingModel]>, currentPage: BehaviorRelay<Int>, skipTapped: PublishRelay<Void>) {
-        /// 페이지 개수를 UIPageControl에 바인딩
-        pages
-            .map { $0.count }
-            .bind(to: pageControl.rx.numberOfPages)
-            .disposed(by: disposeBag)
+    func updatePageCount(_ count: Int) {
+        pageControl.numberOfPages = count
+    }
+    
+    func updatePages(_ pages: [OnboardingModel]) {
+        self.pages = pages
+        collectionView.reloadData()
+    }
+    
+    func updateCurrentPage(page: Int) {
+        guard !pages.isEmpty, page < pages.count, collectionView.numberOfItems(inSection: 0) > 0 else { return }
         
-        /// 컬렉션 뷰에 데이터 바인딩
-        pages
-            .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCell.identifier, cellType: OnboardingCell.self)) { _, page, cell in
-                cell.configure(with: page)
-            }
-            .disposed(by: disposeBag)
+        collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: true)
+        pageControl.currentPage = page
         
-        /// 사용자가 스크롤을 멈추면 현재 페이지를 감지하여 업데이트
-        let pageChangedObservable = collectionView.rx.didEndDecelerating
-            .map { [weak self] in
-                guard let self = self else { return 0 }
-                let pageIndex = Int(round(self.collectionView.contentOffset.x / self.collectionView.frame.width))
-                return pageIndex
-            }
-            .distinctUntilChanged()
-        
-        /// 현재 페이지가 변경되면 컬렉션 뷰를 해당 페이지로 스크롤
-        currentPage
-            .withLatestFrom(pages.asDriver(onErrorDriveWith: .empty())) { ($0, $1) }
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(with: self, onNext: { owner, values in
-                let (page, pages) = values
-                
-                owner.collectionView.scrollToItem(
-                    at: IndexPath(item: page, section: 0),
-                    at: .centeredHorizontally,
-                    animated: true
-                )
-                owner.pageControl.currentPage = page
-                
-                // 마지막 페이지에서 skipButton 문구 변경
-                let isLastPage = page == pages.count - 1
-                owner.skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
-            })
-            .disposed(by: disposeBag)
-        
-        /// 사용자가 스크롤하면 현재 페이지를 감지하여 Relay에 전달
-        pageChangedObservable
-            .bind(to: pageChanged)
-            .disposed(by: disposeBag)
+        let isLastPage = page == pageControl.numberOfPages - 1
+        skipButton.setTitle(isLastPage ? "시작하기" : "건너뛰기", for: .normal)
     }
 }
-

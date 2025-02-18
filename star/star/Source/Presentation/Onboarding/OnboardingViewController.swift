@@ -46,21 +46,35 @@ final class OnboardingViewController: UIViewController {
     // MARK: - Bind ViewModel
     
     private func bind() {
-        collectionView.bind(
-            pages: viewModel.pages,
-            currentPage: viewModel.currentPage,
-            skipTapped: viewModel.skipRelay
-        )
-        
         let input = OnboardingViewModel.Input(
             skipTapped: collectionView.skipButton.rx.tap.asObservable(),
-            pageChanged: collectionView.pageChanged.asObservable()
+            pageChanged: collectionView.collectionView.rx.didEndDecelerating
+                .map { [weak self] in
+                    guard let self = self else { return 0 }
+                    return Int(round(self.collectionView.collectionView.contentOffset.x / self.collectionView.collectionView.frame.width))
+                }
+                .distinctUntilChanged()
         )
         
         let output = viewModel.transform(input: input)
         
+        viewModel.pages
+            .withUnretained(self)
+            .subscribe(onNext: { owner, pages in
+                owner.collectionView.updatePageCount(pages.count)
+                owner.collectionView.updatePages(pages)
+            })
+            .disposed(by: disposeBag)
+        
+        output.currentPage
+            .drive(with: self,onNext: { owner, page in
+                guard owner.collectionView.pages.count > 0 else { return }
+                owner.collectionView.updateCurrentPage(page: page)
+            })
+            .disposed(by: disposeBag)
+        
         output.skipTrigger
-            .drive(with: self, onNext: { owner, _ in
+            .drive(with: self,onNext: { owner, _ in
                 owner.navigateToStarList()
             })
             .disposed(by: disposeBag)
