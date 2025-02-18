@@ -72,13 +72,34 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 
 ## 📂 Folder Organization
 ```bash
-── star                    // Main target of the project
-│   ├── App
+├── star                       // Main App of the project
+│   ├── App                    // Metadata, Entitlement, Lifecycle
 │   ├── Resource
 │   └── Source
-├── ShieldConfiguration    // Target for customizing the Screen Time screen that restricts app usage
-├── ShieldAction           // Target for managing the methods invoked from the Screen Time screen that restricts app usage
-└── DeviceActivityMonitor  // Target for managing the methods invoked according to the created Screen Time schedule
+│        ├── Core
+│        │    ├── Extension    // Extensions for DeviceActivityName, FamilyActivitySelection, UserDefaults, etc.
+│        │    ├── Manager
+│        │    │    ├── StarManager           // (UserDefaults)
+│        │    │    ├── BlockManager          // (DeviceActivity)
+│        │    │    ├── FamilyControlsManager // (FamilyControls, ManagedSettings)
+│        │    │    └── NotificationManager   // (UserNotifications)
+│        │    └── Theme
+│        ├── Model
+│        │    ├── Star
+│        │    ├── StarListModel
+│        │    └── StarState
+│        └── Presentation      // Views, ViewModels
+│             ├── AppLaunch
+│             ├── CustomView   // CustomViews, including common UI components
+│             ├── Onboarding
+│             ├── Permission
+│             ├── Rest
+│             ├── StarDeleteAlert
+│             ├── StarEdit
+│             └── StarListI
+├── ShieldConfiguration        // App Extension for customizing the Screen Time screen that restricts app usage
+├── ShieldAction               // App Extension for managing the methods invoked from the Screen Time screen that restricts app usage
+└── DeviceActivityMonitor      // App Extension for managing the methods invoked according to the created Screen Time schedule
 ```
 
 ## 🖼️ Preview
@@ -94,7 +115,7 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 
 #### Switch to Break Mode
 - Even while a Star is active, users can temporarily disable the Screen Time feature for up to 20 minutes.
-- A user-friendly flow encourages a balanced digital lifestyle.
+- A user-friendly flow encourages a balanced digital lifestyle.1
 
 ## ✨ Considerations
 #### Capabilities
