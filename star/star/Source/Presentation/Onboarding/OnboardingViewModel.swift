@@ -48,8 +48,8 @@ final class OnboardingViewModel {
         )
     ])
     
-    private let currentPage = BehaviorRelay<Int>(value: 0) // 초기 페이지 0
-    private let skipRelay = PublishRelay<Void>()
+    let currentPage = BehaviorRelay<Int>(value: 0) // 초기 페이지 0
+    let skipRelay = PublishRelay<Void>()
     
     func transform(input: Input) -> Output {
         input.pageChanged

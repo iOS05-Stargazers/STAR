@@ -37,14 +37,20 @@ final class OnboardingViewController: UIViewController {
     // MARK: - Bind ViewModel
     
     private func bind() {
-        collectionView.bind(viewModel: viewModel)
+        collectionView.bind(
+            pages: viewModel.pages,
+            currentPage: viewModel.currentPage,
+            skipTapped: viewModel.skipRelay
+        )
         
-        viewModel.transform(
-            input: OnboardingViewModel.Input(
-                skipTapped: collectionView.skipButton.rx.tap.asObservable(),
-                pageChanged: collectionView.pageChanged.asObservable()
-            )
-        ).skipTrigger
+        let input = OnboardingViewModel.Input(
+            skipTapped: collectionView.skipButton.rx.tap.asObservable(),
+            pageChanged: collectionView.pageChanged.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.skipTrigger
             .drive(with: self, onNext: { owner, _ in
                 owner.navigateToStarList()
             })

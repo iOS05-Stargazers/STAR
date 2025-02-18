@@ -7,7 +7,6 @@ import RxCocoa
 final class OnboardingCollectionView: UIView {
     
     private let disposeBag = DisposeBag()
-    var viewModel: OnboardingViewModel?
     
     // MARK: - UI Components
     
@@ -34,12 +33,12 @@ final class OnboardingCollectionView: UIView {
     }()
     
     private let pageControl = UIPageControl().then {
-        $0.numberOfPages = 4
+        //        $0.numberOfPages = 4
         $0.currentPageIndicatorTintColor = .starButtonPurple
         $0.pageIndicatorTintColor = .starPrimaryText
     }
     
-    let skipTapped = PublishRelay<Void>()
+    //    let skipTapped = PublishRelay<Void>()
     let pageChanged = PublishRelay<Int>()
     
     // MARK: - Init
@@ -88,17 +87,15 @@ final class OnboardingCollectionView: UIView {
     
     // MARK: - Bind ViewModel
     
-    func bind(viewModel: OnboardingViewModel) {
-        self.viewModel = viewModel
-        
+    func bind(pages: BehaviorRelay<[OnboardingModel]>, currentPage: BehaviorRelay<Int>, skipTapped: PublishRelay<Void>) {
         /// 페이지 개수를 UIPageControl에 바인딩
-        viewModel.pages
+        pages
             .map { $0.count }
             .bind(to: pageControl.rx.numberOfPages)
             .disposed(by: disposeBag)
         
         /// 컬렉션 뷰에 데이터 바인딩
-        viewModel.pages
+        pages
             .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCell.identifier, cellType: OnboardingCell.self)) { _, page, cell in
                 cell.configure(with: page)
             }
@@ -113,18 +110,10 @@ final class OnboardingCollectionView: UIView {
             }
             .distinctUntilChanged()
         
-        /// Input: View에서 발생한 이벤트를 ViewModel로 전달
-        let input = OnboardingViewModel.Input(
-            skipTapped: skipButton.rx.tap.asObservable(),
-            pageChanged: pageChangedObservable
-        )
-        
-        /// Output: ViewModel에서 가공된 데이터를 View에 반영
-        let output = viewModel.transform(input: input)
-        
         /// 현재 페이지가 변경되면 컬렉션 뷰를 해당 페이지로 스크롤
-        output.currentPage
-            .withLatestFrom(viewModel.pages.asDriver(onErrorDriveWith: .empty())) { ($0, $1) }
+        currentPage
+            .withLatestFrom(pages.asDriver(onErrorDriveWith: .empty())) { ($0, $1) }
+            .asDriver(onErrorDriveWith: .empty())
             .drive(onNext: { [weak self] page, pages in
                 guard let self = self else { return }
                 
