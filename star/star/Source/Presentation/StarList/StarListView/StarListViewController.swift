@@ -131,7 +131,7 @@ extension StarListViewController {
     private func connectModal(_ modal: StarModalState) {
         switch modal {
         case .onboarding:
-            connnectOnboarding()
+            connectOnboarding()
         case .restSetting:
             connectRestSettingModal()
         case .restStart:
@@ -151,7 +151,7 @@ extension StarListViewController {
     }
     
     // 온보딩 모달 연결
-    private func connnectOnboarding() {
+    private func connectOnboarding() {
         let onboardingViewController = OnboardingViewController()
         onboardingViewController.modalPresentationStyle = .overFullScreen
         present(onboardingViewController, animated: false)
