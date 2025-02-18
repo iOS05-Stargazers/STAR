@@ -89,7 +89,7 @@ extension StarListViewController {
             .disposed(by: disposeBag)
         
         // 생성 가능 여부 바인딩
-        output.creationAvailability
+        output.availability
             .drive(with:self, onNext: { owner, result in
                 owner.handleCreationAvailability(result)
             })
@@ -208,7 +208,7 @@ extension StarListViewController {
     }
     
     // 생성 가능 여부 처리
-    private func handleCreationAvailability(_ result: CreationAvailability) {
+    private func handleCreationAvailability(_ result: Availability) {
         switch result {
         case .available(let state):
             if state == .create {

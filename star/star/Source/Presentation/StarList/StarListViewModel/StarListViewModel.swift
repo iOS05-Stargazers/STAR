@@ -22,7 +22,7 @@ enum Mode {
     case rest // 휴식
 }
 
-enum CreationAvailability {
+enum Availability {
     
     case available(state: Mode)
     case unavailable(state: Mode)
@@ -53,7 +53,7 @@ final class StarListViewModel {
     let refreshRelay = PublishRelay<Void>()
     let restStartCompleteRelay = PublishRelay<Void>()
     let restSettingCompleteRelay = PublishRelay<Date>()
-    private let creationAvailabilityRelay = PublishRelay<CreationAvailability>()
+    private let availabilityRelay = PublishRelay<Availability>()
     private let disposeBag = DisposeBag()
     
     // 어떤 모달 띄워줄 지 확인하는 메서드
@@ -126,7 +126,7 @@ final class StarListViewModel {
     
     // 생성 가능 여부 업데이트
     private func updateCreationAvailability(mode: Mode) {
-        let result: CreationAvailability
+        let result: Availability
         
         if mode == .create {
             result = starsRelay.value.count > 14 ? .unavailable(state: mode) : .available(state: mode)
@@ -134,7 +134,7 @@ final class StarListViewModel {
             result = starsRelay.value.isEmpty ? .unavailable(state: mode) : .available(state: mode)
         }
         
-        creationAvailabilityRelay.accept(result)
+        availabilityRelay.accept(result)
     }
 }
 
@@ -152,7 +152,7 @@ extension StarListViewModel {
         let date: Driver<Date>
         let star: Driver<Star>
         let starModalState: Driver<StarModalState>
-        let creationAvailability: Driver<CreationAvailability>
+        let availability: Driver<Availability>
     }
     
     func transform(_ input: Input) -> Output {
@@ -205,6 +205,6 @@ extension StarListViewModel {
                       date: dateRelay.asDriver(onErrorDriveWith: .empty()),
                       star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
-                      creationAvailability: creationAvailabilityRelay.asDriver(onErrorDriveWith: .empty()))
+                      availability: availabilityRelay.asDriver(onErrorDriveWith: .empty()))
     }
 }
