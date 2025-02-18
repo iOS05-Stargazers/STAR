@@ -141,40 +141,42 @@ extension StarListViewModel {
     func transform(_ input: Input) -> Output {
         refreshRelay
             .withUnretained(self)
-            .subscribe(onNext: { _ in
-                self.fetchStars()
+            .subscribe(onNext: { owner, _ in
+                owner.fetchStars()
             })
             .disposed(by: disposeBag)
         
         restStartCompleteRelay
-            .subscribe(onNext: {
-                self.starModalStateRelay.accept(.restSetting)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.starModalStateRelay.accept(.restSetting)
             })
             .disposed(by: disposeBag)
         
         restSettingCompleteRelay
-            .subscribe(onNext: { date in
-                self.starModalStateRelay.accept(.resting)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, date in
+                owner.starModalStateRelay.accept(.resting)
             })
             .disposed(by: disposeBag)
         
         input.deleteAction
             .withUnretained(self)
             .subscribe(onNext: { owner, index in
-                self.emitSelectedStar(index)
+                owner.emitSelectedStar(index)
             }).disposed(by: disposeBag)
         
         input.viewWillAppear
             .withUnretained(self)
-            .subscribe(onNext:  { _ in
-                self.checkModalState()
+            .subscribe(onNext:  { owner, _ in
+                owner.checkModalState()
             }).disposed(by: disposeBag)
         
         input.addButtonTapped
             .withUnretained(self)
             .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { _ in
-                self.updateCreationAvailability()
+            .subscribe(onNext: { owner, _ in
+                owner.updateCreationAvailability()
             }).disposed(by: disposeBag)
         
         return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),

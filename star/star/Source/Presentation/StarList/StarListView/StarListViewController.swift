@@ -77,6 +77,7 @@ extension StarListViewController {
         output.starModalState
             .drive(with: self, onNext: { owner, thisModal in
                 owner.connectModal(thisModal)
+                HapticManager.shared.play(1, style: .impact(.light))
             })
             .disposed(by: disposeBag)
         
@@ -85,7 +86,7 @@ extension StarListViewController {
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.connectRestStartModal()
-                HapticManager.shared.play(1, style: .impact(.soft))
+                HapticManager.shared.play(1, style: .impact(.light))
             })
             .disposed(by: disposeBag)
         
@@ -107,6 +108,7 @@ extension StarListViewController {
         starListView.starListCollectionView.rx.modelSelected(Star.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
+                HapticManager.shared.play(1, style: .impact(.soft))
                 owner.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
@@ -152,7 +154,6 @@ extension StarListViewController {
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
         // 삭제 알럿 띄울 시 진동
-        HapticManager.shared.play(1, style: .impact(.soft))
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
