@@ -83,7 +83,7 @@ final class OnboardingCollectionView: UIView {
         }
     }
     
-    // MARK: - Bind ViewModel
+    // MARK: - Bind
     
     func bind(pages: BehaviorRelay<[OnboardingModel]>, currentPage: BehaviorRelay<Int>, skipTapped: PublishRelay<Void>) {
         /// 페이지 개수를 UIPageControl에 바인딩
