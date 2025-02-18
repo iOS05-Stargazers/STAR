@@ -2,37 +2,57 @@
 //  OnboardingViewController.swift
 //  star
 //
-//  Created by 0-jerry on 1/31/25.
+//  Created by Eden on 2/13/25.
 //
 
 import UIKit
 import SnapKit
-import Then
+import RxSwift
+import RxCocoa
 
 final class OnboardingViewController: UIViewController {
     
-    override func loadView() {
-        view = OnboardingView()
-    }
+    private let collectionView = OnboardingCollectionView()
+    private let viewModel = OnboardingViewModel()
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
-    }
+    // MARK: - Set Up UI
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = false
-    }
-    // 화면 터치 시 모달 내림
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        UserDefaults.standard.isCoachMarkShown = true
-        dismiss(animated: false) {
-            NotificationManager().requestNotificationAuthorization()
+    private func setupUI() {
+        view.addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
+    }
+    
+    // MARK: - Bind ViewModel
+    
+    private func bind() {
+        collectionView.bind(viewModel: viewModel)
+        
+        viewModel.transform(
+            input: OnboardingViewModel.Input(
+                skipTapped: collectionView.skipButton.rx.tap.asObservable(),
+                pageChanged: collectionView.pageChanged.asObservable()
+            )
+        ).skipTrigger
+            .drive(with: self, onNext: { owner, _ in
+                owner.navigateToStarList()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func navigateToStarList() {
+        UserDefaults.standard.isCoachMarkShown = true
+        dismiss(animated: false, completion: nil)
     }
 }
