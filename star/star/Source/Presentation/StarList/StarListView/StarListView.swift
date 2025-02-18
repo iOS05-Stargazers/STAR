@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import Then
 import SnapKit
+import Then
 
 final class StarListView: UIView {
     
