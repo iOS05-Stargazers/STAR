@@ -45,7 +45,7 @@ final class StarDeleteAlertViewController: UIViewController {
         paragraphStyle.lineSpacing = 4
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
         $0.attributedText = attrString
-        $0.font = Fonts.buttonDescription
+        $0.font = UIFont.System.medium16
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
@@ -61,7 +61,7 @@ final class StarDeleteAlertViewController: UIViewController {
     // 취소 버튼
     private let cancelButton = UIButton(type: .system).then {
         $0.setTitle("취소", for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.layer.cornerRadius = 12
@@ -70,7 +70,7 @@ final class StarDeleteAlertViewController: UIViewController {
     // 삭제 버튼
     private let deleteButton = UIButton(type: .system).then {
         $0.setTitle("삭제", for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDelete
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.layer.cornerRadius = 12

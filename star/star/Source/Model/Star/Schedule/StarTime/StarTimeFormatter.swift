@@ -5,8 +5,6 @@
 //  Created by 0-jerry on 1/22/25.
 //
 
-import Foundation
-
 // MARK: - StarTimeFormatter
 
 struct StarTimeFormatter {

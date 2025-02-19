@@ -5,9 +5,7 @@
 //  Created by 서문가은 on 1/27/25.
 //
 
-import Foundation
 import RxSwift
-import RxRelay
 import RxCocoa
 
 final class StarListCollectionViewCellViewModel {

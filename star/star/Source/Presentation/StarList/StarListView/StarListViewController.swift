@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import RxSwift
-import RxCocoa
 
 final class StarListViewController: UIViewController {
     
@@ -151,8 +150,9 @@ extension StarListViewController {
     }
     
     // 온보딩 모달 연결
-    private func connectOnboarding() {
-        let onboardingViewController = OnboardingViewController()
+    private func connnectOnboarding() {
+        let onboardingViewModel = OnboardingViewModel()
+        let onboardingViewController = OnboardingViewController(viewModel: onboardingViewModel)
         onboardingViewController.modalPresentationStyle = .overFullScreen
         present(onboardingViewController, animated: false)
     }

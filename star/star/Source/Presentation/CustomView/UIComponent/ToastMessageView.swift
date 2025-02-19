@@ -13,7 +13,7 @@ class ToastMessageView: UIView {
     // 토스트 라벨
     let toastLabel = UILabel().then {
         $0.textColor = .starPrimaryText
-        $0.font = Fonts.toastMessage
+        $0.font = UIFont.System.medium16
         $0.sizeToFit()
     }
     
