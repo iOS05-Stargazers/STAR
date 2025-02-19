@@ -9,18 +9,18 @@
 "skip" = "건너뛰기";
 "start" = "시작하기";
 "onboarding_title" = "당신의 디지털 시간 관리 단위, STAR";
-"onboarding_create" = "“스타 추가하기”를 통해 스타를 생성할 수 있습니다.";
-"onboarding_edit" = "목록의 스타를 선택하면 스타를 수정할 수 있습니다.";
-"onboarding_delete" = "왼쪽으로 스와이프하여 스타를 삭제할 수 있습니다.";
-"onboarding_break" = "휴식 버튼을 누르면 휴식 모드로 전환할 수 있습니다.";
+"onboarding_create" = "“스타 추가하기”를 통해\n스타를 생성할 수 있습니다.";
+"onboarding_edit" = "목록의 스타를 선택하면\n스타를 수정할 수 있습니다.";
+"onboarding_delete" = "왼쪽으로 스와이프하여\n스타를 삭제할 수 있습니다.";
+"onboarding_break" = "휴식 버튼을 누르면\n휴식 모드로 전환할 수 있습니다.";
 
 /// Permission
 "permission_title" = "스크린타임 권한을 설정해주세요.";
-"permission_description" = "STAR가 정상적으로 작동하기 위해서는 사용자의 권한 허용이 필요합니다.";
-"permission_footer" = "사용자의 정보는 Apple에 의해 보호되며, 외부로 절대 노출되지 않습니다.";
+"permission_description" = "STAR가 정상적으로 작동하기 위해서는\n사용자의 권한 허용이 필요합니다.";
+"permission_footer" = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다.";
 
 /// Star List
-"no_stars" = "아직 스타가 없습니다. 스타를 생성해주세요!";
+"no_stars" = "아직 스타가 없습니다.\n스타를 생성해주세요!";
 "pending" = "대기중";
 "in_progress" = "진행중";
 "add_star" = "스타 추가하기";
@@ -50,7 +50,7 @@
 
 /// Break Mode
 "switch_break_mode" = "휴식 모드 전환";
-"break_motivation" = "당신을 빛나게 하는 시간은 스스로 선택할 때 더욱 빛나요.";
+"break_motivation" = "당신을 빛나게 하는 시간은\n스스로 선택할 때 더욱 빛나요.";
 "cancel" = "취소하기";
 "take_a_break" = "휴식하기";
 "max_break_time" = "최대 20분까지 설정할 수 있습니다.";
@@ -62,7 +62,7 @@
 "app_launch" = "별을 이루는 당신의 시간, STAR와 함께 빛나세요";
 
 /// Delete Alert
-"delete_alert" = "정말로 삭제하시겠습니까? 삭제한 스타는 되돌릴 수 없습니다.";
+"delete_alert" = "정말로 삭제하시겠습니까?\n삭제한 스타는 되돌릴 수 없습니다.";
 "delete" = "삭제";
 "exit" = "종료하기";
 
