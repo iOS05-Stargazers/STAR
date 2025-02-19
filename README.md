@@ -72,16 +72,40 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 
 ## 📂 Folder Organization
 ```bash
-── star                    // Main target of the project
-│   ├── App
+├── star                       // Main App of the project
+│   ├── App                    // Metadata, Entitlement, Lifecycle
 │   ├── Resource
 │   └── Source
-├── ShieldConfiguration    // Target for customizing the Screen Time screen that restricts app usage
-├── ShieldAction           // Target for managing the methods invoked from the Screen Time screen that restricts app usage
-└── DeviceActivityMonitor  // Target for managing the methods invoked according to the created Screen Time schedule
+│        ├── Core
+│        │    ├── Extension    // Extensions for DeviceActivityName, FamilyActivitySelection, UserDefaults, etc.
+│        │    ├── Manager
+│        │    │    ├── StarManager           // (UserDefaults)
+│        │    │    ├── BlockManager          // (DeviceActivity)
+│        │    │    ├── FamilyControlsManager // (FamilyControls, ManagedSettings)
+│        │    │    └── NotificationManager   // (UserNotifications)
+│        │    └── Theme
+│        ├── Model
+│        │    ├── Star
+│        │    ├── StarListModel
+│        │    └── StarState
+│        └── Presentation      // Views, ViewModels
+│             ├── AppLaunch
+│             ├── CustomView   // CustomViews, including common UI components
+│             ├── Onboarding
+│             ├── Permission
+│             ├── Rest
+│             ├── StarDeleteAlert
+│             ├── StarEdit
+│             └── StarListI
+├── ShieldConfiguration        // App Extension for customizing the Screen Time screen that restricts app usage
+├── ShieldAction               // App Extension for managing the methods invoked from the Screen Time screen that restricts app usage
+└── DeviceActivityMonitor      // App Extension for managing the methods invoked according to the created Screen Time schedule
 ```
 
 ## 🖼️ Preview
+
+|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 27 18](https://github.com/user-attachments/assets/82efbe15-dc92-4779-95ad-392bfd9be2ce)|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 16 32](https://github.com/user-attachments/assets/4749ca58-c445-49af-8d4e-2a52b787200c)|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 17 43](https://github.com/user-attachments/assets/eb80bbf8-6064-44bb-943d-63e143ad17cd)|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 18 21](https://github.com/user-attachments/assets/99e29c5d-ec64-4868-9f3e-f9a8be39ae61)|
+|---|---|---|---|
 
 ## 🏷 Main Features
 #### Star - Your Digital Time Management Unit
@@ -109,7 +133,9 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 - Provide an easy yet safe deletion feature that combines simple swipe actions with custom alerts.
 - Ensure compatibility with small-screen iPhones through Auto Layout and thoughtfully sized buttons for enhanced usability.
 
-## 📦 How to Install  
+## 📦 How to Install 
+(WIP for release in App Store)
+
 1. Clone this repository:  
    ```bash  
    git clone https://github.com/iOS05-Stargazers/STAR.git

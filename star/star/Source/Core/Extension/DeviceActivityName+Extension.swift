@@ -5,8 +5,6 @@
 //  Created by 0-jerry on 2/13/25.
 //
 
-import Foundation
-import ManagedSettings
 import DeviceActivity
 
 extension DeviceActivityName {
