@@ -78,6 +78,19 @@ final class NotificationManager: NSObject {
             .removePendingNotificationRequests(withIdentifiers: [startBeforeId, startId, finishId])
     }
     
+    // 특정 타입의 알림을 스케줄링 하는 메서드
+    private func scheduleNotificationList(for star: Star, type: NotificationType, dates: [DateComponents]) {
+        let content = buildNotificationContent(mode: type)
+        
+        dates.forEach {
+            scheduleNotification(
+                dateComponents: $0,
+                type: type,
+                content: content
+            )
+        }
+    }
+    
     // 알림 내용 생성
     private func buildNotificationContent(mode: NotificationType) -> UNMutableNotificationContent {
         let notificationContent = UNMutableNotificationContent()
@@ -106,19 +119,7 @@ final class NotificationManager: NSObject {
         // 알림 등록
         UNUserNotificationCenter.current().add(request) { _ in }
     }
-    
-    // 특정 타입의 알림을 여러 개 스케줄링 하는 헬퍼 메서드
-    private func scheduleNotificationList(for star: Star, type: NotificationType, dates: [DateComponents]) {
-        let content = buildNotificationContent(mode: type)
-        
-        dates.forEach {
-            scheduleNotification(
-                dateComponents: $0,
-                type: type,
-                content: content
-            )
-        }
-    }
+
     
     // 5분 전 알림 시간 계산
     private func calculateWillStartSoonTimes(_ star: Star) -> [DateComponents] {
