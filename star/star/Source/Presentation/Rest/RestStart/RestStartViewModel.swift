@@ -29,8 +29,9 @@ final class RestStartViewModel {
         .take(5) // 5번만 실행
         .subscribe(onNext: { owner, count in
             owner.countRelay.accept(owner.countRelay.value - 1) // 1씩 감소
-        }, onCompleted: {
-            self.completeRelay.accept(())
+        }, onCompleted: { [weak self] in
+            self?.completeRelay.accept(())
+            HapticManager.shared.play(style: .notification(.success))
         })
         .disposed(by: disposeBag)
     }
