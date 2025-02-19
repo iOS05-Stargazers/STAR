@@ -115,6 +115,7 @@ final class OnboardingViewController: UIViewController {
     
     private func navigateToStarList() {
         UserDefaults.standard.isCoachMarkShown = true
+        NotificationManager().requestNotificationAuthorization()
         dismiss(animated: false, completion: nil)
     }
 }
