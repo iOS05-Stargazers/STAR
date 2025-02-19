@@ -12,7 +12,7 @@ import Then
 final class TimePickerModalView: UIView {
     
     let titleLabel = UILabel().then {
-        $0.font = Fonts.modalTitle
+        $0.font = UIFont.System.semibold24
         $0.textColor = .starPrimaryText
     }
     
@@ -24,7 +24,7 @@ final class TimePickerModalView: UIView {
     private let colon = UILabel().then {
         $0.text = ":"
         $0.textColor = .starSecondaryText
-        $0.font = Fonts.starTitle
+        $0.font = UIFont.System.semibold20
     }
     
     private let grabber = CustomGrabberView()
@@ -32,7 +32,7 @@ final class TimePickerModalView: UIView {
     let timeSelectButton = GradientButton(type: .system).then {
         $0.setTitle("설정하기", for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true

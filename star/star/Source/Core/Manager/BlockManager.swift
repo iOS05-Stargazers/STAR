@@ -4,8 +4,6 @@
 //
 
 import Foundation
-import ManagedSettings
-import FamilyControls
 import DeviceActivity
 
 struct BlockManager {
