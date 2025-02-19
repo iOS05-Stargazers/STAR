@@ -23,13 +23,13 @@ final class StarEditView: UIView {
     }
     
     private let titleLabel = UILabel().then {
-        $0.text = "스타 생성"
+        $0.text = "create_star".localized
         $0.textColor = .starPrimaryText
         $0.font = UIFont.System.semibold24
     }
     
     private let subtitleLabel = UILabel().then {
-        $0.text = "잠금할 앱과 시간을 설정해 주세요"
+        $0.text = "set_lock_time".localized
         $0.textColor = .starSecondaryText
         $0.font = UIFont.System.regular16
     }
@@ -41,10 +41,10 @@ final class StarEditView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var nameLabel = makeLabel("이름")
+    private lazy var nameLabel = makeLabel("name".localized)
     
     lazy var nameTextField = UITextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
+        $0.attributedPlaceholder = NSAttributedString(string: "enter_name".localized, attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = UIFont.System.regular16
         $0.textAlignment = .right
@@ -65,10 +65,10 @@ final class StarEditView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var appLockLabel = makeLabel("앱 잠금")
+    private lazy var appLockLabel = makeLabel("app_lock".localized)
     
     let appLockButton = UIButton(type: .system).then {
-        $0.setTitle("선택 >", for: .normal)
+        $0.setTitle("select".localized, for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.regular16
     }
@@ -80,7 +80,7 @@ final class StarEditView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var repeatCycleLabel = makeLabel("반복 주기")
+    private lazy var repeatCycleLabel = makeLabel("repeat".localized)
     
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
@@ -104,7 +104,7 @@ final class StarEditView: UIView {
         $0.axis = .horizontal
     }
     
-    private lazy var startTimeLabel = makeLabel("시작 시간")
+    private lazy var startTimeLabel = makeLabel("start_time".localized)
     
     let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
@@ -117,7 +117,7 @@ final class StarEditView: UIView {
         $0.axis = .horizontal
     }
     
-    private lazy var endTimeLabel = makeLabel("종료 시간")
+    private lazy var endTimeLabel = makeLabel("end_time".localized)
     
     let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("23:59", for: .normal)
@@ -126,7 +126,7 @@ final class StarEditView: UIView {
     }
     
     let addStarButton = GradientButton(type: .system).then {
-        $0.setTitle("생성하기", for: .normal)
+        $0.setTitle("confirm_create".localized, for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음

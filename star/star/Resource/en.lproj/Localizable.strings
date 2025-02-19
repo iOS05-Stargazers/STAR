@@ -20,7 +20,7 @@
 "permission_footer" = "Your data is protected by Apple\nand remains on your device.";
 
 /// Star List
-"no_stars" = "No STARs yet. Create one now!";
+"no_stars" = "There are no STARs yet.\nPlease create one now!";
 "pending" = "Pending";
 "in_progress" = "In Progress";
 "add_star" = "Add STAR";
