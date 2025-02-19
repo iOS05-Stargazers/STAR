@@ -98,6 +98,7 @@ extension StarListViewController {
         starListView.starListCollectionView.rx.modelSelected(Star.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
+                HapticManager.shared.play(style: .selection)
                 owner.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
@@ -142,6 +143,7 @@ extension StarListViewController {
     
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
+        // 삭제 알럿 띄울 시 진동
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
