@@ -13,14 +13,14 @@ final class HapticManager {
     
     private init() {}
     
-    private var dispose: Disposable? = nil
+    private var disposable: Disposable? = nil
             
     func play(_ count: Int, style: HapticStyle) {
         // 진동 시작 시 진행중이던 진동이 있다면 메모리 해제
-        dispose?.dispose()
-        dispose = nil
+        disposable?.dispose()
+        disposable = nil
         // 0.1초 간격으로 진동 반복
-        dispose = Observable<Int>
+        disposable = Observable<Int>
             .timer(.seconds(0),
                    period: .milliseconds(150),
                    scheduler: MainScheduler.instance)
@@ -31,7 +31,7 @@ final class HapticManager {
                 onNext: { owner, _ in
                 owner.generateFeedback(style)
             }, onCompleted: { [weak self] in
-                self?.dispose = nil
+                self?.disposable = nil
             })
     }
     
