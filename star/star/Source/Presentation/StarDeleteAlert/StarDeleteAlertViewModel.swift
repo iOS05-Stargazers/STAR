@@ -55,7 +55,7 @@ extension StarDeleteAlertViewModel {
                 owner.performStarDeletion()
                 owner.closeAlert()
                 // 삭제 버튼 탭 시 진동
-                HapticManager.shared.play(1, style: .notification(.success))
+                HapticManager.shared.play(style: .notification(.success))
             })
             .disposed(by: disposeBag)
     }

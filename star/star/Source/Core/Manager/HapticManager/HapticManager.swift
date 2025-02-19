@@ -15,7 +15,7 @@ final class HapticManager {
     
     private var disposable: Disposable? = nil
             
-    func play(_ count: Int, style: HapticStyle) {
+    func play(_ count: Int = 1, style: HapticStyle) {
         // 진동 시작 시 진행중이던 진동이 있다면 메모리 해제
         disposable?.dispose()
         disposable = nil
