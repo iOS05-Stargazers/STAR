@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import Then
 import SnapKit
+import Then
 import RxSwift
-import RxRelay
-import RxCocoa
 
 final class StarListCollectionViewCell: UICollectionViewCell {
     
@@ -32,21 +30,21 @@ final class StarListCollectionViewCell: UICollectionViewCell {
     private let tagLabel = UILabel().then {
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
-        $0.font = Fonts.starTag
+        $0.font = UIFont.System.semibold14
     }
     
     // 타이틀 라벨
     let titleLabel = UILabel().then {
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
-        $0.font = Fonts.starTitle
+        $0.font = UIFont.System.semibold20
     }
     
     // 시간 라벨
     private let timeLabel = UILabel().then {
         $0.textColor = .starPrimaryText
         $0.textAlignment = .right
-        $0.font = Fonts.starTime
+        $0.font = UIFont.MonospacedDigitSystem.semibold14
     }
     
     // 타이머 이미지

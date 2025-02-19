@@ -14,7 +14,7 @@ final class OnboardingCollectionView: UIView {
     /// 온보딩 skip 버튼
     let skipButton = UIButton(type: .system).then {
         $0.setTitle("건너뛰기", for: .normal)
-        $0.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        $0.titleLabel?.font = UIFont.System.semibold12
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.contentHorizontalAlignment = .right
     }

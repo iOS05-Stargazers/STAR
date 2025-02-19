@@ -5,7 +5,6 @@
 //  Created by 서문가은 on 2/13/25.
 //
 
-import Foundation
 import UserNotifications
 
 enum NotificationType {
