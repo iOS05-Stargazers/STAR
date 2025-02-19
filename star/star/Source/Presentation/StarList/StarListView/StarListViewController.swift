@@ -98,7 +98,7 @@ extension StarListViewController {
         starListView.starListCollectionView.rx.modelSelected(Star.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
-                HapticManager.shared.play(style: .impact(.soft))
+                HapticManager.shared.play(style: .selection)
                 owner.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
