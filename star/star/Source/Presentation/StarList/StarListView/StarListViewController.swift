@@ -88,22 +88,6 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
-        // 휴식 버튼 이벤트 처리
-        starListView.restButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectRestStartModal()
-                HapticManager.shared.play(1, style: .impact(.light))
-            })
-            .disposed(by: disposeBag)
-        
-        // 추가하기 버튼 이벤트 처리
-        starListView.addStarButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectCreateModal(mode: .create)
-            }).disposed(by: disposeBag)
-        
         // 생성 가능 여부 바인딩
         output.availability
             .drive(with:self, onNext: { owner, result in
