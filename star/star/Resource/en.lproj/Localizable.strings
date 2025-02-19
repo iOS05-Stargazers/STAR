@@ -16,7 +16,7 @@
 
 /// Permission
 "permission_title" = "Grant Screen Time access.";
-"permission_description" = "STAR requires permission\nto function properly.";
+"permission_description" = "STAR requires permission to function properly.";
 "permission_footer" = "Your data is protected by Apple\nand remains on your device.";
 
 /// Star List
