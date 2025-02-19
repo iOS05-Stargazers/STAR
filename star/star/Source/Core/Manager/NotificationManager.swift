@@ -75,7 +75,7 @@ final class NotificationManager: NSObject {
         
         // 예약된 알림 삭제
         UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: [startId, finishId])
+            .removePendingNotificationRequests(withIdentifiers: [startBeforeId, startId, finishId])
     }
     
     // 알림 내용 생성
