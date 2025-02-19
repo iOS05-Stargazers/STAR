@@ -5,7 +5,7 @@
 //  Created by Eden on 2/19/25.
 //
 
-// Onboarding
+/// Onboarding
 "skip" = "Skip";
 "start" = "Start";
 "onboarding_title" = "STAR, your digital time unit.";
