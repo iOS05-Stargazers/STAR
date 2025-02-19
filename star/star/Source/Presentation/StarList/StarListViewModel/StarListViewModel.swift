@@ -200,6 +200,7 @@ extension StarListViewModel {
             .withUnretained(self)
             .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { owner, _ in
+                HapticManager.shared.play(1, style: .impact(.soft))
                 owner.updateCreationAvailability(mode: .rest)
             }).disposed(by: disposeBag)
         

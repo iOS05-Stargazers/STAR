@@ -84,7 +84,6 @@ extension StarListViewController {
         output.starModalState
             .drive(with: self, onNext: { owner, thisModal in
                 owner.connectModal(thisModal)
-                HapticManager.shared.play(1, style: .impact(.light))
             })
             .disposed(by: disposeBag)
         
