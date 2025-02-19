@@ -21,19 +21,18 @@ final class RestingViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "휴식중"
-        $0.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        $0.font = UIFont.System.semibold24
         $0.textColor = .starSecondaryText
     }
     
     private let timerLabel = UILabel().then {
-        $0.font = .monospacedDigitSystemFont(ofSize: 80, weight: .light)
-        //        $0.text = "--:--"
+        $0.font = UIFont.MonospacedDigitSystem.light80
         $0.textColor = .starSecondaryText
     }
     
     private let endRestButton = GradientButton().then {
         $0.setTitle("휴식 종료하기", for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true

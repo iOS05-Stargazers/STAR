@@ -37,7 +37,7 @@ final class WeekDayButton: GradientButton {
     private func setUp() {
         setTitle(weekDay.korean, for: .normal)
         setTitleColor(.starSecondaryText, for: .normal)
-        titleLabel?.font = Fonts.modalDayOption
+        titleLabel?.font = UIFont.System.semibold16
         clipsToBounds = true
         backgroundColor = .starDisabledTagBG
         
