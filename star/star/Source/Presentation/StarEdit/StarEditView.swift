@@ -326,8 +326,8 @@ final class StarEditView: UIView {
 extension StarEditView {
     
     func configure(star: Star) {
-        titleLabel.text = "스타 수정"
-        addStarButton.setTitle("수정하기", for: .normal)
+        titleLabel.text = "edit_star".localized
+        addStarButton.setTitle("confirm_star".localized, for: .normal)
         nameTextField.text = star.title
         
         let starTime = star.schedule.startTime.coreDataForm()

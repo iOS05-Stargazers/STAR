@@ -31,6 +31,7 @@
 
 /// Star Edit Modal
 "create_star" = "스타 생성";
+"edit_star" = "스타 수정";
 "set_lock_time" = "잠금할 앱과 시간을 설정해 주세요";
 "name" = "이름";
 "enter_name" = "이름을 입력하세요";
@@ -47,6 +48,7 @@
 "start_time" = "시작 시간";
 "end_time" = "종료 시간";
 "confirm_create" = "생성하기";
+"confirm_edit" = "수정하기"; 
 
 /// Break Mode
 "switch_break_mode" = "휴식 모드 전환";

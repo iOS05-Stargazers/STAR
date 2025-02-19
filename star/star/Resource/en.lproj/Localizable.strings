@@ -31,6 +31,7 @@
 
 /// Star Edit Modal
 "create_star" = "Create STAR";
+"edit_star" = "Edit STAR";
 "set_lock_time" = "Set lock apps & time.";
 "name" = "Name";
 "enter_name" = "Enter a name";
@@ -47,6 +48,7 @@
 "start_time" = "Start Time";
 "end_time" = "End Time";
 "confirm_create" = "Create STAR";
+"confirm_edit" = "Edit STAR";
 
 /// Break Mode
 "switch_break_mode" = "Switch to Break Mode";
@@ -62,7 +64,7 @@
 "app_launch" = "Shape your time into a STAR, and let it shine!";
 
 /// Delete Alert
-"delete_alert" = "Are you sure you want to delete this? This action cannot be undone.";
+"delete_alert" = "Are you sure you want to delete this?\nThis action cannot be undone.";
 "delete" = "Delete";
 "exit" = "Exit";
 
