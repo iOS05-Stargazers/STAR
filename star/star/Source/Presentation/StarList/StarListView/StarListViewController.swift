@@ -151,7 +151,8 @@ extension StarListViewController {
     
     // 온보딩 모달 연결
     private func connnectOnboarding() {
-        let onboardingViewController = OnboardingViewController()
+        let onboardingViewModel = OnboardingViewModel()
+        let onboardingViewController = OnboardingViewController(viewModel: onboardingViewModel)
         onboardingViewController.modalPresentationStyle = .overFullScreen
         present(onboardingViewController, animated: false)
     }
