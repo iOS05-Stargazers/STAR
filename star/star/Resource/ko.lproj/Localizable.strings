@@ -1,0 +1,74 @@
+//
+//  Localizable.strings
+//  star
+//
+//  Created by Eden on 2/19/25.
+//
+
+/// Onboarding
+"skip" = "건너뛰기";
+"start" = "시작하기";
+"onboarding_title" = "당신의 디지털 시간 관리 단위, STAR";
+"onboarding_create" = "“스타 추가하기”를 통해 스타를 생성할 수 있습니다.";
+"onboarding_edit" = "목록의 스타를 선택하면 스타를 수정할 수 있습니다.";
+"onboarding_delete" = "왼쪽으로 스와이프하여 스타를 삭제할 수 있습니다.";
+"onboarding_break" = "휴식 버튼을 누르면 휴식 모드로 전환할 수 있습니다.";
+
+/// Permission
+"permission_title" = "스크린타임 권한을 설정해주세요.";
+"permission_description" = "STAR가 정상적으로 작동하기 위해서는 사용자의 권한 허용이 필요합니다.";
+"permission_footer" = "사용자의 정보는 Apple에 의해 보호되며, 외부로 절대 노출되지 않습니다.";
+
+/// Star List
+"no_stars" = "아직 스타가 없습니다. 스타를 생성해주세요!";
+"pending" = "대기중";
+"in_progress" = "진행중";
+"add_star" = "스타 추가하기";
+
+/// Toast Messages
+"max_stars" = "최대 15개의 스타를 저장할 수 있어요.";
+"no_break_star" = "휴식할 수 있는 스타가 없어요.";
+
+/// Star Edit Modal
+"create_star" = "스타 생성";
+"set_lock_time" = "잠금할 앱과 시간을 설정해 주세요";
+"name" = "이름";
+"enter_name" = "이름을 입력하세요";
+"app_lock" = "앱 잠금";
+"select" = "선택 >";
+"repeat" = "반복 주기";
+"monday" = "월";
+"tuesday" = "화";
+"wednesday" = "수";
+"thursday" = "목";
+"friday" = "금";
+"saturday" = "토";
+"sunday" = "일";
+"start_time" = "시작 시간";
+"end_time" = "종료 시간";
+"confirm_create" = "생성하기";
+
+/// Break Mode
+"switch_break_mode" = "휴식 모드 전환";
+"break_motivation" = "당신을 빛나게 하는 시간은 스스로 선택할 때 더욱 빛나요.";
+"cancel" = "취소하기";
+"take_a_break" = "휴식하기";
+"max_break_time" = "최대 20분까지 설정할 수 있습니다.";
+"min" = "분";
+"on_break" = "휴식 중";
+"exit_break" = "휴식 종료하기";
+
+/// App Launch
+"app_launch" = "별을 이루는 당신의 시간, STAR와 함께 빛나세요";
+
+/// Delete Alert
+"delete_alert" = "정말로 삭제하시겠습니까? 삭제한 스타는 되돌릴 수 없습니다.";
+"delete" = "삭제";
+"exit" = "종료하기";
+
+// Push Notifications
+"star_started" = "%@ 스타가 시작되었습니다.";
+"star_completed" = "%@ 스타가 종료되었습니다.";
+
+// Shield Configuration
+"restricted_message" = "%@은(는) 사용이 제한되었습니다.";

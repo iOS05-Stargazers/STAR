@@ -1,0 +1,74 @@
+//
+//  Localizable.strings
+//  star
+//
+//  Created by Eden on 2/19/25.
+//
+
+// Onboarding
+"skip" = "Skip";
+"start" = "Start";
+"onboarding_title" = "STAR, your digital time unit.";
+"onboarding_create" = "Tap \"Add STAR\" to create a new STAR.";
+"onboarding_edit" = "Select a STAR to edit.";
+"onboarding_delete" = "Swipe left to delete a STAR.";
+"onboarding_break" = "Tap the Break button to switch to Break Mode.";
+
+/// Permission
+"permission_title" = "Grant Screen Time access.";
+"permission_description" = "STAR requires permission to function properly.";
+"permission_footer" = "Your data is protected by Apple and remains on your device.";
+
+/// Star List
+"no_stars" = "No STARs yet. Create one now!";
+"pending" = "Pending";
+"in_progress" = "In Progress";
+"add_star" = "Add STAR";
+
+/// Toast Messages
+"max_stars" = "You can save up to 15 STARs.";
+"no_break_star" = "No STARs available for a break.";
+
+/// Star Edit Modal
+"create_star" = "Create STAR";
+"set_lock_time" = "Set lock apps & time.";
+"name" = "Name";
+"enter_name" = "Enter a name";
+"app_lock" = "App Lock";
+"select" = "Select >";
+"repeat" = "Repeat";
+"monday" = "M";
+"tuesday" = "T";
+"wednesday" = "W";
+"thursday" = "T";
+"friday" = "F";
+"saturday" = "S";
+"sunday" = "S";
+"start_time" = "Start Time";
+"end_time" = "End Time";
+"confirm_create" = "Create STAR";
+
+/// Break Mode
+"switch_break_mode" = "Switch to Break Mode";
+"break_motivation" = "You shine the brightest when you choose your own time.";
+"cancel" = "Cancel";
+"take_a_break" = "Take a Break";
+"max_break_time" = "Set a break time of up to 20 min.";
+"min" = "min";
+"on_break" = "On Break";
+"exit_break" = "Exit Break";
+
+/// App Launch
+"app_launch" = "Shape your time into a STAR, and let it shine!";
+
+/// Delete Alert
+"delete_alert" = "Are you sure you want to delete this? This action cannot be undone.";
+"delete" = "Delete";
+"exit" = "Exit";
+
+/// Push Notifications
+"star_started" = "%@ has begun.";
+"star_completed" = "%@ is complete.";
+
+/// Shield Configuration
+"restricted_message" = "%@ is restricted.";
