@@ -62,7 +62,7 @@ final class StarListViewModel {
     // 삭제 버튼 누르면 스타 방출
     private func emitSelectedStar(_ index: Int) {
         let stars = starsRelay.value
-        delete(stars[index])
+        updateStarDeleteModalState(stars[index])
     }
     
     // 데이터 fetch
@@ -133,7 +133,8 @@ final class StarListViewModel {
         }
     }
     
-    private func selected(_ star: Star) {
+    // 스타 수정 분기 처리 (스타가 대기중이면 바로 수정, 진행중이면 딜레이 화면)
+    private func updateStarEditModalState(_ star: Star) {
         if star.state().style == .pending {
             starModalStateRelay.accept(.edit(star: star))
         } else {
@@ -141,7 +142,8 @@ final class StarListViewModel {
         }
     }
     
-    private func delete(_ star: Star) {
+    // 스타 삭제 분기 처리 (스타가 대기중이면 바로 삭제, 진행중이면 딜레이 화면)
+    private func updateStarDeleteModalState(_ star: Star) {
         if star.state().style == .pending {
             starModalStateRelay.accept(.delete(star: star))
         } else {
@@ -227,7 +229,7 @@ extension StarListViewModel {
         input.starSelected
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
-                owner.selected(star)
+                owner.updateStarEditModalState(star)
             }).disposed(by: disposeBag)
                 
         return Output(
