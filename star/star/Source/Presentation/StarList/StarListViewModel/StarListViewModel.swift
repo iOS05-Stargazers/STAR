@@ -34,9 +34,9 @@ enum Availability {
         case .unavailable(let mode):
             switch mode {
             case .create:
-                return "최대 15개의 스타를 저장할 수 있어요."
+                return "max_stars".localized
             case .rest:
-                return "휴식할 수 있는 스타가 없어요."
+                return "no_break_star".localized
             }
         }
     }
