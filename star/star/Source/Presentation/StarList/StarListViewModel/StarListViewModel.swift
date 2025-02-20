@@ -127,7 +127,7 @@ final class StarListViewModel {
     }
     
     // 휴식 가능 여부 업데이트
-    private func updateRestionAvailability() {
+    private func updateRestAvailability() {
         if starsRelay.value.isEmpty {
             unavailabilityRelay.accept(.restUnavailable)
         } else {
@@ -207,7 +207,7 @@ extension StarListViewModel {
             .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { owner, _ in
                 HapticManager.shared.play(style: .selection)
-                owner.updateRestionAvailability()
+                owner.updateRestAvailability()
             }).disposed(by: disposeBag)
         
         return Output(
