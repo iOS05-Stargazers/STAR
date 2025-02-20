@@ -37,18 +37,10 @@ final class StarDeleteAlertViewModel {
 extension StarDeleteAlertViewModel {
     
     struct Input {
-        let cancelButtonTapped: Observable<Void>
         let deleteButtonTapped: Observable<Void>
     }
     
     func transform(_ input: Input) {
-        input.cancelButtonTapped
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.closeAlert()
-            })
-            .disposed(by: disposeBag)
-        
         input.deleteButtonTapped
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in

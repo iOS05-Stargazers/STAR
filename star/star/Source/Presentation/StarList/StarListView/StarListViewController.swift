@@ -103,6 +103,7 @@ extension StarListViewController {
                 let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completionHandler in
                     guard let self = self else { return }
                     deleteActionSubject.onNext(indexPath.item)
+                    completionHandler(false)
                 }
                 
                 deleteAction.image = UIImage(systemName: "trash")
