@@ -20,7 +20,7 @@ final class RestingViewController: UIViewController {
     // MARK: - UI Components
     
     private let titleLabel = UILabel().then {
-        $0.text = "휴식중"
+        $0.text = "on_break".localized
         $0.font = UIFont.System.semibold24
         $0.textColor = .starSecondaryText
     }
@@ -31,7 +31,7 @@ final class RestingViewController: UIViewController {
     }
     
     private let endRestButton = GradientButton().then {
-        $0.setTitle("휴식 종료하기", for: .normal)
+        $0.setTitle("exit_break".localized, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.layer.cornerRadius = 28

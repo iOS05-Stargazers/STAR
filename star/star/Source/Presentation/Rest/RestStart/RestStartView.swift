@@ -15,7 +15,7 @@ final class RestStartView: UIView {
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
-        $0.text = "휴식 모드 전환"
+        $0.text = "switch_break_mode".localized
         $0.font = UIFont.System.semibold24
         $0.textAlignment = .center
         $0.textColor = .starButtonWhite
@@ -23,10 +23,7 @@ final class RestStartView: UIView {
     
     // 설명 라벨
     private let descriptionLabel = UILabel().then {
-        $0.text = """
-당신을 빛나게 하는 시간은
-스스로 선택할 때 더욱 빛나요.
-"""
+        $0.text = "break_motivation".localized
         $0.numberOfLines = 2
         $0.font = UIFont.System.regular16
         $0.textAlignment = .center
@@ -51,7 +48,7 @@ final class RestStartView: UIView {
     
     // 취소 버튼
     let cancelButton = GradientButton(type: .system).then {
-        $0.setTitle("취소하기", for: .normal)
+        $0.setTitle("cancel".localized, for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG

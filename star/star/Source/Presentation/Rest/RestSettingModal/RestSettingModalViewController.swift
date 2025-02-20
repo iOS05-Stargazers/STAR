@@ -19,14 +19,14 @@ final class RestSettingModalViewController: UIViewController {
     private let pickerData = Observable.just(Array<Int>(1...20))
     
     private let titleLabel = UILabel().then {
-        $0.text = "휴식하기"
+        $0.text = "take_a_break".localized
         $0.font = UIFont.System.semibold24
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
     
     private let textLabel = UILabel().then {
-        $0.text = "최대 20분까지 설정할 수 있습니다."
+        $0.text = "max_break_time".localized
         $0.font = UIFont.System.regular16
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
@@ -38,12 +38,12 @@ final class RestSettingModalViewController: UIViewController {
     }
     
     private let pickerLabel = UILabel().then {
-        $0.text = "분"
+        $0.text = "min".localized
         $0.textColor = .starPrimaryText
     }
     
     let restButton = GradientButton(type: .system).then {
-        $0.setTitle("휴식하기", for: .normal)
+        $0.setTitle("take_a_break".localized, for: .normal)
         $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG

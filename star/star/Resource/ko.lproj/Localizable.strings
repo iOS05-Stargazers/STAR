@@ -62,7 +62,7 @@
 "take_a_break" = "휴식하기";
 "max_break_time" = "최대 20분까지 설정할 수 있습니다.";
 "min" = "분";
-"on_break" = "휴식 중";
+"on_break" = "휴식중";
 "exit_break" = "휴식 종료하기";
 
 /// App Launch
