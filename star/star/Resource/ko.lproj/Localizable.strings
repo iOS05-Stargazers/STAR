@@ -26,6 +26,10 @@
 "add_star" = "스타 추가하기";
 
 /// Toast Messages
+"no_name" = "이름을 입력해주세요.";
+"no_applist" = "하나 이상의 앱을 선택해주세요.";
+"no_schedule" = "하나 이상의 반복 주기를 선택해주세요.";
+"over_finish_time" = "시작은 종료보다 15분 이상 빨라야 합니다.";
 "max_stars" = "최대 15개의 스타를 저장할 수 있어요.";
 "no_break_star" = "휴식할 수 있는 스타가 없어요.";
 
@@ -48,7 +52,8 @@
 "start_time" = "시작 시간";
 "end_time" = "종료 시간";
 "confirm_create" = "생성하기";
-"confirm_edit" = "수정하기"; 
+"confirm_edit" = "수정하기";
+"confirm_set" = "설정하기";
 
 /// Break Mode
 "switch_break_mode" = "휴식 모드 전환";

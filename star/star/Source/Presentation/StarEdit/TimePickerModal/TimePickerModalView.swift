@@ -30,7 +30,7 @@ final class TimePickerModalView: UIView {
     private let grabber = CustomGrabberView()
     
     let timeSelectButton = GradientButton(type: .system).then {
-        $0.setTitle("설정하기", for: .normal)
+        $0.setTitle("confirm_set".localized, for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음

@@ -26,13 +26,13 @@ enum StarModalInputState {
     var text: String {
         switch self {
         case .noName:
-            return "이름을 입력해주세요."
+            return "no_name".localized
         case .noApplist:
-            return "하나 이상의 앱을 선택해주세요."
+            return "no_applist".localized
         case .noSchedule:
-            return "하나 이상의 반복 주기를 선택해주세요."
+            return "no_schedule".localized
         case .overFinishTime:
-            return "시작은 종료보다 15분 이상 빨라야 합니다."
+            return "over_finish_time".localized
             
         }
     }

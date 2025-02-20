@@ -26,6 +26,10 @@
 "add_star" = "Add STAR";
 
 /// Toast Messages
+"no_name"= "이름을 1111111.";
+"no_applist"= "하나 이상의 111111.";
+"no_schedule" = "하나 이상의 111efadfadfadf.";
+"over_finish_time" = "시작은 종료보다dasfddfadfdafaadsf.";
 "max_stars" = "You can save up to 15 STARs.";
 "no_break_star" = "No STARs available for a break.";
 
@@ -49,6 +53,7 @@
 "end_time" = "End Time";
 "confirm_create" = "Create STAR";
 "confirm_edit" = "Edit STAR";
+"confirm_set" = "Set Time";
 
 /// Break Mode
 "switch_break_mode" = "Switch to Break Mode";
