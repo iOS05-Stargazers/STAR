@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import Then
 import SnapKit
+import Then
 
 final class StarListView: UIView {
     
@@ -33,7 +33,7 @@ final class StarListView: UIView {
         $0.text = "2025년 1월 20일 (월)"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
-        $0.font = Fonts.todayDate
+        $0.font = UIFont.System.semibold16
     }
     
     // 휴식 뷰
@@ -49,7 +49,7 @@ final class StarListView: UIView {
     // 휴식 라벨
     let restButtonLabel = UILabel().then {
         $0.text = "OFF"
-        $0.font = Fonts.buttonDescription
+        $0.font = UIFont.System.medium16
         $0.textColor = .starSecondaryText
     }
     
@@ -57,7 +57,7 @@ final class StarListView: UIView {
     let addStarButton = GradientButton(type: .system).then {
         $0.setTitle("스타 추가하기", for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
@@ -68,6 +68,15 @@ final class StarListView: UIView {
     
     // 토스트 메세지 뷰
     let toastMessageView = ToastMessageView()
+    
+    // 스타 없을 경우 보여지는 라벨
+    let noStarLabel = UILabel().then {
+        $0.text = "아직 스타가 없습니다.\n스타를 생성해주세요!"
+        $0.numberOfLines = 2
+        $0.font = UIFont.System.semibold20
+        $0.textColor = .starSecondaryText70
+        $0.isHidden = true
+    }
     
     // MARK: - 초기화
     
@@ -90,6 +99,7 @@ final class StarListView: UIView {
             topView,
             starListCollectionView,
             restView,
+            noStarLabel,
             toastMessageView,
             addStarButton
         ].forEach { addSubview($0) }
@@ -165,6 +175,10 @@ final class StarListView: UIView {
         toastMessageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-20)
+        }
+        
+        noStarLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)

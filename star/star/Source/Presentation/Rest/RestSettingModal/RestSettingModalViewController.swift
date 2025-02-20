@@ -20,14 +20,14 @@ final class RestSettingModalViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "휴식하기"
-        $0.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        $0.font = UIFont.System.semibold24
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
     
     private let textLabel = UILabel().then {
         $0.text = "최대 20분까지 설정할 수 있습니다."
-        $0.font = Fonts.modalSubtitle
+        $0.font = UIFont.System.regular16
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
@@ -45,7 +45,7 @@ final class RestSettingModalViewController: UIViewController {
     let restButton = GradientButton(type: .system).then {
         $0.setTitle("휴식하기", for: .normal)
         $0.setTitleColor(.starTertiaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true

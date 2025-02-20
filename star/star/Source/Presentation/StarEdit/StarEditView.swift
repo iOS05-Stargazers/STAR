@@ -18,20 +18,20 @@ final class StarEditView: UIView {
         let label = UILabel()
         label.text = title
         label.textColor = .starPrimaryText
-        label.font = Fonts.modalSectionTitle
+        label.font = UIFont.System.semibold16
         return label
     }
     
     private let titleLabel = UILabel().then {
         $0.text = "스타 생성"
         $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalTitle
+        $0.font = UIFont.System.semibold24
     }
     
     private let subtitleLabel = UILabel().then {
         $0.text = "잠금할 앱과 시간을 설정해 주세요"
         $0.textColor = .starSecondaryText
-        $0.font = Fonts.modalSubtitle
+        $0.font = UIFont.System.regular16
     }
     
     // nameLabel, nameTextField를 담는 스택뷰
@@ -46,7 +46,7 @@ final class StarEditView: UIView {
     lazy var nameTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력하세요", attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
-        $0.font = Fonts.modalSectionOption
+        $0.font = UIFont.System.regular16
         $0.textAlignment = .right
         $0.rightView = clearButton
         $0.rightViewMode = .whileEditing
@@ -70,7 +70,7 @@ final class StarEditView: UIView {
     let appLockButton = UIButton(type: .system).then {
         $0.setTitle("선택 >", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.modalSectionOption
+        $0.titleLabel?.font = UIFont.System.regular16
     }
     
     // repeatCycleLabel, weekStackView, startTimeStackView, endTimeStackView을 담는 스택뷰
@@ -109,7 +109,7 @@ final class StarEditView: UIView {
     let startTimeButton = UIButton(type: .system).then {
         $0.setTitle("00:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.modalSectionOption
+        $0.titleLabel?.font = UIFont.System.regular16
     }
     
     // endTimeLabel, endTimeButton을 담는 스택뷰
@@ -122,13 +122,13 @@ final class StarEditView: UIView {
     let endTimeButton = UIButton(type: .system).then {
         $0.setTitle("23:59", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.modalSectionOption
+        $0.titleLabel?.font = UIFont.System.regular16
     }
     
     let addStarButton = GradientButton(type: .system).then {
         $0.setTitle("생성하기", for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
-        $0.titleLabel?.font = Fonts.buttonTitle
+        $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true

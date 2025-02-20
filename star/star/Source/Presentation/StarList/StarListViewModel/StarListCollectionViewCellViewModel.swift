@@ -5,9 +5,7 @@
 //  Created by 서문가은 on 1/27/25.
 //
 
-import Foundation
 import RxSwift
-import RxRelay
 import RxCocoa
 
 final class StarListCollectionViewCellViewModel {
@@ -28,8 +26,8 @@ final class StarListCollectionViewCellViewModel {
     private func startTimer() {
         Observable<Int>.timer(.seconds(1), period: .seconds(1), scheduler: MainScheduler.instance)
             .withUnretained(self)
-            .subscribe(onNext: { _ in
-                self.updateTime()
+            .subscribe(onNext: { owner, _ in
+                owner.updateTime()
             })
             .disposed(by: disposeBag)
     }

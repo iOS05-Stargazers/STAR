@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import RxSwift
-import RxCocoa
 
 final class StarListViewController: UIViewController {
     
@@ -45,14 +44,22 @@ extension StarListViewController {
     private func bind() {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
+        let restButtonTapped = starListView.restButton.rx.tap.asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
             addButtonTapped: addButtonTapped,
+            restButtonTapped: restButtonTapped,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
         
         // 컬렉션뷰 데이터 바인딩
         output.starDataSource
+            .do(onNext: { [weak self] star in
+                guard let self = self else { return }
+                let starIsEmpty = star.isEmpty ? false : true
+                // 스타가 없으면 스타없음라벨 활성화
+                self.starListView.noStarLabel.isHidden = starIsEmpty
+            })
             .drive(starListView.starListCollectionView.rx.items(
                 cellIdentifier: StarListCollectionViewCell.id,
                 cellType: StarListCollectionViewCell.self)) { row, element, cell in
@@ -80,23 +87,8 @@ extension StarListViewController {
             })
             .disposed(by: disposeBag)
         
-        // 휴식 버튼 이벤트 처리
-        starListView.restButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectRestStartModal()
-            })
-            .disposed(by: disposeBag)
-        
-        // 추가하기 버튼 이벤트 처리
-        starListView.addStarButton.rx.tap
-            .asDriver()
-            .drive(with: self, onNext: { owner, _ in
-                owner.connectCreateModal(mode: .create)
-            }).disposed(by: disposeBag)
-        
         // 생성 가능 여부 바인딩
-        output.creationAvailability
+        output.availability
             .drive(with:self, onNext: { owner, result in
                 owner.handleCreationAvailability(result)
             })
@@ -106,6 +98,7 @@ extension StarListViewController {
         starListView.starListCollectionView.rx.modelSelected(Star.self)
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
+                HapticManager.shared.play(style: .selection)
                 owner.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
@@ -138,7 +131,7 @@ extension StarListViewController {
     private func connectModal(_ modal: StarModalState) {
         switch modal {
         case .onboarding:
-            connnectOnboarding()
+            connectOnboarding()
         case .restSetting:
             connectRestSettingModal()
         case .restStart:
@@ -150,6 +143,7 @@ extension StarListViewController {
     
     // 삭제하기 알럿 띄우기
     private func showAlert(_ star: Star) {
+        // 삭제 알럿 띄울 시 진동
         let starDeleteAlertViewModel = StarDeleteAlertViewModel(star: star, refreshRelay: viewModel.refreshRelay)
         let starDeleteAlertViewController = StarDeleteAlertViewController(viewModel: starDeleteAlertViewModel)
         starDeleteAlertViewController.modalPresentationStyle = .overFullScreen
@@ -158,8 +152,9 @@ extension StarListViewController {
     }
     
     // 온보딩 모달 연결
-    private func connnectOnboarding() {
-        let onboardingViewController = OnboardingViewController()
+    private func connectOnboarding() {
+        let onboardingViewModel = OnboardingViewModel()
+        let onboardingViewController = OnboardingViewController(viewModel: onboardingViewModel)
         onboardingViewController.modalPresentationStyle = .overFullScreen
         present(onboardingViewController, animated: false)
     }
@@ -215,12 +210,16 @@ extension StarListViewController {
     }
     
     // 생성 가능 여부 처리
-    private func handleCreationAvailability(_ result: CreationAvailability) {
+    private func handleCreationAvailability(_ result: Availability) {
         switch result {
-        case .available:
-            connectCreateModal(mode: .create)
+        case .available(let state):
+            if state == .create {
+                connectCreateModal(mode: .create)
+            } else {
+                connectRestStartModal()
+            }
         case .unavailable:
-            guard let text = result.text else { return }
+            guard let text = result.message else { return }
             self.starListView.toastMessageView.showToastMessage(text)
         }
     }
