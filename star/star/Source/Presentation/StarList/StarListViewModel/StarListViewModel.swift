@@ -20,6 +20,7 @@ enum StarModalState {
 }
 
 enum Mode {
+    
     case create // 스타 추가하기
     case rest // 휴식
 }

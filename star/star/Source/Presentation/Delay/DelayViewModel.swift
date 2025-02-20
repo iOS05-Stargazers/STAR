@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 enum DelayMode {
+    
     case rest
     case edit(star: Star)
     case delete(star: Star)
