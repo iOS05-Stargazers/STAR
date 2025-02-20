@@ -45,10 +45,12 @@ extension StarListViewController {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let restButtonTapped = starListView.restButton.rx.tap.asObservable()
+        let starSelected = starListView.starListCollectionView.rx.modelSelected(Star.self).asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
             addButtonTapped: addButtonTapped,
             restButtonTapped: restButtonTapped,
+            starSelected: starSelected,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
         
@@ -73,13 +75,6 @@ extension StarListViewController {
             .drive(starListView.todayDateLabel.rx.text)
             .disposed(by: disposeBag)
         
-        // 스타 바인딩
-        output.star
-            .drive(with: self, onNext: { owner, star in
-                owner.connectDelayModal(mode: .delete(star: star))
-            })
-            .disposed(by: disposeBag)
-        
         // 스타 모달 상태 바인딩
         output.starModalState
             .drive(with: self, onNext: { owner, thisModal in
@@ -91,15 +86,6 @@ extension StarListViewController {
         output.unavailability
             .drive(with:self, onNext: { owner, result in
                 owner.handleCreationAvailability(result)
-            })
-            .disposed(by: disposeBag)
-        
-        // 셀 선택 이벤트 처리
-        starListView.starListCollectionView.rx.modelSelected(Star.self)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, star in
-                HapticManager.shared.play(style: .selection)
-                owner.connectDelayModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
@@ -140,8 +126,8 @@ extension StarListViewController {
             showAlert(star)
         case .restSetting:
             connectRestSettingModal()
-        case .delay:
-            connectDelayModal(mode: .rest)
+        case .delay(let mode):
+            connectDelayModal(mode: mode)
         case .resting:
             connectRestingModal()
         }

@@ -15,7 +15,7 @@ enum StarModalState {
     case create
     case edit(star: Star)
     case delete(star: Star)
-    case delay
+    case delay(mode: DelayMode)
     case restSetting
     case resting
 }
@@ -40,13 +40,11 @@ final class StarListViewModel {
     
     private let starsRelay = BehaviorRelay<[Star]>(value: [])
     private let dateRelay = PublishRelay<Date>()
-    private let starStatusRelay = PublishRelay<StarState>()
-    private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
     private let starModalStateRelay = PublishRelay<StarModalState>()
+    private let unavailabilityRelay = PublishRelay<Unavailable>()
     let refreshRelay = PublishRelay<Void>()
     let delayCompleteRelay = PublishRelay<DelayMode>()
     let restSettingCompleteRelay = PublishRelay<Date>()
-    private let unavailabilityRelay = PublishRelay<Unavailable>()
     private let disposeBag = DisposeBag()
     
     // 어떤 모달 띄워줄 지 확인하는 메서드
@@ -64,7 +62,7 @@ final class StarListViewModel {
     // 삭제 버튼 누르면 스타 방출
     private func emitSelectedStar(_ index: Int) {
         let stars = starsRelay.value
-        selectedStarRelay.accept(stars[index])
+        delete(stars[index])
     }
     
     // 데이터 fetch
@@ -131,7 +129,23 @@ final class StarListViewModel {
         if starsRelay.value.isEmpty {
             unavailabilityRelay.accept(.restUnavailable)
         } else {
-            starModalStateRelay.accept(.resting)
+            starModalStateRelay.accept(.delay(mode: .rest))
+        }
+    }
+    
+    private func selected(_ star: Star) {
+        if star.state().style == .pending {
+            starModalStateRelay.accept(.edit(star: star))
+        } else {
+            starModalStateRelay.accept(.delay(mode: .edit(star: star)))
+        }
+    }
+    
+    private func delete(_ star: Star) {
+        if star.state().style == .pending {
+            starModalStateRelay.accept(.delete(star: star))
+        } else {
+            starModalStateRelay.accept(.delay(mode: .delete(star: star)))
         }
     }
 }
@@ -142,13 +156,13 @@ extension StarListViewModel {
         let viewWillAppear: Observable<Void>
         let addButtonTapped: Observable<Void>
         let restButtonTapped: Observable<Void>
+        let starSelected: Observable<Star>
         let deleteAction: PublishSubject<Int>
     }
     
     struct Output {
         let starDataSource: Driver<[Star]>
         let date: Driver<Date>
-        let star: Driver<Star>
         let starModalState: Driver<StarModalState>
         let unavailability: Driver<Unavailable>
     }
@@ -210,10 +224,15 @@ extension StarListViewModel {
                 owner.updateRestAvailability()
             }).disposed(by: disposeBag)
         
+        input.starSelected
+            .withUnretained(self)
+            .subscribe(onNext: { owner, star in
+                owner.selected(star)
+            }).disposed(by: disposeBag)
+                
         return Output(
             starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
             date: dateRelay.asDriver(onErrorDriveWith: .empty()),
-            star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
             starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
             unavailability: unavailabilityRelay.asDriver(onErrorDriveWith: .empty())
         )
