@@ -88,7 +88,7 @@ extension StarListViewController {
             .disposed(by: disposeBag)
         
         // 생성 가능 여부 바인딩
-        output.availability
+        output.unavailability
             .drive(with:self, onNext: { owner, result in
                 owner.handleCreationAvailability(result)
             })
@@ -132,6 +132,8 @@ extension StarListViewController {
         switch modal {
         case .onboarding:
             connectOnboarding()
+        case .create:
+            connectCreateModal(mode: .create)
         case .edit(let star):
             connectCreateModal(mode: .edit(star: star))
         case .delete(let star):
@@ -214,18 +216,8 @@ extension StarListViewController {
     }
     
     // 생성 가능 여부 처리
-    private func handleCreationAvailability(_ result: Availability) {
-        switch result {
-        case .available(let state):
-            if state == .create {
-                connectCreateModal(mode: .create)
-            } else {
-                connectDelayModal(mode: .rest)
-            }
-        case .unavailable:
-            guard let text = result.message else { return }
-            self.starListView.toastMessageView.showToastMessage(text)
-        }
+    private func handleCreationAvailability(_ result: Unavailable) {
+        self.starListView.toastMessageView.showToastMessage(result.message)
     }
 }
 

@@ -12,6 +12,7 @@ import RxCocoa
 enum StarModalState {
     
     case onboarding
+    case create
     case edit(star: Star)
     case delete(star: Star)
     case delay
@@ -19,28 +20,17 @@ enum StarModalState {
     case resting
 }
 
-enum Mode {
+enum Unavailable {
     
-    case create // 스타 추가하기
-    case rest // 휴식
-}
-
-enum Availability {
+    case createUnavailable
+    case restUnavailable
     
-    case available(state: Mode)
-    case unavailable(state: Mode)
-    
-    var message: String? {
+    var message: String {
         switch self {
-        case .available:
-            return nil // 가능할 때는 메시지가 필요 없음
-        case .unavailable(let mode):
-            switch mode {
-            case .create:
-                return "최대 15개의 스타를 저장할 수 있어요."
-            case .rest:
-                return "휴식할 수 있는 스타가 없어요."
-            }
+        case .createUnavailable:
+            return "최대 15개의 스타를 저장할 수 있어요."
+        case .restUnavailable:
+            return "휴식할 수 있는 스타가 없어요."
         }
     }
 }
@@ -56,7 +46,7 @@ final class StarListViewModel {
     let refreshRelay = PublishRelay<Void>()
     let delayCompleteRelay = PublishRelay<DelayMode>()
     let restSettingCompleteRelay = PublishRelay<Date>()
-    private let availabilityRelay = PublishRelay<Availability>()
+    private let unavailabilityRelay = PublishRelay<Unavailable>()
     private let disposeBag = DisposeBag()
     
     // 어떤 모달 띄워줄 지 확인하는 메서드
@@ -128,16 +118,21 @@ final class StarListViewModel {
     }
     
     // 생성 가능 여부 업데이트
-    private func updateCreationAvailability(mode: Mode) {
-        let result: Availability
-        
-        if mode == .create {
-            result = starsRelay.value.count > 14 ? .unavailable(state: mode) : .available(state: mode)
+    private func updateCreationAvailability() {
+        if starsRelay.value.count > 14 {
+            unavailabilityRelay.accept(.createUnavailable)
         } else {
-            result = starsRelay.value.isEmpty ? .unavailable(state: mode) : .available(state: mode)
+            starModalStateRelay.accept(.create)
         }
-        
-        availabilityRelay.accept(result)
+    }
+    
+    // 휴식 가능 여부 업데이트
+    private func updateRestionAvailability() {
+        if starsRelay.value.isEmpty {
+            unavailabilityRelay.accept(.restUnavailable)
+        } else {
+            starModalStateRelay.accept(.resting)
+        }
     }
 }
 
@@ -155,7 +150,7 @@ extension StarListViewModel {
         let date: Driver<Date>
         let star: Driver<Star>
         let starModalState: Driver<StarModalState>
-        let availability: Driver<Availability>
+        let unavailability: Driver<Unavailable>
     }
     
     func transform(_ input: Input) -> Output {
@@ -204,7 +199,7 @@ extension StarListViewModel {
             .withUnretained(self)
             .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { owner, _ in
-                owner.updateCreationAvailability(mode: .create)
+                owner.updateCreationAvailability()
             }).disposed(by: disposeBag)
         
         input.restButtonTapped
@@ -212,13 +207,15 @@ extension StarListViewModel {
             .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { owner, _ in
                 HapticManager.shared.play(style: .selection)
-                owner.updateCreationAvailability(mode: .rest)
+                owner.updateRestionAvailability()
             }).disposed(by: disposeBag)
         
-        return Output(starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
-                      date: dateRelay.asDriver(onErrorDriveWith: .empty()),
-                      star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
-                      starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
-                      availability: availabilityRelay.asDriver(onErrorDriveWith: .empty()))
+        return Output(
+            starDataSource: starsRelay.asDriver(onErrorJustReturn: []),
+            date: dateRelay.asDriver(onErrorDriveWith: .empty()),
+            star: selectedStarRelay.asDriver(onErrorDriveWith: .empty()),
+            starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
+            unavailability: unavailabilityRelay.asDriver(onErrorDriveWith: .empty())
+        )
     }
 }
