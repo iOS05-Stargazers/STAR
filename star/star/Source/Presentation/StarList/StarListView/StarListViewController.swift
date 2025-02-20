@@ -76,7 +76,7 @@ extension StarListViewController {
         // 스타 바인딩
         output.star
             .drive(with: self, onNext: { owner, star in
-                owner.connectRestStartModal(mode: .delete(star: star))
+                owner.connectDelayModal(mode: .delete(star: star))
             })
             .disposed(by: disposeBag)
         
@@ -99,7 +99,7 @@ extension StarListViewController {
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
                 HapticManager.shared.play(style: .selection)
-                owner.connectRestStartModal(mode: .edit(star: star))
+                owner.connectDelayModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
@@ -138,8 +138,8 @@ extension StarListViewController {
             showAlert(star)
         case .restSetting:
             connectRestSettingModal()
-        case .restStart:
-            connectRestStartModal(mode: .rest)
+        case .delay:
+            connectDelayModal(mode: .rest)
         case .resting:
             connectRestingModal()
         }
@@ -163,13 +163,13 @@ extension StarListViewController {
         present(onboardingViewController, animated: false)
     }
     
-    // 휴식 진입 화면 모달 연결
-    private func connectRestStartModal(mode: DelayMode) {
-        let restStartViewModel = RestStartViewModel(restStartCompleteRelay: viewModel.restStartCompleteRelay, mode: mode)
-        let restStartViewController = RestStartViewController(restStartViewModel: restStartViewModel)
-        restStartViewController.view.backgroundColor = .starModalOverlayBG
-        restStartViewController.modalPresentationStyle = .overFullScreen
-        present(restStartViewController, animated: true)
+    // 지연 화면 모달 연결
+    private func connectDelayModal(mode: DelayMode) {
+        let delayViewModel = DelayViewModel(delayCompleteRelay: viewModel.delayCompleteRelay, mode: mode)
+        let delayViewController = DelayController(delayViewModel: delayViewModel)
+        delayViewController.view.backgroundColor = .starModalOverlayBG
+        delayViewController.modalPresentationStyle = .overFullScreen
+        present(delayViewController, animated: true)
     }
     
     // 휴식 설정 화면 모달 연결
@@ -220,7 +220,7 @@ extension StarListViewController {
             if state == .create {
                 connectCreateModal(mode: .create)
             } else {
-                connectRestStartModal(mode: .rest)
+                connectDelayModal(mode: .rest)
             }
         case .unavailable:
             guard let text = result.message else { return }

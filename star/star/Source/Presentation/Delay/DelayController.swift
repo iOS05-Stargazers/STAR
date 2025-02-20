@@ -8,16 +8,16 @@
 import UIKit
 import RxSwift
 
-final class RestStartViewController: UIViewController {
+final class DelayController: UIViewController {
     
-    private let restStartView = RestStartView()
-    private let restStartViewModel: RestStartViewModel
+    private let delayView = DelayView()
+    private let delayViewModel: DelayViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - 생명주기 메서드
     
-    init(restStartViewModel: RestStartViewModel) {
-        self.restStartViewModel = restStartViewModel
+    init(delayViewModel: DelayViewModel) {
+        self.delayViewModel = delayViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,7 +26,7 @@ final class RestStartViewController: UIViewController {
     }
     
     override func loadView() {
-        view = restStartView
+        view = delayView
     }
     
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ final class RestStartViewController: UIViewController {
     // MARK: - bind
     
     private func bind() {
-        let output = restStartViewModel.transform()
+        let output = delayViewModel.transform()
         
         // 카운트 바인딩
         output.count
@@ -45,19 +45,19 @@ final class RestStartViewController: UIViewController {
                 count != 0
             })
             .map { "\($0)" }
-            .drive(restStartView.countLabel.rx.text)
+            .drive(delayView.countLabel.rx.text)
             .disposed(by: disposeBag)
         
         // 완료 바인딩
         output.complete
             .drive(with: self, onNext: { owner, _ in
                 owner.dismiss(animated: true)
-                owner.restStartViewModel.restStartCompleteRelay.accept(owner.restStartViewModel.mode)
+                owner.delayViewModel.delayCompleteRelay.accept(owner.delayViewModel.mode)
             })
             .disposed(by: disposeBag)
         
         // 취소버튼 이벤트 처리
-        restStartView.cancelButton.rx.tap
+        delayView.cancelButton.rx.tap
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
                 owner.dismiss(animated: true)

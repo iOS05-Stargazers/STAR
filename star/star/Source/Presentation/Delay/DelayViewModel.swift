@@ -15,17 +15,17 @@ enum DelayMode {
     case delete(star: Star)
 }
 
-final class RestStartViewModel {
+final class DelayViewModel {
     
     private let countRelay = BehaviorRelay(value: 5)
     private let completeRelay = PublishRelay<Void>()
-    let restStartCompleteRelay: PublishRelay<DelayMode> // 휴식 진입 화면 완료 릴레이 -> 메인 화면에서 이벤트 방출 받음
+    let delayCompleteRelay: PublishRelay<DelayMode> // 휴식 진입 화면 완료 릴레이 -> 메인 화면에서 이벤트 방출 받음
     private let disposeBag = DisposeBag()
     
     let mode: DelayMode
     
-    init(restStartCompleteRelay: PublishRelay<DelayMode>, mode: DelayMode) {
-        self.restStartCompleteRelay = restStartCompleteRelay
+    init(delayCompleteRelay: PublishRelay<DelayMode>, mode: DelayMode) {
+        self.delayCompleteRelay = delayCompleteRelay
         self.mode = mode
     }
     
@@ -46,7 +46,7 @@ final class RestStartViewModel {
     }
 }
 
-extension RestStartViewModel {
+extension DelayViewModel {
     
     struct Output {
         let count: Driver<Int>

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class RestStartView: UIView {
+final class DelayView: UIView {
     
     // MARK: - UI Components
     

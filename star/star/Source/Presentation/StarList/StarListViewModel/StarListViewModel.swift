@@ -14,7 +14,7 @@ enum StarModalState {
     case onboarding
     case edit(star: Star)
     case delete(star: Star)
-    case restStart
+    case delay
     case restSetting
     case resting
 }
@@ -53,7 +53,7 @@ final class StarListViewModel {
     private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
     private let starModalStateRelay = PublishRelay<StarModalState>()
     let refreshRelay = PublishRelay<Void>()
-    let restStartCompleteRelay = PublishRelay<DelayMode>()
+    let delayCompleteRelay = PublishRelay<DelayMode>()
     let restSettingCompleteRelay = PublishRelay<Date>()
     private let availabilityRelay = PublishRelay<Availability>()
     private let disposeBag = DisposeBag()
@@ -165,7 +165,7 @@ extension StarListViewModel {
             })
             .disposed(by: disposeBag)
         
-        restStartCompleteRelay
+        delayCompleteRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, mode in
                 
