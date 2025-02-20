@@ -61,11 +61,11 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 ## 👥 팀 소개
 | Name     | GitHub   | Main Developments |
 |:--------:| -------- |:-----------------:|
-| 박유빈 <br> Youbin Park | [@daydreamplace](https://github.com/daydreamplace) | PermissionView <br> Base for Data Manager |
-| 서문가은 <br> Gaeun Seomun | [@name-mun](https://github.com/name-mun) | StarListView (MainView) <br> Star List Handling |
-| 안준경 <br> Jungyung Ahn | [@AhnJunGyung](https://github.com/AhnJunGyung) | StarModalView (SecondaryView) <br> User Input Handling |
-| 이재영 <br> Jaeyoung Lee | [@0-jerry](https://github.com/0-jerry) | Data Model Design <br> Team Project Supervision |
-| 황도일 <br> Doyle Hwang | [@DoyleHWorks](https://github.com/DoyleHWorks) | Screentime Framework <br> Common UI Components |
+| 박유빈 <br> Youbin Park | [@daydreamplace](https://github.com/daydreamplace) | 권한 및 온보딩 화면 <br> 데이터 처리 기반 마련 |
+| 서문가은 <br> Gaeun Seomun | [@name-mun](https://github.com/name-mun) | 스타 목록 화면 <br> 스타 목록 핸들링 |
+| 안준경 <br> Jungyung Ahn | [@AhnJunGyung](https://github.com/AhnJunGyung) | 스타 생성 및 수정 화면 <br> 사용자 입력 처리 |
+| 이재영 <br> Jaeyoung Lee | [@0-jerry](https://github.com/0-jerry) | 데이터 모델 설계 <br> 팀 프로젝트 감독 |
+| 황도일 <br> Doyle Hwang | [@DoyleHWorks](https://github.com/DoyleHWorks) | 스크린타임 프레임워크 <br> 공통 UI 컴포넌트 |
 
 ## ⏰ 프로젝트 범위
 - **시작일**: 2025/01/16
