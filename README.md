@@ -62,7 +62,7 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 </div>
 
 ## 👥 팀 소개
-| Name     | GitHub   | Main Developments |
+| 이름      | GitHub   | 주요 개발 사항 |
 |:--------:| -------- |:-----------------:|
 | 박유빈 <br> Youbin Park | [@daydreamplace](https://github.com/daydreamplace) | 권한 및 온보딩 화면 <br> 데이터 처리 기반 마련 |
 | 서문가은 <br> Gaeun Seomun | [@name-mun](https://github.com/name-mun) | 스타 목록 화면 <br> 스타 목록 핸들링 |
