@@ -69,8 +69,9 @@
 "app_launch" = "별을 이루는 당신의 시간, STAR와 함께 빛나세요";
 
 /// Delete Alert
-"delete_alert" = "정말로 삭제하시겠습니까?\n삭제한 스타는 되돌릴 수 없습니다.";
-"delete" = "삭제";
+"delete_alert_message" = "정말로 삭제하시겠습니까?\n삭제한 스타는 되돌릴 수 없습니다.";
+"confirm_cancel" = "취소";
+"confirm_delete" = "삭제";
 "exit" = "종료하기";
 
 // Push Notifications

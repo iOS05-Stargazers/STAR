@@ -60,7 +60,7 @@ final class StarDeleteAlertViewController: UIViewController {
     
     // 취소 버튼
     private let cancelButton = UIButton(type: .system).then {
-        $0.setTitle("취소", for: .normal)
+        $0.setTitle("confirm_cancel".localized, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
         $0.setTitleColor(.starPrimaryText, for: .normal)
@@ -69,7 +69,7 @@ final class StarDeleteAlertViewController: UIViewController {
     
     // 삭제 버튼
     private let deleteButton = UIButton(type: .system).then {
-        $0.setTitle("삭제", for: .normal)
+        $0.setTitle("confirm_delete".localized, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDelete
         $0.setTitleColor(.starPrimaryText, for: .normal)
