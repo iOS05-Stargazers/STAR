@@ -76,7 +76,7 @@ extension StarListViewController {
         // 스타 바인딩
         output.star
             .drive(with: self, onNext: { owner, star in
-                owner.showAlert(star)
+                owner.connectRestStartModal(mode: .delete(star: star))
             })
             .disposed(by: disposeBag)
         
@@ -99,7 +99,7 @@ extension StarListViewController {
             .withUnretained(self)
             .subscribe(onNext: { owner, star in
                 HapticManager.shared.play(style: .selection)
-                owner.connectCreateModal(mode: .edit(star: star))
+                owner.connectRestStartModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
@@ -132,10 +132,14 @@ extension StarListViewController {
         switch modal {
         case .onboarding:
             connectOnboarding()
+        case .edit(let star):
+            connectCreateModal(mode: .edit(star: star))
+        case .delete(let star):
+            showAlert(star)
         case .restSetting:
             connectRestSettingModal()
         case .restStart:
-            connectRestStartModal()
+            connectRestStartModal(mode: .rest)
         case .resting:
             connectRestingModal()
         }
@@ -160,8 +164,8 @@ extension StarListViewController {
     }
     
     // 휴식 진입 화면 모달 연결
-    private func connectRestStartModal() {
-        let restStartViewModel = RestStartViewModel(restStartCompleteRelay: viewModel.restStartCompleteRelay)
+    private func connectRestStartModal(mode: DelayMode) {
+        let restStartViewModel = RestStartViewModel(restStartCompleteRelay: viewModel.restStartCompleteRelay, mode: mode)
         let restStartViewController = RestStartViewController(restStartViewModel: restStartViewModel)
         restStartViewController.view.backgroundColor = .starModalOverlayBG
         restStartViewController.modalPresentationStyle = .overFullScreen
@@ -216,7 +220,7 @@ extension StarListViewController {
             if state == .create {
                 connectCreateModal(mode: .create)
             } else {
-                connectRestStartModal()
+                connectRestStartModal(mode: .rest)
             }
         case .unavailable:
             guard let text = result.message else { return }

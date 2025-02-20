@@ -52,7 +52,7 @@ final class RestStartViewController: UIViewController {
         output.complete
             .drive(with: self, onNext: { owner, _ in
                 owner.dismiss(animated: true)
-                owner.restStartViewModel.restStartCompleteRelay.accept(())
+                owner.restStartViewModel.restStartCompleteRelay.accept(owner.restStartViewModel.mode)
             })
             .disposed(by: disposeBag)
         

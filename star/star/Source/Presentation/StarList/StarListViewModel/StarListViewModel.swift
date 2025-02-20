@@ -12,6 +12,8 @@ import RxCocoa
 enum StarModalState {
     
     case onboarding
+    case edit(star: Star)
+    case delete(star: Star)
     case restStart
     case restSetting
     case resting
@@ -51,7 +53,7 @@ final class StarListViewModel {
     private let selectedStarRelay = PublishRelay<Star>() // 삭제 버튼 누르면 방출
     private let starModalStateRelay = PublishRelay<StarModalState>()
     let refreshRelay = PublishRelay<Void>()
-    let restStartCompleteRelay = PublishRelay<Void>()
+    let restStartCompleteRelay = PublishRelay<DelayMode>()
     let restSettingCompleteRelay = PublishRelay<Date>()
     private let availabilityRelay = PublishRelay<Availability>()
     private let disposeBag = DisposeBag()
@@ -165,8 +167,16 @@ extension StarListViewModel {
         
         restStartCompleteRelay
             .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                owner.starModalStateRelay.accept(.restSetting)
+            .subscribe(onNext: { owner, mode in
+                
+                switch mode {
+                case .rest:
+                    owner.starModalStateRelay.accept(.restSetting)
+                case .edit(let star):
+                    owner.starModalStateRelay.accept(.edit(star: star))
+                case .delete(let star):
+                    owner.starModalStateRelay.accept(.delete(star: star))
+                }
             })
             .disposed(by: disposeBag)
         

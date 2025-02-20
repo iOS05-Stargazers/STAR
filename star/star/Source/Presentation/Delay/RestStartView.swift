@@ -15,7 +15,7 @@ final class RestStartView: UIView {
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
-        $0.text = "휴식 모드 전환"
+        $0.text = "잠시만요"
         $0.font = UIFont.System.semibold24
         $0.textAlignment = .center
         $0.textColor = .starButtonWhite
