@@ -73,7 +73,7 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 ## ⏰ 프로젝트 범위
 - **시작일**: 2025/01/16
 
-## 📂 Folder Organization
+## 📂 폴더 구조
 ```bash
 ├── star                       // 프로젝트의 메인 앱
 │   ├── App                    // 메타데이터, 권한, 라이프사이클
