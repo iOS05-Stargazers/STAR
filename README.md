@@ -1,3 +1,6 @@
+[![ko](https://img.shields.io/badge/lang-ko-blue.svg)](https://github.com/iOS05-Stargazers/STAR/blob/develop/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/iOS05-Stargazers/STAR/blob/develop/README.en.md)
+
 # 📱 스타(STAR)
 STAR: Screen Time Awareness & Regulation (iOS 앱)
 <br>
