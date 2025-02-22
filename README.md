@@ -41,12 +41,8 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
   <a href="https://github.com/devxoul/Then" target="_blank">
     <img src="https://img.shields.io/badge/Then-00aeb9?style=for-the-badge&logoColor=white" alt="Then">
   </a>
-  <br>
   <a href="https://github.com/ReactiveX/RxSwift" target="_blank">
-    <img src="https://img.shields.io/badge/reactivex-B7178C?style=for-the-badge&logoColor=white" alt="reactivex">
-  </a>
-    <a href="https://github.com/RxSwiftCommunity/RxKeyboard" target="_blank">
-    <img src="https://img.shields.io/badge/rxkeyboard-B7178C?style=for-the-badge&logoColor=white" alt="rxkeyboard">
+    <img src="https://img.shields.io/badge/rxswift-B7178C?style=for-the-badge&logoColor=white" alt="rxswift">
   </a>
   <br>
   <a href="https://github.com/" target="_blank">
@@ -99,7 +95,7 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 │             ├── Rest
 │             ├── StarDeleteAlert
 │             ├── StarEdit
-│             └── StarListI
+│             └── StarList
 ├── ShieldConfiguration        // 앱 사용 제한 화면인 스크린타임 화면 커스터마이징을 위한 앱 확장
 ├── ShieldAction               // 스크린타임 화면에서 호출되는 메서드를 관리하는 앱 확장
 └── DeviceActivityMonitor      // 생성된 스크린타임 스케줄에 따라 호출되는 메서드를 관리하는 앱 확장
@@ -113,28 +109,47 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 ## 🏷 주요 기능
 #### 스타(Star) - 디지털 시간 관리 유닛
 - 사용자는 여러 개의 스타를 생성 및 관리할 수 있습니다.
-- 스타는 이름, 차단할 앱 목록, 활성 시간 및 지정 요일을 가지며, 하나의 세션으로서 작동합니다.
+- 각 스타는 이름, 차단할 앱 목록, 활성 시간, 지정 요일을 가지며, 하나의 세션으로 작동합니다.
 
 #### 스타 관리
-- 사용자는 스타 목록에서 스타를 조회하고 추가할 수 있습니다.
+- 사용자는 스타 목록에서 스타를 조회하고 추가하거나 삭제할 수 있습니다.
 - 기존의 스타를 선택하여 설정을 수정할 수 있습니다.
 
 #### 휴식 모드 전환
-- 스타가 활성화되어 있는 동안에도 사용자는 스크린타임 기능을 최대 20분간 일시적으로 비활성화할 수 있습니다.
+- 스타가 활성화된 동안에도 사용자는 스크린타임 기능을 최대 20분간 일시적으로 비활성화할 수 있습니다.
 - 사용자 친화적 플로우를 통해 균형 잡힌 디지털 라이프스타일을 지원합니다.
 
-## ✨ 고민한 사항
-#### 기능
+#### 사용자 31친화적 제약
+- 진행 중인 스타의 삭제 및 수정, 휴식 모드 전환에 일정 시간 대기 화면이 제공됩니다.31
+- 사용자가 설정한 목표를 유지할 수 있도록 적절한 제약을 적용해 도움을 제공합니다.
+
+## ✨ 개발 시 고려사항
+#### 기능 및 아키텍처
 - 데이터 통신: App Group(공유 컨테이너를 통한 UserDefaults 사용)을 통해 메인 앱과 DeviceActivityMonitor 간의 연결
 - 핵심 기능: Family Controls (FamilyControls, DeviceActivity, ManagedSettings)를 사용하여 주요 기능 구현
+- MVC -> MVVM 리팩터링: 초기에는 MVC 구조로 개발했으나, 정형화된 데이터 흐름과 역할 분리가 필요해지면서 MVVM 구조로 변경31
 
 #### 온보딩 플로우
-- 앱이 실행될 때마다 스크린타임 권한을 확인하고, 필요 시 설정 가이드를 제공합니다.
+- 앱이 실행 시 스크린타임 권한을 확인하고, 필요할 경우 설정 가이드를 제공합니다.
 - 처음 사용하는 사용자를 위한 도움말 화면을 제공합니다.
 
 #### 사용자 경험 개선
-- 간단한 스와이프 동작과 커스텀 알림을 결합한 안전한 삭제 기능 제공
-- Auto Layout를 통한 소형 iPhone 호환성 보장, 편의성을 고려한 버튼 크기 조절
+- 간단한 스와이프 동작과 커스텀 알림을 결합하여 안전한 삭제 기능 제공
+- Auto Layout를 통해 소형 iPhone에서도 호환상 보장
+
+## 🔍 Family Controls 관련 주요 과제
+#### 멀티세션 생성 및 관리
+- 단일 앱 차단 세션은 구현이 비교적 단순하지만, 여러 세션을 지원하기 위해 ActivityDeviceMonitor App Extension의 인터벌 생명주기 메서드를 활용
+- DeviceActivity의 모니터링 스케줄과 ManagedSettings의 차단할 앱 리스트(FamilyActivitySelection) 적용 로직을 분리해 유연한 관리 가능
+
+#### App Extension에도 Family Controls 요청하기
+- App Extension을 활용할 경우 각 번들 ID에 대해 Family Controls (Distribution) 권한을 Apple 측에 요청해야 하며, 승인까지 보통 한 달 이상 소요됨
+- 개발 일정에 메인 앱과 App Extension의 승인 대기 시간을 고려하여 조정 필요31
+
+#### FamilyActivityPicker의 불안정성 대응
+- FamilyActivityPicker 자체가 불안정하여 크래시 발생 가능성이 높으며, 2022년부터 보고된 버그가 현재 기준으로 아직 고쳐지지 않은 상황
+- 기본적으로 SwiftUI에서만 지원하기에 UIKit 기반의 코드에서 정상적으로 작동시키는 데 추가적인 처리가 많이 필요할 수 있음
+- 크래시 핸들링을 우회적으로 처리함으로써 사용자 경험을 개선하는 방안을 지속적으로 고민 중
 
 ## 📦 설치 방법 
 (앱 스토어 출시 준비 중)
