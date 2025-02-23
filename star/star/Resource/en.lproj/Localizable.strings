@@ -57,7 +57,7 @@
 
 /// Delay
 "delay" = "Please wait";
-"break_motivation" = "You shine the brightest when you choose your own time.";
+"break_motivation" = "Your time shines brightest\nwhen it's truly yours.";
 "cancel" = "Cancel";
 
 /// Break Mode
@@ -65,7 +65,7 @@
 "max_break_time" = "Set a break time of up to 20 min.";
 "min" = "min";
 "on_break" = "On Break";
-"exit_break" = "Exit Break";
+"exit_break" = "Leave Early";
 
 /// App Launch
 "app_launch" = "Shape your time into a STAR, and let it shine!";
