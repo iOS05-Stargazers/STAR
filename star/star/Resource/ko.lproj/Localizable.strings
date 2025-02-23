@@ -20,6 +20,7 @@
 "permission_footer" = "사용자의 정보는 Apple에 의해 보호되며,\n외부로 절대 노출되지 않습니다.";
 
 /// Star List
+"date_format" = "yyyy년 M월 dd일 (E)";
 "no_stars" = "아직 스타가 없습니다.\n스타를 생성해주세요!";
 "pending" = "대기중";
 "in_progress" = "진행중";
