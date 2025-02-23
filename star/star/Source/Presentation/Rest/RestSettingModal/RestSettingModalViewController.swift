@@ -69,13 +69,8 @@ final class RestSettingModalViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .starModalBG
-        
-        [
-            titleLabel,
-            textLabel,
-            pickerView,
-            restButton
-        ].forEach { view.addSubview($0) }
+    
+        view.addSubviews(titleLabel, textLabel, pickerView, restButton)
         
         pickerView.addSubview(pickerLabel)
         

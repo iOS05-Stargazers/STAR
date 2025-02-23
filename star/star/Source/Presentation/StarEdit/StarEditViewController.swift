@@ -144,14 +144,6 @@ extension StarEditViewController {
             }).disposed(by: disposeBag)
     }
     
-    // 날짜 포맷 변환
-    private func dateToString(date: Date) -> String{
-        let dateFormetter = DateFormatter()
-        dateFormetter.dateFormat = "HH:mm"
-        
-        return dateFormetter.string(from: date)
-    }
-    
     // 모달창 연결
     private func connectPickerModal(mode: TimeType) {
         let pickerViewModel = TimePickerModalViewModel(mode: mode,
