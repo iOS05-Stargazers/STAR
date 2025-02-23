@@ -155,7 +155,7 @@ extension StarListViewController {
     // 지연 화면 모달 연결
     private func connectDelayModal(mode: DelayMode) {
         let delayViewModel = DelayViewModel(delayCompleteRelay: viewModel.delayCompleteRelay, mode: mode)
-        let delayViewController = DelayController(delayViewModel: delayViewModel)
+        let delayViewController = DelayViewController(delayViewModel: delayViewModel)
         delayViewController.view.backgroundColor = .starModalOverlayBG
         delayViewController.modalPresentationStyle = .overFullScreen
         present(delayViewController, animated: true)

@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-final class DelayController: UIViewController {
+final class DelayViewController: UIViewController {
     
     private let delayView = DelayView()
     private let delayViewModel: DelayViewModel
