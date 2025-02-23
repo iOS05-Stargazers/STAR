@@ -36,10 +36,7 @@ final class StarDeleteAlertViewController: UIViewController {
     // 설명 라벨
     private let descriptionLabel = UILabel().then {
         $0.numberOfLines = 2
-        $0.text = """
-정말로 삭제하시겠습니까?
-삭제한 스타는 되돌릴 수 없습니다.
-"""
+        $0.text = "delete_alert_message".localized
         let attrString = NSMutableAttributedString(string: $0.text!)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
