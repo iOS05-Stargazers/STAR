@@ -84,8 +84,9 @@
 "exit" = "Exit";
 
 /// Push Notifications
-"star_started" = "%@ has begun.";
-"star_completed" = "%@ is complete.";
+"star_will_start" = "%@ starts in 5 min.";
+"star_started" = "%@ has started.";
+"star_completed" = "%@ has ended.";
 
 /// Shield Configuration
 "restricted_message" = "%@ is restricted.";

@@ -20,11 +20,11 @@ enum NotificationType {
     var body: String {
         switch self {
         case .willStartSoon(let star):
-            return "\(star.title) 스타가 5분 뒤에 시작됩니다."
+            return String(format: "star_will_start".localized, star.title)
         case .didStart(let star):
-            return "\(star.title) 스타가 시작되었습니다."
+            return String(format: "star_started".localized, star.title)
         case .didEnd(let star):
-            return "\(star.title) 스타가 종료되었습니다."
+            return String(format: "star_completed".localized, star.title)
         }
     }
     
@@ -119,12 +119,12 @@ final class NotificationManager: NSObject {
         // 알림 등록
         UNUserNotificationCenter.current().add(request) { _ in }
     }
-
+    
     
     // 5분 전 알림 시간 계산
     private func calculateWillStartSoonTimes(_ star: Star) -> [DateComponents] {
         let startTime = star.schedule.startTime
-
+        
         let willStartSoonList: [DateComponents] = star.schedule.weekDays.map { WeekDay in
             let startDate = DateComponents(hour: startTime.hour,
                                            minute: startTime.minute,

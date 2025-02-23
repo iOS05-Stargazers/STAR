@@ -83,7 +83,8 @@
 "confirm_delete" = "삭제";
 "exit" = "종료하기";
 
-// Push Notifications
+/// Push Notifications
+"star_will_start" = "%@ 스타가 5분 뒤에 시작됩니다.";
 "star_started" = "%@ 스타가 시작되었습니다.";
 "star_completed" = "%@ 스타가 종료되었습니다.";
 
