@@ -149,8 +149,8 @@ extension StarDeleteAlertViewController {
     
     private func bind() {
         let input = StarDeleteAlertViewModel.Input(
-            cancelButtonTapped: cancelButton.rx.tap.asObservable(),
-            deleteButtonTapped: deleteButton.rx.tap.asObservable())
+            deleteButtonTapped: deleteButton.rx.tap.asObservable()
+        )
         viewModel.transform(input)
         
         // 취소버튼, 삭제버튼 이벤트 처리

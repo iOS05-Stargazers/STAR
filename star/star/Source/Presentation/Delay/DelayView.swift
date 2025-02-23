@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 import Then
 
-final class RestStartView: UIView {
+final class DelayView: UIView {
     
     // MARK: - UI Components
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
-        $0.text = "switch_break_mode".localized
+        $0.text = "delay".localized
         $0.font = UIFont.System.semibold24
         $0.textAlignment = .center
         $0.textColor = .starButtonWhite

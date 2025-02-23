@@ -45,10 +45,12 @@ extension StarListViewController {
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let restButtonTapped = starListView.restButton.rx.tap.asObservable()
+        let starSelected = starListView.starListCollectionView.rx.modelSelected(Star.self).asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
             addButtonTapped: addButtonTapped,
             restButtonTapped: restButtonTapped,
+            starSelected: starSelected,
             deleteAction: deleteActionSubject)
         let output = viewModel.transform(input)
         
@@ -73,13 +75,6 @@ extension StarListViewController {
             .drive(starListView.todayDateLabel.rx.text)
             .disposed(by: disposeBag)
         
-        // 스타 바인딩
-        output.star
-            .drive(with: self, onNext: { owner, star in
-                owner.showAlert(star)
-            })
-            .disposed(by: disposeBag)
-        
         // 스타 모달 상태 바인딩
         output.starModalState
             .drive(with: self, onNext: { owner, thisModal in
@@ -88,18 +83,9 @@ extension StarListViewController {
             .disposed(by: disposeBag)
         
         // 생성 가능 여부 바인딩
-        output.availability
+        output.unavailability
             .drive(with:self, onNext: { owner, result in
                 owner.handleCreationAvailability(result)
-            })
-            .disposed(by: disposeBag)
-        
-        // 셀 선택 이벤트 처리
-        starListView.starListCollectionView.rx.modelSelected(Star.self)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, star in
-                HapticManager.shared.play(style: .selection)
-                owner.connectCreateModal(mode: .edit(star: star))
             })
             .disposed(by: disposeBag)
     }
@@ -117,6 +103,7 @@ extension StarListViewController {
                 let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completionHandler in
                     guard let self = self else { return }
                     deleteActionSubject.onNext(indexPath.item)
+                    completionHandler(false)
                 }
                 
                 deleteAction.image = UIImage(systemName: "trash")
@@ -132,10 +119,16 @@ extension StarListViewController {
         switch modal {
         case .onboarding:
             connectOnboarding()
+        case .create:
+            connectCreateModal(mode: .create)
+        case .edit(let star):
+            connectCreateModal(mode: .edit(star: star))
+        case .delete(let star):
+            showAlert(star)
         case .restSetting:
             connectRestSettingModal()
-        case .restStart:
-            connectRestStartModal()
+        case .delay(let mode):
+            connectDelayModal(mode: mode)
         case .resting:
             connectRestingModal()
         }
@@ -159,13 +152,13 @@ extension StarListViewController {
         present(onboardingViewController, animated: false)
     }
     
-    // 휴식 진입 화면 모달 연결
-    private func connectRestStartModal() {
-        let restStartViewModel = RestStartViewModel(restStartCompleteRelay: viewModel.restStartCompleteRelay)
-        let restStartViewController = RestStartViewController(restStartViewModel: restStartViewModel)
-        restStartViewController.view.backgroundColor = .starModalOverlayBG
-        restStartViewController.modalPresentationStyle = .overFullScreen
-        present(restStartViewController, animated: true)
+    // 지연 화면 모달 연결
+    private func connectDelayModal(mode: DelayMode) {
+        let delayViewModel = DelayViewModel(delayCompleteRelay: viewModel.delayCompleteRelay, mode: mode)
+        let delayViewController = DelayViewController(delayViewModel: delayViewModel)
+        delayViewController.view.backgroundColor = .starModalOverlayBG
+        delayViewController.modalPresentationStyle = .overFullScreen
+        present(delayViewController, animated: true)
     }
     
     // 휴식 설정 화면 모달 연결
@@ -210,18 +203,8 @@ extension StarListViewController {
     }
     
     // 생성 가능 여부 처리
-    private func handleCreationAvailability(_ result: Availability) {
-        switch result {
-        case .available(let state):
-            if state == .create {
-                connectCreateModal(mode: .create)
-            } else {
-                connectRestStartModal()
-            }
-        case .unavailable:
-            guard let text = result.message else { return }
-            self.starListView.toastMessageView.showToastMessage(text)
-        }
+    private func handleCreationAvailability(_ result: Unavailable) {
+        self.starListView.toastMessageView.showToastMessage(result.message)
     }
 }
 

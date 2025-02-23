@@ -55,10 +55,12 @@
 "confirm_edit" = "수정하기";
 "confirm_set" = "설정하기";
 
-/// Break Mode
-"switch_break_mode" = "휴식 모드 전환";
+/// Delay
+"delay" = "잠시만요";
 "break_motivation" = "당신을 빛나게 하는 시간은\n스스로 선택할 때 더욱 빛나요.";
 "cancel" = "취소하기";
+
+/// Break Mode
 "take_a_break" = "휴식하기";
 "max_break_time" = "최대 20분까지 설정할 수 있습니다.";
 "min" = "분";
