@@ -18,16 +18,24 @@ enum WeekDay: Int, Hashable, CaseIterable, Codable {
     case fri
     case sat = 7
     
-    var korean: String {
-        WeekDayFormatter.korean(self)
+    // UI 표시용 현지화 문자열
+    var localizedString: String {
+        WeekDayFormatter.localized(self)
     }
-    // 전체 요일에 대한 한글 문자열을 배열로 반환
-    static func allKoreanCases() -> [String] {
+    
+    // 저장용 한국어 문자열
+    var storageKorean: String {
+        WeekDayFormatter.storageKorean(self)
+    }
+    
+    // 전체 요일에 대한 현지화된 문자열을 배열로 반환
+    static func allLocalizedCases() -> [String] {
         WeekDay
             .allCases
             .sorted(by: <)
-            .map { $0.korean }
+            .map { $0.localizedString }
     }
+    
     // Date 타입을 통한 요일 값 생성
     init?(from date: Date) {
         // 일요일 == 1, 토요일 == 7

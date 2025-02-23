@@ -6,10 +6,10 @@
 //
 
 struct WeekDayTranslator {
-    // CoreData 의 저장을 형식 고려한 형변환 메서드
+    // CoreData 저장을 위한 형변환 메서드 - 한국어로 저장
     static func weekDays(_ weekDays: Set<WeekDay>) -> String {
         return weekDays.sorted(by: <)
-            .map { $0.korean }
+            .map { $0.storageKorean }  // 저장용 한국어 사용
             .joined(separator: ", ")
     }
 }
