@@ -9,15 +9,25 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class RestStartViewModel {
+enum DelayMode {
+    
+    case rest
+    case edit(star: Star)
+    case delete(star: Star)
+}
+
+final class DelayViewModel {
     
     private let countRelay = BehaviorRelay(value: 5)
     private let completeRelay = PublishRelay<Void>()
-    let restStartCompleteRelay: PublishRelay<Void> // 휴식 진입 화면 완료 릴레이 -> 메인 화면에서 이벤트 방출 받음
+    let delayCompleteRelay: PublishRelay<DelayMode> // 휴식 진입 화면 완료 릴레이 -> 메인 화면에서 이벤트 방출 받음
     private let disposeBag = DisposeBag()
     
-    init(restStartCompleteRelay: PublishRelay<Void>) {
-        self.restStartCompleteRelay = restStartCompleteRelay
+    let mode: DelayMode
+    
+    init(delayCompleteRelay: PublishRelay<DelayMode>, mode: DelayMode) {
+        self.delayCompleteRelay = delayCompleteRelay
+        self.mode = mode
     }
     
     // 5초 카운트다운 실행
@@ -37,7 +47,7 @@ final class RestStartViewModel {
     }
 }
 
-extension RestStartViewModel {
+extension DelayViewModel {
     
     struct Output {
         let count: Driver<Int>
