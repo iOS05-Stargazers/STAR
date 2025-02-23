@@ -61,15 +61,17 @@ struct StarStateFormatter {
     }
     
     private static func secondForm(_ value: Int) -> String {
-        String(format: "%d초 남음", value)
+        String(format: NSLocalizedString("seconds_left", comment: ""), value)
     }
     private static func minuteForm(_ value: Int) -> String {
-        String(format: "%d분 남음", value)
+        String(format: NSLocalizedString("minutes_left", comment: ""), value)
     }
+
     private static func hourForm(_ value: Int) -> String {
-        String(format: "%d시간 남음", value)
+        String(format: NSLocalizedString("hours_left", comment: ""), value)
     }
+
     private static func dayForm(_ value: Int) -> String {
-        String(format: "%d일 남음", value)
+        String(format: NSLocalizedString("days_left", comment: ""), value)
     }
 }

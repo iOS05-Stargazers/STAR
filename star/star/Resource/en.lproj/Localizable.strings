@@ -25,6 +25,12 @@
 "in_progress" = "In Prog";
 "add_star" = "Add STAR";
 
+/// Time Remaining
+"seconds_left" = "%ds left";
+"minutes_left" = "%dm left";
+"hours_left" = "%dh left";
+"days_left" = "%dd left";
+
 /// Toast Messages
 "no_name"= "이름을 1111111.";
 "no_applist"= "하나 이상의 111111.";

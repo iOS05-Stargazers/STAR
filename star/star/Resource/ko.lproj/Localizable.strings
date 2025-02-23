@@ -25,6 +25,12 @@
 "in_progress" = "진행중";
 "add_star" = "스타 추가하기";
 
+/// Time Remaining
+"seconds_left" = "%d초 남음";
+"minutes_left" = "%d분 남음";
+"hours_left" = "%d시간 남음";
+"days_left" = "%d일 남음";
+
 /// Toast Messages
 "no_name" = "이름을 입력해주세요.";
 "no_applist" = "하나 이상의 앱을 선택해주세요.";
