@@ -22,7 +22,7 @@
 /// Star List
 "no_stars" = "There are no STARs yet.\nPlease create one now!";
 "pending" = "Pending";
-"in_progress" = "In Progress";
+"in_progress" = "In Prog";
 "add_star" = "Add STAR";
 
 /// Toast Messages
