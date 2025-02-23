@@ -33,10 +33,10 @@
 "days_left" = "%dd left";
 
 /// Toast Messages
-"no_name"= "이름을 1111111.";
-"no_applist"= "하나 이상의 111111.";
-"no_schedule" = "하나 이상의 111efadfadfadf.";
-"over_finish_time" = "시작은 종료보다dasfddfadfdafaadsf.";
+"no_name"= "Please enter a name.";
+"no_applist"= "Please select at least one app.";
+"no_schedule" = "Please select at least one repeat cycle.";
+"over_finish_time" = "Start must be 15 min before end.";
 "max_stars" = "You can save up to 15 STARs.";
 "no_break_star" = "No STARs available for a break.";
 
