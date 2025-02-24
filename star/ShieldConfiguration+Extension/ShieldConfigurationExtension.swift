@@ -14,6 +14,46 @@ import UIKit
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     
+    // TODO: - Localizable 적용
+    
+    private let currentLocale = Locale.current.languageCode
+    
+    private func localizedText(for tokenName: String) -> String {
+        switch currentLocale {
+        case "ko":
+            return "\(tokenName)은(는)\n사용이 제한되었습니다."
+        default:
+            return "\(tokenName) is restricted."
+        }
+    }
+    
+    private func localizedExitButton() -> String {
+        switch currentLocale {
+        case "ko":
+            return "종료하기"
+        default:
+            return "Exit"
+        }
+    }
+    
+    private func localizedUnknownApp() -> String {
+        switch currentLocale {
+        case "ko":
+            return "확인불가 앱"
+        default:
+            return "Unknown App"
+        }
+    }
+    
+    private func localizedUnknownWeb() -> String {
+        switch currentLocale {
+        case "ko":
+            return "확인불가 웹 도메인"
+        default:
+            return "Unknown Web Domain"
+        }
+    }
+    
     private func setShieldConfig(
         _ tokenName: String) -> ShieldConfiguration {
             let customIcon = UIImage(named: "AppSymbol.png")
@@ -24,12 +64,12 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
             )
             
             let customSubtitle = ShieldConfiguration.Label(
-                text: "\(tokenName)은(는)\n사용이 제한되었습니다.",
+                text: localizedText(for: tokenName),
                 color: .starSecondaryText
             )
             
             let customPrimaryButtonLabel = ShieldConfiguration.Label(
-                text: "종료하기",
+                text: localizedExitButton(),
                 color: .starPrimaryText
             )
             
@@ -50,7 +90,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     override func configuration(shielding application: Application) -> ShieldConfiguration {
         // Customize the shield as needed for applications.
         guard let displayName = application.localizedDisplayName else {
-            return setShieldConfig("확인불가 앱")
+            return setShieldConfig(localizedUnknownApp())
         }
         return setShieldConfig(displayName)
     }
@@ -59,7 +99,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
         // Customize the shield as needed for applications shielded because of their category.
         guard let displayName = application.localizedDisplayName,
               let categoryName = category.localizedDisplayName else {
-            return setShieldConfig("확인불가 앱")
+            return setShieldConfig(localizedUnknownApp())
         }
         return setShieldConfig(categoryName + " " + displayName)
     }
@@ -67,7 +107,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     override func configuration(shielding webDomain: WebDomain) -> ShieldConfiguration {
         // Customize the shield as needed for web domains.
         guard let displayName = webDomain.domain else {
-            return setShieldConfig("확인불가 웹 도메인")
+            return setShieldConfig(localizedUnknownWeb())
         }
         return setShieldConfig(displayName)
     }
@@ -76,7 +116,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
         // Customize the shield as needed for web domains shielded because of their category.
         guard let displayName = webDomain.domain,
               let categoryName = category.localizedDisplayName else {
-            return setShieldConfig("확인불가 웹 도메인")
+            return setShieldConfig(localizedUnknownWeb())
         }
         return setShieldConfig(categoryName + " " + displayName)
     }

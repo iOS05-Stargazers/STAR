@@ -88,5 +88,8 @@
 "star_started" = "%@ 스타가 시작되었습니다.";
 "star_completed" = "%@ 스타가 종료되었습니다.";
 
-// Shield Configuration
-"restricted_message" = "%@은(는) 사용이 제한되었습니다.";
+/// Shield Configuration
+"shield_restricted_message" = "%@은(는)\n사용이 제한되었습니다.";
+"shield_unknown_app" = "확인불가 앱";
+"shield_unknown_web" = "확인불가 웹 도메인";
+"shield_exit" = "종료하기";

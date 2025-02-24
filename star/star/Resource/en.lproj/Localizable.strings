@@ -89,4 +89,7 @@
 "star_completed" = "%@ has ended.";
 
 /// Shield Configuration
-"restricted_message" = "%@ is restricted.";
+"shield_restricted_message" = "%@ is restricted.";
+"shield_unknown_app" = "Unknown App";
+"shield_unknown_web" = "Unknown Web Domain";
+"shield_exit" = "Exit";
