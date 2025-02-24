@@ -127,7 +127,7 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 #### 기능 및 아키텍처
 - 데이터 통신: App Group(공유 컨테이너를 통한 UserDefaults 사용)을 통해 메인 앱과 DeviceActivityMonitor 간의 연결
 - 핵심 기능: Family Controls (FamilyControls, DeviceActivity, ManagedSettings)를 사용하여 주요 기능 구현
-- MVC -> MVVM 리팩터링: 초기에는 MVC 구조로 개발했으나, 정형화된 데이터 흐름과 역할 분리가 필요해지면서 MVVM 구조로 변경31
+- MVC -> MVVM 리팩터링: 초기에는 MVC 구조로 개발했으나, 정형화된 데이터 흐름과 역할 분리가 필요해지면서 MVVM 구조로 변경
 
 #### 온보딩 플로우
 - 앱이 실행 시 스크린타임 권한을 확인하고, 필요할 경우 설정 가이드를 제공합니다.
