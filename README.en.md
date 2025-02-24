@@ -146,7 +146,7 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 - When utilizing an App Extension, Family Controls (Distribution) permissions must be requested from Apple for each bundle ID, and approval usually takes over a month.
 - Development schedules need to account for the approval waiting period for both the main app and the App Extension.
 
-#### Handling Instability in FamilyActivityPicker
+#### Limitation & Instability in FamilyActivityPicker
 - FamilyActivityPicker is inherently unstable and prone to crashes, with bugs reported since 2022 that remain unresolved as of now.
 - Since it is primarily supported in SwiftUI, additional handling is required to ensure it functions correctly in UIKit-based code.
 - Continuous efforts are underway to improve the user experience by implementing workarounds for crash handling.
