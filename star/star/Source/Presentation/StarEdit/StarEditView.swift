@@ -327,7 +327,7 @@ extension StarEditView {
     
     func configure(star: Star) {
         titleLabel.text = "edit_star".localized
-        addStarButton.setTitle("confirm_star".localized, for: .normal)
+        addStarButton.setTitle("confirm_edit".localized, for: .normal)
         nameTextField.text = star.title
         
         let starTime = star.schedule.startTime.coreDataForm()

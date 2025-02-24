@@ -23,7 +23,7 @@
 "date_format" = "EEE, MMM d, yyyy";
 "no_stars" = "There are no STARs yet.\nPlease create one now!";
 "pending" = "Pending";
-"in_progress" = "In Prog";
+"in_progress" = "WIP";
 "add_star" = "Add STAR";
 
 /// Time Remaining
