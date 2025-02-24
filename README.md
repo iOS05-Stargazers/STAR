@@ -144,12 +144,12 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 
 #### App Extension에도 Family Controls 요청하기
 - App Extension을 활용할 경우 각 번들 ID에 대해 Family Controls (Distribution) 권한을 Apple 측에 요청해야 하며, 승인까지 보통 한 달 이상 소요됨
-- 개발 일정에 메인 앱과 App Extension의 승인 대기 시간을 고려하여 조정 필요31
+- 개발 일정에 메인 앱과 App Extension의 승인 대기 시간을 고려하여 조정 필요
 
 #### FamilyActivityPicker의 불안정성 대응
 - FamilyActivityPicker 자체가 불안정하여 크래시 발생 가능성이 높으며, 2022년부터 보고된 버그가 현재 기준으로 아직 고쳐지지 않은 상황
-- 기본적으로 SwiftUI에서만 지원하기에 UIKit 기반의 코드에서 정상적으로 작동시키는 데 추가적인 처리가 많이 필요할 수 있음
-- 크래시 핸들링을 우회적으로 처리함으로써 사용자 경험을 개선하는 방안을 지속적으로 고민 중
+- 기본적으로 SwiftUI에서만 지원되므로, UIKit 기반 코드에서 정상 작동하도록 추가 처리가 요구됨
+- 우회적인 크래시 핸들링 방안을 통해 사용자 경험을 개선하는 방안을 지속적으로 모색 중
 
 ## 📦 설치 방법 
 (앱 스토어 출시 준비 중)
