@@ -98,7 +98,7 @@ extension StarEditViewController {
             .controlEvent(.editingDidEnd)
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
-                owner.starEditView.nameTextField.placeholder = "이름을 입력하세요"
+                owner.starEditView.nameTextField.placeholder = "enter_name".localized
             }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼
