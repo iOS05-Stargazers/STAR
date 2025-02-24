@@ -41,12 +41,8 @@ STAR: Screen Time Awareness & Regulation (iOS App)
   <a href="https://github.com/devxoul/Then" target="_blank">
     <img src="https://img.shields.io/badge/Then-00aeb9?style=for-the-badge&logoColor=white" alt="Then">
   </a>
-  <br>
   <a href="https://github.com/ReactiveX/RxSwift" target="_blank">
-    <img src="https://img.shields.io/badge/reactivex-B7178C?style=for-the-badge&logoColor=white" alt="reactivex">
-  </a>
-    <a href="https://github.com/RxSwiftCommunity/RxKeyboard" target="_blank">
-    <img src="https://img.shields.io/badge/rxkeyboard-B7178C?style=for-the-badge&logoColor=white" alt="rxkeyboard">
+    <img src="https://img.shields.io/badge/rxswift-B7178C?style=for-the-badge&logoColor=white" alt="rxswift">
   </a>
   <br>
   <a href="https://github.com/" target="_blank">
@@ -112,29 +108,48 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 
 ## 🏷 Main Features
 #### Star - Your Digital Time Management Unit
-- Users can create and manage multiple Stars.
-- A Star functions as a single session, having a name, a list of apps to block, active times, and designated days of the week.
+- Users can view, add, modify, and delete multiple Stars from the Star list.
+- Each Star operates as a single session and includes a name, a list of apps to block, an active time, and designated days of the week.
 
-#### Manage Stars
-- Users can view and add Stars from the Stars list.
-- Existing Stars can be selected to modify their settings.
+#### Take a Break
+- Even while a Star is active, users can temporarily disable the screen time function for up to 20 minutes.
+- This feature supports a balanced digital lifestyle through a user-friendly flow.
 
-#### Switch to Break Mode
-- Even while a Star is active, users can temporarily disable the Screen Time feature for up to 20 minutes.
-- A user-friendly flow encourages a balanced digital lifestyle.
+#### User-Friendly Constraints
+- A waiting screen is provided for a certain period when deleting or modifying an ongoing Star, or toggling rest mode.
+- Appropriate constraints are applied to help users maintain their set goals.
+
+#### Notifications and Haptic Feedback
+- Push notifications are sent to the user 5 minutes before a Star begins, at the start, and at the end.
+- The device vibrates to provide haptic feedback when a button receives user input.
 
 ## ✨ Considerations
-#### Capabilities
-- Data Communication: Connect the main app with the DeviceActivityMonitor through an App Group (using UserDefaults via a shared container).
-- Core Functionality: Implement key features using Family Controls (FamilyControls, DeviceActivity, ManagedSettings).
+#### Features and Architecture
+- Data Communication: Connects the main app and DeviceActivityMonitor through the use of App Groups (using UserDefaults with a shared container).
+- Core Functionality: Implements key features using Family Controls (FamilyControls, DeviceActivity, ManagedSettings).
+- MVC → MVVM Refactoring: Initially developed using the MVC architecture, but later switched to an MVVM structure to enforce a standardized data flow and separation of responsibilities.
 
 #### Onboarding Flow
-- Check Screen Time permissions every time the app launches and provide setup guidance if necessary.
-- Offer a help screen for first-time users.
+- Upon app launch, the app checks for Screen Time permissions and provides a setup guide if necessary.
+- A help screen is provided for first-time users.
 
 #### User Experience Improvements
-- Provide an easy yet safe deletion feature that combines simple swipe actions with custom alerts.
-- Ensure compatibility with small-screen iPhones through Auto Layout and thoughtfully sized buttons for enhanced usability.
+- Combines simple swipe gestures with custom notifications to provide a secure deletion feature.
+- Guarantees compatibility with small iPhones through the use of Auto Layout.
+
+## 🔍 Key Challenges Related to Family Controls
+#### Creating and Managing Multiple Sessions
+- While a single app-blocking session is relatively simple to implement, supporting multiple sessions requires leveraging the interval lifecycle methods of the ActivityDeviceMonitor App Extension.
+- Separates the logic for applying the monitoring schedule of DeviceActivity and the list of apps to block in ManagedSettings (FamilyActivitySelection) for flexible management.
+
+#### Requesting Family Controls for App Extensions
+- When utilizing an App Extension, Family Controls (Distribution) permissions must be requested from Apple for each bundle ID, and approval usually takes over a month.
+- Development schedules need to account for the approval waiting period for both the main app and the App Extension.
+
+#### Handling Instability in FamilyActivityPicker
+- FamilyActivityPicker is inherently unstable and prone to crashes, with bugs reported since 2022 that remain unresolved as of now.
+- Since it is primarily supported in SwiftUI, additional handling is required to ensure it functions correctly in UIKit-based code.
+- Continuous efforts are underway to improve the user experience by implementing workarounds for crash handling.
 
 ## 📦 How to Install 
 (WIP for release in App Store)
