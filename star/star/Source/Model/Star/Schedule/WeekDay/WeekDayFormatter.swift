@@ -34,7 +34,7 @@ struct WeekDayFormatter {
     static func localized(_ weekDay: WeekDay) -> String {
         switch weekDay {
         case .mon:
-            return NSLocalizedString("monday", comment: "")
+            return "monday".localized
         case .tue:
             return NSLocalizedString("tuesday", comment: "")
         case .wed:
