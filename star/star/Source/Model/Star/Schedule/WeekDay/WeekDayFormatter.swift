@@ -36,17 +36,17 @@ struct WeekDayFormatter {
         case .mon:
             return "monday".localized
         case .tue:
-            return NSLocalizedString("tuesday", comment: "")
+            return "tuesday".localized
         case .wed:
-            return NSLocalizedString("wednesday", comment: "")
+            return "wednesday".localized
         case .thu:
-            return NSLocalizedString("thursday", comment: "")
+            return "thursday".localized
         case .fri:
-            return NSLocalizedString("friday", comment: "")
+            return "friday".localized
         case .sat:
-            return NSLocalizedString("saturday", comment: "")
+            return "saturday".localized
         case .sun:
-            return NSLocalizedString("sunday", comment: "")
+            return "sunday".localized
         }
     }
 }
