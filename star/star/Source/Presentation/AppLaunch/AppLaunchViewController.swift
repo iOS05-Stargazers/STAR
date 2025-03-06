@@ -30,7 +30,7 @@ final class AppLaunchViewController: UIViewController {
     
     // 타이틀 라벨
     private lazy var titleLabel = UILabel().then {
-        $0.text = "별을 이루는 당신의 시간, STAR와 함께 빛나세요"
+        $0.text = "app_launch".localized
         $0.textColor = .white
         $0.font = UIFont.System.regular16
     }

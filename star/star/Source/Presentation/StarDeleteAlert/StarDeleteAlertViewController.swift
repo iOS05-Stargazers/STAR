@@ -36,10 +36,7 @@ final class StarDeleteAlertViewController: UIViewController {
     // 설명 라벨
     private let descriptionLabel = UILabel().then {
         $0.numberOfLines = 2
-        $0.text = """
-정말로 삭제하시겠습니까?
-삭제한 스타는 되돌릴 수 없습니다.
-"""
+        $0.text = "delete_alert_message".localized
         let attrString = NSMutableAttributedString(string: $0.text!)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
@@ -60,7 +57,7 @@ final class StarDeleteAlertViewController: UIViewController {
     
     // 취소 버튼
     private let cancelButton = UIButton(type: .system).then {
-        $0.setTitle("취소", for: .normal)
+        $0.setTitle("confirm_cancel".localized, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
         $0.setTitleColor(.starPrimaryText, for: .normal)
@@ -69,7 +66,7 @@ final class StarDeleteAlertViewController: UIViewController {
     
     // 삭제 버튼
     private let deleteButton = UIButton(type: .system).then {
-        $0.setTitle("삭제", for: .normal)
+        $0.setTitle("confirm_delete".localized, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDelete
         $0.setTitleColor(.starPrimaryText, for: .normal)

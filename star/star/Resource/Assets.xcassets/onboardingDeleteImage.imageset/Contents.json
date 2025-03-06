@@ -1,12 +1,20 @@
 {
   "images" : [
     {
-      "filename" : "onboardingDeleteImage.png",
+      "filename" : "onboardDelete.png",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "onboardingDeleteImage.png",
+      "idiom" : "universal",
+      "locale" : "ko"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
   }
 }

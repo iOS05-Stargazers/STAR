@@ -71,7 +71,9 @@
 		2336610F2D5DC39F00C5F383 /* Exceptions for "star" folder in "DeviceActivityMonitor+Extension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"/Localized: Resource/Localizable.strings",
 				"Source/Core/Extension/FamilyAcitivitySelection+Extension.swift",
+				"Source/Core/Extension/String+Localization.swift",
 				"Source/Core/Extension/UserDefaults+Extension.swift",
 				Source/Core/Manager/FamilyControlsManager.swift,
 				Source/Core/Manager/StarManager/ScheduleCalculator.swift,
@@ -103,7 +105,9 @@
 		71D16CB52D64B89C00D45875 /* Exceptions for "star" folder in "ShieldConfiguration+Extension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"/Localized: Resource/Localizable.strings",
 				Resource/Colors.xcassets,
+				"Source/Core/Extension/String+Localization.swift",
 			);
 			target = 71D16CA22D64B83600D45875 /* ShieldConfiguration+Extension */;
 		};
@@ -313,6 +317,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 71F41ED32D3FC73300257988;
 			minimizedProjectReferenceProxies = 1;

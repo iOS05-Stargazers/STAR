@@ -5,10 +5,10 @@
 //  Created by Eden on 1/26/25.
 //
 
-import UIKit
+import UIKit.UILabel
 
 extension UILabel {
-    /// 로고 글자 대치 후 글씨체 변경하는  extension
+    /// S T A R 텍스트를 자동으로 강조
     func setStarHighlightedText(fullText: String, font: UIFont, color: UIColor) {
         let attributedString = NSMutableAttributedString(string: fullText)
         attributedString.addAttribute(.font, value: font, range: NSRange(location: 0, length: fullText.count))

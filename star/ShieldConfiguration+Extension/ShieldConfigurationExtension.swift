@@ -24,12 +24,12 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
             )
             
             let customSubtitle = ShieldConfiguration.Label(
-                text: "\(tokenName)은(는)\n사용이 제한되었습니다.",
+                text: String(format: "shield_restricted_message".localized, tokenName),
                 color: .starSecondaryText
             )
             
             let customPrimaryButtonLabel = ShieldConfiguration.Label(
-                text: "종료하기",
+                text: "shield_exit".localized,
                 color: .starPrimaryText
             )
             
@@ -50,7 +50,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     override func configuration(shielding application: Application) -> ShieldConfiguration {
         // Customize the shield as needed for applications.
         guard let displayName = application.localizedDisplayName else {
-            return setShieldConfig("확인불가 앱")
+            return setShieldConfig("shield_unknown_app".localized)
         }
         return setShieldConfig(displayName)
     }
@@ -59,7 +59,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
         // Customize the shield as needed for applications shielded because of their category.
         guard let displayName = application.localizedDisplayName,
               let categoryName = category.localizedDisplayName else {
-            return setShieldConfig("확인불가 앱")
+            return setShieldConfig("shield_unknown_app".localized)
         }
         return setShieldConfig(categoryName + " " + displayName)
     }
@@ -67,7 +67,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     override func configuration(shielding webDomain: WebDomain) -> ShieldConfiguration {
         // Customize the shield as needed for web domains.
         guard let displayName = webDomain.domain else {
-            return setShieldConfig("확인불가 웹 도메인")
+            return setShieldConfig("shield_unknown_web".localized)
         }
         return setShieldConfig(displayName)
     }
@@ -76,7 +76,7 @@ class ShieldConfigurationExtension: ShieldConfigurationDataSource {
         // Customize the shield as needed for web domains shielded because of their category.
         guard let displayName = webDomain.domain,
               let categoryName = category.localizedDisplayName else {
-            return setShieldConfig("확인불가 웹 도메인")
+            return setShieldConfig("shield_unknown_web".localized)
         }
         return setShieldConfig(categoryName + " " + displayName)
     }

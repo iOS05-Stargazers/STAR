@@ -19,7 +19,7 @@ final class OnboardingCell: UICollectionViewCell {
     
     /// 스타 소개 레이블
     private let titleLabel = UILabel().then {
-        $0.text = "당신의 디지털 시간 관리 단위, 스타"
+        $0.text = "onboarding_title".localized
         $0.font = UIFont.systemFont(ofSize: 16)
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center

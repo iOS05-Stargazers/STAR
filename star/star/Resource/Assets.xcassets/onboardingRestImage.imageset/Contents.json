@@ -1,12 +1,20 @@
 {
   "images" : [
     {
-      "filename" : "onboardingRestImage.png",
+      "filename" : "onboardRest.png",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "onboardingRestImage.png",
+      "idiom" : "universal",
+      "locale" : "ko"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
   }
 }
