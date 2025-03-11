@@ -42,6 +42,13 @@ final class StarListViewController: UIViewController {
 extension StarListViewController {
     
     private func bind() {
+        starListView.refreshButton.rx.tap.asObservable()
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                FamilyControlsManager().updateBlockList()
+                owner.showRefresh()
+            }.disposed(by: disposeBag)
+        
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
         let restButtonTapped = starListView.restButton.rx.tap.asObservable()
@@ -132,6 +139,13 @@ extension StarListViewController {
         case .resting:
             connectRestingModal()
         }
+    }
+    
+    private func showRefresh() {
+        let starRefresgAlertViewController = StarRefresgAlertViewController()
+        starRefresgAlertViewController.modalPresentationStyle = .overFullScreen
+        starRefresgAlertViewController.view.backgroundColor = .starModalOverlayBG
+        present(starRefresgAlertViewController, animated: false)
     }
     
     // 삭제하기 알럿 띄우기
