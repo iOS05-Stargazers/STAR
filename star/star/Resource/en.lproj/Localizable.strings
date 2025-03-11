@@ -96,3 +96,7 @@
 "shield_unknown_app" = "Unknown App";
 "shield_unknown_web" = "Unknown Web Domain";
 "shield_exit" = "Exit";
+
+/// Refresh
+"star_refresh_message" = "The lock list has been updated.";
+"star_refresh_confirm" = "confirm";

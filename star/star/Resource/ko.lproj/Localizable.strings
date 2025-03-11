@@ -96,3 +96,7 @@
 "shield_unknown_app" = "확인불가 앱";
 "shield_unknown_web" = "확인불가 웹 도메인";
 "shield_exit" = "종료하기";
+
+/// Refresh
+"star_refresh_message" = "잠금 리스트가 업데이트 되었습니다.";
+"star_refresh_confirm" = "확인";
