@@ -60,6 +60,11 @@ final class StarEditViewController: UIViewController {
         bind()
         setModalAction()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showWarningAlert()
+    }
 }
 
 // MARK: - Action
@@ -258,6 +263,13 @@ extension StarEditViewController {
     // 모달 종료
     private func closeModal() {
         dismiss(animated: true)
+    }
+
+    // 경고 알럿
+    private func showWarningAlert() {
+        let sheet = UIAlertController(title: "경고", message: "스타가 종료되어도 앱 잠금이 풀리지 않는 버그가 있습니다. 스타가 종료되면 새로고침 버튼을 눌러주세요.", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인" , style: .default))
+        present(sheet, animated: true)
     }
 }
 
