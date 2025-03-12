@@ -88,8 +88,8 @@
 
 /// Push Notifications
 "star_will_start" = "%@ starts in 5 min.";
-"star_started" = "%@ has started.";
-"star_completed" = "%@ has ended. Please press the refresh button.”";
+"star_started" = "%@ has started. Please press the refresh button.";
+"star_completed" = "%@ has ended. Please press the refresh button.";
 
 /// Shield Configuration
 "shield_restricted_message" = "%@ is restricted.";

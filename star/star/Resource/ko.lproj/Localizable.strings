@@ -88,7 +88,7 @@
 
 /// Push Notifications
 "star_will_start" = "%@ 스타가 5분 뒤에 시작됩니다.";
-"star_started" = "%@ 스타가 시작되었습니다.";
+"star_started" = "%@ 스타가 시작되었습니다. 새로고침 버튼을 눌러주세요.";
 "star_completed" = "%@ 스타가 종료되었습니다. 새로고침 버튼을 눌러주세요.";
 
 /// Shield Configuration
