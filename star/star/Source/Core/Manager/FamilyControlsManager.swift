@@ -29,9 +29,7 @@ struct FamilyControlsManager {
 extension FamilyControlsManager {
     // 앱 리스트 업데이트
     func updateBlockList() {
-        let onRest: Bool = ( UserDefaults.appGroups.restEndTimeGet() != nil )
-        
-        onRest ? clearBlockList() : refreshBlockList()
+        refreshBlockList()
     }
     // 휴식중이 아닌 경우, ongoing 상태인 스타들의 리스트를 취합해 앱 잠금 리스트 업데이트 
     private func refreshBlockList() {

@@ -61,6 +61,9 @@
 "confirm_create" = "Create STAR";
 "confirm_edit" = "Edit STAR";
 "confirm_set" = "Set Time";
+"warning_title" = "Warning";
+"warning_content" = "There is a bug where the app lock is not applied even when the star starts or ends. Please press the refresh button when the star starts or ends.";
+"warning_button" = "OK";
 
 /// Delay
 "delay" = "Please wait";
@@ -85,11 +88,15 @@
 
 /// Push Notifications
 "star_will_start" = "%@ starts in 5 min.";
-"star_started" = "%@ has started.";
-"star_completed" = "%@ has ended.";
+"star_started" = "%@ has started. Please press the refresh button.";
+"star_completed" = "%@ has ended. Please press the refresh button.";
 
 /// Shield Configuration
 "shield_restricted_message" = "%@ is restricted.";
 "shield_unknown_app" = "Unknown App";
 "shield_unknown_web" = "Unknown Web Domain";
 "shield_exit" = "Exit";
+
+/// Refresh
+"star_refresh_message" = "The lock list has been updated.";
+"star_refresh_confirm" = "confirm";

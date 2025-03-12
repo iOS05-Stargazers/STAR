@@ -51,6 +51,7 @@ final class StarListViewModel {
     private func checkModalState() {
         if !UserDefaults.standard.isCoachMarkShown {
             starModalStateRelay.accept(.onboarding)
+            fetchDate()
         } else {
             fetchData()
             guard let restEndTime = UserDefaults.appGroups.restEndTimeGet(),
