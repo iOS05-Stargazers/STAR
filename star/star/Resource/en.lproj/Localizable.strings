@@ -62,8 +62,8 @@
 "confirm_edit" = "Edit STAR";
 "confirm_set" = "Set Time";
 "warning_title" = "Warning";
-"warning_content" = "There is a bug where the app lock does not unlock even after the star has ended. Please press the refresh button when the star ends.";
-"warning_button" = "OK";  
+"warning_content" = "There is a bug where the app lock is not applied even when the star starts or ends. Please press the refresh button when the star starts or ends.";
+"warning_button" = "OK";
 
 /// Delay
 "delay" = "Please wait";
