@@ -62,7 +62,7 @@
 "confirm_edit" = "수정하기";
 "confirm_set" = "설정하기";
 "warning_title" = "경고";
-"warning_content" = "스타가 종료되어도 앱 잠금이 풀리지 않는 버그가 있습니다. 스타가 종료되면 새로고침 버튼을 눌러주세요.";
+"warning_content" = "스타가 시작/종료되어도 앱 잠금이 적용되지 않는 버그가 있습니다. 스타가 시작/종료되면 새로고침 버튼을 눌러주세요.";
 "warning_button" = "확인";
 
 /// Delay
@@ -88,7 +88,7 @@
 
 /// Push Notifications
 "star_will_start" = "%@ 스타가 5분 뒤에 시작됩니다.";
-"star_started" = "%@ 스타가 시작되었습니다.";
+"star_started" = "%@ 스타가 시작되었습니다. 새로고침 버튼을 눌러주세요.";
 "star_completed" = "%@ 스타가 종료되었습니다. 새로고침 버튼을 눌러주세요.";
 
 /// Shield Configuration
