@@ -129,27 +129,6 @@ final class NotificationManager: NSObject {
         // 알림 등록
         UNUserNotificationCenter.current().add(request) { _ in }
     }
-    
-    
-    // 5분 전 알림 시간 계산
-    private func calculateWillStartSoonTimes(_ star: Star) -> [DateComponents] {
-        let startTime = star.schedule.startTime
-        
-        let willStartSoonList: [DateComponents] = star.schedule.weekDays.map { WeekDay in
-            let startDate = DateComponents(hour: startTime.hour,
-                                           minute: startTime.minute,
-                                           weekday: WeekDay.rawValue)
-            
-            let calender = Calendar.current
-            if let newDate = calender.date(from: startDate)?.addingTimeInterval(-5 * 60) {
-                let newComponenets = calender.dateComponents([.hour, .minute, .weekday], from: newDate)
-                return newComponenets
-            }
-            
-            return startDate
-        }
-        return willStartSoonList
-    }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
