@@ -45,8 +45,8 @@
         }
       }
     },
-    "onboarding.skip" : {
-      "comment" : "온보딩 화면 건너뛰기 버튼",
+    "onboarding.skip_button" : {
+      "comment" : "온보딩 화면, 건너뛰기 버튼",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -57,8 +57,8 @@
         }
       }
     },
-    "onboarding.start" : {
-      "comment" : "온보딩 마지막화면 시작하기 버튼",
+    "onboarding.start_button" : {
+      "comment" : "온보딩 화면, 마지막 화면의 시작하기 버튼",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -70,6 +70,7 @@
       }
     },
     "onboarding.title" : {
+      "comment" : "온보딩 화면, 제목",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -112,6 +113,174 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Grant Screen Time access."
+          }
+        }
+      }
+    },
+    "star_list.add_star_button" : {
+      "comment" : "스타리스트 화면, 스타 생성하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add STAR"
+          }
+        }
+      }
+    },
+    "star_list.date_format" : {
+      "comment" : "스타리스트 화면, 날짜 포맷 (미국)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EEE, MMM d, yyyy"
+          }
+        }
+      }
+    },
+    "star_list.empty_message" : {
+      "comment" : "스타리스트 화면, 스타리스트 비어있을 때 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no STARs yet.\\nPlease create one now!"
+          }
+        }
+      }
+    },
+    "star_list.status_in_progress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Progress"
+          }
+        }
+      }
+    },
+    "star_list.status_pending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pending"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.days" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dd left"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.hours" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dh left"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.minutes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dm left"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.seconds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ds left"
+          }
+        }
+      }
+    },
+    "toast.error.missing_applist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select at least one app."
+          }
+        }
+      }
+    },
+    "toast.error.missing_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a name."
+          }
+        }
+      }
+    },
+    "toast.error.missing_schedule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select at least one repeat cycle."
+          }
+        }
+      }
+    },
+    "toast.warning.invalid_time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start must be 15 min before end."
+          }
+        }
+      }
+    },
+    "toast.warning.max_stars_reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can save up to 15 STARs."
+          }
+        }
+      }
+    },
+    "toast.warning.no_available_break" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No STARs available for a break."
           }
         }
       }
