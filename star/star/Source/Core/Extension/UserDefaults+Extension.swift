@@ -39,6 +39,8 @@ extension UserDefaults {
         }
     }
     
+    // TODO: 1.0.5 정도 되면 삭제
+    
     var shouldKeepNotification: Bool {
         get {
             bool(forKey: Keys.shouldKeepNotification)

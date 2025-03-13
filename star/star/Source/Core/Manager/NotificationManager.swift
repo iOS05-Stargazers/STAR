@@ -24,7 +24,7 @@ enum NotificationType {
             return String(format: "star_completed".localized, star.title)
         }
     }
-    // 요일 별로 identifier 필요
+    
     var identifier: String {
         switch self {
         case .didStart(let star):

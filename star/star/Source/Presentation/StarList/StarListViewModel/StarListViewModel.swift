@@ -77,6 +77,8 @@ final class StarListViewModel {
     private func fetchStars() {
         let starData = StarManager.shared.read()
         
+        // TODO: 1.0.5 정도 되면 삭제 (shouldKeepNotification)
+        
         // 알림을 삭제해야되는지 확인
         if !UserDefaults.standard.shouldKeepNotification {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
