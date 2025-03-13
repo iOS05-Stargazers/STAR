@@ -21,12 +21,13 @@ extension UserDefaults {
     }()
 }
 
-// MARK: - isCoachMarkShown
+// MARK: - isCoachMarkShown, shouldKeepNotification
 
 extension UserDefaults {
     
     private enum Keys {
         static let isCoachMarkShown = "isCoachMarkShown"
+        static let shouldKeepNotification = "shouldKeepNotification"
     }
     
     var isCoachMarkShown: Bool {
@@ -35,6 +36,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.isCoachMarkShown)
+        }
+    }
+    
+    var shouldKeepNotification: Bool {
+        get {
+            bool(forKey: Keys.shouldKeepNotification)
+        }
+        set {
+            set(newValue, forKey: Keys.shouldKeepNotification)
         }
     }
 }
