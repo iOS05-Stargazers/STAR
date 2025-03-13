@@ -143,7 +143,7 @@ final class StarEditViewModel {
                 
                 // UPDATE
                 if let star = owner.starRelay.value {
-                    
+                    NotificationManager().cancelNotification(star: star) // 기존 알림 삭제
                     let star = Star(identifier: star.identifier,
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,
@@ -153,12 +153,10 @@ final class StarEditViewModel {
                     
                     owner.starManager.update(star)
                     NotificationManager().scheduleNotificaions(star: star)
-                    
                     BlockManager().updateSchedule(star)
                     
                     // CREATE
                 } else {
-                    
                     let star = Star(identifier: UUID(),
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,
