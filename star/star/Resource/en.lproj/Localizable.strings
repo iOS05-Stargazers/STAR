@@ -37,7 +37,7 @@
 "no_applist"= "Please select at least one app.";
 "no_schedule" = "Please select at least one repeat cycle.";
 "over_finish_time" = "Start must be 15 min before end.";
-"max_stars" = "You can save up to 15 STARs.";
+"max_stars" = "You can save up to 5 STARs.";
 "no_break_star" = "No STARs available for a break.";
 
 /// Star Edit Modal
