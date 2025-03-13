@@ -1,0 +1,121 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "onboarding.break" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the Break button\\n to switch to Break Mode."
+          }
+        }
+      }
+    },
+    "onboarding.create" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap \"Add STAR\"\\n to create a new STAR."
+          }
+        }
+      }
+    },
+    "onboarding.delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe left to delete a STAR."
+          }
+        }
+      }
+    },
+    "onboarding.edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a STAR to edit."
+          }
+        }
+      }
+    },
+    "onboarding.skip" : {
+      "comment" : "온보딩 화면 건너뛰기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip"
+          }
+        }
+      }
+    },
+    "onboarding.start" : {
+      "comment" : "온보딩 마지막화면 시작하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
+    },
+    "onboarding.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR, your digital time unit."
+          }
+        }
+      }
+    },
+    "permission.description" : {
+      "comment" : "권한 설정 화면, 알럿 안내 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR requires permission to function properly."
+          }
+        }
+      }
+    },
+    "permission.notice" : {
+      "comment" : "권한 설정 화면, 보호 안내 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your data is protected by Apple\\n and remains on your device."
+          }
+        }
+      }
+    },
+    "permission.title" : {
+      "comment" : "권한 설정 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant Screen Time access."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
