@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UserNotifications
 
 enum StarModalState {
     
@@ -75,6 +76,17 @@ final class StarListViewModel {
     // 스타 fetch
     private func fetchStars() {
         let starData = StarManager.shared.read()
+        
+        // 알림을 삭제해야되는지 확인
+        if !UserDefaults.standard.shouldKeepNotification {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            
+            starData.forEach {
+                NotificationManager().scheduleNotificaions(star: $0)
+            }
+            
+            UserDefaults.standard.shouldKeepNotification = true
+        }
         
         guard let firstData = starData.first else {
             starsRelay.accept([])
