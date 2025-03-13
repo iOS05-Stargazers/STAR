@@ -118,7 +118,7 @@ final class StarListViewModel {
     
     // 생성 가능 여부 업데이트
     private func updateCreationAvailability() {
-        if starsRelay.value.count > 14 {
+        if starsRelay.value.count > 4 {
             unavailabilityRelay.accept(.createUnavailable)
         } else {
             starModalStateRelay.accept(.create)
