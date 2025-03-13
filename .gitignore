@@ -4,6 +4,7 @@
 
 ## User settings
 xcuserdata/
+*.xcuserstate
 
 ## Obj-C/Swift specific
 *.hmap
@@ -60,3 +61,29 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+## macOS
+*.DS_Store
+
+## Additional Xcode related files
+xcshareddata/WorkspaceSettings.xcsettings
+*.xcscmblueprint
+*.xccheckout
+*.xcscheme
+*.xcschememanagement.plist
+
+## Derived Data
+DerivedData/
+
+## Archives
+*.xcarchive
+
+## Logs
+*.log
+
+## Thumbnails
+.idea/
+.idea_modules/
+
+## Configuration Files
+*.xcconfig
