@@ -62,13 +62,22 @@ final class NotificationManager: NSObject {
         let startId = NotificationType.didStart(star: star).identifier
         let finishId = NotificationType.didEnd(star: star).identifier
         
-        // 예약된 알림 삭제
-        star.schedule.weekDays.forEach {
+        // 매일 반복
+        if star.schedule.weekDays.count == 7 {
             UNUserNotificationCenter.current()
                 .removePendingNotificationRequests(withIdentifiers: [
-                    startId + String($0.rawValue),
-                    finishId + String($0.rawValue)
+                    startId + String(0),
+                    finishId + String(0)
                 ])
+        } else {
+            // 예약된 알림 삭제
+            star.schedule.weekDays.forEach {
+                UNUserNotificationCenter.current()
+                    .removePendingNotificationRequests(withIdentifiers: [
+                        startId + String($0.rawValue),
+                        finishId + String($0.rawValue)
+                    ])
+            }
         }
     }
     
@@ -77,11 +86,10 @@ final class NotificationManager: NSObject {
         let content = buildNotificationContent(mode: type)
         
         // 매일 반복
-        if dates.count == 7 {
+        if dates.count == 7, let date = dates.first {
             var dateComponents = DateComponents()
-            dateComponents.calendar = Calendar.current
-            dateComponents.hour = dates.first!.hour
-            dateComponents.minute = dates.first!.minute
+            dateComponents.hour = date.hour
+            dateComponents.minute = date.minute
             
             scheduleNotification(
                 dateComponents: dateComponents,
@@ -119,7 +127,7 @@ final class NotificationManager: NSObject {
         )
         
         // 요청
-        guard let weekDay = dateComponents.weekday else { return }
+        let weekDay = dateComponents.weekday ?? 0 // 일주일 반복이면 0
         let request = UNNotificationRequest(
             identifier: type.identifier + String(weekDay),
             content: content,
