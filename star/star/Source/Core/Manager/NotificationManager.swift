@@ -63,8 +63,13 @@ final class NotificationManager: NSObject {
         let finishId = NotificationType.didEnd(star: star).identifier
         
         // 예약된 알림 삭제
-        UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: [startId, finishId])
+        star.schedule.weekDays.forEach {
+            UNUserNotificationCenter.current()
+                .removePendingNotificationRequests(withIdentifiers: [
+                    startId + String($0.rawValue),
+                    finishId + String($0.rawValue)
+                ])
+        }
     }
     
     // 특정 타입의 알림을 스케줄링 하는 메서드
@@ -114,8 +119,9 @@ final class NotificationManager: NSObject {
         )
         
         // 요청
+        guard let weekDay = dateComponents.weekday else { return }
         let request = UNNotificationRequest(
-            identifier: type.identifier + "\(String(describing: dateComponents.weekday))",
+            identifier: type.identifier + String(weekDay),
             content: content,
             trigger: trigger
         )
