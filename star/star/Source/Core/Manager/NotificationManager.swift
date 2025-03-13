@@ -9,7 +9,6 @@ import UserNotifications
 
 enum NotificationType {
     
-    case willStartSoon(star: Star)
     case didStart(star: Star)
     case didEnd(star: Star)
     
@@ -19,19 +18,15 @@ enum NotificationType {
     
     var body: String {
         switch self {
-        case .willStartSoon(let star):
-            return String(format: "star_will_start".localized, star.title)
         case .didStart(let star):
             return String(format: "star_started".localized, star.title)
         case .didEnd(let star):
             return String(format: "star_completed".localized, star.title)
         }
     }
-    
+    // 요일 별로 identifier 필요
     var identifier: String {
         switch self {
-        case .willStartSoon(let star):
-            return "\(star.identifier.uuidString)_startBefore"
         case .didStart(let star):
             return "\(star.identifier.uuidString)_start"
         case .didEnd(let star):
@@ -52,11 +47,6 @@ final class NotificationManager: NSObject {
     func scheduleNotificaions(star: Star) {
         scheduleNotificationList(
             for: star,
-            type: .willStartSoon(star: star),
-            dates: calculateWillStartSoonTimes(star)
-        )
-        scheduleNotificationList(
-            for: star,
             type: .didStart(star: star),
             dates: star.schedule.starTimeDateComponentsList()
         )
@@ -69,25 +59,39 @@ final class NotificationManager: NSObject {
     
     // 알림 삭제 (예약 취소)
     func cancelNotification(star: Star) {
-        let startBeforeId = NotificationType.willStartSoon(star: star).identifier
         let startId = NotificationType.didStart(star: star).identifier
         let finishId = NotificationType.didEnd(star: star).identifier
         
         // 예약된 알림 삭제
         UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: [startBeforeId, startId, finishId])
+            .removePendingNotificationRequests(withIdentifiers: [startId, finishId])
     }
     
     // 특정 타입의 알림을 스케줄링 하는 메서드
     private func scheduleNotificationList(for star: Star, type: NotificationType, dates: [DateComponents]) {
         let content = buildNotificationContent(mode: type)
         
-        dates.forEach {
+        // 매일 반복
+        if dates.count == 7 {
+            var dateComponents = DateComponents()
+            dateComponents.calendar = Calendar.current
+            dateComponents.hour = dates.first!.hour
+            dateComponents.minute = dates.first!.minute
+            
             scheduleNotification(
-                dateComponents: $0,
+                dateComponents: dateComponents,
                 type: type,
                 content: content
             )
+        } else {
+            // 특정 요일 반복
+            dates.forEach {
+                scheduleNotification(
+                    dateComponents: $0,
+                    type: type,
+                    content: content
+                )
+            }
         }
     }
     
@@ -111,7 +115,7 @@ final class NotificationManager: NSObject {
         
         // 요청
         let request = UNNotificationRequest(
-            identifier: type.identifier,
+            identifier: type.identifier + "\(String(describing: dateComponents.weekday))",
             content: content,
             trigger: trigger
         )
