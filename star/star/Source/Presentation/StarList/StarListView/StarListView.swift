@@ -30,23 +30,13 @@ final class StarListView: UIView {
     
     // 오늘 날짜 라벨
     let todayDateLabel = UILabel().then {
-//        $0.text = "2025년 1월 20일 (월)"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
         $0.font = UIFont.System.semibold16
     }
-
-     // 새로고침 버튼
-     let refreshButton = UIButton(type: .system).then {
-         $0.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
-         $0.imageView?.contentMode = .scaleAspectFit
-         $0.tintColor = .starSecondaryText
-     }
     
     // 휴식 뷰
-    private let restView = UIView().then {
-        $0.isHidden = true
-    }
+    private let restView = UIView()
     
     // 휴식 버튼
     let restButton = UIButton(type: .system).then {
@@ -61,7 +51,6 @@ final class StarListView: UIView {
         $0.font = UIFont.System.medium16
         $0.textColor = .starSecondaryText
     }
-    
     
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
