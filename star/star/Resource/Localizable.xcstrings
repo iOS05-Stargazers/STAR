@@ -1,6 +1,42 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "delay.cancel_button" : {
+      "comment" : "지연 화면, 취소 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "delay.motivation" : {
+      "comment" : "지연 화면, 동기부여 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your time shines brightest\\nwhen it's truly yours."
+          }
+        }
+      }
+    },
+    "delay.title" : {
+      "comment" : "지연 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please wait"
+          }
+        }
+      }
+    },
     "onboarding.break" : {
       "extractionState" : "manual",
       "localizations" : {
