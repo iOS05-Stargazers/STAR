@@ -117,6 +117,150 @@
         }
       }
     },
+    "star_edit.app_lock" : {
+      "comment" : "스타 모달, 앱 잠금",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Lock"
+          }
+        }
+      }
+    },
+    "star_edit.confirm_create_button" : {
+      "comment" : "스타 모달, 스타 생성모드 생성하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create STAR"
+          }
+        }
+      }
+    },
+    "star_edit.confirm_edit_button" : {
+      "comment" : "스타 모달, 스타 수정모드 수정하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit STAR"
+          }
+        }
+      }
+    },
+    "star_edit.create_title" : {
+      "comment" : "스타 모달, 스타 생성모드 타이틀",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create STAR"
+          }
+        }
+      }
+    },
+    "star_edit.description" : {
+      "comment" : "스타 모달, 설명 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set lock apps & time."
+          }
+        }
+      }
+    },
+    "star_edit.edit_title" : {
+      "comment" : "스타 모달, 스타 수정모드 타이틀",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit STAR"
+          }
+        }
+      }
+    },
+    "star_edit.end_time" : {
+      "comment" : "스타 모달, 종료 시간",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End Time"
+          }
+        }
+      }
+    },
+    "star_edit.name" : {
+      "comment" : "스타 모달, 이름 항목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "star_edit.placeholder_name" : {
+      "comment" : "스타 모달, 이름 항목의 placeholder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a name"
+          }
+        }
+      }
+    },
+    "star_edit.repeat" : {
+      "comment" : "스타 모달, 반복 주기",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat"
+          }
+        }
+      }
+    },
+    "star_edit.select" : {
+      "comment" : "스타 모달, 앱 선택",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select >"
+          }
+        }
+      }
+    },
+    "star_edit.start_time" : {
+      "comment" : "스타 모달, 시작 시간",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Time"
+          }
+        }
+      }
+    },
     "star_list.add_star_button" : {
       "comment" : "스타리스트 화면, 스타 생성하기 버튼",
       "extractionState" : "manual",
