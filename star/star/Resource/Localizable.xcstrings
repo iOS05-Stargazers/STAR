@@ -64,6 +64,12 @@
             "state" : "translated",
             "value" : "Exit"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료하기"
+          }
         }
       }
     },
@@ -75,6 +81,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shape your time into a STAR, and let it shine!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "별을 이루는 당신의 시간, STAR와 함께 빛나세요"
           }
         }
       }
