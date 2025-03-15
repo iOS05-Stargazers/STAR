@@ -97,7 +97,6 @@ final class StarListView: UIView {
         [
             topView,
             starListCollectionView,
-            refreshButton,
             restView,
             noStarLabel,
             toastMessageView,
@@ -147,12 +146,6 @@ final class StarListView: UIView {
             $0.top.equalTo(topView.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(addStarButton.snp.top).offset(-32)
-        }
-        
-        refreshButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(32)
-            $0.bottom.equalTo(todayDateLabel.snp.bottom)
-            $0.width.height.equalTo(50)
         }
         
         restView.snp.makeConstraints {
