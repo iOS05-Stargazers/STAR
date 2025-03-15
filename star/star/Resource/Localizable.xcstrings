@@ -593,7 +593,7 @@
         }
       }
     },
-    "star_edit.confirm_create_button" : {
+    "star_edit.create_button" : {
       "comment" : "스타 모달, 스타 생성모드 생성하기 버튼",
       "extractionState" : "manual",
       "localizations" : {
@@ -607,24 +607,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "생성하기"
-          }
-        }
-      }
-    },
-    "star_edit.confirm_edit_button" : {
-      "comment" : "스타 모달, 스타 수정모드 수정하기 버튼",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit STAR"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "수정하기"
           }
         }
       }
@@ -661,6 +643,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "잠금할 앱과 시간을 설정해 주세요"
+          }
+        }
+      }
+    },
+    "star_edit.edit_button" : {
+      "comment" : "스타 모달, 스타 수정모드 수정하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수정하기"
           }
         }
       }
