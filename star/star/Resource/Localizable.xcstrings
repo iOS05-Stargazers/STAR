@@ -406,6 +406,12 @@
             "state" : "translated",
             "value" : "Grant Screen Time access."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스크린타임 권한을 설정해주세요."
+          }
         }
       }
     },
@@ -417,6 +423,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ has ended."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 스타가 종료되었습니다."
           }
         }
       }
@@ -430,6 +442,12 @@
             "state" : "translated",
             "value" : "%@ has started."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 스타가 시작되었습니다."
+          }
         }
       }
     },
@@ -442,6 +460,12 @@
             "state" : "translated",
             "value" : "%@ starts in 5 min."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 스타가 5분 뒤에 시작됩니다."
+          }
         }
       }
     },
@@ -453,6 +477,12 @@
             "state" : "translated",
             "value" : "Confirm"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
+          }
         }
       }
     },
@@ -463,6 +493,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The lock list has been updated."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠금 리스트가 업데이트 되었습니다."
           }
         }
       }
@@ -476,6 +512,12 @@
             "state" : "translated",
             "value" : "Exit"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료하기"
+          }
         }
       }
     },
@@ -487,6 +529,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ is restricted."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@은(는)\\n사용이 제한되었습니다."
           }
         }
       }
@@ -500,6 +548,12 @@
             "state" : "translated",
             "value" : "Unknown App"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인불가 앱"
+          }
         }
       }
     },
@@ -511,6 +565,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown Web Domain"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인불가 웹 도메인"
           }
         }
       }
