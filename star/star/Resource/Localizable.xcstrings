@@ -1,6 +1,66 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "alert.cancel_button" : {
+      "comment" : "알럿, 취소 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "alert.delete.confirm_button" : {
+      "comment" : "삭제 알럿, 확인 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "alert.delete.message" : {
+      "comment" : "삭제 알럿, 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this?\\nThis action cannot be undone."
+          }
+        }
+      }
+    },
+    "alert.exit_button" : {
+      "comment" : "알럿, 종료 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit"
+          }
+        }
+      }
+    },
+    "app.launch.message" : {
+      "comment" : "앱 런치 화면, 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shape your time into a STAR, and let it shine!"
+          }
+        }
+      }
+    },
     "break_mode.description" : {
       "comment" : "휴식 설정 화면, 설명",
       "extractionState" : "manual",
