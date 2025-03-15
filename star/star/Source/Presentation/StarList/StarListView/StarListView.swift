@@ -36,7 +36,7 @@ final class StarListView: UIView {
     }
     
     // 휴식 뷰
-    private let restView = UIView()
+    private let restView = UIView().then { $0.isHidden = true }
     
     // 휴식 버튼
     let restButton = UIButton(type: .system).then {

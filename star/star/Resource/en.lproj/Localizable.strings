@@ -86,6 +86,11 @@
 "confirm_delete" = "Delete";
 "exit" = "Exit";
 
+/// Push Notifications
+"star_will_start" = "%@ starts in 5 min.";
+"star_started" = "%@ has started.";
+"star_completed" = "%@ has ended.";
+
 /// Shield Configuration
 "shield_restricted_message" = "%@ is restricted.";
 "shield_unknown_app" = "Unknown App";
