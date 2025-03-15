@@ -1,6 +1,66 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "break_mode.description" : {
+      "comment" : "휴식 설정 화면, 설명",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set a break time of up to 20 min."
+          }
+        }
+      }
+    },
+    "break_mode.exit_button" : {
+      "comment" : "휴식중 화면, 종료 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave Early"
+          }
+        }
+      }
+    },
+    "break_mode.status_active_title" : {
+      "comment" : "휴식중 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On Break"
+          }
+        }
+      }
+    },
+    "break_mode.title" : {
+      "comment" : "휴식 설정 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a Break"
+          }
+        }
+      }
+    },
+    "break_mode.unit_minute" : {
+      "comment" : "휴식 설정 화면, 시간 단위",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "min"
+          }
+        }
+      }
+    },
     "delay.cancel_button" : {
       "comment" : "지연 화면, 취소 버튼",
       "extractionState" : "manual",
