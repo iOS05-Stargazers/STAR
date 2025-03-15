@@ -100,6 +100,12 @@
             "state" : "translated",
             "value" : "Set a break time of up to 20 min."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최대 20분까지 설정할 수 있습니다."
+          }
         }
       }
     },
@@ -111,6 +117,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Leave Early"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식 종료하기"
           }
         }
       }
@@ -124,6 +136,12 @@
             "state" : "translated",
             "value" : "On Break"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식중"
+          }
         }
       }
     },
@@ -136,6 +154,12 @@
             "state" : "translated",
             "value" : "Take a Break"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식하기"
+          }
         }
       }
     },
@@ -147,6 +171,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "min"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "분"
           }
         }
       }
