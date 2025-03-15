@@ -91,6 +91,24 @@
         }
       }
     },
+    "break_mode.break_button" : {
+      "comment" : "휴식 설정 화면, 휴식하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a Break"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식하기"
+          }
+        }
+      }
+    },
     "break_mode.description" : {
       "comment" : "휴식 설정 화면, 설명",
       "extractionState" : "manual",
