@@ -370,6 +370,12 @@
             "state" : "translated",
             "value" : "STAR requires permission to function properly."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR가 정상적으로 작동하기 위해서는\\n사용자의 권한 허용이 필요합니다."
+          }
         }
       }
     },
@@ -381,6 +387,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your data is protected by Apple\\n and remains on your device."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용자의 정보는 Apple에 의해 보호되며,\\n외부로 절대 노출되지 않습니다."
           }
         }
       }
