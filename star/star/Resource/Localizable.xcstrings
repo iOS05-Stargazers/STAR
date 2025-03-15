@@ -800,6 +800,12 @@
             "state" : "translated",
             "value" : "Add STAR"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타 추가하기"
+          }
         }
       }
     },
@@ -811,6 +817,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "EEE, MMM d, yyyy"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yyyy년 M월 dd일 (E)"
           }
         }
       }
@@ -824,10 +836,17 @@
             "state" : "translated",
             "value" : "There are no STARs yet.\\nPlease create one now!"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 스타가 없습니다.\\n스타를 생성해주세요!"
+          }
         }
       }
     },
     "star_list.status_in_progress" : {
+      "comment" : "스타리스트 화면, 진행중 태그",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -835,10 +854,17 @@
             "state" : "translated",
             "value" : "In Progress"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "진행중"
+          }
         }
       }
     },
     "star_list.status_pending" : {
+      "comment" : "스타리스트 화면, 대기중 태그",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -846,10 +872,17 @@
             "state" : "translated",
             "value" : "Pending"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기중"
+          }
         }
       }
     },
     "star_list.time_remaining.days" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1일 이상 남았을 때 표시",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -857,10 +890,17 @@
             "state" : "translated",
             "value" : "%dd left"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d일 남음"
+          }
         }
       }
     },
     "star_list.time_remaining.hours" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1시간 이상 남았을 때 표시, 분과 함께 조합될 수 있음",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -868,10 +908,17 @@
             "state" : "translated",
             "value" : "%dh left"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d시간 남음"
+          }
         }
       }
     },
     "star_list.time_remaining.minutes" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1분 이상 남았을 때 표시, 초와 함께 조합될 수 있음",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -879,16 +926,29 @@
             "state" : "translated",
             "value" : "%dm left"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d분 남음"
+          }
         }
       }
     },
     "star_list.time_remaining.seconds" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1분 미만 남았을 때 표시",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%ds left"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d초 남음"
           }
         }
       }
