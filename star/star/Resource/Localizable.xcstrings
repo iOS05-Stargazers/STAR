@@ -273,6 +273,42 @@
         }
       }
     },
+    "push_notification.star_completed" : {
+      "comment" : "푸쉬 알림, 종료 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has ended."
+          }
+        }
+      }
+    },
+    "push_notification.star_in_progress" : {
+      "comment" : "푸쉬 알림, 시작 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has started."
+          }
+        }
+      }
+    },
+    "push_notification.star_upcoming" : {
+      "comment" : "푸쉬 알림, 시작 예정 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ starts in 5 min."
+          }
+        }
+      }
+    },
     "star_edit.app_lock" : {
       "comment" : "스타 모달, 앱 잠금",
       "extractionState" : "manual",
