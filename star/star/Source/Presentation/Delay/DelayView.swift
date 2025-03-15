@@ -15,7 +15,7 @@ final class DelayView: UIView {
     
     // 타이틀 라벨
     private let titleLabel = UILabel().then {
-        $0.text = "delay".localized
+        $0.text = "delay.title".localized
         $0.font = UIFont.System.semibold24
         $0.textAlignment = .center
         $0.textColor = .starButtonWhite
@@ -23,7 +23,7 @@ final class DelayView: UIView {
     
     // 설명 라벨
     private let descriptionLabel = UILabel().then {
-        $0.text = "break_motivation".localized
+        $0.text = "delay.motivation".localized
         $0.numberOfLines = 2
         $0.font = UIFont.System.regular16
         $0.textAlignment = .center
@@ -48,7 +48,7 @@ final class DelayView: UIView {
     
     // 취소 버튼
     let cancelButton = GradientButton(type: .system).then {
-        $0.setTitle("cancel".localized, for: .normal)
+        $0.setTitle("delay.cancel_button".localized, for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
