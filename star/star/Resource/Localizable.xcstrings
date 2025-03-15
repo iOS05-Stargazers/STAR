@@ -190,6 +190,12 @@
             "state" : "translated",
             "value" : "Cancel"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소하기"
+          }
         }
       }
     },
@@ -202,6 +208,12 @@
             "state" : "translated",
             "value" : "Your time shines brightest\\nwhen it's truly yours."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "당신을 빛나게 하는 시간은\\n스스로 선택할 때 더욱 빛나요."
+          }
         }
       }
     },
@@ -213,6 +225,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please wait"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠시만요"
           }
         }
       }
