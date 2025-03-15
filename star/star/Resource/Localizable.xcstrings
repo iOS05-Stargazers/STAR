@@ -954,6 +954,7 @@
       }
     },
     "toast.error.missing_applist" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 스타가 없을 때 표시 문구",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -961,10 +962,17 @@
             "state" : "translated",
             "value" : "Please select at least one app."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하나 이상의 앱을 선택해주세요."
+          }
         }
       }
     },
     "toast.error.missing_name" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 이름 입력 값 없을 때 문구",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -972,10 +980,17 @@
             "state" : "translated",
             "value" : "Please enter a name."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름을 입력해주세요."
+          }
         }
       }
     },
     "toast.error.missing_schedule" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 반복 주기 선택안했을 때 문구",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -983,10 +998,17 @@
             "state" : "translated",
             "value" : "Please select at least one repeat cycle."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하나 이상의 반복 주기를 선택해주세요."
+          }
         }
       }
     },
     "toast.warning.invalid_time" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 시간 설정 잘못했을 때 문구",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -994,10 +1016,17 @@
             "state" : "translated",
             "value" : "Start must be 15 min before end."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작은 종료보다 15분 이상 빨라야 합니다."
+          }
         }
       }
     },
     "toast.warning.max_stars_reached" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 스타 생성 제한 문구",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1005,16 +1034,29 @@
             "state" : "translated",
             "value" : "You can save up to 15 STARs."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최대 15개의 스타를 저장할 수 있어요."
+          }
         }
       }
     },
     "toast.warning.no_available_break" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 휴식 버튼 제한 문구",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No STARs available for a break."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식할 수 있는 스타가 없어요."
           }
         }
       }
