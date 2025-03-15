@@ -584,6 +584,12 @@
             "state" : "translated",
             "value" : "App Lock"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱 잠금"
+          }
         }
       }
     },
@@ -595,6 +601,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "생성하기"
           }
         }
       }
@@ -608,6 +620,12 @@
             "state" : "translated",
             "value" : "Edit STAR"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수정하기"
+          }
         }
       }
     },
@@ -619,6 +637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타 생성"
           }
         }
       }
@@ -632,6 +656,12 @@
             "state" : "translated",
             "value" : "Set lock apps & time."
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠금할 앱과 시간을 설정해 주세요"
+          }
         }
       }
     },
@@ -643,6 +673,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타 수정"
           }
         }
       }
@@ -656,6 +692,12 @@
             "state" : "translated",
             "value" : "End Time"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료 시간"
+          }
         }
       }
     },
@@ -667,6 +709,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름"
           }
         }
       }
@@ -680,6 +728,12 @@
             "state" : "translated",
             "value" : "Enter a name"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름을 입력하세요"
+          }
         }
       }
     },
@@ -691,6 +745,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Repeat"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "반복 주기"
           }
         }
       }
@@ -704,6 +764,12 @@
             "state" : "translated",
             "value" : "Select >"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "선택 >"
+          }
         }
       }
     },
@@ -715,6 +781,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작 시간"
           }
         }
       }
