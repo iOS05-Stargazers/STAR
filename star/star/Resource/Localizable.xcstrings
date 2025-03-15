@@ -309,6 +309,28 @@
         }
       }
     },
+    "refresh.confirm_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
+    "refresh.lock_list_updated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The lock list has been updated."
+          }
+        }
+      }
+    },
     "shield.exit_button" : {
       "comment" : "잠금 화면, 종료 버튼",
       "extractionState" : "manual",
