@@ -309,6 +309,54 @@
         }
       }
     },
+    "shield.exit_button" : {
+      "comment" : "잠금 화면, 종료 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit"
+          }
+        }
+      }
+    },
+    "shield.restricted_message" : {
+      "comment" : "잠금 화면, 제한 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is restricted."
+          }
+        }
+      }
+    },
+    "shield.unknown_app" : {
+      "comment" : "잠금 화면, 알 수 없는 앱",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown App"
+          }
+        }
+      }
+    },
+    "shield.unknown_web" : {
+      "comment" : "잠금 화면, 알 수 없는 웹",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Web Domain"
+          }
+        }
+      }
+    },
     "star_edit.app_lock" : {
       "comment" : "스타 모달, 앱 잠금",
       "extractionState" : "manual",
