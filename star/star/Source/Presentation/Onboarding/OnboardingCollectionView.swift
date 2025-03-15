@@ -91,6 +91,6 @@ final class OnboardingCollectionView: UIView {
     }
     
     func updateSkipButtonText(isLastPage: Bool) {
-        skipButton.setTitle(isLastPage ? "start".localized : "skip".localized, for: .normal)
+        skipButton.setTitle(isLastPage ? "onboarding.start_button".localized : "onboarding.skip_button".localized, for: .normal)
     }
 }
