@@ -26,13 +26,13 @@ enum StarModalInputState {
     var text: String {
         switch self {
         case .noName:
-            return "no_name".localized
+            return "toast.error.missing_name".localized
         case .noApplist:
-            return "no_applist".localized
+            return "toast.error.missing_applist".localized
         case .noSchedule:
-            return "no_schedule".localized
+            return "toast.error.missing_schedule".localized
         case .overFinishTime:
-            return "over_finish_time".localized
+            return "toast.warning.invalid_time".localized
             
         }
     }

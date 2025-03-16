@@ -28,9 +28,9 @@ enum Unavailable {
     var message: String {
         switch self {
         case .createUnavailable:
-            return "max_stars".localized
+            return "toast.warning.max_stars_reached".localized
         case .restUnavailable:
-            return "no_break_star".localized
+            return "toast.warning.no_available_break".localized
         }
     }
 }

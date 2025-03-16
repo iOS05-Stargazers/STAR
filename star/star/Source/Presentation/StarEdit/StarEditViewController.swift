@@ -103,7 +103,7 @@ extension StarEditViewController {
             .controlEvent(.editingDidEnd)
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
-                owner.starEditView.nameTextField.placeholder = "enter_name".localized
+                owner.starEditView.nameTextField.placeholder = "star_edit.placeholder_name".localized
             }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼
