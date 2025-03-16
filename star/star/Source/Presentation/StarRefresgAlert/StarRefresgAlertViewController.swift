@@ -31,7 +31,7 @@ final class StarRefresgAlertViewController: UIViewController {
     // 설명 라벨
     private let descriptionLabel = UILabel().then {
         $0.numberOfLines = 2
-        $0.text = "star_refresh_message".localized
+        $0.text = "refresh.lock_list_updated".localized
         let attrString = NSMutableAttributedString(string: $0.text!)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
@@ -44,7 +44,7 @@ final class StarRefresgAlertViewController: UIViewController {
     
     // 취소 버튼
     private lazy var confirmButton = UIButton(type: .system).then {
-        $0.setTitle("star_refresh_confirm".localized, for: .normal)
+        $0.setTitle("refresh.confirm_button".localized, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
         $0.setTitleColor(.starPrimaryText, for: .normal)

@@ -267,8 +267,8 @@ extension StarEditViewController {
 
     // 경고 알럿
     private func showWarningAlert() {
-        let sheet = UIAlertController(title: "warning_title".localized, message: "warning_content".localized, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: "warning_button".localized , style: .default))
+        let sheet = UIAlertController(title: "alert.warning.title".localized, message: "alert.warning.description".localized, preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "alert.warning.confirm_button".localized , style: .default))
         present(sheet, animated: true)
     }
 }

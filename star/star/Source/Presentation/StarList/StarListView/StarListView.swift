@@ -81,7 +81,7 @@ final class StarListView: UIView {
     
     // 스타 없을 경우 보여지는 라벨
     let noStarLabel = UILabel().then {
-        $0.text = "no_stars".localized
+        $0.text = "star_list.empty_message".localized
         $0.numberOfLines = 2
         $0.font = UIFont.System.semibold20
         $0.textColor = .starSecondaryText70

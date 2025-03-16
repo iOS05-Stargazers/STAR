@@ -73,6 +73,60 @@
         }
       }
     },
+    "alert.warning.confirm_button" : {
+      "comment" : "경고 알럿, 확인 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
+          }
+        }
+      }
+    },
+    "alert.warning.description" : {
+      "comment" : "경고 알럿, 설명",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is a bug where the app lock is not applied even when the star starts or ends. Please press the refresh button when the star starts or ends."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타가 시작/종료되어도 앱 잠금이 적용되지 않는 버그가 있습니다. 스타가 시작/종료되면 새로고침 버튼을 눌러주세요."
+          }
+        }
+      }
+    },
+    "alert.warning.title" : {
+      "comment" : "경고 알럿, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경고"
+          }
+        }
+      }
+    },
     "app.launch.message" : {
       "comment" : "앱 런치 화면, 문구",
       "extractionState" : "manual",
@@ -199,6 +253,9 @@
         }
       }
     },
+    "days_left" : {
+
+    },
     "delay.cancel_button" : {
       "comment" : "지연 화면, 취소 버튼",
       "extractionState" : "manual",
@@ -252,6 +309,12 @@
           }
         }
       }
+    },
+    "hours_left" : {
+
+    },
+    "minutes_left" : {
+
     },
     "onboarding.break" : {
       "comment" : "온보딩 화면, 휴식 기능 사용 안내",
@@ -520,6 +583,9 @@
           }
         }
       }
+    },
+    "seconds_left" : {
+
     },
     "shield.exit_button" : {
       "comment" : "잠금 화면, 종료 버튼",
@@ -805,6 +871,132 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "시작 시간"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.friday" : {
+      "comment" : "스타 모달, 반복주기, 금요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "금"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.monday" : {
+      "comment" : "스타 모달, 반복주기, 월요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "월"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.saturday" : {
+      "comment" : "스타 모달, 반복주기, 토요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.sunday" : {
+      "comment" : "스타 모달, 반복주기, 일요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.thursday" : {
+      "comment" : "스타 모달, 반복주기, 목요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "T"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.tuesday" : {
+      "comment" : "스타 모달, 반복주기, 화요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "T"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "화"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.wednesday" : {
+      "comment" : "스타 모달, 반복주기, 수요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수"
           }
         }
       }

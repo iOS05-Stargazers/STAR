@@ -59,7 +59,6 @@
 		237F5B332D7EBE2800FD3215 /* Exceptions for "star" folder in "DeviceActivityMonitor" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"/Localized: Resource/Localizable.strings",
 				"Source/Core/Extension/DeviceActivityName+Extension.swift",
 				"Source/Core/Extension/FamilyAcitivitySelection+Extension.swift",
 				"Source/Core/Extension/String+Localization.swift",
