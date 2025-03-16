@@ -20,11 +20,11 @@ enum NotificationType {
     var body: String {
         switch self {
         case .willStartSoon(let star):
-            return String(format: "star_will_start".localized, star.title)
+            return String(format: "push_notification.star_upcoming".localized, star.title)
         case .didStart(let star):
-            return String(format: "star_started".localized, star.title)
+            return String(format: "push_notification.star_in_progress".localized, star.title)
         case .didEnd(let star):
-            return String(format: "star_completed".localized, star.title)
+            return String(format: "push_notification.star_completed".localized, star.title)
         }
     }
     
