@@ -19,9 +19,9 @@ enum TimeType {
     var text: String {
         switch self {
         case .startTime:
-            return "start_time".localized
+            return "star_edit.start_time".localized
         case .endTime:
-            return "end_time".localized
+            return "star_edit.end_time".localized
         }
     }
     

@@ -542,7 +542,6 @@
       }
     },
     "refresh.confirm_button" : {
-      "comment" : "1",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -662,6 +661,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "앱 잠금"
+          }
+        }
+      }
+    },
+    "star_edit.confirm_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Time"
           }
         }
       }
