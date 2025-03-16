@@ -463,7 +463,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "사용자의 정보는 Apple에 의해 보호되며,\\n외부로 절대 노출되지 않습니다."
           }
         }
@@ -494,13 +494,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ has ended."
+            "value" : "%@ has ended. Please press the refresh button."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 스타가 종료되었습니다."
+            "state" : "needs_review",
+            "value" : "%@ 스타가 종료되었습니다. 새로고침 버튼을 눌러주세요."
           }
         }
       }
@@ -512,13 +512,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ has started."
+            "value" : "%@ has started. Please press the refresh button."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 스타가 시작되었습니다."
+            "state" : "needs_review",
+            "value" : "%@ 스타가 시작되었습니다. 새로고침 버튼을 눌러주세요."
           }
         }
       }
@@ -666,6 +666,7 @@
       }
     },
     "star_edit.confirm_button" : {
+      "comment" : "스타 모달, 타임 피커, 확인 버튼",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1072,7 +1073,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "진행중"
           }
         }
