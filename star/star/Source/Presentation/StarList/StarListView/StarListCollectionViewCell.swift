@@ -148,12 +148,12 @@ extension StarListCollectionViewCell {
     private func applyStateStyle(_ state: StarState.Style) {
         switch state {
         case .ongoing:
-            self.tagLabel.text = "in_progress".localized
+            self.tagLabel.text = "star_list.status_in_progress".localized
             self.tagView.gradientLayer.isHidden = false
             self.timerImageView.isHidden = false
             
         case .pending:
-            self.tagLabel.text = "pending".localized
+            self.tagLabel.text = "star_list.status_pending".localized
             self.tagView.gradientLayer.isHidden = true
             self.timerImageView.isHidden = true
         }

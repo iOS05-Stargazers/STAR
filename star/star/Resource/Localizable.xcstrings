@@ -253,9 +253,6 @@
         }
       }
     },
-    "days_left" : {
-
-    },
     "delay.cancel_button" : {
       "comment" : "지연 화면, 취소 버튼",
       "extractionState" : "manual",
@@ -309,12 +306,6 @@
           }
         }
       }
-    },
-    "hours_left" : {
-
-    },
-    "minutes_left" : {
-
     },
     "onboarding.break" : {
       "comment" : "온보딩 화면, 휴식 기능 사용 안내",
@@ -551,6 +542,7 @@
       }
     },
     "refresh.confirm_button" : {
+      "comment" : "1",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -583,9 +575,6 @@
           }
         }
       }
-    },
-    "seconds_left" : {
-
     },
     "shield.exit_button" : {
       "comment" : "잠금 화면, 종료 버튼",
@@ -1062,12 +1051,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "In Progress"
+            "value" : "In Prog."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "진행중"
           }
         }

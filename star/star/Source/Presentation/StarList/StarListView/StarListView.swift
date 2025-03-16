@@ -65,7 +65,7 @@ final class StarListView: UIView {
     
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
-        $0.setTitle("add_star".localized, for: .normal)
+        $0.setTitle("star_list.add_star_button".localized, for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
