@@ -458,12 +458,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your data is protected by Apple\\n and remains on your device."
+            "value" : "Your data is protected by Apple\\nand remains on your device."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "사용자의 정보는 Apple에 의해 보호되며,\\n외부로 절대 노출되지 않습니다."
           }
         }
@@ -672,6 +672,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Set Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정하기"
           }
         }
       }
