@@ -60,11 +60,6 @@ final class StarEditViewController: UIViewController {
         bind()
         setModalAction()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        showWarningAlert()
-    }
 }
 
 // MARK: - Action
@@ -263,13 +258,6 @@ extension StarEditViewController {
     // 모달 종료
     private func closeModal() {
         dismiss(animated: true)
-    }
-
-    // 경고 알럿
-    private func showWarningAlert() {
-        let sheet = UIAlertController(title: "warning_title".localized, message: "warning_content".localized, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: "warning_button".localized , style: .default))
-        present(sheet, animated: true)
     }
 }
 
