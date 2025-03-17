@@ -152,9 +152,9 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 - Continuous efforts are underway to improve the user experience by implementing workarounds for crash handling.
 
 ## 📦 How to Install 
-(WIP for release in App Store)
+<div align="left">
+  <a href = "https://apps.apple.com/kr/app/%EC%8A%A4%ED%83%80-star-%EC%8A%A4%ED%81%AC%EB%A6%B0%ED%83%80%EC%9E%84-%EA%B4%80%EB%A6%AC/id6740698293?l=en-GB">
+    <img  width=200  src="https://github.com/user-attachments/assets/46f5bb61-cb16-45e6-8de1-b1fed97d51a7"/>
+  </a>
+</div>
 
-1. Clone this repository:  
-   ```bash  
-   git clone https://github.com/iOS05-Stargazers/STAR.git
-   ```  
