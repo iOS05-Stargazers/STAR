@@ -107,7 +107,7 @@ final class StarEditView: UIView {
     private lazy var startTimeLabel = makeLabel("start_time".localized)
     
     let startTimeButton = UIButton(type: .system).then {
-        $0.setTitle("00:00", for: .normal)
+        $0.setTitle("09:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.regular16
     }
@@ -120,7 +120,7 @@ final class StarEditView: UIView {
     private lazy var endTimeLabel = makeLabel("end_time".localized)
     
     let endTimeButton = UIButton(type: .system).then {
-        $0.setTitle("23:59", for: .normal)
+        $0.setTitle("18:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.regular16
     }

@@ -87,16 +87,11 @@
 "exit" = "종료하기";
 
 /// Push Notifications
-"star_will_start" = "%@ 스타가 5분 뒤에 시작됩니다.";
-"star_started" = "%@ 스타가 시작되었습니다. 새로고침 버튼을 눌러주세요.";
-"star_completed" = "%@ 스타가 종료되었습니다. 새로고침 버튼을 눌러주세요.";
+"star_started" = "%@ 스타가 시작되었습니다.";
+"star_completed" = "%@ 스타가 종료되었습니다.";
 
 /// Shield Configuration
 "shield_restricted_message" = "%@은(는)\n사용이 제한되었습니다.";
 "shield_unknown_app" = "확인불가 앱";
 "shield_unknown_web" = "확인불가 웹 도메인";
 "shield_exit" = "종료하기";
-
-/// Refresh
-"star_refresh_message" = "잠금 리스트가 업데이트 되었습니다.";
-"star_refresh_confirm" = "확인";
