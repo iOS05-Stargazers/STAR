@@ -87,10 +87,13 @@ final class StarListCollectionViewCell: UICollectionViewCell {
         
         tagView.addSubview(tagLabel)
         
+        /// 기본값 84, 시스템 언어 ko일때 64 설정
+        let tagViewWidth: CGFloat = Locale.current.languageCode == "ko" ? 60 : 84
+        
         tagView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(16)
             $0.height.equalTo(32)
-            $0.width.equalTo(84)
+            $0.width.equalTo(tagViewWidth)
         }
         
         tagLabel.snp.makeConstraints {
