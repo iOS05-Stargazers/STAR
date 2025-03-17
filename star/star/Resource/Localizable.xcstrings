@@ -494,13 +494,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ has ended. Please press the refresh button."
+            "value" : "%@ has ended."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ 스타가 종료되었습니다. 새로고침 버튼을 눌러주세요."
+            "state" : "translated",
+            "value" : "%@ 스타가 종료되었습니다."
           }
         }
       }
@@ -512,13 +512,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ has started. Please press the refresh button."
+            "value" : "%@ has started."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%@ 스타가 시작되었습니다. 새로고침 버튼을 눌러주세요."
+            "state" : "translated",
+            "value" : "%@ 스타가 시작되었습니다."
           }
         }
       }
@@ -537,40 +537,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ 스타가 5분 뒤에 시작됩니다."
-          }
-        }
-      }
-    },
-    "refresh.confirm_button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "확인"
-          }
-        }
-      }
-    },
-    "refresh.lock_list_updated" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The lock list has been updated."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "잠금 리스트가 업데이트 되었습니다."
           }
         }
       }
@@ -1068,12 +1034,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "In Prog."
+            "value" : "In Progress"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "진행중"
           }
         }
