@@ -53,12 +53,11 @@ extension BlockManager {
     // 휴식 스케쥴 추가
     func rest() {
         guard let restEndTime = UserDefaults.appGroups.restEndTimeGet() else { return }
-        let startTime = StarTime(date: .now.addingTimeInterval(-900))
-        let endTime = StarTime(date: restEndTime)
-        
+        let startTime = components(of: .now.addingTimeInterval(-900))
+        let endTime = components(of: restEndTime)
         let blockSchedule = DeviceActivitySchedule(
-            intervalStart: DateComponents(hour: startTime.hour, minute: startTime.minute),
-            intervalEnd: DateComponents(hour: endTime.hour, minute: endTime.minute),
+            intervalStart: startTime,
+            intervalEnd: endTime,
             repeats: false
         )
         
@@ -67,5 +66,9 @@ extension BlockManager {
     // 저장된 휴식을 임의로 종료시킬 경우 스케쥴을 중단시킵니다.
     func endRest() {
         deviceActivityCenter.stopMonitoring([.rest])
+    }
+    
+    private func components(of date: Date) -> DateComponents {
+        return Calendar.current.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
     }
 }

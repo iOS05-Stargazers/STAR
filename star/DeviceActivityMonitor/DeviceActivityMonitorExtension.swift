@@ -14,16 +14,12 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     override func intervalDidStart(for activity: DeviceActivityName) {
         super.intervalDidStart(for: activity)
-        
         // Handle the start of the interval.
         FamilyControlsManager().updateBlockList()
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
-        if activity == .rest {
-            UserDefaults.appGroups.restEndTimeDelete()
-        }
         // Handle the end of the interval.
         FamilyControlsManager().updateBlockList()
     }
