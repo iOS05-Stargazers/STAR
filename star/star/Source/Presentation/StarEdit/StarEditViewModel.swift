@@ -60,6 +60,8 @@ final class StarEditViewModel {
         case .create:
             weekDays = [.mon, .tue, .wed, .thu, .fri]
             weekDaysRelay.accept([.mon, .tue, .wed, .thu, .fri])
+            startTime = StarTime(hour: 09, minute: 00)
+            endTime = StarTime(hour: 18, minute: 00)
 
             break
         case .edit(let star):
