@@ -150,11 +150,9 @@ STAR: Screen Time Awareness & Regulation (iOS 앱)
 - FamilyActivityPicker 자체가 불안정하여 크래시 발생 가능성이 높으며, 2022년부터 보고된 버그가 현재 기준으로 아직 고쳐지지 않은 상황
 - 기본적으로 SwiftUI에서만 지원되므로, UIKit 기반 코드에서 정상 작동하도록 추가 처리가 요구됨
 - 우회적인 크래시 핸들링 방안을 통해 사용자 경험을 개선하는 방안을 지속적으로 모색 중
-
 ## 📦 설치 방법 
-(앱 스토어 출시 준비 중)
-
-1. 리포지토리 클론:  
-   ```bash  
-   git clone https://github.com/iOS05-Stargazers/STAR.git
-   ```  
+<div align="left">
+  <a href = "https://apps.apple.com/kr/app/%EC%8A%A4%ED%83%80-star-%EC%8A%A4%ED%81%AC%EB%A6%B0%ED%83%80%EC%9E%84-%EA%B4%80%EB%A6%AC/id6740698293" >
+    <img  width=200  src="https://github.com/user-attachments/assets/c3c4c3e2-c8f9-453f-befa-3b3aa1ce8c56"/>
+  </a>
+</div>

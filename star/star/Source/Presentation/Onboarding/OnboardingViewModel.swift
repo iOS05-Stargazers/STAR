@@ -41,6 +41,10 @@ final class OnboardingViewModel {
         OnboardingModel(
             image: UIImage.onboardingDelete,
             description: "onboarding.delete".localized
+        ),
+        OnboardingModel(
+            image: UIImage.onboardingRest,
+            description: "onboarding.break".localized
         )
     ])
     
