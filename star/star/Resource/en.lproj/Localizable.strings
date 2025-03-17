@@ -87,16 +87,11 @@
 "exit" = "Exit";
 
 /// Push Notifications
-"star_will_start" = "%@ starts in 5 min.";
-"star_started" = "%@ has started. Please press the refresh button.";
-"star_completed" = "%@ has ended. Please press the refresh button.";
+"star_started" = "%@ has started";
+"star_completed" = "%@ has ended";
 
 /// Shield Configuration
 "shield_restricted_message" = "%@ is restricted.";
 "shield_unknown_app" = "Unknown App";
 "shield_unknown_web" = "Unknown Web Domain";
 "shield_exit" = "Exit";
-
-/// Refresh
-"star_refresh_message" = "The lock list has been updated.";
-"star_refresh_confirm" = "confirm";
