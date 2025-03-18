@@ -32,19 +32,19 @@ final class OnboardingViewModel {
     let pages = BehaviorRelay<[OnboardingModel]>(value: [
         OnboardingModel(
             image: UIImage.onboardingCreate,
-            description: "onboarding_create".localized
+            description: "onboarding.create".localized
         ),
         OnboardingModel(
             image: UIImage.onboardingModify,
-            description: "onboarding_edit".localized
+            description: "onboarding.edit".localized
         ),
         OnboardingModel(
             image: UIImage.onboardingDelete,
-            description: "onboarding_delete".localized
+            description: "onboarding.delete".localized
         ),
         OnboardingModel(
             image: UIImage.onboardingRest,
-            description: "onboarding_break".localized
+            description: "onboarding.break".localized
         )
     ])
     

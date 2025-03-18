@@ -14,7 +14,7 @@ final class PermissionView: UIView {
     // MARK: - UI Components
     
     private let titleLabel = UILabel().then {
-        $0.text = "permission_title".localized
+        $0.text = "permission.title".localized
         $0.font = UIFont.System.bold24
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
@@ -22,7 +22,7 @@ final class PermissionView: UIView {
     
     private let descriptionLabel = UILabel().then {
         $0.setStarHighlightedText(
-            fullText: "permission_description".localized,
+            fullText: "permission.description".localized,
             font: UIFont.System.semibold16,
             color: UIColor.starSecondaryText
         )
@@ -31,7 +31,7 @@ final class PermissionView: UIView {
     }
     
     private let footerLabel = UILabel().then {
-        $0.text = "permission_footer".localized
+        $0.text = "permission.notice".localized
         $0.font = UIFont.System.semibold16
         $0.textColor = .starSecondaryText
         $0.textAlignment = .center

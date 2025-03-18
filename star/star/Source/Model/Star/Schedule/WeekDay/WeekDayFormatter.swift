@@ -34,19 +34,19 @@ struct WeekDayFormatter {
     static func localized(_ weekDay: WeekDay) -> String {
         switch weekDay {
         case .mon:
-            return "monday".localized
+            return "star_edit.weekday.monday".localized
         case .tue:
-            return "tuesday".localized
+            return "star_edit.weekday.tuesday".localized
         case .wed:
-            return "wednesday".localized
+            return "star_edit.weekday.wednesday".localized
         case .thu:
-            return "thursday".localized
+            return "star_edit.weekday.thursday".localized
         case .fri:
-            return "friday".localized
+            return "star_edit.weekday.friday".localized
         case .sat:
-            return "saturday".localized
+            return "star_edit.weekday.saturday".localized
         case .sun:
-            return "sunday".localized
+            return "star_edit.weekday.sunday".localized
         }
     }
 }

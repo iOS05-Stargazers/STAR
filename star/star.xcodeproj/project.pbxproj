@@ -71,8 +71,9 @@
 		235689412D88200000F0DA60 /* Exceptions for "star" folder in "ShieldConfiguration" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"/Localized: Resource/Localizable.strings",
 				Resource/Colors.xcassets,
+				Resource/Localizable.xcstrings,
+				"Source/Core/Extension/String+Localization.swift",
 			);
 			target = 2356892F2D881F8F00F0DA60 /* ShieldConfiguration */;
 		};
@@ -86,6 +87,7 @@
 		237F5B332D7EBE2800FD3215 /* Exceptions for "star" folder in "DeviceActivityMonitor" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Resource/Localizable.xcstrings,
 				"Source/Core/Extension/DeviceActivityName+Extension.swift",
 				"Source/Core/Extension/FamilyAcitivitySelection+Extension.swift",
 				"Source/Core/Extension/String+Localization.swift",
