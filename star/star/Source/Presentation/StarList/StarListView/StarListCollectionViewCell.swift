@@ -87,10 +87,13 @@ final class StarListCollectionViewCell: UICollectionViewCell {
         
         tagView.addSubview(tagLabel)
         
+        /// 기본값 84, 시스템 언어 ko일때 64 설정
+        let tagViewWidth: CGFloat = Locale.current.languageCode == "ko" ? 60 : 84
+        
         tagView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(16)
             $0.height.equalTo(32)
-            $0.width.equalTo(60)
+            $0.width.equalTo(tagViewWidth)
         }
         
         tagLabel.snp.makeConstraints {
@@ -148,12 +151,12 @@ extension StarListCollectionViewCell {
     private func applyStateStyle(_ state: StarState.Style) {
         switch state {
         case .ongoing:
-            self.tagLabel.text = "in_progress".localized
+            self.tagLabel.text = "star_list.status_in_progress".localized
             self.tagView.gradientLayer.isHidden = false
             self.timerImageView.isHidden = false
             
         case .pending:
-            self.tagLabel.text = "pending".localized
+            self.tagLabel.text = "star_list.status_pending".localized
             self.tagView.gradientLayer.isHidden = true
             self.timerImageView.isHidden = true
         }

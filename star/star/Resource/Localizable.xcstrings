@@ -1,0 +1,1212 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "alert.cancel_button" : {
+      "comment" : "알럿, 취소 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소"
+          }
+        }
+      }
+    },
+    "alert.delete.confirm_button" : {
+      "comment" : "삭제 알럿, 확인 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
+          }
+        }
+      }
+    },
+    "alert.delete.message" : {
+      "comment" : "삭제 알럿, 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this?\\nThis action cannot be undone."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정말로 삭제하시겠습니까?\\n삭제한 스타는 되돌릴 수 없습니다."
+          }
+        }
+      }
+    },
+    "alert.exit_button" : {
+      "comment" : "알럿, 종료 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료하기"
+          }
+        }
+      }
+    },
+    "app.launch.message" : {
+      "comment" : "앱 런치 화면, 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shape your time into a STAR, and let it shine!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "별을 이루는 당신의 시간, STAR와 함께 빛나세요"
+          }
+        }
+      }
+    },
+    "break_mode.break_button" : {
+      "comment" : "휴식 설정 화면, 휴식하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a Break"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식하기"
+          }
+        }
+      }
+    },
+    "break_mode.description" : {
+      "comment" : "휴식 설정 화면, 설명",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set a break time of up to 20 min."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최대 20분까지 설정할 수 있습니다."
+          }
+        }
+      }
+    },
+    "break_mode.exit_button" : {
+      "comment" : "휴식중 화면, 종료 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave Early"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식 종료하기"
+          }
+        }
+      }
+    },
+    "break_mode.status_active_title" : {
+      "comment" : "휴식중 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On Break"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식중"
+          }
+        }
+      }
+    },
+    "break_mode.title" : {
+      "comment" : "휴식 설정 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a Break"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식하기"
+          }
+        }
+      }
+    },
+    "break_mode.unit_minute" : {
+      "comment" : "휴식 설정 화면, 시간 단위",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "min"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "분"
+          }
+        }
+      }
+    },
+    "delay.cancel_button" : {
+      "comment" : "지연 화면, 취소 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소하기"
+          }
+        }
+      }
+    },
+    "delay.motivation" : {
+      "comment" : "지연 화면, 동기부여 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your time shines brightest\\nwhen it's truly yours."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "당신을 빛나게 하는 시간은\\n스스로 선택할 때 더욱 빛나요."
+          }
+        }
+      }
+    },
+    "delay.title" : {
+      "comment" : "지연 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please wait"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠시만요"
+          }
+        }
+      }
+    },
+    "onboarding.break" : {
+      "comment" : "온보딩 화면, 휴식 기능 사용 안내",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the Break button\\n to switch to Break Mode."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식 버튼을 누르면\\n휴식 모드로 전환할 수 있습니다."
+          }
+        }
+      }
+    },
+    "onboarding.create" : {
+      "comment" : "온보딩 화면, 스타 생성 기능 사용 안내",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap \"Add STAR\"\\n to create a new STAR."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“스타 추가하기”를 통해\\n스타를 생성할 수 있습니다."
+          }
+        }
+      }
+    },
+    "onboarding.delete" : {
+      "comment" : "온보딩 화면, 스타 삭제 기능 사용 안내",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe left to delete a STAR."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "왼쪽으로 스와이프하여\\n스타를 삭제할 수 있습니다."
+          }
+        }
+      }
+    },
+    "onboarding.edit" : {
+      "comment" : "온보딩 화면, 스타 편집 기능 사용 안내",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a STAR to edit."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목록의 스타를 선택하면\\n스타를 수정할 수 있습니다."
+          }
+        }
+      }
+    },
+    "onboarding.skip_button" : {
+      "comment" : "온보딩 화면, 건너뛰기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "건너뛰기"
+          }
+        }
+      }
+    },
+    "onboarding.start_button" : {
+      "comment" : "온보딩 화면, 마지막 화면의 시작하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작하기"
+          }
+        }
+      }
+    },
+    "onboarding.title" : {
+      "comment" : "온보딩 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR, your digital time unit."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "당신의 디지털 시간 관리 단위, STAR"
+          }
+        }
+      }
+    },
+    "permission.description" : {
+      "comment" : "권한 설정 화면, 알럿 안내 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR requires permission to function properly."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR가 정상적으로 작동하기 위해서는\\n사용자의 권한 허용이 필요합니다."
+          }
+        }
+      }
+    },
+    "permission.notice" : {
+      "comment" : "권한 설정 화면, 보호 안내 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your data is protected by Apple\\nand remains on your device."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용자의 정보는 Apple에 의해 보호되며,\\n외부로 절대 노출되지 않습니다."
+          }
+        }
+      }
+    },
+    "permission.title" : {
+      "comment" : "권한 설정 화면, 제목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grant Screen Time access."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스크린타임 권한을 설정해주세요."
+          }
+        }
+      }
+    },
+    "push_notification.break_ended" : {
+      "comment" : "푸쉬 알림, 휴식 종료 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The break has ended."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "휴식이 종료되었습니다."
+          }
+        }
+      }
+    },
+    "push_notification.star_completed" : {
+      "comment" : "푸쉬 알림, 종료 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has ended."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 스타가 종료되었습니다."
+          }
+        }
+      }
+    },
+    "push_notification.star_in_progress" : {
+      "comment" : "푸쉬 알림, 시작 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has started."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 스타가 시작되었습니다."
+          }
+        }
+      }
+    },
+    "push_notification.star_upcoming" : {
+      "comment" : "푸쉬 알림, 시작 예정 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ starts in 5 min."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 스타가 5분 뒤에 시작됩니다."
+          }
+        }
+      }
+    },
+    "shield.exit_button" : {
+      "comment" : "잠금 화면, 종료 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료하기"
+          }
+        }
+      }
+    },
+    "shield.restricted_message" : {
+      "comment" : "잠금 화면, 제한 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is restricted."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@은(는)\\n사용이 제한되었습니다."
+          }
+        }
+      }
+    },
+    "shield.unknown_app" : {
+      "comment" : "잠금 화면, 알 수 없는 앱",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown App"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인불가 앱"
+          }
+        }
+      }
+    },
+    "shield.unknown_web" : {
+      "comment" : "잠금 화면, 알 수 없는 웹",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Web Domain"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인불가 웹 도메인"
+          }
+        }
+      }
+    },
+    "star_edit.app_lock" : {
+      "comment" : "스타 모달, 앱 잠금",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Lock"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱 잠금"
+          }
+        }
+      }
+    },
+    "star_edit.confirm_button" : {
+      "comment" : "스타 모달, 타임 피커, 확인 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정하기"
+          }
+        }
+      }
+    },
+    "star_edit.create_button" : {
+      "comment" : "스타 모달, 스타 생성모드 생성하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "생성하기"
+          }
+        }
+      }
+    },
+    "star_edit.create_title" : {
+      "comment" : "스타 모달, 스타 생성모드 타이틀",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타 생성"
+          }
+        }
+      }
+    },
+    "star_edit.description" : {
+      "comment" : "스타 모달, 설명 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set lock apps & time."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠금할 앱과 시간을 설정해 주세요"
+          }
+        }
+      }
+    },
+    "star_edit.edit_button" : {
+      "comment" : "스타 모달, 스타 수정모드 수정하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수정하기"
+          }
+        }
+      }
+    },
+    "star_edit.edit_title" : {
+      "comment" : "스타 모달, 스타 수정모드 타이틀",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타 수정"
+          }
+        }
+      }
+    },
+    "star_edit.end_time" : {
+      "comment" : "스타 모달, 종료 시간",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "종료 시간"
+          }
+        }
+      }
+    },
+    "star_edit.name" : {
+      "comment" : "스타 모달, 이름 항목",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름"
+          }
+        }
+      }
+    },
+    "star_edit.placeholder_name" : {
+      "comment" : "스타 모달, 이름 항목의 placeholder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름을 입력하세요"
+          }
+        }
+      }
+    },
+    "star_edit.repeat" : {
+      "comment" : "스타 모달, 반복 주기",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "반복 주기"
+          }
+        }
+      }
+    },
+    "star_edit.select" : {
+      "comment" : "스타 모달, 앱 선택",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select >"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "선택 >"
+          }
+        }
+      }
+    },
+    "star_edit.start_time" : {
+      "comment" : "스타 모달, 시작 시간",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작 시간"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.friday" : {
+      "comment" : "스타 모달, 반복주기, 금요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "금"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.monday" : {
+      "comment" : "스타 모달, 반복주기, 월요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "월"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.saturday" : {
+      "comment" : "스타 모달, 반복주기, 토요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.sunday" : {
+      "comment" : "스타 모달, 반복주기, 일요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.thursday" : {
+      "comment" : "스타 모달, 반복주기, 목요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "T"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "목"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.tuesday" : {
+      "comment" : "스타 모달, 반복주기, 화요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "T"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "화"
+          }
+        }
+      }
+    },
+    "star_edit.weekday.wednesday" : {
+      "comment" : "스타 모달, 반복주기, 수요일",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수"
+          }
+        }
+      }
+    },
+    "star_list.add_star_button" : {
+      "comment" : "스타리스트 화면, 스타 생성하기 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add STAR"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스타 추가하기"
+          }
+        }
+      }
+    },
+    "star_list.date_format" : {
+      "comment" : "스타리스트 화면, 날짜 포맷 (미국)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EEE, MMM d, yyyy"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yyyy년 M월 dd일 (E)"
+          }
+        }
+      }
+    },
+    "star_list.empty_message" : {
+      "comment" : "스타리스트 화면, 스타리스트 비어있을 때 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no STARs yet.\\nPlease create one now!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 스타가 없습니다.\\n스타를 생성해주세요!"
+          }
+        }
+      }
+    },
+    "star_list.status_in_progress" : {
+      "comment" : "스타리스트 화면, 진행중 태그",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Progress"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "진행중"
+          }
+        }
+      }
+    },
+    "star_list.status_pending" : {
+      "comment" : "스타리스트 화면, 대기중 태그",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pending"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기중"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.days" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1일 이상 남았을 때 표시",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dd left"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d일 남음"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.hours" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1시간 이상 남았을 때 표시, 분과 함께 조합될 수 있음",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dh left"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d시간 남음"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.minutes" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1분 이상 남았을 때 표시, 초와 함께 조합될 수 있음",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dm left"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d분 남음"
+          }
+        }
+      }
+    },
+    "star_list.time_remaining.seconds" : {
+      "comment" : "스타리스트 화면, STAR 시간이 1분 미만 남았을 때 표시",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ds left"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d초 남음"
+          }
+        }
+      }
+    },
+    "toast.error.missing_applist" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 스타가 없을 때 표시 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select at least one app."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하나 이상의 앱을 선택해주세요."
+          }
+        }
+      }
+    },
+    "toast.error.missing_name" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 이름 입력 값 없을 때 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a name."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름을 입력해주세요."
+          }
+        }
+      }
+    },
+    "toast.error.missing_schedule" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 반복 주기 선택안했을 때 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select at least one repeat cycle."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하나 이상의 반복 주기를 선택해주세요."
+          }
+        }
+      }
+    },
+    "toast.warning.invalid_time" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 시간 설정 잘못했을 때 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start must be 15 min before end."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작은 종료보다 15분 이상 빨라야 합니다."
+          }
+        }
+      }
+    },
+    "toast.warning.max_stars_reached" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 스타 생성 제한 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can save up to 15 STARs."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최대 15개의 스타를 저장할 수 있어요."
+          }
+        }
+      }
+    },
+    "toast.warning.no_available_break" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 휴식 버튼 제한 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No STARs available for a break."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴식할 수 있는 스타가 없어요."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

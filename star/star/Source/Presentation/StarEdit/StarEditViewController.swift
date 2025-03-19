@@ -19,9 +19,9 @@ enum TimeType {
     var text: String {
         switch self {
         case .startTime:
-            return "start_time".localized
+            return "star_edit.start_time".localized
         case .endTime:
-            return "end_time".localized
+            return "star_edit.end_time".localized
         }
     }
     
@@ -98,7 +98,7 @@ extension StarEditViewController {
             .controlEvent(.editingDidEnd)
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
-                owner.starEditView.nameTextField.placeholder = "enter_name".localized
+                owner.starEditView.nameTextField.placeholder = "star_edit.placeholder_name".localized
             }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼

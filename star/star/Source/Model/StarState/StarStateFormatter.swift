@@ -61,17 +61,17 @@ struct StarStateFormatter {
     }
     
     private static func secondForm(_ value: Int) -> String {
-        String(format: NSLocalizedString("seconds_left", comment: ""), value)
+        String(format: "star_list.time_remaining.seconds".localized, value)
     }
     private static func minuteForm(_ value: Int) -> String {
-        String(format: NSLocalizedString("minutes_left", comment: ""), value)
+        String(format: "star_list.time_remaining.minutes".localized, value)
     }
 
     private static func hourForm(_ value: Int) -> String {
-        String(format: NSLocalizedString("hours_left", comment: ""), value)
+        String(format: "star_list.time_remaining.hours".localized, value)
     }
 
     private static func dayForm(_ value: Int) -> String {
-        String(format: NSLocalizedString("days_left", comment: ""), value)
+        String(format: "star_list.time_remaining.days".localized, value)
     }
 }
