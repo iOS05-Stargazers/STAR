@@ -128,6 +128,7 @@ extension RestSettingModalViewController {
                 guard let time = UserDefaults.appGroups.restEndTimeSet(restTime) else { return }
                 BlockManager().rest()
                 FamilyControlsManager().clearBlockList()
+                NotificationManager().restEndNotification()
                 owner.dismiss(animated: true) // 모달 창 닫기
                 owner.restSettingCompleteRelay.accept(time)
 
