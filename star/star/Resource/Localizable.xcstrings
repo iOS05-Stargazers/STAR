@@ -433,7 +433,7 @@
         }
       }
     },
-    "push_notificaion.break_ended" : {
+    "push_notification.break_ended" : {
       "comment" : "푸쉬 알림, 휴식 종료 문구",
       "extractionState" : "manual",
       "localizations" : {
