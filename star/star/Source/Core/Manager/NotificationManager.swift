@@ -19,9 +19,9 @@ enum NotificationType {
     var body: String {
         switch self {
         case .didStart(let star):
-            return String(format: "star_started".localized, star.title)
+            return String(format: "push_notification.star_in_progress".localized, star.title)
         case .didEnd(let star):
-            return String(format: "star_completed".localized, star.title)
+            return String(format: "push_notification.star_completed".localized, star.title)
         }
     }
     
