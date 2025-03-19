@@ -137,6 +137,36 @@ final class NotificationManager: NSObject {
         // 알림 등록
         UNUserNotificationCenter.current().add(request) { _ in }
     }
+    
+    // 휴식 종료 알림 예약
+    func restEndNotification() {
+        guard let restEndTime = UserDefaults.appGroups.restEndTimeGet() else { return }
+        let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute, .second, .nanosecond], from: restEndTime)
+        // 조건(시간, 반복)
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: dateComponents,
+            repeats: false
+        )
+        
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "STAR"
+        notificationContent.body = "push_notification.break_ended".localized
+        notificationContent.sound = .default
+        
+        // 요청
+        let request = UNNotificationRequest(
+            identifier: "restEnd",
+            content: notificationContent,
+            trigger: trigger
+        )
+        
+        // 알림 등록
+        UNUserNotificationCenter.current().add(request) { _ in }
+    }
+    
+    func removeRest() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["restEnd"])
+    }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {

@@ -433,6 +433,24 @@
         }
       }
     },
+    "push_notificaion.break_ended" : {
+      "comment" : "푸쉬 알림, 휴식 종료 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The break has ended."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "휴식이 종료되었습니다."
+          }
+        }
+      }
+    },
     "push_notification.star_completed" : {
       "comment" : "푸쉬 알림, 종료 문구",
       "extractionState" : "manual",
