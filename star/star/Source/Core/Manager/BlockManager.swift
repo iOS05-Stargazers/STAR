@@ -69,6 +69,6 @@ extension BlockManager {
     }
     
     private func components(of date: Date) -> DateComponents {
-        return Calendar.current.dateComponents([], from: date)
+        return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: date)
     }
 }
