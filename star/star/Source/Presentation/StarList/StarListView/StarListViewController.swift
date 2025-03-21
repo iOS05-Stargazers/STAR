@@ -42,9 +42,12 @@ final class StarListViewController: UIViewController {
 extension StarListViewController {
     
     private func bind() {
+        let gestureRecognizer = UITapGestureRecognizer()
+        starListView.restView.addGestureRecognizer(gestureRecognizer)
+//        let restLabelTapped = gestureRecognizer.rx.event.asDriver(onErrorDriveWith: .empty()).asObservable().map { _ in () }
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
         let addButtonTapped = starListView.addStarButton.rx.tap.asObservable()
-        let restButtonTapped = starListView.restButton.rx.tap.asObservable()
+        let restButtonTapped = gestureRecognizer.rx.event.withUnretained(self).map { _, _ in () }
         let starSelected = starListView.starListCollectionView.rx.modelSelected(Star.self).asObservable()
         let input = StarListViewModel.Input(
             viewWillAppear: viewWillAppears,
@@ -217,4 +220,5 @@ extension StarListViewController: UIViewControllerTransitioningDelegate {
         return CustomPresentationController(presentedViewController: presented,
                                             presenting: presenting)
     }
+    
 }

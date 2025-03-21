@@ -37,13 +37,14 @@ final class StarListView: UIView {
     }
 
     // 휴식 뷰
-    private let restView = UIView()
+    let restView = UIView()
     
     // 휴식 버튼
     let restButton = UIButton(type: .system).then {
         $0.setImage(UIImage(systemName: "cup.and.saucer.fill"), for: .normal)
         $0.imageView?.contentMode = .scaleAspectFit
         $0.tintColor = .starSecondaryText
+        $0.isEnabled = false
     }
 
     // 휴식 라벨
