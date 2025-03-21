@@ -40,9 +40,12 @@ final class StarListViewController: UIViewController {
 // MARK: - bind
 
 extension StarListViewController {
-    
+    @objc
+    private func haptic() {
+        HapticManager.shared.play(style: .selection)
+    }
     private func bind() {
-        let gestureRecognizer = UITapGestureRecognizer()
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(haptic))
         starListView.restView.addGestureRecognizer(gestureRecognizer)
 //        let restLabelTapped = gestureRecognizer.rx.event.asDriver(onErrorDriveWith: .empty()).asObservable().map { _ in () }
         let viewWillAppears = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
