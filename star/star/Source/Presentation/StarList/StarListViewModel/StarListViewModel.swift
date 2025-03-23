@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import UserNotifications
+import UIKit
 
 enum StarModalState {
     
@@ -185,6 +186,14 @@ extension StarListViewModel {
     }
     
     func transform(_ input: Input) -> Output {
+        NotificationCenter.default.rx // foreground 전환 감지
+            .notification(UIApplication.willEnterForegroundNotification)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.fetchData()
+            })
+            .disposed(by: disposeBag)
+        
         refreshRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
