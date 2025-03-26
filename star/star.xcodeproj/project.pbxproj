@@ -94,6 +94,7 @@
 				"Source/Core/Extension/UserDefaults+Extension.swift",
 				Source/Core/Manager/BlockManager.swift,
 				Source/Core/Manager/FamilyControlsManager.swift,
+				Source/Core/Manager/RestManager.swift,
 				Source/Core/Manager/StarManager/ScheduleCalculator.swift,
 				Source/Core/Manager/StarManager/StarManager.swift,
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarIDFormatter.swift,
