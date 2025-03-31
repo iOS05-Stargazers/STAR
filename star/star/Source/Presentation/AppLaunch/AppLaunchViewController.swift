@@ -11,8 +11,7 @@ import FamilyControls
 
 final class AppLaunchViewController: UIViewController {
     
-    private var starryNightView: StarryNightView!
-    private var meteorEffectView: MeteorEffectView!
+    let galaxyView = GalaxyView()
     
     // MARK: - UI Components
     
@@ -41,19 +40,16 @@ final class AppLaunchViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigation()
+        addTwinklingStars() // 별 반짝이는 효과
     }
     
     // MARK: - 레이아웃 설정
     
     private func setupUI() {
         view.backgroundColor = .starAppBG
-        
-        starryNightView = StarryNightView(frame: view.bounds)
-        meteorEffectView = MeteorEffectView(frame: view.bounds)
-        
+                
         [
-            starryNightView,
-            meteorEffectView,
+            galaxyView,
             logoImageView,
             titleLabel,
             logoTitleImageView
@@ -61,12 +57,24 @@ final class AppLaunchViewController: UIViewController {
             view.addSubview($0)
         }
         
-        starryNightView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        meteorEffectView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        // 이미지 넣기
+        if let image = UIImage(named: "cloudImage") {
+            
+            let cloudImageView = UIImageView(image: image)
+            
+            if let height = cloudImageView.image?.size.height, let width = cloudImageView.image?.size.width {
+                cloudImageView.alpha = 0.2 // 투명도 조절
+                view.addSubview(cloudImageView)
+                
+                cloudImageView.snp.makeConstraints {
+                    $0.centerX.centerY.equalToSuperview()
+                    $0.width.equalTo(width * 1.2)
+                    $0.height.equalTo(height * 1.2)
+                }
+                
+            }
+        } else {
+            print("이미지를 찾을 수 없습니다.")
         }
         
         logoTitleImageView.snp.makeConstraints {
@@ -106,5 +114,45 @@ final class AppLaunchViewController: UIViewController {
                 self.navigationController?.setViewControllers([rootViewController], animated: true)
             }
         }
+    }
+    
+    // MARK: - 별 효과
+    
+    func addTwinklingStars() {
+        let emitterLayer = CAEmitterLayer()
+        emitterLayer.frame = view.bounds
+        emitterLayer.emitterShape = .rectangle
+        emitterLayer.emitterPosition = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        emitterLayer.emitterSize = view.bounds.size
+        
+        let starCell = CAEmitterCell()
+        starCell.contents = makeCircleImage().cgImage // 별 이미지 또는 기본 원
+        starCell.birthRate = 15//5  // 별 생성 속도
+        starCell.lifetime = 5//15.0  // 별이 사라지는 시간
+        starCell.lifetimeRange = 1.5 // 수명 변동
+        starCell.alphaSpeed = -0.1 // 투명도 변화 (반짝임 효과)
+        starCell.velocity = 0 // 이동 속도
+        starCell.velocityRange = 0 // 속도 변화
+        starCell.scale = 0.05 // 기본 크기
+        starCell.scaleRange = 0.03 // 크기 변동
+        starCell.emissionRange = .pi * 2.0 // 360도 랜덤 생성
+        
+        emitterLayer.emitterCells = [starCell]
+        view.layer.addSublayer(emitterLayer)
+    }
+    
+    // 별 이미지가 없을 경우 기본 원형 이미지 생성
+    func makeCircleImage() -> UIImage {
+        let size = CGSize(width: 10, height: 10)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(UIColor.white.cgColor)
+        context.fillEllipse(in: CGRect(origin: .zero, size: size))
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return image
     }
 }
