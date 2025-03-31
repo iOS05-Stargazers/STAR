@@ -9,6 +9,6 @@ import Foundation
 
 extension String {
     var localized: String {
-        return NSLocalizedString(self, comment: "")
+        return NSLocalizedString(self, comment: "").replacingOccurrences(of: "\\n", with: "\n")
     }
 }

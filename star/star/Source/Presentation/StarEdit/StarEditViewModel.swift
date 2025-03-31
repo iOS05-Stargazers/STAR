@@ -26,13 +26,13 @@ enum StarModalInputState {
     var text: String {
         switch self {
         case .noName:
-            return "no_name".localized
+            return "toast.error.missing_name".localized
         case .noApplist:
-            return "no_applist".localized
+            return "toast.error.missing_applist".localized
         case .noSchedule:
-            return "no_schedule".localized
+            return "toast.error.missing_schedule".localized
         case .overFinishTime:
-            return "over_finish_time".localized
+            return "toast.warning.invalid_time".localized
             
         }
     }
@@ -58,6 +58,11 @@ final class StarEditViewModel {
     init(mode: StarModalMode, refreshRelay: PublishRelay<Void>) {
         switch mode {
         case .create:
+            weekDays = [.mon, .tue, .wed, .thu, .fri]
+            weekDaysRelay.accept([.mon, .tue, .wed, .thu, .fri])
+            startTime = StarTime(hour: 09, minute: 00)
+            endTime = StarTime(hour: 18, minute: 00)
+
             break
         case .edit(let star):
             starRelay.accept(star) // StarEditView에 데이터 방출
@@ -143,7 +148,7 @@ final class StarEditViewModel {
                 
                 // UPDATE
                 if let star = owner.starRelay.value {
-                    
+                    NotificationManager().cancelNotification(star: star) // 기존 알림 삭제
                     let star = Star(identifier: star.identifier,
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,
@@ -153,12 +158,10 @@ final class StarEditViewModel {
                     
                     owner.starManager.update(star)
                     NotificationManager().scheduleNotificaions(star: star)
-                    
                     BlockManager().updateSchedule(star)
                     
                     // CREATE
                 } else {
-                    
                     let star = Star(identifier: UUID(),
                                     title: owner.starName,
                                     blockList: owner.familyActivitySelection,

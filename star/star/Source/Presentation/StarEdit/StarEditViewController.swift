@@ -19,9 +19,9 @@ enum TimeType {
     var text: String {
         switch self {
         case .startTime:
-            return "start_time".localized
+            return "star_edit.start_time".localized
         case .endTime:
-            return "end_time".localized
+            return "star_edit.end_time".localized
         }
     }
     
@@ -59,11 +59,6 @@ final class StarEditViewController: UIViewController {
         view = starEditView
         bind()
         setModalAction()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        showWarningAlert()
     }
 }
 
@@ -103,7 +98,7 @@ extension StarEditViewController {
             .controlEvent(.editingDidEnd)
             .asDriver()
             .drive(with: self, onNext: { owner, _ in
-                owner.starEditView.nameTextField.placeholder = "enter_name".localized
+                owner.starEditView.nameTextField.placeholder = "star_edit.placeholder_name".localized
             }).disposed(by: disposeBag)
         
         // 앱 잠금 버튼
@@ -263,13 +258,6 @@ extension StarEditViewController {
     // 모달 종료
     private func closeModal() {
         dismiss(animated: true)
-    }
-
-    // 경고 알럿
-    private func showWarningAlert() {
-        let sheet = UIAlertController(title: "warning_title".localized, message: "warning_content".localized, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: "warning_button".localized , style: .default))
-        present(sheet, animated: true)
     }
 }
 

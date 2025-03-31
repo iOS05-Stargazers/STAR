@@ -8,6 +8,8 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UserNotifications
+import UIKit
 
 enum StarModalState {
     
@@ -28,9 +30,9 @@ enum Unavailable {
     var message: String {
         switch self {
         case .createUnavailable:
-            return "max_stars".localized
+            return "toast.warning.max_stars_reached".localized
         case .restUnavailable:
-            return "no_break_star".localized
+            return "toast.warning.no_available_break".localized
         }
     }
 }
@@ -76,6 +78,19 @@ final class StarListViewModel {
     private func fetchStars() {
         let starData = StarManager.shared.read()
         
+        // TODO: 1.0.5 정도 되면 삭제 (shouldKeepNotification)
+        
+        // 알림을 삭제해야되는지 확인
+        if !UserDefaults.standard.shouldKeepNotification {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            
+            starData.forEach {
+                NotificationManager().scheduleNotificaions(star: $0)
+            }
+            
+            UserDefaults.standard.shouldKeepNotification = true
+        }
+        
         guard let firstData = starData.first else {
             starsRelay.accept([])
             return
@@ -118,7 +133,7 @@ final class StarListViewModel {
     
     // 생성 가능 여부 업데이트
     private func updateCreationAvailability() {
-        if starsRelay.value.count > 14 {
+        if starsRelay.value.count > 4 {
             unavailabilityRelay.accept(.createUnavailable)
         } else {
             starModalStateRelay.accept(.create)
@@ -171,6 +186,14 @@ extension StarListViewModel {
     }
     
     func transform(_ input: Input) -> Output {
+        NotificationCenter.default.rx // foreground 전환 감지
+            .notification(UIApplication.willEnterForegroundNotification)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.fetchData()
+            })
+            .disposed(by: disposeBag)
+        
         refreshRelay
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in

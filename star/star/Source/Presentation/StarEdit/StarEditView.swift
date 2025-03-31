@@ -23,13 +23,13 @@ final class StarEditView: UIView {
     }
     
     private let titleLabel = UILabel().then {
-        $0.text = "create_star".localized
+        $0.text = "star_edit.create_title".localized
         $0.textColor = .starPrimaryText
         $0.font = UIFont.System.semibold24
     }
     
     private let subtitleLabel = UILabel().then {
-        $0.text = "set_lock_time".localized
+        $0.text = "star_edit.description".localized
         $0.textColor = .starSecondaryText
         $0.font = UIFont.System.regular16
     }
@@ -41,10 +41,10 @@ final class StarEditView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var nameLabel = makeLabel("name".localized)
+    private lazy var nameLabel = makeLabel("star_edit.name".localized)
     
     lazy var nameTextField = UITextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: "enter_name".localized, attributes: [.foregroundColor: UIColor.starSecondaryText])
+        $0.attributedPlaceholder = NSAttributedString(string: "star_edit.placeholder_name".localized, attributes: [.foregroundColor: UIColor.starSecondaryText])
         $0.textColor = .starPrimaryText
         $0.font = UIFont.System.regular16
         $0.textAlignment = .right
@@ -65,10 +65,10 @@ final class StarEditView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var appLockLabel = makeLabel("app_lock".localized)
+    private lazy var appLockLabel = makeLabel("star_edit.app_lock".localized)
     
     let appLockButton = UIButton(type: .system).then {
-        $0.setTitle("select".localized, for: .normal)
+        $0.setTitle("star_edit.select".localized, for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.regular16
     }
@@ -80,7 +80,7 @@ final class StarEditView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var repeatCycleLabel = makeLabel("repeat".localized)
+    private lazy var repeatCycleLabel = makeLabel("star_edit.repeat".localized)
     
     // 요일 버튼을 담는 스택뷰
     private let weekStackView = UIStackView().then {
@@ -104,10 +104,10 @@ final class StarEditView: UIView {
         $0.axis = .horizontal
     }
     
-    private lazy var startTimeLabel = makeLabel("start_time".localized)
+    private lazy var startTimeLabel = makeLabel("star_edit.start_time".localized)
     
     let startTimeButton = UIButton(type: .system).then {
-        $0.setTitle("00:00", for: .normal)
+        $0.setTitle("09:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.regular16
     }
@@ -117,16 +117,16 @@ final class StarEditView: UIView {
         $0.axis = .horizontal
     }
     
-    private lazy var endTimeLabel = makeLabel("end_time".localized)
+    private lazy var endTimeLabel = makeLabel("star_edit.end_time".localized)
     
     let endTimeButton = UIButton(type: .system).then {
-        $0.setTitle("23:59", for: .normal)
+        $0.setTitle("18:00", for: .normal)
         $0.setTitleColor(.starSecondaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.regular16
     }
     
     let addStarButton = GradientButton(type: .system).then {
-        $0.setTitle("confirm_create".localized, for: .normal)
+        $0.setTitle("star_edit.create_button".localized, for: .normal)
         $0.setTitleColor(.starPrimaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG // 그라디언트가 정상적으로 적용될 시 배경색은 보이지 않음
@@ -326,8 +326,8 @@ final class StarEditView: UIView {
 extension StarEditView {
     
     func configure(star: Star) {
-        titleLabel.text = "edit_star".localized
-        addStarButton.setTitle("confirm_edit".localized, for: .normal)
+        titleLabel.text = "star_edit.edit_title".localized
+        addStarButton.setTitle("star_edit.edit_button".localized, for: .normal)
         nameTextField.text = star.title
         
         let starTime = star.schedule.startTime.coreDataForm()

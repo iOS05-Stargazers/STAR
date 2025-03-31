@@ -19,14 +19,14 @@ final class RestSettingModalViewController: UIViewController {
     private let pickerData = Observable.just(Array<Int>(1...20))
     
     private let titleLabel = UILabel().then {
-        $0.text = "take_a_break".localized
+        $0.text = "break_mode.title".localized
         $0.font = UIFont.System.semibold24
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
     }
     
     private let textLabel = UILabel().then {
-        $0.text = "max_break_time".localized
+        $0.text = "break_mode.description".localized
         $0.font = UIFont.System.regular16
         $0.textColor = .starPrimaryText
         $0.textAlignment = .center
@@ -38,12 +38,12 @@ final class RestSettingModalViewController: UIViewController {
     }
     
     private let pickerLabel = UILabel().then {
-        $0.text = "min".localized
+        $0.text = "break_mode.unit_minute".localized
         $0.textColor = .starPrimaryText
     }
     
     let restButton = GradientButton(type: .system).then {
-        $0.setTitle("take_a_break".localized, for: .normal)
+        $0.setTitle("break_mode.break_button".localized, for: .normal)
         $0.setTitleColor(.starTertiaryText, for: .normal)
         $0.titleLabel?.font = UIFont.System.black16
         $0.backgroundColor = .starDisabledTagBG
@@ -124,12 +124,14 @@ extension RestSettingModalViewController {
             .subscribe(onNext: { owner, _ in
                 // pickerView에서 선택한 wheel의 인덱스 값 + 1 (인덱스 : 0 ~ 19)
                 let restTime = owner.pickerView.selectedRow(inComponent: 0) + 1
-                
-                owner.dismiss(animated: true) // 모달 창 닫기
                 // 휴식시간 저장
                 guard let time = UserDefaults.appGroups.restEndTimeSet(restTime) else { return }
                 BlockManager().rest()
+                FamilyControlsManager().clearBlockList()
+                NotificationManager().restEndNotification()
+                owner.dismiss(animated: true) // 모달 창 닫기
                 owner.restSettingCompleteRelay.accept(time)
+
             }).disposed(by: disposeBag)
     }
 }
