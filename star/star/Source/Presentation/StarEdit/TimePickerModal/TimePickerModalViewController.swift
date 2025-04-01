@@ -86,6 +86,25 @@ extension TimePickerModalViewController {
         }.bind(to: modalView.pickerView.rx.items(adapter: PickerViewAdapter()))
             .disposed(by: disposeBag)
         
+        modalView.pickerView.rx.itemSelected
+                    .withUnretained(self)
+                    .subscribe(onNext: { (owner, arg1) in
+                    let (row, component) = arg1
+                    let pickerView = owner.modalView.pickerView
+                        
+                    switch component {
+                    case 0:
+                        pickerView.selectRow(row % 24 + 24 * 50,
+                                             inComponent: 0,
+                                             animated: false)
+                    case 1:
+                        pickerView.selectRow(row % 60 + 60 * 50,
+                                             inComponent: 1,
+                                             animated: false)
+                    default:
+                        return
+                    }
+                }).disposed(by: disposeBag)
     }
     
     private func timeSelect(mode: TimeType) {
