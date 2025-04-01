@@ -445,7 +445,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "휴식이 종료되었습니다."
           }
         }

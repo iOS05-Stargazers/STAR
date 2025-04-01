@@ -21,7 +21,8 @@ enum StarModalInputState {
     case noName
     case noApplist
     case noSchedule
-    case overFinishTime
+    case closeInterval
+
     
     var text: String {
         switch self {
@@ -31,7 +32,7 @@ enum StarModalInputState {
             return "toast.error.missing_applist".localized
         case .noSchedule:
             return "toast.error.missing_schedule".localized
-        case .overFinishTime:
+        case .closeInterval:
             return "toast.warning.invalid_time".localized
             
         }
@@ -141,10 +142,11 @@ final class StarEditViewModel {
                 let startTotalMinute = owner.startTime.hour * 60 + owner.startTime.minute
                 let endTotalMinute = owner.endTime.hour * 60 + owner.endTime.minute
                 
-//                if startTotalMinute + 15 > endTotalMinute {
-//                    owner.starModalInputStateRelay.accept(.overFinishTime)
-//                    return
-//                }
+                if startTotalMinute + 15 > endTotalMinute && owner.startTime < owner.endTime {
+                    owner.starModalInputStateRelay.accept(.closeInterval
+)
+                    return
+                }
                 
                 // UPDATE
                 if let star = owner.starRelay.value {
