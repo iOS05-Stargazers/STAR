@@ -52,12 +52,12 @@ final class TimePickerModalViewController: UIViewController {
         modalView.titleLabel.text = mode.text
         
         // selectRow는 데이터를 로드한 후 실행해야 하므로 DispatchQueue 사용
-        self.modalView.pickerView.selectRow(starTime.hour, // 시간
-                                            inComponent: 0,
-                                            animated: false)
-        self.modalView.pickerView.selectRow(starTime.minute, // 분
-                                            inComponent: 1,
-                                            animated: false)
+        // 중간쯤에 위치
+        let hourMiddle = 24 * 50 + starTime.hour
+        let minuteMiddle = 60 * 50 + starTime.minute
+
+        self.modalView.pickerView.selectRow(hourMiddle, inComponent: 0, animated: false)
+        self.modalView.pickerView.selectRow(minuteMiddle, inComponent: 1, animated: false)
     }
 }
 
@@ -90,8 +90,8 @@ extension TimePickerModalViewController {
     
     private func timeSelect(mode: TimeType) {
         // picker에서 선택한 시간/분
-        let hour = modalView.pickerView.selectedRow(inComponent: 0)
-        let minute = modalView.pickerView.selectedRow(inComponent: 1)
+        let hour = modalView.pickerView.selectedRow(inComponent: 0) % 24
+        let minute = modalView.pickerView.selectedRow(inComponent: 1) % 60
         
         let starTime = StarTime(hour: hour, minute: minute)
         

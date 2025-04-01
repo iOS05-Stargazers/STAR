@@ -16,8 +16,9 @@ final class TimePickerModalViewModel {
     private let endTimeRelay: PublishRelay<StarTime>
     
     // UIPickerView 데이터
-    let hourData = Observable.just(Array(0...23))  // "0" ~ "23"
-    let minuteData = Observable.just(Array(0...59)) // "0" ~ "59"
+    // 무한 스크롤처럼 보이게
+    let hourData = Observable.just(Array(repeating: Array(0...23), count: 100).flatMap { $0 }) // 2400개
+    let minuteData = Observable.just(Array(repeating: Array(0...59), count: 100).flatMap { $0 }) // 6000개
     
     // 시작시간/종료시간 구분 enum
     let pickerMode: TimeType
