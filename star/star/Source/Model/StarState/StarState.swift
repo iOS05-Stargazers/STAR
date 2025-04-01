@@ -16,7 +16,7 @@ struct StarState {
     let interval: TimeInterval
     
     init(schedule: Schedule) {
-        let starState = ScheduleCalculator.starState(schedule: schedule)
+        let starState = ScheduleCalculator().starState(schedule: schedule)
         self.style = starState.style
         self.interval = starState.interval
     }

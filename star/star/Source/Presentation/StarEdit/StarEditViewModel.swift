@@ -141,10 +141,10 @@ final class StarEditViewModel {
                 let startTotalMinute = owner.startTime.hour * 60 + owner.startTime.minute
                 let endTotalMinute = owner.endTime.hour * 60 + owner.endTime.minute
                 
-                if startTotalMinute + 15 > endTotalMinute {
-                    owner.starModalInputStateRelay.accept(.overFinishTime)
-                    return
-                }
+//                if startTotalMinute + 15 > endTotalMinute {
+//                    owner.starModalInputStateRelay.accept(.overFinishTime)
+//                    return
+//                }
                 
                 // UPDATE
                 if let star = owner.starRelay.value {
