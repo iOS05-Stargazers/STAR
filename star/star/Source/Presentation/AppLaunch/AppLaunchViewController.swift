@@ -12,7 +12,6 @@ import FamilyControls
 final class AppLaunchViewController: UIViewController {
     
     private var meteorEffectView: MeteorEffectView!
-    let galaxyView = GalaxyView()
     
     // MARK: - UI Components
     
@@ -52,7 +51,6 @@ final class AppLaunchViewController: UIViewController {
                 
         [
             meteorEffectView,
-            galaxyView,
             logoImageView,
             titleLabel,
             logoTitleImageView
@@ -107,9 +105,12 @@ final class AppLaunchViewController: UIViewController {
     private func setupNavigation() {
                 
         // 1초 뒤 실행
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
             let center = AuthorizationCenter.shared
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // 1초 후 상태 확인
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in// 1초 후 상태 확인
+                guard let self = self else { return }
+                
                 var rootViewController: UIViewController
                 
                 if center.authorizationStatus == .approved {
@@ -140,19 +141,33 @@ final class AppLaunchViewController: UIViewController {
         emitterLayer.emitterPosition = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         emitterLayer.emitterSize = view.bounds.size
         
-        let starCell = CAEmitterCell()
-        starCell.contents = makeCircleImage().cgImage // 별 이미지 또는 기본 원
-        starCell.birthRate = 15//5  // 별 생성 속도
-        starCell.lifetime = 5//15.0  // 별이 사라지는 시간
-        starCell.lifetimeRange = 1.5 // 수명 변동
-        starCell.alphaSpeed = -0.1 // 투명도 변화 (반짝임 효과)
-        starCell.velocity = 0 // 이동 속도
-        starCell.velocityRange = 0 // 속도 변화
-        starCell.scale = 0.05 // 기본 크기
-        starCell.scaleRange = 0.03 // 크기 변동
-        starCell.emissionRange = .pi * 2.0 // 360도 랜덤 생성
+        let colors: [UIColor] = [
+            .white,
+            UIColor(red: 0.7, green: 0.8, blue: 1.0, alpha: 1.0),  // 연한 블루
+            UIColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1.0),  // 옅은 오렌지
+            UIColor(red: 0.8, green: 0.7, blue: 1.0, alpha: 1.0)   // 연한 퍼플
+        ]
         
-        emitterLayer.emitterCells = [starCell]
+        var starCells: [CAEmitterCell] = []
+        
+        for color in colors {
+            let starCell = CAEmitterCell()
+            starCell.contents = makeCircleImage().cgImage // 별 이미지 또는 기본 원
+            starCell.birthRate = 2.5  // 별 생성 속도
+            starCell.lifetime = 15.0  // 별이 사라지는 시간
+            starCell.lifetimeRange = 1.5 // 수명 변동
+            starCell.alphaSpeed = -0.1 // 투명도 변화 (반짝임 효과)
+            starCell.velocity = 0 // 이동 속도
+            starCell.velocityRange = 0 // 속도 변화
+            starCell.scale = 0.05 // 기본 크기
+            starCell.scaleRange = 0.03 // 크기 변동
+            starCell.emissionRange = .pi * 2.0 // 360도 랜덤 생성
+            starCell.color = color.cgColor // 색상 적용
+
+            starCells.append(starCell)
+        }
+        
+        emitterLayer.emitterCells = starCells
         view.layer.addSublayer(emitterLayer)
     }
     

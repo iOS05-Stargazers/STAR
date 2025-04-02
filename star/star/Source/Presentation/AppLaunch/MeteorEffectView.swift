@@ -77,9 +77,21 @@ final class MeteorEffectView: UIView {
         trail.layer.shadowOpacity = 0.5
         
         // 꼬리 각도 회전
-        trail.transform = CGAffineTransform(rotationAngle: .pi/5)
+        trail.transform = CGAffineTransform(rotationAngle: adjustedTrailAngle())
 
         return trail
+    }
+    
+    // 디바이스 별 꼬리 각도 계산
+    private func adjustedTrailAngle() -> CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+
+        switch screenWidth {
+        case ..<400: // 작은 디바이스 (예: iPhone SE)
+            return .pi / 5.5
+        default: // 그 외
+            return .pi / 5
+        }
     }
     
     // 유성 떨어지는 애니메이션
