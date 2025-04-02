@@ -11,6 +11,7 @@ import FamilyControls
 
 final class AppLaunchViewController: UIViewController {
     
+    private var meteorEffectView: MeteorEffectView!
     let galaxyView = GalaxyView()
     
     // MARK: - UI Components
@@ -47,8 +48,10 @@ final class AppLaunchViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .starAppBG
+        meteorEffectView = MeteorEffectView(frame: view.bounds)
                 
         [
+            meteorEffectView,
             galaxyView,
             logoImageView,
             titleLabel,
@@ -75,6 +78,10 @@ final class AppLaunchViewController: UIViewController {
             }
         } else {
             print("이미지를 찾을 수 없습니다.")
+        }
+        
+        meteorEffectView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
         logoTitleImageView.snp.makeConstraints {
