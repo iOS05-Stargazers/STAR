@@ -28,7 +28,7 @@ final class MeteorEffectView: UIView {
     
     // 유성 생성
     private func createMeteor() {
-        let startPoint = CGPoint(x:0, y: frame.height / 4) // 시작점
+        let startPoint = CGPoint(x:0, y: frame.height / 3.5) // 시작점
         let meteor = UIView()
         addSubview(meteor)
         

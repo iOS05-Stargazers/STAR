@@ -105,6 +105,7 @@ final class AppLaunchViewController: UIViewController {
     // MARK: - 네비게이션 설정
     
     private func setupNavigation() {
+                
         // 1초 뒤 실행
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             let center = AuthorizationCenter.shared
@@ -118,7 +119,14 @@ final class AppLaunchViewController: UIViewController {
                     // 권한 미승인 상태 -> PermissionViewController로 실행
                     rootViewController = PermissionViewController()
                 }
-                self.navigationController?.setViewControllers([rootViewController], animated: true)
+                
+                // 화면 전환 설정 : 페이드 인 & 아웃
+                let transition = CATransition()
+                transition.type = .fade
+                transition.duration = 0.5
+                self.view.window?.layer.add(transition, forKey: kCATransition)
+                
+                self.navigationController?.setViewControllers([rootViewController], animated: false)
             }
         }
     }
