@@ -260,7 +260,7 @@ extension StarEditViewController {
                 guard let blockList = blockList else { return }
 
                 if blockList.categories.count == 13 {
-                    text = "전체 선택 >"
+                    text = "전체 >"
                 } else if blockList.isEmpty {
                     text = "선택 >"
                 } else {
