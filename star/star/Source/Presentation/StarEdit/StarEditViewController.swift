@@ -264,7 +264,12 @@ extension StarEditViewController {
                 } else if blockList.isEmpty {
                     text = "star_edit.select".localized
                 } else {
-                    text = String(format: "star_edit.select.some".localized, blockList.categories.count, blockList.applications.count, blockList.webDomains.count )
+                    text = String(
+                        format: "star_edit.select.some".localized,
+                        blockList.categories.count,
+                        blockList.applications.count,
+                        blockList.webDomains.count
+                    )
                 }
                 owner.starEditView.appLockButton.setTitle(text, for: .normal)
 
