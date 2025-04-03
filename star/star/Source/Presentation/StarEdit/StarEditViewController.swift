@@ -260,11 +260,11 @@ extension StarEditViewController {
                 guard let blockList = blockList else { return }
 
                 if blockList.categories.count == 13 {
-                    text = "전체 >"
+                    text = "star_edit.select.all".localized
                 } else if blockList.isEmpty {
-                    text = "선택 >"
+                    text = "star_edit.select".localized
                 } else {
-                    text = "카테고리(\(blockList.categories.count)) 앱(\(blockList.applications.count)), 웹(\(blockList.webDomains.count)) >"
+                    text = String(format: "star_edit.select.some".localized, blockList.categories.count, blockList.applications.count, blockList.webDomains.count )
                 }
                 owner.starEditView.appLockButton.setTitle(text, for: .normal)
 
