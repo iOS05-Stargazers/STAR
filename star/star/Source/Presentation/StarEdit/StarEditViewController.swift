@@ -253,6 +253,29 @@ extension StarEditViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        output.blockList
+            .drive(with: self, onNext: { owner, blockList in
+                var text = ""
+                guard let blockList = blockList else { return }
+
+                if blockList.categories.count == 13 {
+                    text = "star_edit.select.all".localized
+                } else if blockList.isEmpty {
+                    text = "star_edit.select".localized
+                } else {
+                    text = String(
+                        format: "star_edit.select.some".localized,
+                        blockList.categories.count,
+                        blockList.applications.count,
+                        blockList.webDomains.count
+                    )
+                }
+                owner.starEditView.appLockButton.setTitle(text, for: .normal)
+
+                
+            })
+            .disposed(by: disposeBag)
     }
     
     // 모달 종료
@@ -298,7 +321,8 @@ extension StarEditViewController {
             get: { [weak self] in self?.familyActivitySelection ?? .init() },
             set: { [weak self] newSelection in
                 self?.familyActivitySelection = newSelection
-                self?.viewModel.familyActivitySelection = newSelection
+                self?.viewModel.blockListRelay.accept(newSelection)
+
                 hostingVC.dismiss(animated: true)
             }
         )
