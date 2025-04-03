@@ -87,7 +87,6 @@ struct ScheduleCalculator {
                                              matchingPolicy: .nextTime)
         return date
     }
-    //
     private func nowString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
@@ -103,12 +102,6 @@ struct ScheduleCalculator {
                                              matching: dateComponents,
                                              matchingPolicy: .nextTime)
         return date
-    }
-    
-    private func nowWeekdayForm() -> String? {
-        let dateComponents = Calendar.current.dateComponents([.weekday], from: .now)
-        guard let weekday = dateComponents.weekday else { return nil }
-        return "\(weekday):" + nowString()
     }
     
     private func previousDate(from components: DateComponents) -> Date? {
