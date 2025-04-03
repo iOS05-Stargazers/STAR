@@ -47,6 +47,7 @@ final class StarEditViewModel {
     private let starRelay = BehaviorRelay<Star?>(value: nil)
     private let starModalInputStateRelay = PublishRelay<StarModalInputState>()
     private let refreshRelay: PublishRelay<Void>
+    let blockListRelay = PublishRelay<FamilyActivitySelection>()
     private let disposeBag = DisposeBag()
     
     private var starName: String = ""
@@ -183,7 +184,8 @@ final class StarEditViewModel {
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
                       refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
-                      weekDaysRelay: weekDaysRelay.asDriver(onErrorDriveWith: .empty()))
+                      weekDaysRelay: weekDaysRelay.asDriver(onErrorDriveWith: .empty()),
+                      blockList: blockListRelay.asDriver(onErrorDriveWith: .empty()))
         
     }
     
@@ -210,5 +212,6 @@ extension StarEditViewModel {
         let starModalInputState: Driver<StarModalInputState>
         let refresh: Driver<Void>
         let weekDaysRelay: Driver<Set<WeekDay>>
+        let blockList: Driver<FamilyActivitySelection>
     }
 }
