@@ -253,6 +253,20 @@ extension StarEditViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        output.blockList
+            .drive(with: self, onNext: { owner, blockList in
+                var text = ""
+                if blockList.categories.count == 13 {
+                    text = "전체 선택 >"
+                } else {
+                    text = "카테고리(\(blockList.categories.count)) 앱(\(blockList.applications.count)), 웹(\(blockList.webDomains.count)) >"
+                }
+                owner.starEditView.appLockButton.setTitle(text, for: .normal)
+
+                
+            })
+            .disposed(by: disposeBag)
     }
     
     // 모달 종료
