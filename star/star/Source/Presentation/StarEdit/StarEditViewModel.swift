@@ -48,10 +48,10 @@ final class StarEditViewModel {
     private let starRelay = BehaviorRelay<Star?>(value: nil)
     private let starModalInputStateRelay = PublishRelay<StarModalInputState>()
     private let refreshRelay: PublishRelay<Void>
+    let blockListRelay = BehaviorRelay<FamilyActivitySelection?>(value: nil)
     private let disposeBag = DisposeBag()
     
     private var starName: String = ""
-    var familyActivitySelection = FamilyActivitySelection()
     private var weekDays: Set<WeekDay> = [] // 선택 요일(반복 주기) 담는 배열
     private var startTime: StarTime = StarTime(hour: 00, minute: 00)
     private var endTime: StarTime = StarTime(hour: 23, minute: 59)
@@ -68,7 +68,7 @@ final class StarEditViewModel {
         case .edit(let star):
             starRelay.accept(star) // StarEditView에 데이터 방출
             starName = star.title
-            familyActivitySelection = star.blockList
+            blockListRelay.accept(star.blockList)
             weekDays = star.schedule.weekDays
             weekDaysRelay.accept(star.schedule.weekDays)
             startTime = star.schedule.startTime
@@ -127,7 +127,7 @@ final class StarEditViewModel {
                 }
                 
                 // 앱 잠금 확인
-                if owner.familyActivitySelection.isEmpty {
+                guard let blockList = owner.blockListRelay.value, !blockList.isEmpty else {
                     owner.starModalInputStateRelay.accept(.noApplist)
                     return
                 }
@@ -153,7 +153,7 @@ final class StarEditViewModel {
                     NotificationManager().cancelNotification(star: star) // 기존 알림 삭제
                     let star = Star(identifier: star.identifier,
                                     title: owner.starName,
-                                    blockList: owner.familyActivitySelection,
+                                    blockList: blockList,
                                     schedule: Schedule(startTime: owner.startTime,
                                                        endTime: owner.endTime,
                                                        weekDays: owner.weekDays))
@@ -166,7 +166,7 @@ final class StarEditViewModel {
                 } else {
                     let star = Star(identifier: UUID(),
                                     title: owner.starName,
-                                    blockList: owner.familyActivitySelection,
+                                    blockList: blockList,
                                     schedule: Schedule(startTime: owner.startTime,
                                                        endTime: owner.endTime,
                                                        weekDays: owner.weekDays))
@@ -185,8 +185,8 @@ final class StarEditViewModel {
                       star: starRelay.asDriver(onErrorDriveWith: .empty()),
                       starModalInputState: starModalInputStateRelay.asDriver(onErrorDriveWith: .empty()),
                       refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
-                      weekDaysRelay: weekDaysRelay.asDriver(onErrorDriveWith: .empty()))
-        
+                      weekDaysRelay: weekDaysRelay.asDriver(onErrorDriveWith: .empty()),
+                      blockList: blockListRelay.asDriver())
     }
     
     // 종료 방출
@@ -212,5 +212,6 @@ extension StarEditViewModel {
         let starModalInputState: Driver<StarModalInputState>
         let refresh: Driver<Void>
         let weekDaysRelay: Driver<Set<WeekDay>>
+        let blockList: Driver<FamilyActivitySelection?>
     }
 }
