@@ -257,8 +257,12 @@ extension StarEditViewController {
         output.blockList
             .drive(with: self, onNext: { owner, blockList in
                 var text = ""
+                guard let blockList = blockList else { return }
+
                 if blockList.categories.count == 13 {
                     text = "전체 선택 >"
+                } else if blockList.isEmpty {
+                    text = "선택 >"
                 } else {
                     text = "카테고리(\(blockList.categories.count)) 앱(\(blockList.applications.count)), 웹(\(blockList.webDomains.count)) >"
                 }
@@ -312,7 +316,8 @@ extension StarEditViewController {
             get: { [weak self] in self?.familyActivitySelection ?? .init() },
             set: { [weak self] newSelection in
                 self?.familyActivitySelection = newSelection
-                self?.viewModel.familyActivitySelection = newSelection
+                self?.viewModel.blockListRelay.accept(newSelection)
+
                 hostingVC.dismiss(animated: true)
             }
         )
