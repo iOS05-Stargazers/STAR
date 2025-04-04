@@ -24,10 +24,12 @@ struct Schedule: Codable {
     }
     
     func finishTimeDateComponentsList() -> [DateComponents] {
+        let isNextDay: Bool = startTime > endTime
         return weekDays.compactMap {
-            DateComponents(hour: endTime.hour,
+            guard let weekDayRawValue = isNextDay ? $0.next()?.rawValue : $0.rawValue else { return nil }
+            return DateComponents(hour: endTime.hour,
                            minute: endTime.minute,
-                           weekday: $0.rawValue)
+                           weekday: weekDayRawValue)
         }
     }
 }

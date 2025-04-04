@@ -330,8 +330,8 @@ extension StarEditView {
         addStarButton.setTitle("star_edit.edit_button".localized, for: .normal)
         nameTextField.text = star.title
         
-        let starTime = star.schedule.startTime.coreDataForm()
-        let endTime = star.schedule.endTime.coreDataForm()
+        let starTime = star.schedule.startTime.strForm()
+        let endTime = star.schedule.endTime.strForm()
         startTimeButton.setTitle(starTime, for: .normal)
         endTimeButton.setTitle(endTime, for: .normal)
     }
