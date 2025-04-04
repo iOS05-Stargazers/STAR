@@ -3,24 +3,17 @@
 //  star
 //
 //  Created by 서문가은 on 2/6/25.
+//  Refactored by 안준경 on 4/2/25.
 //
 
 import UIKit
 
 final class MeteorEffectView: UIView {
-    
-    private let colors: UIColor = .clear
-    private let maxStarCount = 15
-    private var meteorCount: Int = 4
-    private var maxDelay: Double = 2
-    private var minSpeed: Double = 2
-    private var maxSpeed: Double = 3
-    private var angle: Double = 30
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        createMeteors()
+        createMeteor()
     }
     
     required init?(coder: NSCoder) {
@@ -34,36 +27,24 @@ final class MeteorEffectView: UIView {
     }
     
     // 유성 생성
-    private func createMeteors() {
-        for _ in 0 ..< meteorCount {
-            createMeteor()
-        }
-    }
-    
-    // 유성(하나) 생성
     private func createMeteor() {
+        let startPoint = CGPoint(x:0, y: frame.height / 3.5) // 시작점
         let meteor = UIView()
-        meteor.translatesAutoresizingMaskIntoConstraints = false
         addSubview(meteor)
         
-        // 랜덤 속성들
-        let size = CGFloat(2 + Int.random(in: 0 ..< 2))
-        let delay = Double.random(in: 0 ..< maxDelay)
-        let duration = Double.random(in: minSpeed ..< maxSpeed)
+        let size = CGFloat(2)
         
         meteor.frame = CGRect(x: 0, y: 0, width: size, height: size)
-        meteor.backgroundColor = colors
+        meteor.backgroundColor = .clear
         meteor.layer.cornerRadius = size / 2
         
-        // 유성 꼬리 추가
         let trail = createMeteorTrail(color: .white)
         meteor.addSubview(trail)
         
-        // 유성 애니메이션
-        animateMeteor(meteor, delay: delay, duration: duration)
+        animateMeteor(meteor, from: startPoint)
     }
     
-    // 유성 생성 생성
+    // 유성 꼬리
     private func createMeteorTrail(color: UIColor) -> UIView {
         // 꼬리의 길이와 높이 설정
         let trailLength: CGFloat = 50
@@ -95,55 +76,45 @@ final class MeteorEffectView: UIView {
         trail.layer.shadowRadius = 2
         trail.layer.shadowOpacity = 0.5
         
-        // 대각선 방향으로 회전
-        trail.transform = CGAffineTransform(rotationAngle: .pi/3.5)
-        
+        // 꼬리 각도 회전
+        trail.transform = CGAffineTransform(rotationAngle: adjustedTrailAngle())
+
         return trail
     }
     
-    // 유성 떨어지는 애니메이션
-    private func animateMeteor(_ meteor: UIView, delay: Double, duration: Double) {
-        let path = UIBezierPath()
-        
-        // 시작 위치를 상단 또는 왼쪽에서 랜덤하게 선택
-        let startFromTop = Bool.random()
-        
-        if startFromTop {
-            // 상단에서 시작하는 경우
-            let startX = CGFloat.random(in: 0..<frame.width)
-            let endX = startX + frame.width
-            path.move(to: CGPoint(x: startX, y: -10))
-            path.addLine(to: CGPoint(x: endX, y: frame.height + 10))
-        } else {
-            // 왼쪽에서 시작하는 경우
-            let startY = CGFloat.random(in: -10..<frame.height/2)
-            let endY = startY + frame.height
-            
-            path.move(to: CGPoint(x: -10, y: startY))
-            path.addLine(to: CGPoint(x: frame.width + 10, y: endY))
+    // 디바이스 별 꼬리 각도 계산
+    private func adjustedTrailAngle() -> CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+
+        switch screenWidth {
+        case ..<400: // 작은 디바이스 (예: iPhone SE)
+            return .pi / 5.5
+        default: // 그 외
+            return .pi / 5
         }
+    }
+    
+    // 유성 떨어지는 애니메이션
+    private func animateMeteor(_ meteor: UIView, from startPoint: CGPoint) {
+        let path = UIBezierPath()
+        let endPoint = CGPoint(x: startPoint.x + frame.width, y: startPoint.y + frame.height / 3)
+
+        path.move(to: startPoint)
+        path.addLine(to: endPoint)
         
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = path.cgPath
-        animation.duration = duration
-        animation.beginTime = CACurrentMediaTime() + delay
-        animation.repeatCount = 1 // 무한 반복 대신 1번만 실행
-        animation.calculationMode = .paced
+        animation.duration = Double(1.0) // 떨어지는 속도
+        animation.beginTime = CACurrentMediaTime()
         animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
-        animation.isRemovedOnCompletion = true // 애니메이션 완료 후 제거
+        animation.isRemovedOnCompletion = true
         animation.fillMode = .forwards
         
-        // 애니메이션 완료 후 메테오 제거
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             meteor.removeFromSuperview()
         }
         meteor.layer.add(animation, forKey: "meteorMotion")
         CATransaction.commit()
-        
-        // 애니메이션이 끝나면 새로운 메테오 생성
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
-            self?.createMeteor()
-        }
     }
 }
