@@ -52,7 +52,7 @@ struct BlockManager {
 extension BlockManager {
     // 휴식 스케쥴 추가
     func rest() {
-        guard let restEndTime = UserDefaults.appGroups.restEndTimeGet() else { return }
+        guard let restEndTime = RestManager().restEndTimeGet() else { return }
         let startTime = components(of: .now.addingTimeInterval(-900))
         let endTime = components(of: restEndTime)
         let blockSchedule = DeviceActivitySchedule(

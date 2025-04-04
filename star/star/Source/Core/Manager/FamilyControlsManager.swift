@@ -29,7 +29,7 @@ struct FamilyControlsManager {
 extension FamilyControlsManager {
     // 앱 리스트 업데이트
     func updateBlockList() {
-        guard UserDefaults.appGroups.restEndTimeGet() == nil else { return }
+        guard RestManager().restEndTimeGet() == nil else { return }
         
         refreshBlockList()
     }

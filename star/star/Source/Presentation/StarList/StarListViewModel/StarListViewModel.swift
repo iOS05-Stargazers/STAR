@@ -56,7 +56,7 @@ final class StarListViewModel {
             fetchDate()
         } else {
             fetchData()
-            guard let restEndTime = UserDefaults.appGroups.restEndTimeGet(),
+            guard let restEndTime = RestManager().restEndTimeGet(),
                   Date() < restEndTime else { return }
             starModalStateRelay.accept(.resting)
         }

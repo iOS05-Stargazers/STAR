@@ -15,3 +15,4 @@ extension DeviceActivityName {
         self = .init(star.identifier.uuidString)
     }
 }
+
