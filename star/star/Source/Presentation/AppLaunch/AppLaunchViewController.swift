@@ -63,7 +63,8 @@ final class AppLaunchViewController: UIViewController {
             
             let cloudImageView = UIImageView(image: image)
             
-            if let height = cloudImageView.image?.size.height, let width = cloudImageView.image?.size.width {
+            if let height = cloudImageView.image?.size.height,
+                let width = cloudImageView.image?.size.width {
                 cloudImageView.alpha = 0.2 // 투명도 조절
                 view.addSubview(cloudImageView)
                 
@@ -176,13 +177,20 @@ final class AppLaunchViewController: UIViewController {
         let size = CGSize(width: 10, height: 10)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         
-        let context = UIGraphicsGetCurrentContext()!
+        guard let context = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return UIImage() // 기본 빈 이미지 반환
+        }
+        
         context.setFillColor(UIColor.white.cgColor)
         context.fillEllipse(in: CGRect(origin: .zero, size: size))
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            UIGraphicsEndImageContext()
+            return UIImage() // 기본 빈 이미지 반환
+        }
         
+        UIGraphicsEndImageContext()
         return image
     }
 }
