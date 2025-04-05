@@ -289,34 +289,16 @@ extension StarEditViewController {
     
     private func appPicker() {
         // UIKit 기반인 ViewController에서 SwiftUI 기반의 View를 불러오기 위한 임시 변수
-        let tempIsPresentedBinding = Binding<Bool>(
-            get: { [weak self] in self?.isFamilyActivityPickerPresented ?? .init() },
-            set: { [weak self] in self?.isFamilyActivityPickerPresented = $0 }
-        )
-        
         let tempSelectionBinding = Binding<FamilyActivitySelection>(
             get: { [weak self] in self?.familyActivitySelection ?? .init() },
             set: { [weak self] in self?.familyActivitySelection = $0 }
         )
         
         let hostingVC = UIHostingController(
-            rootView: FamilyActivityPickerWrapper(isPresented: tempIsPresentedBinding,
-                                                  selection: tempSelectionBinding)
+            rootView: FamilyActivityPickerView(selection: tempSelectionBinding)
         )
         
         // hostingVC 설정 갱신을 통해 실제 구현
-        hostingVC.modalPresentationStyle = .overFullScreen
-        hostingVC.view.backgroundColor = .clear
-        
-        let isPresentedBinding = Binding<Bool>(
-            get: { [weak self] in self?.isFamilyActivityPickerPresented ?? .init() },
-            set: {  [weak self] newValue in
-                self?.isFamilyActivityPickerPresented = newValue
-                // picker가 닫힐 때(newValue가 false) 필요한 작업을 추가할 수 있음
-                hostingVC.dismiss(animated: true)
-            }
-        )
-        
         let selectionBinding = Binding<FamilyActivitySelection>(
             get: { [weak self] in self?.familyActivitySelection ?? .init() },
             set: { [weak self] newSelection in
@@ -327,8 +309,11 @@ extension StarEditViewController {
             }
         )
         
-        let pickerView = FamilyActivityPickerWrapper(isPresented: isPresentedBinding, selection: selectionBinding)
+        let pickerView = FamilyActivityPickerView(selection: selectionBinding)
         hostingVC.rootView = pickerView
+        
+        hostingVC.modalPresentationStyle = .overFullScreen
+        hostingVC.view.backgroundColor = .clear
         
         self.isFamilyActivityPickerPresented = true
         self.present(hostingVC, animated: true, completion: nil)
