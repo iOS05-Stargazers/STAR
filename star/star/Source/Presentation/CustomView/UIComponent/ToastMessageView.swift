@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ToastMessageView: UIView {
+final class ToastMessageView: UIView {
     
     // 토스트 라벨
     let toastLabel = UILabel().then {
