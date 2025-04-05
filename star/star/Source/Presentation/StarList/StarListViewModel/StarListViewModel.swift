@@ -237,14 +237,14 @@ extension StarListViewModel {
         
         input.addButtonTapped
             .withUnretained(self)
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(3), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { owner, _ in
                 owner.updateCreationAvailability()
             }).disposed(by: disposeBag)
         
         input.restButtonTapped
             .withUnretained(self)
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(3), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { owner, _ in
                 HapticManager.shared.play(style: .selection)
                 owner.updateRestAvailability()
