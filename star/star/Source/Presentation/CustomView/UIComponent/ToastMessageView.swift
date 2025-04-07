@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ToastMessageView: UIView {
+final class ToastMessageView: UIView {
     
     // 토스트 라벨
     let toastLabel = UILabel().then {
@@ -27,7 +27,7 @@ class ToastMessageView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .starModalBG.withAlphaComponent(0.7)
+        backgroundColor = .starDisabledTagBG.withAlphaComponent(0.7)
         layer.cornerRadius = 16
         isHidden = true
                 
