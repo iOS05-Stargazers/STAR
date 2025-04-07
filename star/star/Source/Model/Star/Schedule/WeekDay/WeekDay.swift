@@ -55,4 +55,9 @@ extension WeekDay: Comparable {
         }
         return compareValue(lhs.rawValue) < compareValue(rhs.rawValue)
     }
+    
+    func next() -> WeekDay? {
+        let rawValue = self.rawValue == 7 ? 1 : self.rawValue + 1
+        return WeekDay(rawValue: rawValue)
+    }
 }

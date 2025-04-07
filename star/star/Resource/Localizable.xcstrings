@@ -445,7 +445,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "휴식이 종료되었습니다."
           }
         }
@@ -789,6 +789,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "선택 >"
+          }
+        }
+      }
+    },
+    "star_edit.select.all" : {
+      "comment" : "스타 모달, 앱 선택 (전체)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All >"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "전체 >"
+          }
+        }
+      }
+    },
+    "star_edit.select.some" : {
+      "comment" : "스타 모달, 앱 선택 (일부)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Category(%d), App(%d), Web(%d) >"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "카테고리(%d), 앱(%d), 웹(%d) >"
           }
         }
       }

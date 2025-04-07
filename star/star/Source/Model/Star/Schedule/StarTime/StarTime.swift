@@ -14,15 +14,8 @@ struct StarTime: Codable {
     let hour: Int
     // 분
     let minute: Int
-    // 테스트 및 생성이 용이한 생성자
-    init(hour: Int, minute: Int) {
-        let starTime = StarTimeTranslator.starTime(hour: hour,
-                                                   minute: minute)
-        self.hour = starTime.hour
-        self.minute = starTime.minute
-    }
     // "HH:mm" 문자열
-    func coreDataForm() -> String {
+    func strForm() -> String {
         StarTimeFormatter.convert(self)
     }
 }
@@ -36,10 +29,17 @@ extension StarTime {
         self.hour = starTime.hour
         self.minute = starTime.minute
     }
-    // CoreData 의 저장형태를 고려한 생성자
+    // HH:mm 문자열을 통한 생성자
     init(from description: String) {
         let starTime = StarTimeTranslator.starTime(by: description)
         self.hour = starTime.hour
         self.minute = starTime.minute
     }
+}
+
+extension StarTime: Comparable {
+    static func < (lhs: StarTime, rhs: StarTime) -> Bool {
+        lhs.strForm() < rhs.strForm()
+    }
+    
 }

@@ -29,7 +29,7 @@ final class RestingViewModel {
     private func startCountdown() {
         Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
             .map {  _ in
-                guard let time = UserDefaults.appGroups.restEndTimeGet()?.timeIntervalSince(.now) else { return 0 }
+                guard let time = RestManager().restEndTimeGet()?.timeIntervalSince(.now) else { return 0 }
                 return Int(time) }
             .withUnretained(self)
             .subscribe(onNext: { owner, value in
@@ -65,7 +65,7 @@ extension RestingViewModel {
         input.stopTimer
             .withUnretained(self)
             .emit(onNext: { owner, _ in
-                UserDefaults.appGroups.restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
+                RestManager().restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
                 BlockManager().endRest()
                 NotificationManager().removeRest()
                 owner.timerSubject.accept(0)
