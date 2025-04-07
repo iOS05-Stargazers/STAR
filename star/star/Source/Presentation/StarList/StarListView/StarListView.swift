@@ -104,7 +104,7 @@ final class StarListView: UIView {
             let cloudImageView = UIImageView(image: image)
             
             if let height = cloudImageView.image?.size.height, let width = cloudImageView.image?.size.width {
-                cloudImageView.alpha = 0.2 // 투명도 조절
+                cloudImageView.alpha = 0.1 // 투명도 조절
                 addSubview(cloudImageView)
                 
                 cloudImageView.snp.makeConstraints {
