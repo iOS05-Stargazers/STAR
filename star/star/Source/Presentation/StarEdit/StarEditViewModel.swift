@@ -116,7 +116,7 @@ final class StarEditViewModel {
         
         // 스타 생성/수정
         input.addStarTap
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(3), scheduler: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 
