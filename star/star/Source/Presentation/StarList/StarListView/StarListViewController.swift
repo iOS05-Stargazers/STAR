@@ -29,6 +29,9 @@ final class StarListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSwipeActions()
+        
+        // 스와이프 뒤로가기 제거
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
