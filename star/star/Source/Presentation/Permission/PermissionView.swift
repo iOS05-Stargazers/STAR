@@ -21,11 +21,9 @@ final class PermissionView: UIView {
     }
     
     private let descriptionLabel = UILabel().then {
-        $0.setStarHighlightedText(
-            fullText: "permission.description".localized,
-            font: UIFont.System.semibold16,
-            color: UIColor.starSecondaryText
-        )
+        $0.text = "permission.description".localized
+        $0.font = .System.semibold16
+        $0.textColor = .starSecondaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
