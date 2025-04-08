@@ -23,9 +23,10 @@ final class StarListView: UIView {
     }
     
     // 로고 타이틀 이미지
-    private let logoTitleImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.image = UIImage(named: "logoText")
+    private let logoTitleLabel = UILabel().then {
+        $0.setLogoTitle()
+        $0.font = UIFont.SebangGothic.bold24
+        $0.textAlignment = .left
     }
     
     // 오늘 날짜 라벨
@@ -109,7 +110,7 @@ final class StarListView: UIView {
         
         [
             logoImageView,
-            logoTitleImageView,
+            logoTitleLabel,
             todayDateLabel
         ].forEach { topView.addSubview($0) }
         
@@ -133,7 +134,7 @@ final class StarListView: UIView {
             $0.width.height.equalTo(70)
         }
         
-        logoTitleImageView.snp.makeConstraints {
+        logoTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(logoImageView.snp.trailing)
             $0.top.equalToSuperview().inset(10)
             $0.height.equalTo(20)

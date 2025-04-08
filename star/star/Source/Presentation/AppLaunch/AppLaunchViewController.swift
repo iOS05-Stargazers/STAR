@@ -22,9 +22,11 @@ final class AppLaunchViewController: UIViewController {
     }
     
     // 로고 타이틀 이미지
-    private let logoTitleImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.image = UIImage(named: "logoText")
+    private let logoTitleLabel = UILabel().then {
+        $0.setLogoTitle()
+        $0.font = UIFont.SebangGothic.bold24
+        $0.font = UIFont.SebangGothic.bold48
+        $0.textAlignment = .center
     }
     
     // 타이틀 라벨
@@ -53,7 +55,7 @@ final class AppLaunchViewController: UIViewController {
             meteorEffectView,
             logoImageView,
             titleLabel,
-            logoTitleImageView
+            logoTitleLabel
         ].forEach {
             view.addSubview($0)
         }
@@ -83,20 +85,19 @@ final class AppLaunchViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        logoTitleImageView.snp.makeConstraints {
+        logoTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(-70)
-            $0.width.equalTo(70)
         }
         
         logoImageView.snp.makeConstraints {
-            $0.trailing.equalTo(logoTitleImageView.snp.leading).offset(-20)
-            $0.bottom.equalTo(logoTitleImageView.snp.top).offset(25)
+            $0.trailing.equalTo(logoTitleLabel.snp.leading).offset(20)
+            $0.bottom.equalTo(logoTitleLabel.snp.top).offset(25)
             $0.width.height.equalTo(100)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(logoTitleImageView.snp.bottom).offset(30)
+            $0.top.equalTo(logoTitleLabel.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
         }
     }
