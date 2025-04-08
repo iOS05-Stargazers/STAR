@@ -23,8 +23,7 @@ final class AppLaunchViewController: UIViewController {
     
     // 로고 타이틀 이미지
     private let logoTitleLabel = UILabel().then {
-        $0.setLogoTitle()
-        $0.font = UIFont.SebangGothic.bold24
+        $0.setLogoTitle(0.6)
         $0.font = UIFont.SebangGothic.bold48
         $0.textAlignment = .center
     }
@@ -75,10 +74,9 @@ final class AppLaunchViewController: UIViewController {
                     $0.width.equalTo(width * 1.2)
                     $0.height.equalTo(height * 1.2)
                 }
-                
             }
         } else {
-            print("이미지를 찾을 수 없습니다.")
+            debugPrint("이미지를 찾을 수 없습니다.")
         }
         
         meteorEffectView.snp.makeConstraints {

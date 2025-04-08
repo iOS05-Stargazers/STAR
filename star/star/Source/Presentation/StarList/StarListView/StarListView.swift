@@ -24,7 +24,7 @@ final class StarListView: UIView, StarrySkyApplicable {
     
     // 로고 타이틀 이미지
     private let logoTitleLabel = UILabel().then {
-        $0.setLogoTitle()
+        $0.setLogoTitle(0.3)
         $0.font = UIFont.SebangGothic.bold24
         $0.textAlignment = .left
     }
@@ -134,7 +134,6 @@ final class StarListView: UIView, StarrySkyApplicable {
         logoTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(logoImageView.snp.trailing)
             $0.top.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
             $0.width.equalTo(100)
         }
         
