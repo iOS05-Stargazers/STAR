@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PermissionView: UIView {
+final class PermissionView: UIView, StarrySkyApplicable {
     
     // MARK: - UI Components
     
@@ -50,8 +50,7 @@ final class PermissionView: UIView {
     // MARK: - Setup UI
     
     func setupUI() {
-        guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
-        backgroundColor = UIColor(patternImage: backgroundImage)
+        applyStarrySky(cloudAlpha: 0.2)
         
         addSubviews(
             titleLabel,
