@@ -31,6 +31,8 @@ extension UIFont {
     enum SebangGothic {
         // size: 24
         static let bold24 = UIFont(name: "SEBANGGothicOTFBold", size: 24)
+        
+        static let bold48 = UIFont(name: "SEBANGGothicOTFBold", size: 48)
     }
     // MonospacedDigitSystem
     enum MonospacedDigitSystem {
