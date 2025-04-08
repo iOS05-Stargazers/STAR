@@ -49,6 +49,12 @@ final class OnboardingCollectionView: UIView {
     // MARK: - Setup UI
     
     private func setupUI() {
+        let starrySkyView = StarrySkyView()
+        starrySkyView.setCloudImage(alpha: 0.1)
+        
+        guard let backgroundImage = starrySkyView.generateStarryBackground() else { return }
+        backgroundColor = UIColor(patternImage: backgroundImage)
+
         addSubviews(collectionView, skipButton, pageControl)
         
         collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
