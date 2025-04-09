@@ -2,9 +2,17 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/iOS05-Stargazers/STAR/blob/develop/README.en.md)
 
 # 📱 STAR
-STAR: Screen Time Awareness & Regulation (iOS App)
+STAR: A Personalized Screen Time Management App (iOS)
+
+STAR aims to promote healthy digital habits through screen control features and help users manage their screen time efficiently, ultimately enhancing quality of life and productivity.
+<br>
 <br>
 [https://stargazers-star.vercel.app/](https://stargazers-star.vercel.app/)
+<div align="left">
+  <a href = "https://apps.apple.com/kr/app/%EC%8A%A4%ED%83%80-star-%EC%8A%A4%ED%81%AC%EB%A6%B0%ED%83%80%EC%9E%84-%EA%B4%80%EB%A6%AC/id6740698293?l=en-GB">
+    <img  width=200  src="https://github.com/user-attachments/assets/46f5bb61-cb16-45e6-8de1-b1fed97d51a7"/>
+  </a>
+</div>
 
 ## 📚 Tech Stacks
 <div>
@@ -103,8 +111,15 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 
 ## 🖼️ Preview
 
-|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 27 18](https://github.com/user-attachments/assets/82efbe15-dc92-4779-95ad-392bfd9be2ce)|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 16 32](https://github.com/user-attachments/assets/4749ca58-c445-49af-8d4e-2a52b787200c)|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 17 43](https://github.com/user-attachments/assets/eb80bbf8-6064-44bb-943d-63e143ad17cd)|![Simulator Screenshot - iPhone 16 Pro Max - 2025-02-14 at 21 18 21](https://github.com/user-attachments/assets/99e29c5d-ec64-4868-9f3e-f9a8be39ae61)|
-|---|---|---|---|
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/922bdfaa-595d-4290-9ce8-23107a863041" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/5a42c6d1-cc28-448b-aa70-9a4fcb7f0b84" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/d4321fd8-f11e-42c0-92b2-6b2fd5e57478" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/6196a8ef-398c-4d1a-86d4-4a06097c9288" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/95b2124e-c64b-46a8-a662-ce3fb1b54984" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+  </tr>
+</table>
 
 ## 🏷 Main Features
 #### Star - Your Digital Time Management Unit
@@ -150,11 +165,3 @@ STAR: Screen Time Awareness & Regulation (iOS App)
 - FamilyActivityPicker is inherently unstable and prone to crashes, with bugs reported since 2022 that remain unresolved as of now.
 - Since it is primarily supported in SwiftUI, additional handling is required to ensure it functions correctly in UIKit-based code.
 - Continuous efforts are underway to improve the user experience by implementing workarounds for crash handling.
-
-## 📦 How to Install 
-<div align="left">
-  <a href = "https://apps.apple.com/kr/app/%EC%8A%A4%ED%83%80-star-%EC%8A%A4%ED%81%AC%EB%A6%B0%ED%83%80%EC%9E%84-%EA%B4%80%EB%A6%AC/id6740698293?l=en-GB">
-    <img  width=200  src="https://github.com/user-attachments/assets/46f5bb61-cb16-45e6-8de1-b1fed97d51a7"/>
-  </a>
-</div>
-
