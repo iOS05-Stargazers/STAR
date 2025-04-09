@@ -19,7 +19,7 @@ final class StarManager {
     func create(_ star: Star) {
         // 저장소에 star 생성
         userDefaultsManager.create(star)
-        // star 를 스케쥴에 등록
+        // star 를 스케줄에 등록
         deviceActivityScheduleManager.creatSchedule(star)
         // star 의 상태를 확인해 잠금 리스트 업데이트
         if star.state().style == .ongoing {
@@ -43,7 +43,7 @@ final class StarManager {
     func update(_ star: Star) {
         // 저장소의 star 업데이트
         userDefaultsManager.update(star)
-        // 등록된 star 의 스케쥴 업데이트
+        // 등록된 star 의 스케줄 업데이트
         deviceActivityScheduleManager.updateSchedule(star)
         // star 의 상태를 통해 블록 리스트 업데이트
         if star.state().style == .ongoing {

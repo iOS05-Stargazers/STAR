@@ -15,11 +15,11 @@ extension DeviceActivityCenter {
         let schedule = DeviceActivitySchedule(from: star)
         setMonitoring(name, during: schedule)
     }
-    // 휴식 스케쥴 등록
+    // 휴식 스케줄 등록
     func rest(_ schedule: DeviceActivitySchedule) {
         setMonitoring(.rest, during: schedule)
     }
-    // 휴식 스케쥴 종료
+    // 휴식 스케줄 종료
     func endRest() {
         stopMonitoring([.rest])
     }

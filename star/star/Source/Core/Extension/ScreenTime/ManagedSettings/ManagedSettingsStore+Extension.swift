@@ -21,8 +21,9 @@ extension ManagedSettingsStore {
     }
 }
 
+// ManagedSettingsStore 의 ID 형식
 extension ManagedSettingsStore.Name {
-    
+    // Star 의 UUID의 String 값을 통해 ID 매칭 
     init(from star: Star) {
         let identifier = star.identifier.uuidString
         self = .init(identifier)

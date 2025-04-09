@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ManagedSettings
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -19,6 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        // 이전 버전의 블록 리스트 삭제
+        ManagedSettingsStore().clearShield()
         
         navigationController.setViewControllers([AppLaunchViewController()], animated: true)
     }

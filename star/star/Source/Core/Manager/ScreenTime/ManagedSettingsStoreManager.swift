@@ -14,33 +14,32 @@ import ManagedSettings
 // 블록 리스트를 관리 ( star 를 로드해 업데이트 )
 struct ManagedSettingsStoreManager {
     
-    private var stars: [Star] {
-        StarManager.shared.read()
-    }
+    private var stars: [Star] { StarManager.shared.read() }
+    
     // 블록 리스트 업데이트
     func update() {
         stars.forEach { star in
-            refreshStore(star)
+            updateStore(star)
         }
     }
     // 휴식 시 스타의 블록 리스트를 비워줌
     func rest() {
         stars.forEach { star in
-            clearStore(star)
+            center(star).clearShield()
         }
     }
-    
+    // star 의 블록 리스트 설정
     func startStar(_ star: Star) {
         let center = center(star)
         center.setShield(star)
     }
-    
+    // star 의 블록 리스트 삭제
     func endStar(_ star: Star) {
         let center = center(star)
         center.clearShield()
     }
-    
-    private func refreshStore(_ star: Star) {
+    // star 의 상태를 통해 블록 리스트 업데이트
+    private func updateStore(_ star: Star) {
         let stateStyle = star.state().style
         
         if stateStyle == .ongoing {
@@ -49,11 +48,7 @@ struct ManagedSettingsStoreManager {
             endStar(star)
         }
     }
-    
-    private func clearStore(_ star: Star) {
-        center(star).clearShield()
-    }
-    
+    // star 와 매칭되는 ManagedSettingsStore 를 반환
     private func center(_ star: Star) -> ManagedSettingsStore {
         let storeName = ManagedSettingsStore.Name(from: star)
         let center = ManagedSettingsStore(named: storeName)

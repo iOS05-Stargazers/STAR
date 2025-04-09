@@ -8,31 +8,32 @@
 import Foundation
 import DeviceActivity
 
+// DeviceActivitySchedule 관리자
+// Star 스케줄 등록, 삭제, 업데이트
+// 휴식 스케줄을 등록, 삭제
 struct DeviceActivityScheduleManager {
     
     private let center = DeviceActivityCenter()
         
-    // 스타 스케쥴 추가
+    // Star 스케줄 추가
     func creatSchedule(_ star: Star) {
         center.startMonitoring(star)
     }
     
-    // 스케쥴 삭제 ( 스타 삭제 시 사용 )
+    // Star 스케줄 삭제
     func deleteSchedule(_ star: Star) {
         let name = DeviceActivityName(from: star)
         
         center.stopMonitoring([name])
     }
     
-    // 스케쥴 업데이트 ( 스타 수정 시 사용 )
+    // 스케줄 업데이트
     func updateSchedule(_ star: Star) {
         deleteSchedule(star)
         creatSchedule(star)
     }
-}
-
-extension DeviceActivityScheduleManager {
-    // 휴식 스케쥴 추가
+    
+    // 휴식 스케줄 추가
     func rest() {
         guard let restEndTime = RestManager().restEndTimeGet() else { return }
         
@@ -47,7 +48,7 @@ extension DeviceActivityScheduleManager {
         
         center.rest(blockSchedule)
     }
-    // 저장된 휴식을 임의로 종료시킬 경우 스케쥴을 중단시킵니다.
+    // 저장된 휴식을 임의로 종료시킬 경우 스케줄을 중단시킵니다.
     func endRest() {
         center.endRest()
     }
