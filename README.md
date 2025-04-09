@@ -113,11 +113,11 @@ STAR: 맞춤형 스크린타임 관리 앱(iOS)
 
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/922bdfaa-595d-4290-9ce8-23107a863041" style="width: 100%; height: 400px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/5a42c6d1-cc28-448b-aa70-9a4fcb7f0b84" style="width: 100%; height: 400px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/d4321fd8-f11e-42c0-92b2-6b2fd5e57478" style="width: 100%; height: 400px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/6196a8ef-398c-4d1a-86d4-4a06097c9288" style="width: 100%; height: 400px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/95b2124e-c64b-46a8-a662-ce3fb1b54984" style="width: 100%; height: 400px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/922bdfaa-595d-4290-9ce8-23107a863041" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/5a42c6d1-cc28-448b-aa70-9a4fcb7f0b84" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/d4321fd8-f11e-42c0-92b2-6b2fd5e57478" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/6196a8ef-398c-4d1a-86d4-4a06097c9288" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/95b2124e-c64b-46a8-a662-ce3fb1b54984" style="width: 150px; height: 326px; object-fit: cover;" /></td>
   </tr>
 </table>
 
