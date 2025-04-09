@@ -10,9 +10,15 @@ import ManagedSettings
 
 extension ShieldSettings {
     
-    mutating func setList(_ familyActivitySelection: FamilyActivitySelection) {
+    mutating func setBlockList(_ familyActivitySelection: FamilyActivitySelection) {
         applicationCategories = .specific(familyActivitySelection.categoryTokens)
         applications = familyActivitySelection.applicationTokens
         webDomains = familyActivitySelection.webDomainTokens
+    }
+    
+    mutating func clearBlockList() {
+        applicationCategories = .specific([])
+        applications = []
+        webDomains = []
     }
 }

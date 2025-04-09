@@ -17,13 +17,3 @@ extension FamilyActivitySelection {
         self.webDomainTokens.isEmpty
     }
 }
-
-// 데이터 리프레쉬
-extension FamilyActivitySelection {
-    // FamilyActivitySelection 토큰 합 연산
-    mutating func add(_ selection: FamilyActivitySelection) {
-        self.applicationTokens = applicationTokens.union(selection.applicationTokens)
-        self.categoryTokens = categoryTokens.union(selection.categoryTokens)
-        self.webDomainTokens = webDomainTokens.union(selection.webDomainTokens)
-    }
-}
