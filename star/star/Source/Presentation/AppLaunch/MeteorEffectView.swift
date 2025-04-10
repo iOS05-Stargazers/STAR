@@ -51,7 +51,10 @@ final class MeteorEffectView: UIView {
         let trailHeight: CGFloat = 2
         
         // 꼬리 뷰 생성 및 프레임 설정
-        let trail = UIView(frame: CGRect(x: -trailLength, y: -trailHeight/2, width: trailLength, height: trailHeight))
+        let trail = UIView(frame: CGRect(x: -trailLength,
+                                         y: -trailHeight/2,
+                                         width: trailLength,
+                                         height: trailHeight))
         trail.backgroundColor = .clear
         
         // 그라데이션 레이어 설정

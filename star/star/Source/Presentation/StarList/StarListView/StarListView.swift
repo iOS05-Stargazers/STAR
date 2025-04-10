@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class StarListView: UIView {
+final class StarListView: UIView, StarrySkyApplicable {
 
     // MARK: - UI 컴포넌트
     
@@ -23,9 +23,10 @@ final class StarListView: UIView {
     }
     
     // 로고 타이틀 이미지
-    private let logoTitleImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.image = UIImage(named: "logoText")
+    private let logoTitleLabel = UILabel().then {
+        $0.setLogoTitle(0.3)
+        $0.font = UIFont.SebangGothic.bold24
+        $0.textAlignment = .left
     }
     
     // 오늘 날짜 라벨
@@ -93,30 +94,7 @@ final class StarListView: UIView {
     // MARK: - 레이아웃 구성
     
     private func setupUI() {
-        let starrySkyView = StarrySkyView()
-        if let backgroundImage = starrySkyView.generateStarryBackground() {
-            backgroundColor = UIColor(patternImage: backgroundImage)
-        }
-        
-        // 이미지 넣기
-        if let image = UIImage(named: "cloudImage") {
-            
-            let cloudImageView = UIImageView(image: image)
-            
-            if let height = cloudImageView.image?.size.height, let width = cloudImageView.image?.size.width {
-                cloudImageView.alpha = 0.1 // 투명도 조절
-                addSubview(cloudImageView)
-                
-                cloudImageView.snp.makeConstraints {
-                    $0.centerX.centerY.equalToSuperview()
-                    $0.width.equalTo(width * 1.2)
-                    $0.height.equalTo(height * 1.2)
-                }
-                
-            }
-        } else {
-            print("이미지를 찾을 수 없습니다.")
-        }
+        applyStarrySky()
         
         [
             topView,
@@ -129,7 +107,7 @@ final class StarListView: UIView {
         
         [
             logoImageView,
-            logoTitleImageView,
+            logoTitleLabel,
             todayDateLabel
         ].forEach { topView.addSubview($0) }
         
@@ -153,10 +131,9 @@ final class StarListView: UIView {
             $0.width.height.equalTo(70)
         }
         
-        logoTitleImageView.snp.makeConstraints {
+        logoTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(logoImageView.snp.trailing)
             $0.top.equalToSuperview().inset(10)
-            $0.height.equalTo(20)
             $0.width.equalTo(100)
         }
         
@@ -205,44 +182,5 @@ final class StarListView: UIView {
         }
         
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-    }
-}
-
-extension StarListView {
-    
-    final private class StarrySkyView: UIView {
-        let starCount = 20  // 별 개수 조절
-        let backgroundSize = CGSize(width: 300, height: 300) // 패턴 이미지 크기 설정
-        
-        let colors: [UIColor] = [
-            .white,
-            UIColor(red: 0.7, green: 0.8, blue: 1.0, alpha: 1.0),  // 연한 블루
-            UIColor(red: 1.0, green: 0.9, blue: 0.7, alpha: 1.0),  // 옅은 오렌지
-            UIColor(red: 0.8, green: 0.7, blue: 1.0, alpha: 1.0)   // 연한 퍼플
-        ]
-        
-        func generateStarryBackground() -> UIImage? {
-            UIGraphicsBeginImageContextWithOptions(backgroundSize, false, 0)
-            guard let context = UIGraphicsGetCurrentContext() else { return nil }
-            
-            UIColor.starAppBG.setFill()
-            context.fill(CGRect(origin: .zero, size: backgroundSize))
-
-            // 별 그리기
-            for _ in 0..<starCount {
-                let starSize = CGFloat.random(in: 0.8...1.3)
-                let x = CGFloat.random(in: 0...backgroundSize.width)
-                let y = CGFloat.random(in: 0...backgroundSize.height)
-                let randomColor = colors.randomElement() ?? .white // 랜덤 색상 선택
-
-                let starRect = CGRect(x: x, y: y, width: starSize, height: starSize)
-                context.setFillColor(randomColor.cgColor)
-                context.fillEllipse(in: starRect)
-            }
-            
-            let starryImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return starryImage
-        }
     }
 }
