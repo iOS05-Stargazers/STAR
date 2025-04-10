@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import DeviceActivity
 
 // Star 중단 관리자
 struct StarBreakManager {
@@ -46,7 +45,7 @@ struct StarBreakManager {
         removeBreak(of: star)
         // 알림 & 스케줄 등록, 블록 리스트 업데이트
         notificationManager.scheduleNotificaions(star: star)
-        deviceActivityScheduleManager.creatSchedule(star)
+        deviceActivityScheduleManager.createSchedule(star)
         managedSettingsStoreManager.updateStore(star)
     }
     
@@ -61,3 +60,14 @@ struct StarBreakManager {
     
 }
 
+
+extension StarBreakManager {
+    func test() {
+        var count: Double = 1
+        StarManager.shared.read().forEach { star in
+            let date: Date = .now.addingTimeInterval(1000)
+            breakStar(of: star, for: date)
+            count += 5
+        }
+    }
+}

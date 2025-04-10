@@ -20,7 +20,7 @@ final class StarManager {
         // 저장소에 star 생성
         userDefaultsManager.create(star)
         // star 를 스케줄에 등록
-        deviceActivityScheduleManager.creatSchedule(star)
+        deviceActivityScheduleManager.createSchedule(star)
         // star 의 상태를 확인해 잠금 리스트 업데이트
         managedSettingsStoreManager.updateStore(star)
     }

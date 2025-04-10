@@ -16,7 +16,7 @@ struct DeviceActivityScheduleManager {
     private let center = DeviceActivityCenter()
         
     // Star 스케줄 추가
-    func creatSchedule(_ star: Star) {
+    func createSchedule(_ star: Star) {
         center.startMonitoring(star)
     }
     
@@ -30,7 +30,7 @@ struct DeviceActivityScheduleManager {
     // 스케줄 업데이트
     func updateSchedule(_ star: Star) {
         deleteSchedule(star)
-        creatSchedule(star)
+        createSchedule(star)
     }
     
     // 휴식 스케줄 추가
