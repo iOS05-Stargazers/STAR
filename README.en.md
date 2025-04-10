@@ -113,11 +113,11 @@ STAR aims to promote healthy digital habits through screen control features and 
 
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/922bdfaa-595d-4290-9ce8-23107a863041" style="width: 150px; height: 326px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/5a42c6d1-cc28-448b-aa70-9a4fcb7f0b84" style="width: 150px; height: 326px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/d4321fd8-f11e-42c0-92b2-6b2fd5e57478" style="width: 150px; height: 326px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/6196a8ef-398c-4d1a-86d4-4a06097c9288" style="width: 150px; height: 326px; object-fit: cover;" /></td>
-    <td><img src="https://github.com/user-attachments/assets/95b2124e-c64b-46a8-a662-ce3fb1b54984" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/352d3fb3-fcc6-4281-92cb-ea33f919abed" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/37a36a3b-bcbf-4138-9208-b20a04e20dec" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/1eb227ca-38d4-4d7f-abd7-5ed89421bc02" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/b769b496-1d18-43d1-bc41-8872e090efd1" style="width: 150px; height: 326px; object-fit: cover;" /></td>
+    <td><img src="https://github.com/user-attachments/assets/3d150b82-fc4a-4d7a-9c52-14d389477f61" style="width: 150px; height: 326px; object-fit: cover;" /></td>
   </tr>
 </table>
 
