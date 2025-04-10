@@ -14,7 +14,6 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     override func intervalDidStart(for activity: DeviceActivityName) {
         super.intervalDidStart(for: activity)
-        // Handle the start of the interval.
         // 휴식 중일 경우, 블록리스트를 업데이트 하지 않음
         guard RestManager().restEndTimeGet() == nil else { return }
         // DeviceActivityName과 매칭되는 Star의 블록리스트를 적용
@@ -24,12 +23,19 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
-        // Handle the end of the interval.
+        // 스타 중단에 대한 스케줄인 경우
+        if let rawValue = StarBreakIDFormmater.rawValue(activity.rawValue),
+           let uuid = UUID(uuidString: rawValue),
+           let star = StarManager.shared.read(uuid) {
+            StarBreakManager().breakEnd(of: star)
+            return
+        }
+        // 휴식중인지 검증
         guard activity != .rest else {
             ManagedSettingsStoreManager().update()
             return
         }
-
+        // 스타 스케줄인지 검증
         guard let star = Star(from: activity) else { return }
         ManagedSettingsStoreManager().endStar(star)
     }

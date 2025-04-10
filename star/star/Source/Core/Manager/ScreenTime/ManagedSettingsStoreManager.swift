@@ -39,7 +39,7 @@ struct ManagedSettingsStoreManager {
         center.clearShield()
     }
     // star 의 상태를 통해 블록 리스트 업데이트
-    private func updateStore(_ star: Star) {
+    func updateStore(_ star: Star) {
         let stateStyle = star.state().style
         
         if stateStyle == .ongoing {

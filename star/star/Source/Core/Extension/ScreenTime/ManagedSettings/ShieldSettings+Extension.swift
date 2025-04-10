@@ -17,7 +17,7 @@ extension ShieldSettings {
     }
     // 블록 리스트 삭제
     mutating func clearBlockList() {
-        applicationCategories = .specific([])
+        applicationCategories = ShieldSettings.ActivityCategoryPolicy<Application>.none
         applications = []
         webDomains = []
     }

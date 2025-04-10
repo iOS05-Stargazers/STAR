@@ -22,9 +22,7 @@ final class StarManager {
         // star 를 스케줄에 등록
         deviceActivityScheduleManager.creatSchedule(star)
         // star 의 상태를 확인해 잠금 리스트 업데이트
-        if star.state().style == .ongoing {
-            managedSettingsStoreManager.startStar(star)
-        }
+        managedSettingsStoreManager.updateStore(star)
     }
     
     func read() -> [Star] {
@@ -46,11 +44,7 @@ final class StarManager {
         // 등록된 star 의 스케줄 업데이트
         deviceActivityScheduleManager.updateSchedule(star)
         // star 의 상태를 통해 블록 리스트 업데이트
-        if star.state().style == .ongoing {
-            managedSettingsStoreManager.startStar(star)
-        } else {
-            managedSettingsStoreManager.endStar(star)
-        }
+        managedSettingsStoreManager.updateStore(star)
     }
     
     func read(_ uuid: UUID) -> Star? {
