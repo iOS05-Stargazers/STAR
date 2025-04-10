@@ -22,7 +22,7 @@ struct StarBreakManager {
         
         guard let date = container.value(forKey: key) as? Date,
               date > .now else {
-            breakEnd(of: star)
+            removeBreak(of: star)
             return nil
         }
         
@@ -43,13 +43,16 @@ struct StarBreakManager {
     // DeviceActivityMonitorExtension.intervalDidEnd 또는 사용자가 Star 중단을 종료할 경우 호출
     // Star 중단이 종료된 경우, Star 의 스케줄과 알림을 등록하고, 앱 블록리스트를 현재 시간에 맞춰 업데이트 해준다.
     func breakEnd(of star: Star) {
-        let key = key(star)
-        container.removeObject(forKey: key)
-        
+        removeBreak(of: star)
         // 알림 & 스케줄 등록, 블록 리스트 업데이트
         notificationManager.scheduleNotificaions(star: star)
         deviceActivityScheduleManager.creatSchedule(star)
         managedSettingsStoreManager.updateStore(star)
+    }
+    
+    private func removeBreak(of star: Star) {
+        let key = key(star)
+        container.removeObject(forKey: key)
     }
     // Star 의 중단을 위한 key 문자열 반환
     private func key(_ star: Star) -> String {

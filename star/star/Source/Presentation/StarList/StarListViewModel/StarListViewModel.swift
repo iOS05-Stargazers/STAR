@@ -91,8 +91,6 @@ final class StarListViewModel {
             UserDefaults.standard.shouldKeepNotification = true
         }
         
-        ManagedSettingsStoreManager().clearLegacy()
-        
         guard let firstData = starData.first else {
             starsRelay.accept([])
             return

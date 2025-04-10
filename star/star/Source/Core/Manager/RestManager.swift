@@ -28,16 +28,20 @@ struct RestManager {
     func restEndTimeGet() -> Date? {
         guard let endTime = container.value(forKey: Key.restEndTime) as? Date,
               endTime >= .now else {
-            container.removeObject(forKey: Key.restEndTime)
+            removeRestEndTime()
             return nil }
         return endTime
     }
     
     // DELETE
     func restEndTimeDelete() {
-        container.removeObject(forKey: Key.restEndTime)
+        removeRestEndTime()
         DeviceActivityScheduleManager().endRest()
         ManagedSettingsStoreManager().update()
+    }
+    
+    private func removeRestEndTime() {
+        container.removeObject(forKey: Key.restEndTime)
     }
     
     // 휴식 종료시간 계산

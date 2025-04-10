@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ManagedSettings
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -20,6 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        ManagedSettingsStoreManager().clearLegacy()
+        StarBreakManager().test()
         
         navigationController.setViewControllers([AppLaunchViewController()], animated: true)
     }
