@@ -45,7 +45,7 @@ final class RestSettingModalViewController: UIViewController {
     let restButton = GradientButton(type: .system).then {
         $0.setTitle("break_mode.break_button".localized, for: .normal)
         $0.setTitleColor(.starTertiaryText, for: .normal)
-        $0.titleLabel?.font = UIFont.System.black16
+        $0.titleLabel?.font = UIFont.System.bold16
         $0.backgroundColor = .starDisabledTagBG
         $0.layer.cornerRadius = 28
         $0.clipsToBounds = true
