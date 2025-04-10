@@ -56,7 +56,7 @@ extension UserDefaults {
             bool(forKey: Keys.isFamilyControlsRefactored)
         }
         set {
-            set(newValue, forKey: Keys.shouldKeepNotification)
+            set(newValue, forKey: Keys.isFamilyControlsRefactored)
         }
     }
 }
