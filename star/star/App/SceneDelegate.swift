@@ -21,9 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        // 이전 버전의 블록 리스트 삭제
-        ManagedSettingsStore().clearShield()
-        
         navigationController.setViewControllers([AppLaunchViewController()], animated: true)
     }
 }

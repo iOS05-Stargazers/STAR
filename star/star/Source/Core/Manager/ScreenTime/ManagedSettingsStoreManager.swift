@@ -55,4 +55,20 @@ struct ManagedSettingsStoreManager {
         
         return center
     }
+    
+}
+
+
+extension ManagedSettingsStoreManager {
+    // 이전 버전의 앱 블록 리스트 업데이트
+    func clearLegacy() {
+        // 해당 코드가 실행된 적 있는지 확인
+        guard !UserDefaults.standard.isFamilyControlsRefactored else { return }
+        // 기존 블록 리스트 설정 삭제
+        ManagedSettingsStore().clearShield()
+        // 블록 리스트 업데이트
+        update()
+        
+        UserDefaults.standard.isFamilyControlsRefactored = true
+    }
 }

@@ -28,7 +28,7 @@ struct RestManager {
     func restEndTimeGet() -> Date? {
         guard let endTime = container.value(forKey: Key.restEndTime) as? Date,
               endTime >= .now else {
-            restEndTimeDelete()
+            container.removeObject(forKey: Key.restEndTime)
             return nil }
         return endTime
     }
