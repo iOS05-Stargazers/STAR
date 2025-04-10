@@ -32,6 +32,8 @@ struct StarBreakManager {
     func breakStar(of star: Star, for date: Date) {
         let key = key(star)
         container.set(date, forKey: key)
+        // FIXME: - 스타 중단 테스트용 알림 코드 ( 삭제 예정 )
+        NotificationManager().starBreakTest(of: star)
         // Star 중단에 대한 스케줄 모니터링 삭제
         deviceActivityScheduleManager.createBreak(of: star)
         
@@ -65,14 +67,15 @@ struct StarBreakManager {
     
 }
 
-
+// FIXME: - Star 중단 테스트용 코드 ( 삭제 예정 )
 extension StarBreakManager {
+    
     func test() {
         var count: Double = 1
         StarManager.shared.read().forEach { star in
-            let date: Date = .now.addingTimeInterval(1000)
+            let date: Date = .now.addingTimeInterval( 60 * count )
             breakStar(of: star, for: date)
-            count += 5
+            count += 1
         }
     }
 }

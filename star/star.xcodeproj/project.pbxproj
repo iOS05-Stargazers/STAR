@@ -88,6 +88,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resource/Localizable.xcstrings,
+				"Source/Core/Extension/Calendar.Component+Extension.swift",
 				"Source/Core/Extension/ScreenTime/DeviceActivity/DeviceActivityCenter+Extension.swift",
 				"Source/Core/Extension/ScreenTime/DeviceActivity/DeviceActivityName+Extension.swift",
 				"Source/Core/Extension/ScreenTime/DeviceActivity/DeviceActivitySchedule+Extension.swift",

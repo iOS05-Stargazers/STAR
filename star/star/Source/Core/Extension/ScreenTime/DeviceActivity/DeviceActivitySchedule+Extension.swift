@@ -39,15 +39,7 @@ private extension DateComponents {
     }
     
     init(from date: Date) {
-        let dateComponents: Set<Calendar.Component> = [
-            .year,
-            .month,
-            .day,
-            .hour,
-            .minute,
-            .second,
-            .nanosecond
-        ]
+        let dateComponents: Set<Calendar.Component> = Calendar.Component.forRawDate
         
         self = Calendar.current.dateComponents(dateComponents, from: date)
     }
