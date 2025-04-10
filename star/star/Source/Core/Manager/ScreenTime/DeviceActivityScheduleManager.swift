@@ -52,6 +52,23 @@ struct DeviceActivityScheduleManager {
     func endRest() {
         center.endRest()
     }
+    
+    func createBreak(of star: Star) {
+        guard let breakEndTime = StarBreakManager().breakEndTime(of: star) else { return }
+
+        let startTime = DateComponents(from: .now.addingTimeInterval(-900))
+        let endTime = DateComponents(from: breakEndTime)
+        
+        let breakSchedule = DeviceActivitySchedule(
+            intervalStart: startTime,
+            intervalEnd: endTime,
+            repeats: false
+        )
+        
+        let name = DeviceActivityName(forBreak: star)
+        
+        center.setMonitoring(name, during: breakSchedule)
+    }
 }
 
 private extension DateComponents {

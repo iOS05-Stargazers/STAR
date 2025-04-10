@@ -33,6 +33,8 @@ struct StarBreakManager {
         let key = key(star)
         container.set(date, forKey: key)
         
+        DeviceActivityScheduleManager().createBreak(of: star)
+        
         // 알림 & 스케줄 중단, 블록 리스트 초기화
         notificationManager.cancelNotification(star: star)
         deviceActivityScheduleManager.deleteSchedule(star)
