@@ -3,7 +3,7 @@ import SnapKit
 import Then
 import RxSwift
 
-final class OnboardingCollectionView: UIView {
+final class OnboardingCollectionView: UIView, StarrySkyApplicable {
     
     private let disposeBag = DisposeBag()
     
@@ -49,6 +49,8 @@ final class OnboardingCollectionView: UIView {
     // MARK: - Setup UI
     
     private func setupUI() {
+        applyStarrySky(cloudAlpha: 0.2)
+        
         addSubviews(collectionView, skipButton, pageControl)
         
         collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
