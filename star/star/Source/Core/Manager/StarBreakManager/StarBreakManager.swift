@@ -32,8 +32,8 @@ struct StarBreakManager {
     func breakStar(of star: Star, for date: Date) {
         let key = key(star)
         container.set(date, forKey: key)
-        
-        DeviceActivityScheduleManager().createBreak(of: star)
+        // Star 중단에 대한 스케줄 모니터링 삭제
+        deviceActivityScheduleManager.createBreak(of: star)
         
         // 알림 & 스케줄 중단, 블록 리스트 초기화
         notificationManager.cancelNotification(star: star)
@@ -45,6 +45,9 @@ struct StarBreakManager {
     // Star 중단이 종료된 경우, Star 의 스케줄과 알림을 등록하고, 앱 블록리스트를 현재 시간에 맞춰 업데이트 해준다.
     func breakEnd(of star: Star) {
         removeBreak(of: star)
+        // Star 중단에 대한 스케줄 모니터링 삭제
+        deviceActivityScheduleManager.deleteBreak(of: star)
+        
         // 알림 & 스케줄 등록, 블록 리스트 업데이트
         notificationManager.scheduleNotificaions(star: star)
         deviceActivityScheduleManager.createSchedule(star)

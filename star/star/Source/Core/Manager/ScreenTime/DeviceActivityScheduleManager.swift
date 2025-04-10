@@ -69,6 +69,12 @@ struct DeviceActivityScheduleManager {
         
         center.setMonitoring(name, during: breakSchedule)
     }
+    
+    func deleteBreak(of star: Star) {
+        let name = DeviceActivityName(forBreak: star)
+        
+        center.stopMonitoring([name])
+    }
 }
 
 private extension DateComponents {
