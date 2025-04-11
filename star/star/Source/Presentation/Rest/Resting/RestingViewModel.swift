@@ -66,7 +66,6 @@ extension RestingViewModel {
             .withUnretained(self)
             .emit(onNext: { owner, _ in
                 RestManager().restEndTimeDelete() // 휴식시간 종료될 때 저장된 시간 삭제
-                BlockManager().endRest()
                 NotificationManager().removeRest()
                 owner.timerSubject.accept(0)
                 owner.timerEndedSubject.accept(())

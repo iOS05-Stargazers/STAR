@@ -38,8 +38,8 @@ extension StarTime {
 }
 
 extension StarTime: Comparable {
+    // 비교 연산 로직
     static func < (lhs: StarTime, rhs: StarTime) -> Bool {
         lhs.strForm() < rhs.strForm()
     }
-    
 }

@@ -160,7 +160,6 @@ final class StarEditViewModel {
                     
                     owner.starManager.update(star)
                     NotificationManager().scheduleNotificaions(star: star)
-                    BlockManager().updateSchedule(star)
                     
                     // CREATE
                 } else {
@@ -173,8 +172,6 @@ final class StarEditViewModel {
                     
                     owner.starManager.create(star)
                     NotificationManager().scheduleNotificaions(star: star)
-                    
-                    BlockManager().creatSchedule(star: star)
                 }
                 
                 owner.closeAlert()
