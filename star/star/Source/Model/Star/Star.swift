@@ -25,7 +25,3 @@ struct Star: JSONCodable {
 // MARK: - StarID
 
 typealias StarID = UUID
-
-// MARK: - AppID ( FamilyControl API의 앱 식별 타입에 따라 변경 예정 )
-
-typealias AppID = UUID
