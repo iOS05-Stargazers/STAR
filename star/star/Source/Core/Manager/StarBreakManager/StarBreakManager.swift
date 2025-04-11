@@ -72,15 +72,3 @@ struct StarBreakManager {
     
 }
 
-// FIXME: - Star 중단 테스트용 코드 ( 삭제 예정 )
-extension StarBreakManager {
-    
-    func test() {
-        var count: Double = 1
-        StarManager.shared.read().forEach { star in
-            let date: Date = .now.addingTimeInterval( 60 * count )
-            breakStar(of: star, for: date)
-            count += 1
-        }
-    }
-}

@@ -176,34 +176,3 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
         completionHandler([.banner, .sound, .badge])
     }
 }
-
-// FIXME: - Star 중단 테스트용 알림 코드 ( 삭제 예정 )
-extension NotificationManager {
-    
-    func starBreakTest(of star: Star) {
-        guard let breakTime = StarBreakManager().breakEndTime(of: star) else { return }
-        let key = StarBreakIDFormmater.key(of: star)
-        
-        let dateComponents = Calendar.current.dateComponents(Calendar.Component.forRawDate, from: breakTime)
-        // 조건(시간, 반복)
-        let trigger = UNCalendarNotificationTrigger(
-            dateMatching: dateComponents,
-            repeats: false
-        )
-        
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "STAR"
-        notificationContent.body = "\(star.title) 중단 종료"
-        notificationContent.sound = .default
-        
-        // 요청
-        let request = UNNotificationRequest(
-            identifier: key,
-            content: notificationContent,
-            trigger: trigger
-        )
-        
-        // 알림 등록
-        UNUserNotificationCenter.current().add(request) { _ in }
-    }
-}

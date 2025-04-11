@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         
         ManagedSettingsStoreManager().clearLegacy()
+        StarBreakManager().test()
         
         navigationController.setViewControllers([AppLaunchViewController()], animated: true)
     }
