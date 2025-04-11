@@ -20,6 +20,11 @@ struct StarState {
         self.style = starState.style
         self.interval = starState.interval
     }
+    
+    init(breakEndDate: Date) {
+        self.style = .onBreak
+        self.interval = breakEndDate.timeIntervalSince(.now)
+    }
 }
 
 // 진행중, 대기중, 남은 시간에 따른 정렬을 위해 Comparable 채택
@@ -44,11 +49,13 @@ extension StarState {
     enum Style: CustomStringConvertible, Comparable {
         case ongoing
         case pending
+        case onBreak
         
         var description: String {
             switch self {
             case .ongoing: "진행중"
             case .pending: "대기중"
+            case .onBreak: "중단"
             }
         }
     }

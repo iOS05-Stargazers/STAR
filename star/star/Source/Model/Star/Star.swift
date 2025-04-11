@@ -18,6 +18,9 @@ struct Star: JSONCodable {
     let schedule: Schedule
     
     func state() -> StarState {
+        if let breakEndTime = StarBreakManager().breakEndTime(of: self) {
+            return StarState(breakEndDate: breakEndTime)
+        }
         return StarState(schedule: self.schedule)
     }
 }
