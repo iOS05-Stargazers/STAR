@@ -40,7 +40,7 @@ struct StarBreakManager {
         // 알림 & 스케줄 중단, 블록 리스트 초기화
         notificationManager.cancelNotification(star: star)
         deviceActivityScheduleManager.deleteSchedule(star)
-        managedSettingsStoreManager.endStar(star)
+        managedSettingsStoreManager.updateStore(star)
     }
     // Star 중단 종료
     // DeviceActivityMonitorExtension.intervalDidEnd 또는 사용자가 Star 중단을 종료할 경우 호출
@@ -54,6 +54,11 @@ struct StarBreakManager {
         notificationManager.scheduleNotificaions(star: star)
         deviceActivityScheduleManager.createSchedule(star)
         managedSettingsStoreManager.updateStore(star)
+    }
+    
+    func deleteBreak(of star: Star) {
+        removeBreak(of: star)
+        deviceActivityScheduleManager.deleteBreak(of: star)
     }
     
     private func removeBreak(of star: Star) {

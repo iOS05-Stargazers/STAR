@@ -18,7 +18,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         guard RestManager().restEndTimeGet() == nil else { return }
         // DeviceActivityName과 매칭되는 Star의 블록리스트를 적용
         guard let star = Star(from: activity) else { return }
-        ManagedSettingsStoreManager().startStar(star)
+        ManagedSettingsStoreManager().updateStore(star)
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
@@ -37,7 +37,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         }
         // 스타 스케줄인지 검증
         guard let star = Star(from: activity) else { return }
-        ManagedSettingsStoreManager().endStar(star)
+        ManagedSettingsStoreManager().updateStore(star)
     }
     
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {

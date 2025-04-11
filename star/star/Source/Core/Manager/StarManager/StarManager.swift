@@ -38,7 +38,7 @@ final class StarManager {
         // star 블록 리스트 삭제
         managedSettingsStoreManager.endStar(star)
         // star 중단 설정 삭제
-        starBreakManager.breakEnd(of: star)
+        starBreakManager.deleteBreak(of: star)
     }
     
     func update(_ star: Star) {
