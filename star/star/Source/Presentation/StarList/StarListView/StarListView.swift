@@ -38,7 +38,19 @@ final class StarListView: UIView, StarrySkyApplicable {
     }
     
     // 휴식 버튼
-    let restButton = UIButton(type: .system)
+    let restButton = UIButton(type: .system).then {
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .starSecondaryText
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        config.image = UIImage(systemName: "cup.and.saucer.fill")
+        config.imagePadding = 4
+        config.imagePlacement = .top
+        var title = AttributedString.init("Break")
+        title.font = UIFont.System.medium12
+        config.attributedTitle = title
+        $0.configuration = config
+        $0.contentVerticalAlignment = .bottom
+    }
     
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
@@ -70,7 +82,6 @@ final class StarListView: UIView, StarrySkyApplicable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupRestButton()
     }
     
     required init?(coder: NSCoder) {
@@ -151,21 +162,5 @@ final class StarListView: UIView, StarrySkyApplicable {
         }
         
         addStarButton.applyGradient(colors: [.starButtonPurple, .starButtonNavy], direction: .horizontal)
-    }
-    
-    // 휴식 버튼 설정
-    private func setupRestButton() {
-        var config = UIButton.Configuration.plain()
-        config.baseForegroundColor = .starSecondaryText
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        config.image = UIImage(systemName: "cup.and.saucer.fill")
-        config.imagePadding = 4
-        config.imagePlacement = .top
-        var title = AttributedString.init("REST")
-        title.font = UIFont.System.medium16
-        config.attributedTitle = title
-
-        restButton.configuration = config
-        restButton.contentVerticalAlignment = .bottom
     }
 }
