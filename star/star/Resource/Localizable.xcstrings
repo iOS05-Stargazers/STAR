@@ -566,7 +566,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "スクリーンタイムアクセスを許可してください。"
+            "value" : "アクセスを許可してください。"
           }
         },
         "ko" : {
@@ -1070,7 +1070,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "全て >"
+            "value" : "すべて >"
           }
         },
         "ko" : {
@@ -1094,7 +1094,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "カテゴリー(%d), アプリ(%d), ウェブ(%d)>"
+            "value" : "カテゴリー(%d), App(%d), Web(%d)>"
           }
         },
         "ko" : {
@@ -1526,7 +1526,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "少なくとも1つのアプリを選択してください。"
+            "value" : "1つ以上のアプリを選択してください。"
           }
         },
         "ko" : {
@@ -1574,7 +1574,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "少なくとも1つの繰り返しスケジュールを選択してください。"
+            "value" : "1つ以上の繰り返しを選択してください。"
           }
         },
         "ko" : {
@@ -1598,7 +1598,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "開始時刻は終了時刻より15分以上早くなければなりません。"
+            "value" : "開始は終了より15分以上早くなければなりません。"
           }
         },
         "ko" : {
