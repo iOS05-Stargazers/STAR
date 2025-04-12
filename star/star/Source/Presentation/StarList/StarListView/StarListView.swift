@@ -44,7 +44,7 @@ final class StarListView: UIView, StarrySkyApplicable {
         config.image = UIImage(systemName: "cup.and.saucer.fill")
         config.imagePadding = 4
         config.imagePlacement = .top
-        var title = AttributedString.init("Break")
+        var title = AttributedString.init("star_list.rest_button".localized)
         title.font = UIFont.System.medium12
         config.attributedTitle = title
         $0.configuration = config
