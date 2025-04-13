@@ -805,7 +805,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "전체 >"
           }
         }
@@ -1023,6 +1023,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "아직 스타가 없습니다.\\n스타를 생성해주세요!"
+          }
+        }
+      }
+    },
+    "star_list.rest_button" : {
+      "comment" : "스타리스트 화면, 휴식 버튼",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Break"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "쉬는시간"
           }
         }
       }
