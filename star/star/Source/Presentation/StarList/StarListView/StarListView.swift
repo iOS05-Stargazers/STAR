@@ -80,6 +80,7 @@ final class StarListView: UIView, StarrySkyApplicable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        applyStarrySky()
         setupUI()
     }
     
@@ -90,7 +91,6 @@ final class StarListView: UIView, StarrySkyApplicable {
     // MARK: - 레이아웃 구성
     
     private func setupUI() {
-        applyStarrySky()
         
         [
             topView,
