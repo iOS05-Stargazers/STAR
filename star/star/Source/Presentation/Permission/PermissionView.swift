@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PermissionView: UIView {
+final class PermissionView: UIView, StarrySkyApplicable {
     
     // MARK: - UI Components
     
@@ -21,11 +21,9 @@ final class PermissionView: UIView {
     }
     
     private let descriptionLabel = UILabel().then {
-        $0.setStarHighlightedText(
-            fullText: "permission.description".localized,
-            font: UIFont.System.semibold16,
-            color: UIColor.starSecondaryText
-        )
+        $0.text = "permission.description".localized
+        $0.font = .System.semibold16
+        $0.textColor = .starSecondaryText
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
@@ -52,8 +50,7 @@ final class PermissionView: UIView {
     // MARK: - Setup UI
     
     func setupUI() {
-        guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
-        backgroundColor = UIColor(patternImage: backgroundImage)
+        applyStarrySky(cloudAlpha: 0.2)
         
         addSubviews(
             titleLabel,

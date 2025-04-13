@@ -144,7 +144,8 @@ final class StarListViewModel {
     
     // 휴식 가능 여부 업데이트
     private func updateRestAvailability() {
-        if starsRelay.value.isEmpty {
+        // 진행중인 스타가 있는지 확인
+        if starsRelay.value.filter({ $0.state().style == .ongoing }).count == 0 {
             unavailabilityRelay.accept(.restUnavailable)
         } else {
             starModalStateRelay.accept(.delay(mode: .rest))
