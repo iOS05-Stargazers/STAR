@@ -28,6 +28,9 @@ final class StarListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //FIXME: 테스트용 중단 버튼 추가
+        testStarBreak()
+        
         setupSwipeActions()
         
         // 스와이프 뒤로가기 제거
@@ -219,5 +222,34 @@ extension StarListViewController: UIViewControllerTransitioningDelegate {
                                 source: UIViewController) -> UIPresentationController? {
         return CustomPresentationController(presentedViewController: presented,
                                             presenting: presenting)
+    }
+}
+
+// FIXME: - 중단 테스트용 버튼 추가
+extension StarListViewController {
+    private func testStarBreak() {
+        let button = UIButton(type: .system).then {
+            $0.setTitle("중단테스트", for: .normal)
+            $0.setTitleColor(.white, for: .normal)
+            $0.titleLabel?.font = UIFont.System.bold16
+            $0.backgroundColor = .red
+            $0.layer.cornerRadius = 28
+        }
+        view.addSubview(button)
+        
+        button.snp.makeConstraints {
+            $0.centerX.equalTo(view)
+            $0.bottom.equalTo(starListView.addStarButton.snp.top).offset(-30)
+            $0.height.equalTo(56)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        button.rx.tap
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                StarBreakManager().test()
+                owner.viewModel.fetchStars()
+
+            }).disposed(by: disposeBag)
+        
     }
 }

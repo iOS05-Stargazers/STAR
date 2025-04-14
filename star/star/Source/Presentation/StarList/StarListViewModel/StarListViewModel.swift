@@ -75,7 +75,7 @@ final class StarListViewModel {
     }
     
     // 스타 fetch
-    private func fetchStars() {
+    func fetchStars() {
         let starData = StarManager.shared.read()
         
         // TODO: 1.0.5 정도 되면 삭제 (shouldKeepNotification)
