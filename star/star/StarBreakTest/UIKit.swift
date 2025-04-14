@@ -32,9 +32,10 @@ extension StarListViewController {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 StarBreakManager().test()
-                owner.viewModel.fetchStars()
+                owner.viewModel.testFetchStars()
 
             }).disposed(by: disposeBag)
         
     }
 }
+

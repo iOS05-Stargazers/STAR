@@ -74,9 +74,8 @@ final class StarListViewModel {
         fetchDate()
     }
     
-    // FIXME: - 테스트를 위해 Private 설정을 제거했습니다.
     // 스타 fetch
-    func fetchStars() {
+    private func fetchStars() {
         let starData = StarManager.shared.read()
         
         // TODO: 1.0.5 정도 되면 삭제 (shouldKeepNotification)
@@ -264,5 +263,12 @@ extension StarListViewModel {
             starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
             unavailability: unavailabilityRelay.asDriver(onErrorDriveWith: .empty())
         )
+    }
+}
+
+// FIXME: - 테스트용 코드 삭제 필요
+extension StarListViewModel {
+    func testFetchStars() {
+        fetchStars()
     }
 }
