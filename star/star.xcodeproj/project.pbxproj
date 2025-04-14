@@ -104,7 +104,6 @@
 				Source/Core/Manager/ScreenTime/ManagedSettingsStoreManager.swift,
 				Source/Core/Manager/StarBreakManager/StarBreakIDFormmater.swift,
 				Source/Core/Manager/StarBreakManager/StarBreakManager.swift,
-				Source/Core/Manager/StarBreakTest.swift,
 				Source/Core/Manager/StarManager/StarManager.swift,
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarIDFormatter.swift,
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarIDManager.swift,
@@ -121,6 +120,7 @@
 				Source/Model/Star/Star.swift,
 				Source/Model/StarState/StarState.swift,
 				Source/Model/StarState/StarStateFormatter.swift,
+				StarBreakTest/StarBreakTest.swift,
 			);
 			target = 237F5B232D7EBE1200FD3215 /* DeviceActivityMonitor */;
 		};

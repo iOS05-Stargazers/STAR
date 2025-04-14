@@ -74,6 +74,7 @@ final class StarListViewModel {
         fetchDate()
     }
     
+    // FIXME: - 테스트를 위해 Private 설정을 제거했습니다.
     // 스타 fetch
     func fetchStars() {
         let starData = StarManager.shared.read()
