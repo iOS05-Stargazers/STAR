@@ -30,6 +30,7 @@ struct StarBreakManager {
     // Star 중단 기한 설정
     // Star 의 중단 기한을 설정하는 경우, 기존의 Star 로 등록된 스케줄과 알림을 삭제하고, 중단 기한에 해당하는 스케줄을 등록한다.
     func breakStar(of star: Star, for date: Date) {
+        breakEnd(of: star)
         let key = key(star)
         container.set(date, forKey: key)
         // FIXME: - 스타 중단 테스트용 알림 코드 ( 삭제 예정 )
