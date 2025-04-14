@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import UserNotifications
 import UIKit
+import FamilyControls
 
 enum StarModalState {
     
@@ -24,13 +25,16 @@ enum StarModalState {
 
 enum Unavailable {
     
-    case createUnavailable
+    case createUnavailable_maxStarsReached
+    case createUnavailable_noScreenTimePermission
     case restUnavailable
-    
+
     var message: String {
         switch self {
-        case .createUnavailable:
+        case .createUnavailable_maxStarsReached:
             return "toast.warning.max_stars_reached".localized
+        case .createUnavailable_noScreenTimePermission:
+            return "toast.warning.no_screentime_permission".localized
         case .restUnavailable:
             return "toast.warning.no_available_break".localized
         }
@@ -135,8 +139,11 @@ final class StarListViewModel {
     
     // 생성 가능 여부 업데이트
     private func updateCreationAvailability() {
-        if starsRelay.value.count > 4 {
-            unavailabilityRelay.accept(.createUnavailable)
+        // 스크린 타임 권한 여부 확인
+        if AuthorizationCenter.shared.authorizationStatus != .approved {
+            unavailabilityRelay.accept(.createUnavailable_noScreenTimePermission)
+        } else if starsRelay.value.count > 4 { // 스타 갯수 확인
+            unavailabilityRelay.accept(.createUnavailable_maxStarsReached)
         } else {
             starModalStateRelay.accept(.create)
         }
