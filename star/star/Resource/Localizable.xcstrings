@@ -11,6 +11,12 @@
             "value" : "Cancel"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27,6 +33,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
           }
         },
         "ko" : {
@@ -47,6 +59,12 @@
             "value" : "Are you sure you want to delete this?\\nThis action cannot be undone."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本当に削除しますか？\\n削除したSTARは元に戻せません。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -63,6 +81,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Exit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了"
           }
         },
         "ko" : {
@@ -83,6 +107,12 @@
             "value" : "Shape your time into a STAR, and let it shine!"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あなたの時間を、STARと共に輝かせましょう！"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -99,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Take a Break"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩する"
           }
         },
         "ko" : {
@@ -119,6 +155,12 @@
             "value" : "Set a break time of up to 20 min."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最大20分まで設定できます。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -135,6 +177,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Leave Early"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩終了"
           }
         },
         "ko" : {
@@ -155,6 +203,12 @@
             "value" : "On Break"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩中"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -171,6 +225,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Take a Break"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩する"
           }
         },
         "ko" : {
@@ -191,6 +251,12 @@
             "value" : "min"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -207,6 +273,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         },
         "ko" : {
@@ -227,6 +299,12 @@
             "value" : "Your time shines brightest\\nwhen it's truly yours."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あなたの輝く時間を、\\n大切にしてください。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -243,6 +321,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please wait"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お待ちください"
           }
         },
         "ko" : {
@@ -263,6 +347,12 @@
             "value" : "Tap the Break button\\n to switch to Break Mode."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩ボタンをタップして\\nブレイクモードに切り替えます。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -279,6 +369,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap \"Add STAR\"\\n to create a new STAR."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「STAR追加」をタップして\\n新しいSTARを作成できます。"
           }
         },
         "ko" : {
@@ -299,6 +395,12 @@
             "value" : "Swipe left to delete a STAR."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "左にスワイプして\\nSTARを削除できます。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -315,6 +417,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select a STAR to edit."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リスト内のSTARを選択して\\n編集できます。"
           }
         },
         "ko" : {
@@ -335,6 +443,12 @@
             "value" : "Skip"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スキップ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -351,6 +465,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スタート"
           }
         },
         "ko" : {
@@ -371,6 +491,12 @@
             "value" : "STAR, your digital time unit."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あなたのデジタル時間管理単位、STAR。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -387,6 +513,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "STAR requires permission to function properly."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STARが正しく動作するためには\\nユーザーの許可が必要です。"
           }
         },
         "ko" : {
@@ -407,6 +539,12 @@
             "value" : "Your data is protected by Apple\\nand remains on your device."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーの情報はAppleによって保護され、\\n外部に漏れることはありません。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -423,6 +561,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Grant Screen Time access."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクセスを許可してください。"
           }
         },
         "ko" : {
@@ -443,6 +587,12 @@
             "value" : "The break has ended."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩が終わりました。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -459,6 +609,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ has ended."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@のSTARが終了しました。"
           }
         },
         "ko" : {
@@ -479,6 +635,12 @@
             "value" : "%@ has started."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@のSTARが開始されました。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -495,6 +657,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ starts in 5 min."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@のSTARが5分後に開始されます"
           }
         },
         "ko" : {
@@ -515,6 +683,12 @@
             "value" : "Exit"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -531,6 +705,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ is restricted."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@は使用が\\n制限されています。"
           }
         },
         "ko" : {
@@ -551,6 +731,12 @@
             "value" : "Unknown App"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明のアプリ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -567,6 +753,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown Web Domain"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明のウェブドメイン"
           }
         },
         "ko" : {
@@ -587,6 +779,12 @@
             "value" : "App Lock"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリロック"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -603,6 +801,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Set Time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時間設定"
           }
         },
         "ko" : {
@@ -623,6 +827,12 @@
             "value" : "Create STAR"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作成する"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -639,6 +849,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create STAR"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR作成"
           }
         },
         "ko" : {
@@ -659,6 +875,12 @@
             "value" : "Set lock apps & time."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ロックするアプリと時間を設定してください。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -675,6 +897,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit STAR"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編集する"
           }
         },
         "ko" : {
@@ -695,6 +923,12 @@
             "value" : "Edit STAR"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR編集"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -711,6 +945,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "End Time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了時刻"
           }
         },
         "ko" : {
@@ -731,6 +971,12 @@
             "value" : "Name"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -747,6 +993,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter a name"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前を入力してください"
           }
         },
         "ko" : {
@@ -767,6 +1019,12 @@
             "value" : "Repeat"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繰り返し"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -783,6 +1041,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select >"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択 >"
           }
         },
         "ko" : {
@@ -803,6 +1067,12 @@
             "value" : "All >"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて >"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -819,6 +1089,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Category(%d), App(%d), Web(%d) >"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カテゴリー(%d), App(%d), Web(%d)>"
           }
         },
         "ko" : {
@@ -839,6 +1115,12 @@
             "value" : "Start Time"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始時刻"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -855,6 +1137,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "F"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金"
           }
         },
         "ko" : {
@@ -875,6 +1163,12 @@
             "value" : "M"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -891,6 +1185,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "S"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "土"
           }
         },
         "ko" : {
@@ -911,6 +1211,12 @@
             "value" : "S"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -927,6 +1233,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "T"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "木"
           }
         },
         "ko" : {
@@ -947,6 +1259,12 @@
             "value" : "T"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "火"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -963,6 +1281,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "W"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水"
           }
         },
         "ko" : {
@@ -983,6 +1307,12 @@
             "value" : "Add STAR"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "STAR追加"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -999,6 +1329,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "EEE, MMM d, yyyy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yyyy年 M月 dd日 (E)"
           }
         },
         "ko" : {
@@ -1019,6 +1355,12 @@
             "value" : "There are no STARs yet.\\nPlease create one now!"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだSTARがありません。\\n新しいSTARを作成してください！"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1035,6 +1377,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Break"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩"
           }
         },
         "ko" : {
@@ -1055,6 +1403,12 @@
             "value" : "In Progress"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "進行中"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1071,6 +1425,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pending"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "待機中"
           }
         },
         "ko" : {
@@ -1091,6 +1451,12 @@
             "value" : "%dd left"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残り %d日"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1107,6 +1473,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%dh left"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残り %d時間"
           }
         },
         "ko" : {
@@ -1127,6 +1499,12 @@
             "value" : "%dm left"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残り %d分"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1143,6 +1521,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%ds left"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残り %d秒"
           }
         },
         "ko" : {
@@ -1163,6 +1547,12 @@
             "value" : "Please select at least one app."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1つ以上のアプリを選択してください。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1179,6 +1569,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please enter a name."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前を入力してください。"
           }
         },
         "ko" : {
@@ -1199,6 +1595,12 @@
             "value" : "Please select at least one repeat cycle."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1つ以上の繰り返しを選択してください。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1215,6 +1617,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start must be 15 min before end."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始は終了より15分以上早くなければなりません。"
           }
         },
         "ko" : {
@@ -1235,6 +1643,12 @@
             "value" : "You can save up to 15 STARs."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最大15個のSTARを保存できます。"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1251,6 +1665,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No STARs available for a break."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩するSTARがありません。"
           }
         },
         "ko" : {
