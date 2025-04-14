@@ -39,6 +39,7 @@ final class OnboardingCollectionView: UIView, StarrySkyApplicable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        applyStarrySky(cloudAlpha: 0.2)
         setupUI()
     }
     
@@ -49,7 +50,6 @@ final class OnboardingCollectionView: UIView, StarrySkyApplicable {
     // MARK: - Setup UI
     
     private func setupUI() {
-        applyStarrySky(cloudAlpha: 0.2)
         
         addSubviews(collectionView, skipButton, pageControl)
         

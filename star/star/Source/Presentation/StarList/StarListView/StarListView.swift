@@ -31,29 +31,25 @@ final class StarListView: UIView, StarrySkyApplicable {
     
     // 오늘 날짜 라벨
     let todayDateLabel = UILabel().then {
-        //        $0.text = "2025년 1월 20일 (월)"
         $0.textColor = .starPrimaryText
         $0.textAlignment = .left
         $0.font = UIFont.System.semibold16
     }
     
-    // 휴식 뷰
-    private let restView = UIView()
-    
     // 휴식 버튼
     let restButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(systemName: "cup.and.saucer.fill"), for: .normal)
-        $0.imageView?.contentMode = .scaleAspectFit
-        $0.tintColor = .starSecondaryText
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .starSecondaryText
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        config.image = UIImage(systemName: "cup.and.saucer.fill")
+        config.imagePadding = 4
+        config.imagePlacement = .top
+        var title = AttributedString.init("star_list.rest_button".localized)
+        title.font = UIFont.System.medium12
+        config.attributedTitle = title
+        $0.configuration = config
+        $0.contentVerticalAlignment = .bottom
     }
-    
-    // 휴식 라벨
-    let restButtonLabel = UILabel().then {
-        $0.text = "OFF"
-        $0.font = UIFont.System.medium16
-        $0.textColor = .starSecondaryText
-    }
-    
     
     // 시작하기 버튼
     let addStarButton = GradientButton(type: .system).then {
@@ -84,6 +80,7 @@ final class StarListView: UIView, StarrySkyApplicable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        applyStarrySky()
         setupUI()
     }
     
@@ -94,12 +91,11 @@ final class StarListView: UIView, StarrySkyApplicable {
     // MARK: - 레이아웃 구성
     
     private func setupUI() {
-        applyStarrySky()
         
         [
             topView,
             starListCollectionView,
-            restView,
+            restButton,
             noStarLabel,
             toastMessageView,
             addStarButton
@@ -110,13 +106,6 @@ final class StarListView: UIView, StarrySkyApplicable {
             logoTitleLabel,
             todayDateLabel
         ].forEach { topView.addSubview($0) }
-        
-        [
-            restButton,
-            restButtonLabel
-        ].forEach {
-            restView.addSubview($0)
-        }
         
         topView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(16)
@@ -149,20 +138,10 @@ final class StarListView: UIView, StarrySkyApplicable {
             $0.bottom.equalTo(addStarButton.snp.top).offset(-32)
         }
         
-        restView.snp.makeConstraints {
+        restButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(32)
             $0.bottom.equalTo(todayDateLabel.snp.bottom)
             $0.width.height.equalTo(50)
-        }
-        
-        restButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(restButtonLabel.snp.top).offset(-4)
-        }
-        
-        restButtonLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalTo(todayDateLabel.snp.centerY)
         }
         
         addStarButton.snp.makeConstraints {

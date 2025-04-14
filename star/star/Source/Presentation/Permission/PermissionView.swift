@@ -40,6 +40,8 @@ final class PermissionView: UIView, StarrySkyApplicable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        applyStarrySky(cloudAlpha: 0.2)
+
         setupUI()
     }
     
@@ -50,7 +52,6 @@ final class PermissionView: UIView, StarrySkyApplicable {
     // MARK: - Setup UI
     
     func setupUI() {
-        applyStarrySky(cloudAlpha: 0.2)
         
         addSubviews(
             titleLabel,
