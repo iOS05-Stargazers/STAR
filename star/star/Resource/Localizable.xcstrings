@@ -1680,6 +1680,30 @@
           }
         }
       }
+    },
+    "toast.warning.no_screentime_permission" : {
+      "comment" : "스타리스트 화면, 토스트 메세지, 스타 생성 제한 문구",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please allow Screen Time permission."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スクリーンタイムへのアクセスを有効にしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스크린타임 권한을 허용해주세요."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
