@@ -10,7 +10,7 @@ import DeviceActivity
 extension DeviceActivityName {
     
     static let rest = Self("rest")
-    
+    // Star 의 UUID의 String 값을 통해 ID 매칭
     init(from star: Star) {
         self = .init(star.identifier.uuidString)
     }

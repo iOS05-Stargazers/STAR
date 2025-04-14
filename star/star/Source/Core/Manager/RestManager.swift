@@ -19,6 +19,8 @@ struct RestManager {
     func restEndTimeSet(_ value: Int) -> Date? {
         let endTime = endTimeCalculate(minutes: value)
         container.set(endTime, forKey: Key.restEndTime)
+        DeviceActivityScheduleManager().rest()
+        ManagedSettingsStoreManager().rest()
         return endTime
     }
     
@@ -26,7 +28,7 @@ struct RestManager {
     func restEndTimeGet() -> Date? {
         guard let endTime = container.value(forKey: Key.restEndTime) as? Date,
               endTime >= .now else {
-            restEndTimeDelete()
+            container.removeObject(forKey: Key.restEndTime)
             return nil }
         return endTime
     }
@@ -34,6 +36,8 @@ struct RestManager {
     // DELETE
     func restEndTimeDelete() {
         container.removeObject(forKey: Key.restEndTime)
+        DeviceActivityScheduleManager().endRest()
+        ManagedSettingsStoreManager().update()
     }
     
     // 휴식 종료시간 계산
