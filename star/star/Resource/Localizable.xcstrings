@@ -1379,6 +1379,12 @@
             "value" : "Break"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休憩"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
