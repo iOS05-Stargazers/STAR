@@ -56,8 +56,8 @@ struct DeviceActivityScheduleManager {
     func createBreak(of star: Star) {
         guard let breakEndTime = StarBreakManager().breakEndTime(of: star) else { return }
 
-        let startTime = DateComponents(from: .now.addingTimeInterval(-900))
-        let endTime = DateComponents(from: breakEndTime)
+        let startTime = DateComponents(from: .now.addingTimeInterval(-1500))
+        let endTime = DateComponents(from: breakEndTime.addingTimeInterval(-30))
         
         let breakSchedule = DeviceActivitySchedule(
             intervalStart: startTime,
