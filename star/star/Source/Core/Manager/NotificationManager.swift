@@ -141,7 +141,7 @@ final class NotificationManager: NSObject {
     // 휴식 종료 알림 예약
     func restEndNotification() {
         guard let restEndTime = RestManager().restEndTimeGet() else { return }
-        let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute, .second, .nanosecond], from: restEndTime)
+        let dateComponents = Calendar.current.dateComponents(Calendar.Component.forRawDate, from: restEndTime)
         // 조건(시간, 반복)
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponents,
@@ -167,6 +167,7 @@ final class NotificationManager: NSObject {
     func removeRest() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["restEnd"])
     }
+    
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {

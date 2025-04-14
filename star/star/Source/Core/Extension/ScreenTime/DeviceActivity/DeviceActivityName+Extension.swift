@@ -14,5 +14,10 @@ extension DeviceActivityName {
     init(from star: Star) {
         self = .init(star.identifier.uuidString)
     }
+    
+    init(forBreak star: Star) {
+        let key = StarBreakIDFormmater.key(of: star)
+        self = .init(key)
+    }
 }
 

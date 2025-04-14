@@ -28,6 +28,9 @@ final class StarListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //FIXME: 테스트용 중단 버튼 추가
+        testStarBreak()
+        
         setupSwipeActions()
         
         // 스와이프 뒤로가기 제거

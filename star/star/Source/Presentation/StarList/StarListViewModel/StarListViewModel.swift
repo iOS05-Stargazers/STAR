@@ -95,8 +95,6 @@ final class StarListViewModel {
             UserDefaults.standard.shouldKeepNotification = true
         }
         
-        ManagedSettingsStoreManager().clearLegacy()
-        
         guard let firstData = starData.first else {
             starsRelay.accept([])
             return
@@ -272,5 +270,12 @@ extension StarListViewModel {
             starModalState: starModalStateRelay.asDriver(onErrorDriveWith: .empty()),
             unavailability: unavailabilityRelay.asDriver(onErrorDriveWith: .empty())
         )
+    }
+}
+
+// FIXME: - 테스트용 코드 삭제 필요
+extension StarListViewModel {
+    func testFetchStars() {
+        fetchStars()
     }
 }

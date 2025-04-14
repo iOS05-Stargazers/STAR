@@ -16,7 +16,7 @@ struct DeviceActivityScheduleManager {
     private let center = DeviceActivityCenter()
         
     // Star 스케줄 추가
-    func creatSchedule(_ star: Star) {
+    func createSchedule(_ star: Star) {
         center.startMonitoring(star)
     }
     
@@ -30,7 +30,7 @@ struct DeviceActivityScheduleManager {
     // 스케줄 업데이트
     func updateSchedule(_ star: Star) {
         deleteSchedule(star)
-        creatSchedule(star)
+        createSchedule(star)
     }
     
     // 휴식 스케줄 추가
@@ -52,19 +52,34 @@ struct DeviceActivityScheduleManager {
     func endRest() {
         center.endRest()
     }
+    
+    func createBreak(of star: Star) {
+        guard let breakEndTime = StarBreakManager().breakEndTime(of: star) else { return }
+
+        let startTime = DateComponents(from: .now.addingTimeInterval(-1500))
+        let endTime = DateComponents(from: breakEndTime.addingTimeInterval(-30))
+        
+        let breakSchedule = DeviceActivitySchedule(
+            intervalStart: startTime,
+            intervalEnd: endTime,
+            repeats: false
+        )
+        
+        let name = DeviceActivityName(forBreak: star)
+        
+        center.setMonitoring(name, during: breakSchedule)
+    }
+    
+    func deleteBreak(of star: Star) {
+        let name = DeviceActivityName(forBreak: star)
+        
+        center.stopMonitoring([name])
+    }
 }
 
 private extension DateComponents {
     init(from date: Date) {
-        let dateComponents: Set<Calendar.Component> = [
-            .year,
-            .month,
-            .day,
-            .hour,
-            .minute,
-            .second,
-            .nanosecond
-        ]
+        let dateComponents: Set<Calendar.Component> = Calendar.Component.forRawDate
         
         self = Calendar.current.dateComponents(dateComponents, from: date)
     }

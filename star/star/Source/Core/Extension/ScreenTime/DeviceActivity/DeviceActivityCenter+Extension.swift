@@ -24,7 +24,7 @@ extension DeviceActivityCenter {
         stopMonitoring([.rest])
     }
     
-    private func setMonitoring(_ name: DeviceActivityName, during schedule: DeviceActivitySchedule) {
+    func setMonitoring(_ name: DeviceActivityName, during schedule: DeviceActivitySchedule) {
         do {
             try startMonitoring(name,
                                 during: schedule)

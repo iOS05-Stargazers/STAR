@@ -170,6 +170,13 @@ extension StarListCollectionViewCell {
             self.tagLabel.text = "star_list.status_pending".localized
             self.tagView.gradientLayer.isHidden = true
             self.timerImageView.isHidden = true
+            self.tagView.backgroundColor = .starDisabledTagBG
+        // FIXME: 스타 중단에 대한 임시코드
+        case .onBreak:
+            self.tagLabel.text = "중단"
+            self.tagView.gradientLayer.isHidden = true
+            self.timerImageView.isHidden = true
+            self.tagView.backgroundColor = .red
         }
     }
 }
