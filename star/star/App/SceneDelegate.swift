@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ManagedSettings
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

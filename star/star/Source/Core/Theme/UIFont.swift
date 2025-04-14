@@ -12,6 +12,7 @@ extension UIFont {
     enum System {
         // size: 12
         static let semibold12 = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        static let medium12 = UIFont.systemFont(ofSize: 12, weight: .medium)
         // size: 14
         static let semibold14 = UIFont.systemFont(ofSize: 14, weight: .semibold)
         // size: 16
