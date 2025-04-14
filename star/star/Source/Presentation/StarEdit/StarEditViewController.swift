@@ -322,7 +322,7 @@ extension StarEditViewController {
             set: { [weak self] newSelection in
                 self?.familyActivitySelection = newSelection
                 self?.viewModel.blockListRelay.accept(newSelection)
-
+                print("ddddd", newSelection)
                 hostingVC.dismiss(animated: true)
             }
         )
@@ -334,3 +334,4 @@ extension StarEditViewController {
         self.present(hostingVC, animated: true, completion: nil)
     }
 }
+// 스크린 타임 -> 접근 허용 토스트메세지
