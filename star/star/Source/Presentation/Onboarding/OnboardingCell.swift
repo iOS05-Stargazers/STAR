@@ -47,8 +47,6 @@ final class OnboardingCell: UICollectionViewCell {
     // MARK: - Setup UI
     
     private func setupUI() {
-        guard let backgroundImage = UIImage(named: "backgroundImage") else { return }
-        backgroundColor = UIColor(patternImage: backgroundImage)
         
         contentView.addSubviews(
             mockupImageView,

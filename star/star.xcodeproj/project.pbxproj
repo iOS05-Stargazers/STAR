@@ -88,13 +88,18 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resource/Localizable.xcstrings,
-				"Source/Core/Extension/DeviceActivityName+Extension.swift",
-				"Source/Core/Extension/FamilyAcitivitySelection+Extension.swift",
+				"Source/Core/Extension/ScreenTime/DeviceActivity/DeviceActivityCenter+Extension.swift",
+				"Source/Core/Extension/ScreenTime/DeviceActivity/DeviceActivityName+Extension.swift",
+				"Source/Core/Extension/ScreenTime/DeviceActivity/DeviceActivitySchedule+Extension.swift",
+				"Source/Core/Extension/ScreenTime/FamilyControls/FamilyAcitivitySelection+Extension.swift",
+				"Source/Core/Extension/ScreenTime/ManagedSettings/ManagedSettingsStore+Extension.swift",
+				"Source/Core/Extension/ScreenTime/ManagedSettings/ShieldSettings+Extension.swift",
 				"Source/Core/Extension/String+Localization.swift",
 				"Source/Core/Extension/UserDefaults+Extension.swift",
-				Source/Core/Manager/BlockManager.swift,
 				Source/Core/Manager/FamilyControlsManager.swift,
 				Source/Core/Manager/RestManager.swift,
+				Source/Core/Manager/ScreenTime/DeviceActivityScheduleManager.swift,
+				Source/Core/Manager/ScreenTime/ManagedSettingsStoreManager.swift,
 				Source/Core/Manager/StarManager/StarManager.swift,
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarIDFormatter.swift,
 				Source/Core/Manager/StarManager/StarUserDefaultsManager/StarIDManager.swift,
@@ -321,6 +326,7 @@
 				en,
 				Base,
 				ko,
+				ja,
 			);
 			mainGroup = 71F41ED32D3FC73300257988;
 			minimizedProjectReferenceProxies = 1;
@@ -421,7 +427,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.ShieldConfiguration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -449,7 +455,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.ShieldConfiguration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -477,7 +483,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.DeviceActivityMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -505,7 +511,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star.DeviceActivityMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -539,7 +545,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -576,7 +582,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stargazers.star;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

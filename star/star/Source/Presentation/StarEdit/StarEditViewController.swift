@@ -322,7 +322,6 @@ extension StarEditViewController {
             set: { [weak self] newSelection in
                 self?.familyActivitySelection = newSelection
                 self?.viewModel.blockListRelay.accept(newSelection)
-
                 hostingVC.dismiss(animated: true)
             }
         )

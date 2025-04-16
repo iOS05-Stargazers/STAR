@@ -12,6 +12,7 @@ extension UIFont {
     enum System {
         // size: 12
         static let semibold12 = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        static let medium12 = UIFont.systemFont(ofSize: 12, weight: .medium)
         // size: 14
         static let semibold14 = UIFont.systemFont(ofSize: 14, weight: .semibold)
         // size: 16
@@ -31,6 +32,8 @@ extension UIFont {
     enum SebangGothic {
         // size: 24
         static let bold24 = UIFont(name: "SEBANGGothicOTFBold", size: 24)
+        
+        static let bold48 = UIFont(name: "SEBANGGothicOTFBold", size: 48)
     }
     // MonospacedDigitSystem
     enum MonospacedDigitSystem {
