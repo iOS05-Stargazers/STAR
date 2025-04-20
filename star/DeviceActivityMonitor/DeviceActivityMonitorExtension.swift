@@ -18,7 +18,8 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         // 휴식 중일 경우, 블록리스트를 업데이트 하지 않음
         guard RestManager().restEndTimeGet() == nil else { return }
         // DeviceActivityName과 매칭되는 Star의 블록리스트를 적용
-        guard let star = Star(from: activity) else { return }
+        guard let star = Star(from: activity),
+              star.state().style == .ongoing else { return }
         ManagedSettingsStoreManager().startStar(star)
     }
     
@@ -30,7 +31,8 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
             return
         }
 
-        guard let star = Star(from: activity) else { return }
+        guard let star = Star(from: activity),
+              star.state().style == .pending else { return }
         ManagedSettingsStoreManager().endStar(star)
     }
     
