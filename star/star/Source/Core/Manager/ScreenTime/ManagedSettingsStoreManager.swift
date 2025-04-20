@@ -30,6 +30,7 @@ struct ManagedSettingsStoreManager {
     }
     // star 의 블록 리스트 설정
     func startStar(_ star: Star) {
+        guard star.state().style == .ongoing else { return }
         let center = center(star)
         center.setShield(star)
     }
